@@ -21,7 +21,7 @@
     <properties>
         <java.version>17</java.version>
         <mybatis-spring-boot.version>3.0.3</mybatis-spring-boot.version>
-        <flyway.version>9.22.3</flyway.version>  <!-- Last version supporting MySQL 5.7 -->
+        <flyway.version>8.5.13</flyway.version>  <!-- Last version fully supporting MySQL 5.7 -->
     </properties>
 
     <dependencies>
