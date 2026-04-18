@@ -51,7 +51,7 @@ class TurnErrorServiceTest {
         assertThat(result.getTotal()).isEqualTo(0);
         assertThat(result.getPage()).isEqualTo(1);
         assertThat(result.getPageSize()).isEqualTo(10);
-        assertThat(result.getItems()).isEmpty();
+        assertThat(result.getList()).isEmpty();
     }
 
     @Test
@@ -90,7 +90,7 @@ class TurnErrorServiceTest {
         assertThat(result.getTotal()).isEqualTo(0);
         assertThat(result.getPage()).isEqualTo(1);
         assertThat(result.getPageSize()).isEqualTo(20);
-        assertThat(result.getItems()).isEmpty();
+        assertThat(result.getList()).isEmpty();
     }
 
     @Test
