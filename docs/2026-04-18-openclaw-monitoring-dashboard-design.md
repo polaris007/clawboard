@@ -674,7 +674,7 @@ ScanOrchestrator.run(triggerType)     // triggerType = "scheduled" | "manual"
 
 ### 4.7 错误检测逻辑
 
-复刻 `scripts/detect-all-transcript-issues.py` 的三类检测：
+复刻 `../openclaw/scripts/detect-all-transcript-issues.py` 的三类检测：
 
 **1. 已知错误模式匹配**（正则表达式，不区分大小写）
 
@@ -710,11 +710,56 @@ ScanOrchestrator.run(triggerType)     // triggerType = "scheduled" | "manual"
 正常 stopReason：`stop`, `end_turn`, `toolUse`, `tool_use`, `length`  
 其他值标记为异常停止：`aborted`/`error` → HIGH，其余 → MEDIUM
 
+### 4.8 扫描报告生成
+
+**触发时机**：每次扫描完成后（无论是否发现问题）自动生成 Markdown 格式的报告。
+
+**文件组织**：
+```
+scripts/
+├── reports/
+│   ├── 2026-04-18/
+│   │   └── transcript-comprehensive-issues.md
+│   ├── 2026-04-19/
+│   │   └── transcript-comprehensive-issues.md
+│   └── ...
+└── detect-all-transcript-issues.py
+```
+
+**报告内容结构**（对齐 `../openclaw/scripts/transcript-comprehensive-issues.md` 的格式）：
+
+1. **📊 统计概览**
+   - 总问题数
+   - 总对话轮数（排除系统消息）
+   - 有问题轮数（存在任何类型问题的轮次）
+   - 问题率（有问题轮数 / 总对话轮数）
+
+2. **问题类型分布表**
+   - 按问题类型分组统计数量
+   - 包含说明列解释每种问题类型的含义
+
+3. **详细问题列表**（按严重度分组）
+   - HIGH 严重度问题列表
+   - MEDIUM 严重度问题列表
+   - LOW 严重度问题列表
+   - 每个问题包含：session ID、文件名、行号、问题描述、相关上下文
+
+4. **扫描元数据**
+   - 扫描开始时间
+   - 扫描结束时间
+   - 扫描耗时
+   - 扫描的用户数、文件数
+   - 新增问题数 vs 历史问题数
+
+**数据来源**：从数据库查询本次扫描（`scan_id`）关联的所有问题记录（`dashboard_transcript_issue` 表），不重新解析 transcript 文件。
+
+**实现位置**：`ScanOrchestrator` 在扫描完成的 `finally` 块中调用 `ReportGenerator.generateReport(scanId)`。
+
 ---
 
 ## 5. REST API 设计
 
-严格对齐前端 API 接口文档 `mydocs/API接口文档.md`。所有接口使用统一响应格式：
+严格对齐前端 API 接口文档 `docs/API接口文档.md`。所有接口使用统一响应格式：
 
 ```json
 {

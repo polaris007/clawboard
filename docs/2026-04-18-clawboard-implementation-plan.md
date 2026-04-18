@@ -2748,6 +2748,219 @@ git commit -m "test: add parser integration tests and controller tests"
 
 ---
 
+## Task 24: Scan Report Generator
+
+**Files:**
+- Create: `src/main/java/com/company/clawboard/scanner/ReportGenerator.java`
+- Create: `src/main/resources/application.yml` (add reports config)
+
+- [ ] **Step 1: Implement ReportGenerator.java**
+
+Responsibilities:
+1. Generate Markdown report after each scan completes
+2. Query issues from `dashboard_transcript_issue` table filtered by `scan_id`
+3. Calculate statistics (total issues, conversation turns, problem rate)
+4. Group issues by severity and type
+5. Write report to `scripts/reports/YYYY-MM-DD/transcript-comprehensive-issues.md`
+
+**Report structure** (aligned with `../openclaw/scripts/transcript-comprehensive-issues.md`):
+
+```java
+package com.company.clawboard.scanner;
+
+import com.company.clawboard.entity.TranscriptIssue;
+import com.company.clawboard.mapper.TranscriptIssueMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Slf4j
+@Component
+@RequiredArgsConstructor
+public class ReportGenerator {
+
+    private final TranscriptIssueMapper issueMapper;
+    
+    private static final String REPORTS_DIR = "scripts/reports";
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    
+    /**
+     * Generate report for a specific scan.
+     * Called by ScanOrchestrator in the finally block after scan completes.
+     */
+    public void generateReport(Long scanId, LocalDateTime scanStartTime) {
+        try {
+            // 1. Query all issues for this scan
+            var issues = issueMapper.selectByScanId(scanId);
+            
+            // 2. Calculate statistics
+            var stats = calculateStatistics(issues);
+            
+            // 3. Generate Markdown content
+            String markdown = buildMarkdownReport(stats, issues, scanStartTime);
+            
+            // 4. Write to file with date-based directory structure
+            String dateStr = LocalDateTime.now().format(DATE_FORMATTER);
+            Path reportDir = Paths.get(REPORTS_DIR, dateStr);
+            Files.createDirectories(reportDir);
+            
+            Path reportPath = reportDir.resolve("transcript-comprehensive-issues.md");
+            Files.writeString(reportPath, markdown);
+            
+            log.info("Report generated: {}", reportPath.toAbsolutePath());
+            
+        } catch (IOException e) {
+            log.error("Failed to generate report for scan {}", scanId, e);
+        }
+    }
+    
+    private Map<String, Object> calculateStatistics(List<TranscriptIssue> issues) {
+        // Calculate total issues, by type, by severity, etc.
+        // Return map with all needed statistics
+    }
+    
+    private String buildMarkdownReport(Map<String, Object> stats, 
+                                       List<TranscriptIssue> issues,
+                                       LocalDateTime scanStartTime) {
+        StringBuilder md = new StringBuilder();
+        
+        // Header
+        md.append("# ClawBoard Session Transcript 综合问题检测报告\n\n");
+        md.append("**生成时间**: ").append(LocalDateTime.now()).append("\n\n");
+        
+        // Statistics overview
+        md.append("## 📊 统计概览\n\n");
+        md.append("- **总问题数**: ").append(stats.get("totalIssues")).append("\n");
+        md.append("- **总对话轮数**: ").append(stats.get("totalTurns")).append("\n");
+        md.append("- **有问题轮数**: ").append(stats.get("problematicTurns")).append("\n");
+        if ((int) stats.get("totalTurns") > 0) {
+            double rate = (double) stats.get("problematicTurns") / (int) stats.get("totalTurns") * 100;
+            md.append(String.format("- **问题率**: %.2f%%\n", rate));
+        }
+        
+        // Issue type distribution table
+        md.append("\n### 问题类型分布\n\n");
+        md.append("| 问题类型 | 数量 | 说明 |\n");
+        md.append("|---------|------|------|\n");
+        @SuppressWarnings("unchecked")
+        Map<String, Integer> byType = (Map<String, Integer>) stats.get("byType");
+        for (var entry : byType.entrySet()) {
+            md.append("| ").append(entry.getKey())
+              .append(" | ").append(entry.getValue())
+              .append(" | ").append(getIssueTypeDescription(entry.getKey()))
+              .append(" |\n");
+        }
+        
+        // Detailed issues by severity
+        md.append("\n## 🔴 HIGH 严重度问题\n\n");
+        appendIssuesBySeverity(md, issues, "HIGH");
+        
+        md.append("\n## 🟡 MEDIUM 严重度问题\n\n");
+        appendIssuesBySeverity(md, issues, "MEDIUM");
+        
+        md.append("\n## 🔵 LOW 严重度问题\n\n");
+        appendIssuesBySeverity(md, issues, "LOW");
+        
+        // Scan metadata
+        md.append("\n## 📋 扫描元数据\n\n");
+        md.append("- **扫描开始时间**: ").append(scanStartTime).append("\n");
+        md.append("- **扫描结束时间**: ").append(LocalDateTime.now()).append("\n");
+        md.append("- **扫描耗时**: ").append(stats.get("durationSeconds")).append(" 秒\n");
+        md.append("- **扫描用户数**: ").append(stats.get("usersScanned")).append("\n");
+        md.append("- **扫描文件数**: ").append(stats.get("filesScanned")).append("\n");
+        
+        return md.toString();
+    }
+    
+    private void appendIssuesBySeverity(StringBuilder md, 
+                                        List<TranscriptIssue> issues, 
+                                        String severity) {
+        var filtered = issues.stream()
+            .filter(i -> severity.equals(i.getSeverity()))
+            .collect(Collectors.toList());
+        
+        if (filtered.isEmpty()) {
+            md.append("无\n");
+            return;
+        }
+        
+        for (var issue : filtered) {
+            md.append("### ").append(issue.getErrorType()).append("\n\n");
+            md.append("- **Session ID**: ").append(issue.getSessionId()).append("\n");
+            md.append("- **文件名**: ").append(issue.getLogFileName()).append("\n");
+            md.append("- **行号**: ").append(issue.getLineNum()).append("\n");
+            md.append("- **描述**: ").append(issue.getDescription()).append("\n");
+            if (issue.getContext() != null && !issue.getContext().isEmpty()) {
+                md.append("- **上下文**: ```\n").append(issue.getContext()).append("\n```\n");
+            }
+            md.append("\n");
+        }
+    }
+    
+    private String getIssueTypeDescription(String errorType) {
+        // Return human-readable description for each issue type
+        return switch (errorType) {
+            case "flow_integrity_no_reply" -> "user 消息后无 assistant 回复";
+            case "flow_integrity_missing_tool_result" -> "toolCall 后无 toolResult";
+            case "flow_integrity_missing_final_answer" -> "toolResult 后无最终回答";
+            case "model_error" -> "模型调用错误";
+            case "timeout_error" -> "超时错误";
+            case "rate_limit_error" -> "速率限制错误";
+            default -> errorType;
+        };
+    }
+}
+```
+
+- [ ] **Step 2: Integrate with ScanOrchestrator**
+
+Modify `ScanOrchestrator.executeScheduledScan()` to call report generator in the `finally` block:
+
+```java
+finally {
+    long endMs = System.currentTimeMillis();
+    finishScan(history, success ? "completed" : "failed", startMs, errorMsg);
+    
+    // Generate report after scan completes (regardless of success/failure)
+    if (success) {
+        try {
+            reportGenerator.generateReport(history.getId(), 
+                LocalDateTime.ofInstant(Instant.ofEpochMilli(startMs), ZoneId.systemDefault()));
+        } catch (Exception e) {
+            log.error("Failed to generate scan report", e);
+            // Don't fail the scan if report generation fails
+        }
+    }
+}
+```
+
+- [ ] **Step 3: Add configuration for reports directory**
+
+In `application.yml`:
+```yaml
+clawboard:
+  scan:
+    enabled: true
+    cron: "0 0 * * * *"  # Every hour
+    max-concurrent-users: 5
+  reports:
+    output-dir: scripts/reports  # Configurable reports directory
+```
+
+- [ ] **Step 4: Commit**
+
+---
+
 ## Summary: API → Implementation Mapping
 
 | API Endpoint | Controller | Service Method | Primary Data Source |
