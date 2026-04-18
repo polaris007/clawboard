@@ -2055,32 +2055,43 @@ public class ScanProgressService {
 
 Responsibilities:
 1. Discover all transcript JSONL files in the user's `.openclaw/agents/*/sessions/` directory
-2. **Filter out non-transcript files**: `sessions.json`, `.checkpoint.` files
+2. **Filter out non-transcript files**: only `sessions.json`
 3. For each file, determine scan mode via ScanProgressService
 4. Parse file using TranscriptParser
 5. Batch insert results into database
 6. Return scan statistics (files processed, skipped, errors, new records)
 
-**File filtering logic** (important — discovered from actual test data):
+**File filtering logic** (simplest approach — rely on DB deduplication):
 
 ```java
 /**
  * Determine if a file should be scanned as a transcript.
- * Include: *.jsonl, *.jsonl.reset.*, *.jsonl.deleted.*, *.jsonl.bak*
- * Exclude: sessions.json, *.checkpoint.*.jsonl
+ * Strategy: Include ALL .jsonl files except sessions.json.
+ * Deduplication is handled by database (session_id, message_id) unique key.
+ * 
+ * Included file types:
+ * - Main files: *.jsonl
+ * - Reset archives: *.jsonl.reset.*
+ * - Deleted archives: *.jsonl.deleted.*
+ * - Compaction backups: *.jsonl.bak* or *.jsonl.bak-*
+ * - Checkpoint snapshots: *.checkpoint.*.jsonl
+ * 
+ * Excluded:
+ * - sessions.json (metadata file, not transcript data)
  */
 static boolean isTranscriptFile(String fileName) {
-    // Must contain .jsonl
-    if (!fileName.contains(".jsonl")) return false;
-    // Exclude sessions.json
-    if (fileName.equals("sessions.json")) return false;
-    // Exclude checkpoint files: <uuid>.checkpoint.<uuid>.jsonl
-    if (fileName.contains(".checkpoint.")) return false;
-    return true;
+    // Exclude sessions.json metadata file
+    if ("sessions.json".equals(fileName)) return false;
+    // Include everything else that contains .jsonl
+    return fileName.contains(".jsonl");
 }
 ```
 
-**Note on .bak file naming**: Real data shows `.bak-292-1775810216210` format (not `.bak.<ISO-timestamp>` as originally documented). The filtering logic above handles both because it simply checks for `.jsonl` presence. The session ID extraction (`fileName.substring(0, fileName.indexOf(".jsonl"))`) also handles both formats correctly.
+**Design rationale**:
+- **Simplicity**: No complex filename pattern matching needed
+- **Robustness**: Automatically adapts to new archive formats OpenClaw may introduce
+- **Data integrity**: Database-level deduplication ensures no data loss
+- **Performance acceptable**: Extra I/O for checkpoint/bak files is negligible at 100-1000 user scale
 
 - [ ] **Step 2: Commit**
 
