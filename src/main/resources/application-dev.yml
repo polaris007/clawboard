@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:clawboard;MODE=MySQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+  flyway:
+    enabled: true
+
+clawboard:
+  nas:
+    base-path: ./test/openclaw-logs/../   # points to test directory parent
