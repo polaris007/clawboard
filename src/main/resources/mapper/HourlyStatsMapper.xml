@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.clawboard.mapper.HourlyStatsMapper">
+
+    <resultMap id="BaseResultMap" type="com.company.clawboard.entity.DashboardHourlyStats">
+        <id column="employee_id" property="employeeId"/>
+        <id column="stat_hour" property="statHour"/>
+        <result column="total_tokens" property="totalTokens"/>
+        <result column="input_tokens" property="inputTokens"/>
+        <result column="output_tokens" property="outputTokens"/>
+        <result column="total_cost" property="totalCost"/>
+        <result column="cache_read_tokens" property="cacheReadTokens"/>
+        <result column="cache_write_tokens" property="cacheWriteTokens"/>
+        <result column="conversation_turns" property="conversationTurns"/>
+        <result column="complete_turns" property="completeTurns"/>
+        <result column="error_turns" property="errorTurns"/>
+        <result column="skill_invocations" property="skillInvocations"/>
+        <result column="skill_errors" property="skillErrors"/>
+        <result column="tool_calls" property="toolCalls"/>
+        <result column="tool_errors" property="toolErrors"/>
+        <result column="error_count" property="errorCount"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <insert id="upsertStats">
+        INSERT INTO dashboard_hourly_stats (
+            employee_id, stat_hour, total_tokens, input_tokens, output_tokens, total_cost,
+            cache_read_tokens, cache_write_tokens, conversation_turns, complete_turns, error_turns,
+            skill_invocations, skill_errors, tool_calls, tool_errors, error_count
+        ) VALUES (
+            #{employeeId}, #{statHour}, #{totalTokens}, #{inputTokens}, #{outputTokens}, #{totalCost},
+            #{cacheReadTokens}, #{cacheWriteTokens}, #{conversationTurns}, #{completeTurns}, #{errorTurns},
+            #{skillInvocations}, #{skillErrors}, #{toolCalls}, #{toolErrors}, #{errorCount}
+        )
+        ON DUPLICATE KEY UPDATE
+            total_tokens = VALUES(total_tokens),
+            input_tokens = VALUES(input_tokens),
+            output_tokens = VALUES(output_tokens),
+            total_cost = VALUES(total_cost),
+            cache_read_tokens = VALUES(cache_read_tokens),
+            cache_write_tokens = VALUES(cache_write_tokens),
+            conversation_turns = VALUES(conversation_turns),
+            complete_turns = VALUES(complete_turns),
+            error_turns = VALUES(error_turns),
+            skill_invocations = VALUES(skill_invocations),
+            skill_errors = VALUES(skill_errors),
+            tool_calls = VALUES(tool_calls),
+            tool_errors = VALUES(tool_errors),
+            error_count = VALUES(error_count)
+    </insert>
+
+    <select id="selectByTimeRange" resultMap="BaseResultMap">
+        SELECT * FROM dashboard_hourly_stats
+        WHERE employee_id = #{employeeId}
+          AND stat_hour >= FROM_UNIXTIME(#{startTime} / 1000)
+          AND stat_hour <= FROM_UNIXTIME(#{endTime} / 1000)
+        ORDER BY stat_hour
+    </select>
+
+</mapper>

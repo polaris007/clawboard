@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.clawboard.mapper.EmployeeMapper">
+
+    <resultMap id="BaseResultMap" type="com.company.clawboard.entity.DashboardEmployee">
+        <id column="employee_id" property="employeeId"/>
+        <result column="employee_name" property="employeeName"/>
+        <result column="team_name" property="teamName"/>
+        <result column="is_active" property="isActive"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <insert id="insert">
+        INSERT INTO dashboard_employee (employee_id, employee_name, team_name, is_active)
+        VALUES (#{employeeId}, #{employeeName}, #{teamName}, #{isActive})
+    </insert>
+
+    <insert id="upsert">
+        INSERT INTO dashboard_employee (employee_id, employee_name, team_name, is_active)
+        VALUES (#{employeeId}, #{employeeName}, #{teamName}, #{isActive})
+        ON DUPLICATE KEY UPDATE
+            employee_name = VALUES(employee_name),
+            team_name = VALUES(team_name),
+            is_active = VALUES(is_active)
+    </insert>
+
+    <select id="selectByEmployeeId" resultMap="BaseResultMap">
+        SELECT * FROM dashboard_employee WHERE employee_id = #{employeeId}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT * FROM dashboard_employee ORDER BY employee_id
+    </select>
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.clawboard.mapper.TranscriptIssueMapper">
+
+    <insert id="batchInsertIgnore">
+        INSERT IGNORE INTO dashboard_transcript_issue (
+            session_id, message_id, employee_id, error_type, severity, description,
+            error_message, event_type, provider, model, line_number, occurred_at, turn_id
+        ) VALUES
+        <foreach collection="list" item="issue" separator=",">
+            (
+                #{issue.sessionId}, #{issue.messageId}, #{issue.employeeId}, #{issue.errorType}, #{issue.severity}, #{issue.description},
+                #{issue.errorMessage}, #{issue.eventType}, #{issue.provider}, #{issue.model}, #{issue.lineNumber}, #{issue.occurredAt}, #{issue.turnId}
+            )
+        </foreach>
+    </insert>
+
+    <select id="selectByScanId" resultType="com.company.clawboard.entity.DashboardTranscriptIssue">
+        SELECT * FROM dashboard_transcript_issue WHERE scan_id = #{scanId} ORDER BY occurred_at
+    </select>
+
+</mapper>

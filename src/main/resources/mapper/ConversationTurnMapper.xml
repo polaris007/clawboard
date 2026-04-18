@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.clawboard.mapper.ConversationTurnMapper">
+
+    <resultMap id="BaseResultMap" type="com.company.clawboard.entity.DashboardConversationTurn">
+        <id column="id" property="id"/>
+        <result column="session_id" property="sessionId"/>
+        <result column="employee_id" property="employeeId"/>
+        <result column="turn_index" property="turnIndex"/>
+        <result column="start_message_id" property="startMessageId"/>
+        <result column="end_message_id" property="endMessageId"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="user_input" property="userInput"/>
+        <result column="total_input_tokens" property="totalInputTokens"/>
+        <result column="total_output_tokens" property="totalOutputTokens"/>
+        <result column="total_tokens" property="totalTokens"/>
+        <result column="total_cost" property="totalCost"/>
+        <result column="tool_calls_count" property="toolCallsCount"/>
+        <result column="tool_calls_success" property="toolCallsSuccess"/>
+        <result column="tool_calls_error" property="toolCallsError"/>
+        <result column="skill_calls_count" property="skillCallsCount"/>
+        <result column="skill_calls_success" property="skillCallsSuccess"/>
+        <result column="skill_calls_error" property="skillCallsError"/>
+        <result column="is_complete" property="isComplete"/>
+        <result column="has_error" property="hasError"/>
+        <result column="status" property="status"/>
+        <result column="total_duration_ms" property="totalDurationMs"/>
+        <result column="tool_duration_ms" property="toolDurationMs"/>
+        <result column="model_duration_ms" property="modelDurationMs"/>
+        <result column="chain_summary" property="chainSummary"/>
+        <result column="log_file_path" property="logFilePath"/>
+        <result column="quality_status" property="qualityStatus"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <insert id="upsertTurn">
+        INSERT INTO dashboard_conversation_turn (
+            session_id, employee_id, turn_index, start_message_id, end_message_id,
+            start_time, end_time, user_input, total_input_tokens, total_output_tokens, total_tokens, total_cost,
+            tool_calls_count, tool_calls_success, tool_calls_error, skill_calls_count, skill_calls_success, skill_calls_error,
+            is_complete, has_error, status, total_duration_ms, tool_duration_ms, model_duration_ms,
+            chain_summary, log_file_path, quality_status
+        ) VALUES (
+            #{sessionId}, #{employeeId}, #{turnIndex}, #{startMessageId}, #{endMessageId},
+            #{startTime}, #{endTime}, #{userInput}, #{totalInputTokens}, #{totalOutputTokens}, #{totalTokens}, #{totalCost},
+            #{toolCallsCount}, #{toolCallsSuccess}, #{toolCallsError}, #{skillCallsCount}, #{skillCallsSuccess}, #{skillCallsError},
+            #{isComplete}, #{hasError}, #{status}, #{totalDurationMs}, #{toolDurationMs}, #{modelDurationMs},
+            #{chainSummary}, #{logFilePath}, #{qualityStatus}
+        )
+        ON DUPLICATE KEY UPDATE
+            end_message_id = VALUES(end_message_id),
+            end_time = VALUES(end_time),
+            total_input_tokens = VALUES(total_input_tokens),
+            total_output_tokens = VALUES(total_output_tokens),
+            total_tokens = VALUES(total_tokens),
+            total_cost = VALUES(total_cost),
+            tool_calls_count = VALUES(tool_calls_count),
+            tool_calls_success = VALUES(tool_calls_success),
+            tool_calls_error = VALUES(tool_calls_error),
+            skill_calls_count = VALUES(skill_calls_count),
+            skill_calls_success = VALUES(skill_calls_success),
+            skill_calls_error = VALUES(skill_calls_error),
+            is_complete = VALUES(is_complete),
+            has_error = VALUES(has_error),
+            status = VALUES(status),
+            total_duration_ms = VALUES(total_duration_ms),
+            tool_duration_ms = VALUES(tool_duration_ms),
+            model_duration_ms = VALUES(model_duration_ms),
+            chain_summary = VALUES(chain_summary)
+    </insert>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM dashboard_conversation_turn WHERE id = #{id}
+    </select>
+
+    <select id="selectBySessionId" resultMap="BaseResultMap">
+        SELECT * FROM dashboard_conversation_turn WHERE session_id = #{sessionId} ORDER BY start_time
+    </select>
+
+</mapper>

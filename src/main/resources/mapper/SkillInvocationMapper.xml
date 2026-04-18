@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.clawboard.mapper.SkillInvocationMapper">
+
+    <insert id="batchInsertIgnore">
+        INSERT IGNORE INTO dashboard_skill_invocation (
+            session_id, employee_id, turn_id, skill_name, skill_path, invoked_at,
+            read_message_id, result_message_id, is_error, trigger_type, duration_ms
+        ) VALUES
+        <foreach collection="list" item="inv" separator=",">
+            (
+                #{inv.sessionId}, #{inv.employeeId}, #{inv.turnId}, #{inv.skillName}, #{inv.skillPath}, #{inv.invokedAt},
+                #{inv.readMessageId}, #{inv.resultMessageId}, #{inv.isError}, #{inv.triggerType}, #{inv.durationMs}
+            )
+        </foreach>
+    </insert>
+
+    <select id="selectDistinctSkills" resultType="java.lang.String">
+        SELECT DISTINCT skill_name FROM dashboard_skill_invocation ORDER BY skill_name
+    </select>
+
+</mapper>
