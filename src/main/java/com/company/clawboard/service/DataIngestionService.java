@@ -1,0 +1,267 @@
+package com.company.clawboard.service;
+
+import com.company.clawboard.entity.*;
+import com.company.clawboard.mapper.*;
+import com.company.clawboard.parser.IssueDetector;
+import com.company.clawboard.parser.TranscriptParser;
+import com.company.clawboard.parser.TurnAssembler;
+import com.company.clawboard.parser.model.MessageRecord;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Service to convert parsed transcript data to entities and batch insert into database.
+ */
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class DataIngestionService {
+
+    private final MessageMapper messageMapper;
+    private final ConversationTurnMapper turnMapper;
+    private final SkillInvocationMapper skillMapper;
+    private final TranscriptIssueMapper issueMapper;
+
+    /**
+     * Ingest parsed transcript data into database
+     * @param scanId Current scan ID
+     * @param employeeId Employee ID extracted from file path
+     * @param parsed Parsed transcript data
+     */
+    @Transactional
+    public void ingestParsedTranscript(Long scanId, String employeeId, TranscriptParser.ParsedTranscript parsed) {
+        if (parsed == null || parsed.sessionId() == null) {
+            log.warn("Cannot ingest null or invalid parsed transcript");
+            return;
+        }
+
+        String sessionId = parsed.sessionId();
+        LocalDateTime now = LocalDateTime.now();
+
+        // Step 1: Convert and insert messages
+        List<DashboardMessage> messages = convertToMessages(scanId, parsed.messages(), sessionId, employeeId, now);
+        if (!messages.isEmpty()) {
+            int inserted = messageMapper.batchInsertIgnore(messages);
+            log.debug("Inserted {} messages for session {}", inserted, sessionId);
+        }
+
+        // Step 2: Convert and insert conversation turns
+        List<DashboardConversationTurn> turns = convertToTurns(scanId, parsed.turns(), sessionId, employeeId, now);
+        if (!turns.isEmpty()) {
+            int inserted = turnMapper.batchInsertIgnore(turns);
+            log.debug("Inserted {} turns for session {}", inserted, sessionId);
+        }
+
+        // Step 3: Convert and insert skill invocations
+        List<DashboardSkillInvocation> skills = convertToSkillInvocations(
+                scanId, parsed.skillInvocations(), sessionId, employeeId, now);
+        if (!skills.isEmpty()) {
+            int inserted = skillMapper.batchInsertIgnore(skills);
+            log.debug("Inserted {} skill invocations for session {}", inserted, sessionId);
+        }
+
+        // Step 4: Convert and insert issues
+        List<DashboardTranscriptIssue> issues = convertToIssues(
+                scanId, parsed.issues(), sessionId, employeeId, now);
+        if (!issues.isEmpty()) {
+            int inserted = issueMapper.batchInsertIgnore(issues);
+            log.debug("Inserted {} issues for session {}", inserted, sessionId);
+        }
+
+        log.info("Ingested session {}: {} messages, {} turns, {} skills, {} issues",
+                sessionId, messages.size(), turns.size(), skills.size(), issues.size());
+    }
+
+    /**
+     * Convert MessageRecord list to DashboardMessage entities
+     */
+    private List<DashboardMessage> convertToMessages(Long scanId,
+                                                      List<MessageRecord> messages, 
+                                                      String sessionId, 
+                                                      String employeeId,
+                                                      LocalDateTime now) {
+        List<DashboardMessage> result = new ArrayList<>();
+
+        for (MessageRecord msg : messages) {
+            DashboardMessage entity = new DashboardMessage();
+            entity.setScanId(scanId);
+            entity.setSessionId(sessionId);
+            entity.setMessageId(msg.id());  // Changed from messageId() to id()
+            entity.setEmployeeId(employeeId);
+            entity.setRole(msg.role());
+            
+            // Convert epoch milliseconds to LocalDateTime
+            if (msg.epochMs() > 0) {
+                entity.setMessageTimestamp(
+                    LocalDateTime.ofInstant(Instant.ofEpochMilli(msg.epochMs()), ZoneId.systemDefault()));
+            }
+            
+            // Extract token info from UsageInfo
+            if (msg.usage() != null) {
+                entity.setInputTokens(msg.usage().inputTokens());
+                entity.setOutputTokens(msg.usage().outputTokens());
+                entity.setCacheReadTokens(msg.usage().cacheReadTokens());
+                entity.setCacheWriteTokens(msg.usage().cacheWriteTokens());
+                entity.setTotalTokens(msg.usage().totalTokens());
+                entity.setCostTotal(msg.usage().costTotal());
+            }
+            
+            entity.setProvider(msg.provider());
+            entity.setModel(msg.model());
+            entity.setStopReason(msg.stopReason());
+            entity.setDurationMs(msg.durationMs());
+            entity.setIsError(msg.isError() ? 1 : 0);
+            
+            // Extract tool information if present
+            if (msg.toolCalls() != null && !msg.toolCalls().isEmpty()) {
+                entity.setToolName(msg.toolCalls().get(0).name());
+                entity.setToolCallId(msg.toolCalls().get(0).id());
+            }
+            
+            entity.setParentId(msg.parentId());
+            entity.setCreatedAt(now);
+
+            result.add(entity);
+        }
+
+        return result;
+    }
+
+    /**
+     * Convert AssembledTurn list to DashboardConversationTurn entities
+     */
+    private List<DashboardConversationTurn> convertToTurns(Long scanId,
+                                                            List<TurnAssembler.AssembledTurn> turns,
+                                                            String sessionId,
+                                                            String employeeId,
+                                                            LocalDateTime now) {
+        List<DashboardConversationTurn> result = new ArrayList<>();
+
+        for (int i = 0; i < turns.size(); i++) {
+            TurnAssembler.AssembledTurn turn = turns.get(i);
+            DashboardConversationTurn entity = new DashboardConversationTurn();
+            
+            entity.setScanId(scanId);
+            entity.setSessionId(sessionId);
+            entity.setEmployeeId(employeeId);
+            entity.setTurnIndex(i + 1); // 1-based index
+            
+            // Extract user input
+            entity.setUserInput(turn.userInput());
+            
+            // Set status
+            entity.setStatus(turn.status());
+            entity.setIsComplete(turn.isComplete() ? 1 : 0);
+            entity.setHasError(turn.hasError() ? 1 : 0);
+            entity.setQualityStatus(0); // Default quality status
+            entity.setCreatedAt(now);
+
+            result.add(entity);
+        }
+
+        return result;
+    }
+
+    /**
+     * Convert SkillInvocation list to DashboardSkillInvocation entities
+     */
+    private List<DashboardSkillInvocation> convertToSkillInvocations(
+            Long scanId,
+            List<TranscriptParser.SkillInvocation> skills,
+            String sessionId,
+            String employeeId,
+            LocalDateTime now) {
+        List<DashboardSkillInvocation> result = new ArrayList<>();
+
+        for (TranscriptParser.SkillInvocation skill : skills) {
+            DashboardSkillInvocation entity = new DashboardSkillInvocation();
+            entity.setScanId(scanId);
+            entity.setSessionId(sessionId);
+            entity.setEmployeeId(employeeId);
+            entity.setSkillName(skill.skillName());
+            entity.setInvokedAt(LocalDateTime.ofInstant(Instant.ofEpochMilli(skill.invokedAt()), ZoneId.systemDefault()));
+            entity.setReadMessageId(null); // TODO: Extract from context if needed
+            entity.setResultMessageId(null); // TODO: Extract from context if needed
+            entity.setIsError(0); // Default to no error
+            entity.setTriggerType("model_read"); // Default trigger type
+            entity.setCreatedAt(now);
+
+            result.add(entity);
+        }
+
+        return result;
+    }
+
+    /**
+     * Convert DetectedIssue list to DashboardTranscriptIssue entities
+     */
+    private List<DashboardTranscriptIssue> convertToIssues(
+            Long scanId,
+            List<IssueDetector.DetectedIssue> issues,
+            String sessionId,
+            String employeeId,
+            LocalDateTime now) {
+        List<DashboardTranscriptIssue> result = new ArrayList<>();
+
+        for (IssueDetector.DetectedIssue issue : issues) {
+            DashboardTranscriptIssue entity = new DashboardTranscriptIssue();
+            entity.setScanId(scanId);
+            entity.setSessionId(sessionId);
+            entity.setMessageId(""); // TODO: Extract from context if available
+            entity.setEmployeeId(employeeId);
+            entity.setErrorType(issue.errorType());
+            entity.setSeverity(issue.severity());
+            entity.setDescription(issue.description());
+            entity.setErrorMessage(issue.errorMessage());
+            entity.setEventType("message"); // Default event type
+            entity.setOccurredAt(now);
+            entity.setCreatedAt(now);
+
+            result.add(entity);
+        }
+
+        return result;
+    }
+
+    /**
+     * Extract user input from turn messages
+     */
+    private String extractUserInput(List<MessageRecord> messages) {
+        for (MessageRecord msg : messages) {
+            if ("user".equals(msg.role()) && msg.textContent() != null) {
+                // Truncate to max length
+                String content = msg.textContent();
+                return content.length() > 200 ? content.substring(0, 200) : content;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Calculate aggregated metrics for a turn
+     * Note: This is a simplified version since AssembledTurn doesn't expose messages
+     */
+    private void calculateTurnMetrics(DashboardConversationTurn entity, List<MessageRecord> messages) {
+        // Simplified - just set defaults
+        // TODO: Implement proper metric calculation when AssembledTurn exposes messages
+        entity.setTotalInputTokens(0);
+        entity.setTotalOutputTokens(0);
+        entity.setTotalTokens(0);
+        entity.setTotalCost(java.math.BigDecimal.ZERO);
+        entity.setToolCallsCount(0);
+        entity.setToolCallsSuccess(0);
+        entity.setToolCallsError(0);
+        entity.setSkillCallsCount(0);
+        entity.setSkillCallsSuccess(0);
+        entity.setSkillCallsError(0);
+    }
+}

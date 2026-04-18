@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 @Data
 public class DashboardConversationTurn {
     private Long id;
+    private Long scanId;  // Added for tracking which scan this turn belongs to
     private String sessionId;
     private String employeeId;
     private Integer turnIndex;

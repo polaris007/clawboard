@@ -1,5 +1,6 @@
 package com.company.clawboard.service;
 
+import com.company.clawboard.config.ClawboardProperties;
 import com.company.clawboard.entity.DashboardTranscriptIssue;
 import com.company.clawboard.mapper.TranscriptIssueMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,8 @@ import java.util.List;
 public class ReportGenerator {
 
     private final TranscriptIssueMapper issueMapper;
-    private static final String REPORTS_DIR = "scripts/reports";
+    private final ClawboardProperties properties;
+    
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public void generateReport(Long scanId, LocalDateTime scanStartTime) {
@@ -30,9 +32,12 @@ public class ReportGenerator {
             // Generate Markdown content
             String markdown = buildMarkdownReport(issues, scanStartTime);
 
+            // Get reports directory from configuration
+            String reportsDir = properties.getReports().getOutputDir();
+            
             // Write to file with date-based directory structure
             String dateStr = LocalDateTime.now().format(DATE_FORMATTER);
-            Path reportDir = Paths.get(REPORTS_DIR, dateStr);
+            Path reportDir = Paths.get(reportsDir, dateStr);
             Files.createDirectories(reportDir);
 
             Path reportPath = reportDir.resolve("transcript-comprehensive-issues.md");

@@ -1,0 +1,171 @@
+package com.company.clawboard.scanner;
+
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Path;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Reads employee information from accounts.csv file.
+ * Maps SHA512 hash of employee_id to employee details.
+ */
+@Slf4j
+@Component
+public class AccountsCsvReader {
+
+    @Data
+    public static class EmployeeInfo {
+        private String name;
+        private String employeeId;
+        private String department;
+        private String sha512Hash;
+    }
+
+    private Map<String, EmployeeInfo> employeeMap = new HashMap<>();
+
+    /**
+     * Load employee mapping from accounts.csv
+     * @param csvPath Path to accounts.csv file
+     */
+    public void loadFromCsv(Path csvPath) {
+        if (csvPath == null || !csvPath.toFile().exists()) {
+            log.warn("accounts.csv not found at: {}", csvPath);
+            return;
+        }
+
+        log.info("Loading employee mapping from: {}", csvPath);
+        int count = 0;
+
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader(csvPath.toFile(), Charset.forName("GBK")))) {
+
+            // Skip header line
+            String header = reader.readLine();
+            if (header == null) {
+                log.warn("accounts.csv is empty");
+                return;
+            }
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty()) continue;
+
+                String[] parts = line.split(",", -1);
+                if (parts.length < 4) {
+                    log.debug("Skipping invalid line: {}", line);
+                    continue;
+                }
+
+                // CSV format: 序号,姓名,工号,部门,机构号
+                String employeeId = parts[2].trim();
+                String name = parts[1].trim();
+                String department = parts[3].trim();
+
+                if (employeeId.isEmpty()) {
+                    continue;
+                }
+
+                // Calculate SHA512 hash of employee_id
+                String hash = calculateSha512(employeeId);
+                if (hash == null) {
+                    log.warn("Failed to calculate hash for employee: {}", employeeId);
+                    continue;
+                }
+
+                EmployeeInfo info = new EmployeeInfo();
+                info.setEmployeeId(employeeId);
+                info.setName(name);
+                info.setDepartment(department);
+                info.setSha512Hash(hash);
+
+                employeeMap.put(hash, info);
+                count++;
+            }
+
+            log.info("Successfully loaded {} employee mappings", count);
+
+        } catch (IOException e) {
+            log.error("Failed to read accounts.csv: {}", csvPath, e);
+        }
+    }
+
+    /**
+     * Get employee info by SHA512 hash
+     * @param sha512Hash SHA512 hash of employee_id
+     * @return EmployeeInfo or null if not found
+     */
+    public EmployeeInfo getEmployeeByHash(String sha512Hash) {
+        return employeeMap.get(sha512Hash);
+    }
+
+    /**
+     * Extract employee info from file path by finding the hash in the path
+     * @param filePath Path to transcript file
+     * @return EmployeeInfo or null if not found
+     */
+    public EmployeeInfo extractEmployeeFromPath(Path filePath) {
+        String pathStr = filePath.toString().replace('\\', '/');
+        String[] parts = pathStr.split("/");
+
+        // Find "agents" directory and get the previous part (SHA512 hash)
+        for (int i = 0; i < parts.length; i++) {
+            if ("agents".equals(parts[i]) && i > 0) {
+                String hash = parts[i - 1];
+                return getEmployeeByHash(hash);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Calculate SHA512 hash of a string
+     * @param input Input string
+     * @return Hex-encoded SHA512 hash or null if error
+     */
+    private String calculateSha512(String input) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-512");
+            byte[] hashBytes = digest.digest(input.getBytes("UTF-8"));
+            return bytesToHex(hashBytes);
+        } catch (NoSuchAlgorithmException e) {
+            log.error("SHA-512 algorithm not available", e);
+            return null;
+        } catch (Exception e) {
+            log.error("Failed to calculate SHA-512 hash", e);
+            return null;
+        }
+    }
+
+    /**
+     * Convert byte array to hex string
+     */
+    private String bytesToHex(byte[] bytes) {
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : bytes) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
+
+    /**
+     * Get total number of loaded employees
+     */
+    public int getEmployeeCount() {
+        return employeeMap.size();
+    }
+}

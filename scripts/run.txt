@@ -1,0 +1,3 @@
+Windows运行detect-all-transcript-issues.py注意事项：
+1. chcp 65001
+2. D:\Python27\python.exe -u scripts\detect-all-transcript-issues.py g:\Workplace\github\clawboard\test\session-transcript

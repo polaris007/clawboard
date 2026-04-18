@@ -36,13 +36,13 @@
 
     <insert id="upsertTurn">
         INSERT INTO dashboard_conversation_turn (
-            session_id, employee_id, turn_index, start_message_id, end_message_id,
+            scan_id, session_id, employee_id, turn_index, start_message_id, end_message_id,
             start_time, end_time, user_input, total_input_tokens, total_output_tokens, total_tokens, total_cost,
             tool_calls_count, tool_calls_success, tool_calls_error, skill_calls_count, skill_calls_success, skill_calls_error,
             is_complete, has_error, status, total_duration_ms, tool_duration_ms, model_duration_ms,
             chain_summary, log_file_path, quality_status
         ) VALUES (
-            #{sessionId}, #{employeeId}, #{turnIndex}, #{startMessageId}, #{endMessageId},
+            #{scanId}, #{sessionId}, #{employeeId}, #{turnIndex}, #{startMessageId}, #{endMessageId},
             #{startTime}, #{endTime}, #{userInput}, #{totalInputTokens}, #{totalOutputTokens}, #{totalTokens}, #{totalCost},
             #{toolCallsCount}, #{toolCallsSuccess}, #{toolCallsError}, #{skillCallsCount}, #{skillCallsSuccess}, #{skillCallsError},
             #{isComplete}, #{hasError}, #{status}, #{totalDurationMs}, #{toolDurationMs}, #{modelDurationMs},
@@ -68,6 +68,25 @@
             tool_duration_ms = VALUES(tool_duration_ms),
             model_duration_ms = VALUES(model_duration_ms),
             chain_summary = VALUES(chain_summary)
+    </insert>
+
+    <insert id="batchInsertIgnore">
+        INSERT IGNORE INTO dashboard_conversation_turn (
+            scan_id, session_id, employee_id, turn_index, start_message_id, end_message_id,
+            start_time, end_time, user_input, total_input_tokens, total_output_tokens, total_tokens, total_cost,
+            tool_calls_count, tool_calls_success, tool_calls_error, skill_calls_count, skill_calls_success, skill_calls_error,
+            is_complete, has_error, status, total_duration_ms, tool_duration_ms, model_duration_ms,
+            chain_summary, log_file_path, quality_status
+        ) VALUES
+        <foreach collection="list" item="turn" separator=",">
+            (
+                #{turn.scanId}, #{turn.sessionId}, #{turn.employeeId}, #{turn.turnIndex}, #{turn.startMessageId}, #{turn.endMessageId},
+                #{turn.startTime}, #{turn.endTime}, #{turn.userInput}, #{turn.totalInputTokens}, #{turn.totalOutputTokens}, #{turn.totalTokens}, #{turn.totalCost},
+                #{turn.toolCallsCount}, #{turn.toolCallsSuccess}, #{turn.toolCallsError}, #{turn.skillCallsCount}, #{turn.skillCallsSuccess}, #{turn.skillCallsError},
+                #{turn.isComplete}, #{turn.hasError}, #{turn.status}, #{turn.totalDurationMs}, #{turn.toolDurationMs}, #{turn.modelDurationMs},
+                #{turn.chainSummary}, #{turn.logFilePath}, #{turn.qualityStatus}
+            )
+        </foreach>
     </insert>
 
     <select id="selectById" resultMap="BaseResultMap">

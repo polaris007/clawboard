@@ -14,11 +14,13 @@ public class ClawboardProperties {
     private ScanConfig scan = new ScanConfig();
     private ParserConfig parser = new ParserConfig();
     private SkillConfig skill = new SkillConfig();
+    private ReportsConfig reports = new ReportsConfig();
 
     @Data
     public static class NasConfig {
         private String basePath = "/mnt/nas";
         private String openclawDir = ".openclaw";
+        private String accountsCsvPath = "scripts/accounts.csv";
     }
 
     @Data
@@ -46,5 +48,10 @@ public class ClawboardProperties {
     @Data
     public static class SkillConfig {
         private Map<String, String> nameMapping = Map.of();
+    }
+
+    @Data
+    public static class ReportsConfig {
+        private String outputDir = "scripts/reports";
     }
 }

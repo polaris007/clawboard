@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class DashboardMessage {
+    private Long scanId;  // Added for tracking which scan this message belongs to
     private String sessionId;
     private String messageId;
     private String employeeId;

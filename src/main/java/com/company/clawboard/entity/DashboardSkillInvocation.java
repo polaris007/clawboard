@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 @Data
 public class DashboardSkillInvocation {
     private Long id;
+    private Long scanId;  // Added for tracking which scan this skill invocation belongs to
     private String sessionId;
     private String employeeId;
     private Long turnId;

@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS dashboard_scan_progress (
 );
 
 CREATE TABLE IF NOT EXISTS dashboard_message (
+    scan_id            BIGINT,
     session_id         VARCHAR(36)   NOT NULL,
     message_id         VARCHAR(36)   NOT NULL,
     employee_id        VARCHAR(50)   NOT NULL,
@@ -48,6 +49,7 @@ CREATE TABLE IF NOT EXISTS dashboard_message (
 
 CREATE TABLE IF NOT EXISTS dashboard_conversation_turn (
     id                    BIGINT        NOT NULL AUTO_INCREMENT,
+    scan_id               BIGINT,
     session_id            VARCHAR(36)   NOT NULL,
     employee_id           VARCHAR(50)   NOT NULL,
     turn_index            INT,
@@ -81,6 +83,7 @@ CREATE TABLE IF NOT EXISTS dashboard_conversation_turn (
 
 CREATE TABLE IF NOT EXISTS dashboard_skill_invocation (
     id                BIGINT        NOT NULL AUTO_INCREMENT,
+    scan_id           BIGINT,
     session_id        VARCHAR(36)   NOT NULL,
     employee_id       VARCHAR(50)   NOT NULL,
     turn_id           BIGINT,
@@ -98,6 +101,7 @@ CREATE TABLE IF NOT EXISTS dashboard_skill_invocation (
 
 CREATE TABLE IF NOT EXISTS dashboard_transcript_issue (
     id             BIGINT        NOT NULL AUTO_INCREMENT,
+    scan_id        BIGINT,
     session_id     VARCHAR(36)   NOT NULL,
     message_id     VARCHAR(36)   NOT NULL DEFAULT '',
     employee_id    VARCHAR(50)   NOT NULL,

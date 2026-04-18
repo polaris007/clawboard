@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 @Data
 public class DashboardTranscriptIssue {
     private Long id;
+    private Long scanId;  // Added for tracking which scan this issue belongs to
     private String sessionId;
     private String messageId;
     private String employeeId;

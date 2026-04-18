@@ -4,12 +4,12 @@
 
     <insert id="batchInsertIgnore">
         INSERT IGNORE INTO dashboard_skill_invocation (
-            session_id, employee_id, turn_id, skill_name, skill_path, invoked_at,
+            scan_id, session_id, employee_id, turn_id, skill_name, skill_path, invoked_at,
             read_message_id, result_message_id, is_error, trigger_type, duration_ms
         ) VALUES
         <foreach collection="list" item="inv" separator=",">
             (
-                #{inv.sessionId}, #{inv.employeeId}, #{inv.turnId}, #{inv.skillName}, #{inv.skillPath}, #{inv.invokedAt},
+                #{inv.scanId}, #{inv.sessionId}, #{inv.employeeId}, #{inv.turnId}, #{inv.skillName}, #{inv.skillPath}, #{inv.invokedAt},
                 #{inv.readMessageId}, #{inv.resultMessageId}, #{inv.isError}, #{inv.triggerType}, #{inv.durationMs}
             )
         </foreach>

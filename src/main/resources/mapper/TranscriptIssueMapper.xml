@@ -4,12 +4,12 @@
 
     <insert id="batchInsertIgnore">
         INSERT IGNORE INTO dashboard_transcript_issue (
-            session_id, message_id, employee_id, error_type, severity, description,
+            scan_id, session_id, message_id, employee_id, error_type, severity, description,
             error_message, event_type, provider, model, line_number, occurred_at, turn_id
         ) VALUES
         <foreach collection="list" item="issue" separator=",">
             (
-                #{issue.sessionId}, #{issue.messageId}, #{issue.employeeId}, #{issue.errorType}, #{issue.severity}, #{issue.description},
+                #{issue.scanId}, #{issue.sessionId}, #{issue.messageId}, #{issue.employeeId}, #{issue.errorType}, #{issue.severity}, #{issue.description},
                 #{issue.errorMessage}, #{issue.eventType}, #{issue.provider}, #{issue.model}, #{issue.lineNumber}, #{issue.occurredAt}, #{issue.turnId}
             )
         </foreach>

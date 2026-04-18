@@ -29,6 +29,13 @@ public class UserScanner {
             return users;
         }
 
+        // If openclawDir is empty, treat basePath as the sessions directory (flat structure)
+        if (openclawDir == null || openclawDir.isEmpty()) {
+            log.info("Using flat directory structure, treating '{}' as sessions root", basePath);
+            users.add("default");  // Use a placeholder username
+            return users;
+        }
+
         File[] userDirs = baseDir.listFiles(File::isDirectory);
         if (userDirs != null) {
             for (File userDir : userDirs) {

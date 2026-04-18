@@ -9,4 +9,8 @@ spring:
 
 clawboard:
   nas:
-    base-path: ./test/openclaw-logs/../   # points to test directory parent
+    base-path: ./test/logs1   # Test directory
+    openclaw-dir: ""  # Empty - structure is already at agents level
+    accounts-csv-path: scripts/accounts.csv
+  reports:
+    output-dir: scripts/reports  # Configurable reports directory
