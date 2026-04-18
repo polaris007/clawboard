@@ -1,7 +1,9 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:clawboard;MODE=MySQL;DB_CLOSE_DELAY=-1
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://127.0.0.1:3306/clawboard?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: clawboard
+    password: Clqc@1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
   flyway:
     enabled: true
 
