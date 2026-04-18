@@ -1,0 +1,53 @@
+# Test profile configuration - uses H2 in-memory database
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+  
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  
+  flyway:
+    enabled: false  # Disable Flyway for tests, use schema.sql instead
+  
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/migration/V1__init_schema_clean.sql
+      continue-on-error: false
+
+# MyBatis configuration
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.company.clawboard.model
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+# Application properties
+clawboard:
+  nas:
+    base-path: ./test-data
+    openclaw-dir: .openclaw
+  scan:
+    cron: "0 0 */6 * * *"
+    thread-pool-size: 2
+    batch-size: 10
+    enabled: false  # Disable scheduled scans during tests
+  parser:
+    max-error-message-length: 500
+    max-user-input-length: 200
+  skill:
+    name-mapping: {}
+
+# Logging
+logging:
+  level:
+    root: WARN
+    com.company.clawboard: DEBUG
+    org.springframework.web: INFO
+    org.mybatis: DEBUG
