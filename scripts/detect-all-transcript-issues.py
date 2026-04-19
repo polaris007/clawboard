@@ -872,7 +872,7 @@ def _find_jsonl_files_walk(dir_path):
     # 规范化路径，解析 .. 等符号
     dir_path = os.path.normpath(dir_path)
 
-    safe_print('🔍 正在扫描目录树...')
+    safe_print('[INFO] Scanning directory tree...')
     dir_count = 0
     file_count = 0
     last_progress_time = 0
@@ -888,7 +888,7 @@ def _find_jsonl_files_walk(dir_path):
         # 每 0.5 秒或每 100 个目录显示一次进度
         if dir_count % 100 == 0 or (current_time - last_progress_time) >= 0.5:
             elapsed = current_time - start_time
-            safe_print('   已扫描 %d 个目录，找到 %d 个文件... (%.1f秒)' % (
+            safe_print('   [PROGRESS] Scanned %d directories, found %d files... (%.1fs)' % (
                 dir_count, len(results), elapsed))
             last_progress_time = current_time
 
@@ -901,7 +901,7 @@ def _find_jsonl_files_walk(dir_path):
                 results.append(full_path)
 
     elapsed_time = time.time() - start_time
-    safe_print('   ✅ 扫描完成：共遍历 %d 个目录，%d 个文件，找到 %d 个 JSONL 文件 (%.1f秒)\n' % (
+    safe_print('   [INFO] Scan complete: traversed %d directories, %d files, found %d JSONL files (%.1fs)\n' % (
         dir_count, file_count, len(results), elapsed_time))
 
     # Save scanned files list for comparison

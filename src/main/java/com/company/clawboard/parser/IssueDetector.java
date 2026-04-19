@@ -114,6 +114,7 @@ public class IssueDetector {
                     "Assistant returned an error message",
                     truncate(errorMsg, 500)
                 ));
+                hasErrorPattern = true;  // Mark as detected to avoid double counting with abnormal_stop
             }
         }
 
