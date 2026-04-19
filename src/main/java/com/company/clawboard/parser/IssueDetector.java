@@ -13,9 +13,9 @@ import java.util.regex.Pattern;
 public class IssueDetector {
 
     public record DetectedIssue(
-        String errorType, 
-        String severity, 
-        String description, 
+        String errorType,
+        String severity,
+        String description,
         String errorMessage,
         String eventType,
         String userInput,
@@ -23,10 +23,13 @@ public class IssueDetector {
         String filePath,
         String errorLineContent,
         String nextLineContent,
-        Integer lineNumber
+        Integer lineNumber,
+        String runId,
+        String provider,
+        String model,
+        String messageId
     ) {}
 
-    // Error pattern definitions (matching Python script)
     private static final List<ErrorPattern> ERROR_PATTERNS = List.of(
         new ErrorPattern("modelErrors", List.of(
             Pattern.compile("model.*error", Pattern.CASE_INSENSITIVE),
@@ -89,7 +92,6 @@ public class IssueDetector {
         ))
     );
 
-    // Normal stop reasons (matching Python script exactly)
     private static final List<String> NORMAL_STOP_REASONS = List.of("stop", "toolUse", "length");
 
     private record ErrorPattern(String category, List<Pattern> patterns) {}
@@ -97,79 +99,89 @@ public class IssueDetector {
     public List<DetectedIssue> detectIssues(MessageRecord msg) {
         List<DetectedIssue> issues = new ArrayList<>();
 
-        // Check for assistant errors with pattern matching
-        boolean hasErrorPattern = false;
-        if ("assistant".equals(msg.role()) && msg.errorMessage() != null && !msg.errorMessage().isEmpty()) {
-            String errorMsg = msg.errorMessage();
-            
-            // Try to match error patterns
-            for (ErrorPattern ep : ERROR_PATTERNS) {
-                for (Pattern pattern : ep.patterns()) {
-                    if (pattern.matcher(errorMsg).find()) {
-                        issues.add(new DetectedIssue(
-                            ep.category(),
-                            "high",
-                            "Detected " + getCategoryDescription(ep.category()),
-                            truncate(errorMsg, 500),
-                            "message",
-                            null,  // userInput - extracted from context in TranscriptParser
-                            analyzeCause(ep.category()),
-                            null,  // filePath - set in TranscriptParser
-                            null,  // errorLineContent - set in FlowIntegrityChecker
-                            null,  // nextLineContent - set in FlowIntegrityChecker
-                            msg.lineNumber()
-                        ));
-                        hasErrorPattern = true;
-                        break;
+        if ("assistant".equals(msg.role())) {
+            if (msg.errorMessage() != null && !msg.errorMessage().isEmpty()) {
+                String errorMsg = msg.errorMessage();
+
+                for (ErrorPattern ep : ERROR_PATTERNS) {
+                    boolean categoryMatched = false;
+                    for (Pattern pattern : ep.patterns()) {
+                        if (pattern.matcher(errorMsg).find()) {
+                            issues.add(new DetectedIssue(
+                                ep.category(),
+                                "high",
+                                "在message事件中检测到" + getCategoryDescription(ep.category()),
+                                truncate(errorMsg, 500),
+                                "message",
+                                null,
+                                analyzeCause(ep.category(), errorMsg),
+                                null,
+                                null,
+                                null,
+                                msg.lineNumber(),
+                                null,
+                                msg.provider(),
+                                msg.model(),
+                                msg.id()
+                            ));
+                            categoryMatched = true;
+                            break;
+                        }
+                    }
+                    if (categoryMatched) {
+                        continue;
                     }
                 }
-                if (hasErrorPattern) break;
-            }
-            
-            // If no pattern matched, use generic ASSISTANT_ERROR
-            if (!hasErrorPattern) {
-                issues.add(new DetectedIssue(
-                    "ASSISTANT_ERROR",
-                    "high",
-                    "Assistant returned an error message",
-                    truncate(errorMsg, 500),
-                    "message",
-                    null,
-                    "助手返回了错误消息，可能是模型API调用失败或参数错误",
-                    null,
-                    null,
-                    null,
-                    msg.lineNumber()
-                ));
-                hasErrorPattern = true;  // Mark as detected to avoid double counting with abnormal_stop
+
+                if (issues.isEmpty()) {
+                    issues.add(new DetectedIssue(
+                        "ASSISTANT_ERROR",
+                        "high",
+                        "Assistant returned an error message",
+                        truncate(errorMsg, 500),
+                        "message",
+                        null,
+                        "助手返回了错误消息，可能是模型API调用失败或参数错误",
+                        null,
+                        null,
+                        null,
+                        msg.lineNumber(),
+                        null,
+                        msg.provider(),
+                        msg.model(),
+                        msg.id()
+                    ));
+                }
             }
         }
 
-        // Check for abnormal stop reasons
-        if ("assistant".equals(msg.role()) && msg.stopReason() != null && !msg.stopReason().isEmpty()) {
+        if (msg.stopReason() != null && !msg.stopReason().isEmpty()) {
             String stopReason = msg.stopReason();
-            
+
             if (!NORMAL_STOP_REASONS.contains(stopReason)) {
-                String errorMsg = msg.errorMessage() != null ? msg.errorMessage() : "Unexpected stop reason: " + stopReason;
+                String errorMsg = msg.errorMessage();
                 String severity = ("aborted".equals(stopReason) || "error".equals(stopReason)) ? "high" : "medium";
-                
+
                 issues.add(new DetectedIssue(
                     "abnormal_stop",
                     severity,
-                    "Detected abnormal stop reason: " + stopReason,
-                    truncate(errorMsg, 500),
+                    "检测到异常停止原因: " + stopReason,
+                    truncate(errorMsg != null ? errorMsg : "Unexpected stop reason: " + stopReason, 500),
                     "message",
                     null,
-                    "会话异常停止，可能是网络中断、系统崩溃或用户主动终止",
+                    analyzeCause("modelErrors", errorMsg),
                     null,
                     null,
                     null,
-                    msg.lineNumber()
+                    msg.lineNumber(),
+                    null,
+                    msg.provider(),
+                    msg.model(),
+                    msg.id()
                 ));
             }
         }
 
-        // Check for tool errors
         if (msg.isError()) {
             issues.add(new DetectedIssue(
                 "TOOL_ERROR",
@@ -182,35 +194,116 @@ public class IssueDetector {
                 null,
                 null,
                 null,
-                msg.lineNumber()
+                msg.lineNumber(),
+                null,
+                null,
+                null,
+                msg.id()
             ));
         }
 
         return issues;
     }
-    
-    private String analyzeCause(String errorType) {
+
+    public List<DetectedIssue> detectCustomEventIssues(String customType, String dataJson, String lineId, String timestamp) {
+        List<DetectedIssue> issues = new ArrayList<>();
+        if (customType == null || customType.isEmpty()) {
+            return issues;
+        }
+
+        String searchText = (customType + " " + (dataJson != null ? dataJson : "")).toLowerCase();
+        log.debug("detectCustomEventIssues: customType={}, dataJson={}, searchText={}", customType, dataJson, searchText);
+
+        for (ErrorPattern ep : ERROR_PATTERNS) {
+            for (Pattern pattern : ep.patterns()) {
+                if (pattern.matcher(customType).find() || pattern.matcher(searchText).find()) {
+                    issues.add(new DetectedIssue(
+                        ep.category(),
+                        "high",
+                        "检测到" + getCategoryDescription(ep.category()) + "事件",
+                        truncate(dataJson != null ? dataJson : customType, 500),
+                        customType,
+                        null,
+                        analyzeCause(ep.category(), dataJson != null ? dataJson : customType),
+                        null,
+                        null,
+                        null,
+                        null,
+                        extractRunId(dataJson),
+                        extractProvider(dataJson),
+                        extractModel(dataJson),
+                        lineId != null ? lineId : "custom-" + System.currentTimeMillis()
+                    ));
+                    break;
+                }
+            }
+        }
+
+        return issues;
+    }
+
+    private String extractRunId(String dataJson) {
+        if (dataJson == null) return null;
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile("\"runId\"\\s*:\\s*\"([^\"]+)\"");
+        java.util.regex.Matcher m = p.matcher(dataJson);
+        return m.find() ? m.group(1) : null;
+    }
+
+    private String extractProvider(String dataJson) {
+        if (dataJson == null) return null;
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile("\"provider\"\\s*:\\s*\"([^\"]+)\"");
+        java.util.regex.Matcher m = p.matcher(dataJson);
+        return m.find() ? m.group(1) : null;
+    }
+
+    private String extractModel(String dataJson) {
+        if (dataJson == null) return null;
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile("\"model\"\\s*:\\s*\"([^\"]+)\"");
+        java.util.regex.Matcher m = p.matcher(dataJson);
+        return m.find() ? m.group(1) : null;
+    }
+
+    private String analyzeCause(String errorType, String errorMessage) {
+        String msg = errorMessage != null ? errorMessage.toLowerCase() : "";
         return switch (errorType) {
-            case "modelErrors" -> "模型API调用失败，可能是网络问题、API配额耗尽或服务端错误";
-            case "timeoutErrors" -> "请求超时，可能是网络延迟、服务器负载过高或请求处理时间过长";
-            case "rateLimitErrors" -> "达到API速率限制，需要降低请求频率或升级API配额";
-            case "toolErrors" -> "工具执行失败，可能是权限不足、参数错误或外部服务不可用";
-            case "permissionErrors" -> "权限不足，检查API密钥、访问令牌或资源权限配置";
-            case "parsingErrors" -> "JSON解析错误，响应格式不正确或包含非法字符";
-            case "networkErrors" -> "网络连接错误，检查网络稳定性、DNS解析或防火墙配置";
-            default -> "未知错误类型";
+            case "modelErrors" -> {
+                if (msg.contains("timeout") || msg.contains("idle"))
+                    yield "模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入";
+                if (msg.contains("aborted") || msg.contains("cancel"))
+                    yield "请求被中止，可能原因：1) 用户主动取消操作；2) 系统资源限制触发中止；3) 会话超时被清理；4) 新请求到来时旧请求被取消";
+                if (msg.contains("context") || msg.contains("token"))
+                    yield "上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积";
+                yield "模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完";
+            }
+            case "timeoutErrors" -> msg.contains("idle")
+                ? "空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输"
+                : "请求超时，可能原因：1) 网络延迟过高；2) 服务端处理缓慢；3) 防火墙或代理拦截；4) DNS解析超时";
+            case "rateLimitErrors" -> "触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制";
+            case "toolErrors" -> (msg.contains("permission") || msg.contains("denied"))
+                ? "工具执行权限不足，可能原因：1) 文件系统权限限制；2) 沙箱环境约束；3) 需要sudo权限但未配置；4) 访问受限资源"
+                : "工具执行失败，可能原因：1) 命令不存在或路径错误；2) 依赖未安装；3) 输入参数不正确；4) 工具内部逻辑错误";
+            case "permissionErrors" -> "权限验证失败，可能原因：1) API密钥无效；2) OAuth token过期；3) IP白名单限制；4) 账户被禁用或欠费";
+            case "parsingErrors" -> "数据解析失败，可能原因：1) JSON格式不正确；2) 编码问题；3) 数据结构与预期不符；4) 特殊字符未转义";
+            case "networkErrors" -> {
+                if (msg.contains("refused"))
+                    yield "连接被拒绝，可能原因：1) 目标服务未启动；2) 端口未开放；3) 防火墙阻止；4) 服务地址配置错误";
+                if (msg.contains("notfound") || msg.contains("dns"))
+                    yield "DNS解析失败，可能原因：1) 域名拼写错误；2) DNS服务器故障；3) 网络连接中断；4) hosts文件配置问题";
+                yield "网络连接错误，可能原因：1) 网络不稳定；2) 代理配置错误；3) SSL证书问题；4) 服务端重启或维护";
+            }
+            default -> "未知错误类型，需要人工分析具体原因";
         };
     }
 
     private String getCategoryDescription(String category) {
         return switch (category) {
-            case "modelErrors" -> "Model API error";
-            case "timeoutErrors" -> "Timeout error";
-            case "rateLimitErrors" -> "Rate limit error";
-            case "toolErrors" -> "Tool execution error";
-            case "permissionErrors" -> "Permission error";
-            case "parsingErrors" -> "Parsing error";
-            case "networkErrors" -> "Network error";
+            case "modelErrors" -> "模型API错误";
+            case "timeoutErrors" -> "超时错误";
+            case "rateLimitErrors" -> "速率限制错误";
+            case "toolErrors" -> "工具执行错误";
+            case "permissionErrors" -> "权限错误";
+            case "parsingErrors" -> "解析错误";
+            case "networkErrors" -> "网络错误";
             default -> category;
         };
     }

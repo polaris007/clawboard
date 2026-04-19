@@ -71,3 +71,4 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 3. Maven安装在F:\Program\Maven\apache-maven-3.9.15 .m2的位置在：I:\m2
 4. MySQL在F:\Program\Database\mysql-5.7.44-winx64，数据库已经启动，账号和数据库也已经建了，并配置了权限
 5. scrpts\detect-all-transcript-issues.py是Python 2.7的脚本，需要用D:\Python27来执行
+6. OpenClaw的源码在..\openclaw目录下

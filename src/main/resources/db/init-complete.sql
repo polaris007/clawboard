@@ -191,6 +191,7 @@ CREATE TABLE IF NOT EXISTS dashboard_transcript_issue (
     error_line_content TEXT         COMMENT '错误行内容',
     next_line_content TEXT          COMMENT '下一行内容',
     event_type        VARCHAR(50)   COMMENT '事件类型: message/custom',
+    run_id            VARCHAR(50)   COMMENT 'Run ID for custom events',
     provider          VARCHAR(50)   COMMENT '模型提供商',
     model             VARCHAR(100)  COMMENT '模型名称',
     line_number       INT           COMMENT 'JSONL 文件行号',

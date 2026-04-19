@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:clawboard}?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
-    username: ${DB_USER:root}
-    password: ${DB_PASS:}
+    username: ${DB_USER:clawboard}
+    password: ${DB_PASS:Clqc@1234}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:
@@ -34,7 +34,7 @@ clawboard:
       - "System: ["
       - "<inbound_metadata>"
       - "<openclaw-envelope>"
-    delivery-mirror-filter: true
+    delivery-mirror-filter: false
   skill:
     name-mapping:
       official-doc-writer: 公文写作

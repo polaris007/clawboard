@@ -8,18 +8,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/turns")
 @RequiredArgsConstructor
 public class TurnErrorController {
 
     private final TurnErrorService turnErrorService;
 
-    @PostMapping("/turns/search")
+    @PostMapping("/search")
     public ApiResponse<?> searchTurns(@RequestBody TurnSearchRequest request) {
         return ApiResponse.ok(turnErrorService.searchTurns(request));
     }
 
-    @GetMapping("/turns/{turnId}/trace")
+    @GetMapping("/{turnId}/trace")
     public ApiResponse<?> getTrace(@PathVariable Long turnId) {
         return ApiResponse.ok(turnErrorService.getTrace(turnId));
     }

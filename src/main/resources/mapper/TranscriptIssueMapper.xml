@@ -6,13 +6,13 @@
         INSERT IGNORE INTO dashboard_transcript_issue (
             scan_id, session_id, message_id, employee_id, error_type, severity, description,
             error_message, user_input, cause_analysis, file_path, error_line_content, next_line_content,
-            event_type, provider, model, line_number, occurred_at, turn_id
+            event_type, run_id, provider, model, line_number, occurred_at, turn_id
         ) VALUES
         <foreach collection="list" item="issue" separator=",">
             (
                 #{issue.scanId}, #{issue.sessionId}, #{issue.messageId}, #{issue.employeeId}, #{issue.errorType}, #{issue.severity}, #{issue.description},
                 #{issue.errorMessage}, #{issue.userInput}, #{issue.causeAnalysis}, #{issue.filePath}, #{issue.errorLineContent}, #{issue.nextLineContent},
-                #{issue.eventType}, #{issue.provider}, #{issue.model}, #{issue.lineNumber}, #{issue.occurredAt}, #{issue.turnId}
+                #{issue.eventType}, #{issue.runId}, #{issue.provider}, #{issue.model}, #{issue.lineNumber}, #{issue.occurredAt}, #{issue.turnId}
             )
         </foreach>
     </insert>

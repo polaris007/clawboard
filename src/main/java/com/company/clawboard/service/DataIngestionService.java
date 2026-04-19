@@ -207,9 +207,6 @@ public class DataIngestionService {
         return result;
     }
 
-    /**
-     * Convert DetectedIssue list to DashboardTranscriptIssue entities
-     */
     private List<DashboardTranscriptIssue> convertToIssues(
             Long scanId,
             List<IssueDetector.DetectedIssue> issues,
@@ -222,7 +219,7 @@ public class DataIngestionService {
             DashboardTranscriptIssue entity = new DashboardTranscriptIssue();
             entity.setScanId(scanId);
             entity.setSessionId(sessionId);
-            entity.setMessageId(""); // TODO: Extract from context if available
+            entity.setMessageId(issue.messageId() != null ? issue.messageId() : "");
             entity.setEmployeeId(employeeId);
             entity.setErrorType(issue.errorType());
             entity.setSeverity(issue.severity());
@@ -235,6 +232,9 @@ public class DataIngestionService {
             entity.setNextLineContent(issue.nextLineContent());
             entity.setLineNumber(issue.lineNumber());
             entity.setEventType(issue.eventType() != null ? issue.eventType() : "message");
+            entity.setRunId(issue.runId());
+            entity.setProvider(issue.provider());
+            entity.setModel(issue.model());
             entity.setOccurredAt(now);
             entity.setCreatedAt(now);
 
