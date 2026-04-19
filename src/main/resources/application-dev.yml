@@ -9,8 +9,16 @@ spring:
 
 clawboard:
   nas:
-    base-path: ./test/logs1   # Test directory
-    openclaw-dir: ""  # Empty - structure is already at agents level
-    accounts-csv-path: scripts/accounts.csv
+    base-path: ./test/session-transcript   # Test directory - Change this to your actual data path
+    # Examples:
+    # base-path: D:/CompanyData/OpenClaw    # Windows absolute path
+    # base-path: /mnt/nas                   # Linux NAS mount point
+    # base-path: C:/Users/YourName/.openclaw # Local OpenClaw data
+    
+    openclaw-dir: ""  # Empty for flat structure, or ".openclaw" for standard structure
+    # If your structure is: {basePath}/{employeeId}/.openclaw/agents/main/sessions/
+    # Then set: openclaw-dir: .openclaw
+    
+    accounts-csv-path: scripts/accounts.csv  # Employee ID mapping file
   reports:
     output-dir: scripts/reports  # Configurable reports directory

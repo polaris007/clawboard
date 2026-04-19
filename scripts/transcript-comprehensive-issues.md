@@ -1,6 +1,6 @@
 # OpenClaw Session Transcript 综合问题检测报告
 
-**生成时间**: 2026-04-18T14:17:22.631000Z
+**生成时间**: 2026-04-19T03:13:58.120000Z
 
 ## 📊 统计概览
 
@@ -28,6 +28,9 @@
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 牛伟峰
+- **工号**: 18100732
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -53,6 +56,9 @@
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 牛伟峰
+- **工号**: 18100732
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -78,6 +84,9 @@
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 牛伟峰
+- **工号**: 18100732
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -103,6 +112,9 @@
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 牛伟峰
+- **工号**: 18100732
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -128,6 +140,9 @@
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 牛伟峰
+- **工号**: 18100732
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -153,6 +168,9 @@
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 牛伟峰
+- **工号**: 18100732
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -178,6 +196,9 @@
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 牛伟峰
+- **工号**: 18100732
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -655,6 +676,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 刘海青
+- **工号**: 18100072
+- **部门**: 研发中心
 - **用户输入**: `System: [2026-03-30 11:28:31 UTC] [Post-compaction context refresh]
 System: 
 System: Session was just compacted. The conversation summary above is a hint, NOT a substitute for your startup sequence. E...`
@@ -674,6 +698,9 @@ System: Session was just compacted. The conversation summary above is a hint, NO
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 刘海青
+- **工号**: 18100072
+- **部门**: 研发中心
 - **用户输入**: `Pre-compaction memory flush. Store durable memories only in memory/2026-03-30.md (create memory/ if needed). Treat workspace bootstrap/reference files such as MEMORY.md, SOUL.md, TOOLS.md, and AGENTS....`
 - **错误信息**: 
 ````
@@ -691,6 +718,9 @@ System: Session was just compacted. The conversation summary above is a hint, NO
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 刘海青
+- **工号**: 18100072
+- **部门**: 研发中心
 - **用户输入**: `System: [2026-03-30 11:59:24 UTC] [Post-compaction context refresh]
 System: 
 System: Session was just compacted. The conversation summary above is a hint, NOT a substitute for your startup sequence. E...`
@@ -710,6 +740,9 @@ System: Session was just compacted. The conversation summary above is a hint, NO
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 刘海青
+- **工号**: 18100072
+- **部门**: 研发中心
 - **用户输入**: `Pre-compaction memory flush. Store durable memories only in memory/2026-03-30.md (create memory/ if needed). Treat workspace bootstrap/reference files such as MEMORY.md, SOUL.md, TOOLS.md, and AGENTS....`
 - **错误信息**: 
 ````
@@ -727,6 +760,9 @@ System: Session was just compacted. The conversation summary above is a hint, NO
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 刘海青
+- **工号**: 18100072
+- **部门**: 研发中心
 - **用户输入**: `System: [2026-03-30 12:02:07 UTC] [Post-compaction context refresh]
 System: 
 System: Session was just compacted. The conversation summary above is a hint, NOT a substitute for your startup sequence. E...`
@@ -746,6 +782,9 @@ System: Session was just compacted. The conversation summary above is a hint, NO
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 张凯磊
+- **工号**: 18100293
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -771,6 +810,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 张凯磊
+- **工号**: 18100293
+- **部门**: 研发中心
 - **用户输入**: `System: [2026-04-10 17:07:40 GMT+8] Exec failed (faint-ot, code 127) :: sh: 1: jq: not found
 System: [2026-04-10 17:08:10 GMT+8] Exec completed (fresh-da, code 0) :: -- 0 0 0 0 0 0 0 0 0 --:--:-- 0:00...`
 - **错误信息**: 
@@ -833,6 +875,9 @@ Sys...`
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 蓝启嵩
+- **工号**: 18101108
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1397,6 +1442,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1422,6 +1470,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1447,6 +1498,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1472,6 +1526,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1497,6 +1554,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1524,6 +1584,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1549,6 +1612,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1574,6 +1640,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1599,6 +1668,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1624,6 +1696,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `[Tue 2026-04-14 15:18 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
 
 [Subagent Task]: 请检查 /home/node/.openc...`
@@ -1643,6 +1718,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1668,6 +1746,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `[Tue 2026-04-14 15:05 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
 
 [Subagent Task]: 请读取 /home/node/.openc...`
@@ -1687,6 +1768,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `[Tue 2026-04-14 15:25 GMT+8] <<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>
 OpenClaw runtime context (internal):
 This context is runtime-generated, not user-authored. Keep internal details private.
@@ -1708,6 +1792,9 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1733,6 +1820,9 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1758,6 +1848,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1783,6 +1876,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1808,6 +1904,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1833,6 +1932,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1858,6 +1960,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `[Tue 2026-04-14 15:06 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
 
 [Subagent Task]: 请读取 /home/node/.openc...`
@@ -1877,6 +1982,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `System: [2026-04-15 13:45:13 GMT+8] Exec completed (wild-emb, code 0) :: Gateway service disabled. Start with: openclaw gateway install Start with: openclaw gateway Start with: systemctl --user start ...`
 - **错误信息**: 
 ````
@@ -1894,6 +2002,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1919,6 +2030,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1944,6 +2058,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1969,6 +2086,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -1994,6 +2114,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2019,6 +2142,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2044,6 +2170,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2069,6 +2198,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2094,6 +2226,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2119,6 +2254,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2144,6 +2282,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `A new session was started via /new or /reset. Execute your Session Startup sequence now - read the required files before responding to the user. Then greet the user in your configured persona, if one ...`
 - **错误信息**: 
 ````
@@ -2161,6 +2302,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `A new session was started via /new or /reset. Execute your Session Startup sequence now - read the required files before responding to the user. Then greet the user in your configured persona, if one ...`
 - **错误信息**: 
 ````
@@ -2178,6 +2322,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `A new session was started via /new or /reset. Execute your Session Startup sequence now - read the required files before responding to the user. Then greet the user in your configured persona, if one ...`
 - **错误信息**: 
 ````
@@ -2195,6 +2342,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `A new session was started via /new or /reset. Execute your Session Startup sequence now - read the required files before responding to the user. Then greet the user in your configured persona, if one ...`
 - **错误信息**: 
 ````
@@ -2212,6 +2362,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2237,6 +2390,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2262,6 +2418,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2287,6 +2446,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2312,6 +2474,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2337,6 +2502,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2362,6 +2530,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2387,6 +2558,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2413,6 +2587,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2438,6 +2615,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2463,6 +2643,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2488,6 +2671,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2513,6 +2699,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2538,6 +2727,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2563,6 +2755,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2588,6 +2783,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2613,6 +2811,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2638,6 +2839,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2663,6 +2867,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2688,6 +2895,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -2713,6 +2923,9 @@ Request was aborted.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -3454,6 +3667,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -3479,6 +3695,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -3504,6 +3723,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `System: [2026-04-03 02:13:06 UTC] [Post-compaction context refresh]
 System: 
 System: Session was just compacted. The conversation summary above is a hint, NOT a substitute for your startup sequence. E...`
@@ -3523,6 +3745,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -3548,6 +3773,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -3573,6 +3801,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Pre-compaction memory flush. Store durable memories only in memory/2026-03-31.md (create memory/ if needed). Treat workspace bootstrap/reference files such as MEMORY.md, SOUL.md, TOOLS.md, and AGENTS....`
 - **错误信息**: 
 ````
@@ -3590,6 +3821,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `System: [2026-03-31 09:24:04 UTC] [Post-compaction context refresh]
 System: 
 System: Session was just compacted. The conversation summary above is a hint, NOT a substitute for your startup sequence. E...`
@@ -3934,6 +4168,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **姓名**: 李一鸣
+- **工号**: 18100937
+- **部门**: 研发中心
 - **用户输入**: `[Mon 2026-04-13 10:15 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
 
 [Subagent Task]: 使用正确的 Base URL 调用 pol...`
@@ -3953,6 +4190,9 @@ Request was aborted
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
+- **姓名**: 李一鸣
+- **工号**: 18100937
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -4219,6 +4459,9 @@ LLM idle timeout (60s): no response from model
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 刘海青
+- **工号**: 18100072
+- **部门**: 研发中心
 - **用户输入**: `Pre-compaction memory flush. Store durable memories only in memory/2026-03-30.md (create memory/ if needed). Treat workspace bootstrap/reference files such as MEMORY.md, SOUL.md, TOOLS.md, and AGENTS....`
 - **错误信息**: 
 ````
@@ -4237,6 +4480,9 @@ aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 张凯磊
+- **工号**: 18100293
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -4263,6 +4509,9 @@ This operation was aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 张凯磊
+- **工号**: 18100293
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -4288,6 +4537,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 张凯磊
+- **工号**: 18100293
+- **部门**: 研发中心
 - **用户输入**: `System: [2026-04-10 17:07:40 GMT+8] Exec failed (faint-ot, code 127) :: sh: 1: jq: not found
 System: [2026-04-10 17:08:10 GMT+8] Exec completed (fresh-da, code 0) :: -- 0 0 0 0 0 0 0 0 0 --:--:-- 0:00...`
 - **错误信息**: 
@@ -4307,6 +4559,9 @@ This operation was aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 张凯磊
+- **工号**: 18100293
+- **部门**: 研发中心
 - **用户输入**: `System: [2026-04-10 17:07:40 GMT+8] Exec failed (faint-ot, code 127) :: sh: 1: jq: not found
 System: [2026-04-10 17:08:10 GMT+8] Exec completed (fresh-da, code 0) :: -- 0 0 0 0 0 0 0 0 0 --:--:-- 0:00...`
 - **错误信息**: 
@@ -4325,6 +4580,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 张凯磊
+- **工号**: 18100293
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -4371,6 +4629,9 @@ LLM idle timeout (60s): no response from model
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 蓝启嵩
+- **工号**: 18101108
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -4397,6 +4658,9 @@ aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 蓝启嵩
+- **工号**: 18101108
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5037,6 +5301,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5065,6 +5332,9 @@ aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5092,6 +5362,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5118,6 +5391,9 @@ aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5143,6 +5419,9 @@ Request was aborted.
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5169,6 +5448,9 @@ This operation was aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5194,6 +5476,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `[Tue 2026-04-14 15:06 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
 
 [Subagent Task]: 请使用 docx 技能处理 /home/n...`
@@ -5214,6 +5499,9 @@ LLM idle timeout (60s): no response from model
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5240,6 +5528,9 @@ aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5265,6 +5556,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5291,6 +5585,9 @@ This operation was aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5316,6 +5613,9 @@ Request was aborted.
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5342,6 +5642,9 @@ This operation was aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5367,6 +5670,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5393,6 +5699,9 @@ This operation was aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5418,6 +5727,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5444,6 +5756,9 @@ This operation was aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5469,6 +5784,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5496,6 +5814,9 @@ This operation was aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5522,6 +5843,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5548,6 +5872,9 @@ This operation was aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5573,6 +5900,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -5599,6 +5929,9 @@ This operation was aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -6182,6 +6515,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `[未找到user消息]`
 - **错误信息**: 
 ````
@@ -6200,6 +6536,9 @@ aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -6226,6 +6565,9 @@ This operation was aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -6251,6 +6593,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -6277,6 +6622,9 @@ This operation was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `System: [2026-04-03 02:13:06 UTC] [Post-compaction context refresh]
 System: 
 System: Session was just compacted. The conversation summary above is a hint, NOT a substitute for your startup sequence. E...`
@@ -6297,6 +6645,9 @@ aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `System: [2026-04-03 02:13:06 UTC] [Post-compaction context refresh]
 System: 
 System: Session was just compacted. The conversation summary above is a hint, NOT a substitute for your startup sequence. E...`
@@ -6316,6 +6667,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Pre-compaction memory flush. Store durable memories only in memory/2026-03-30.md (create memory/ if needed). Treat workspace bootstrap/reference files such as MEMORY.md, SOUL.md, TOOLS.md, and AGENTS....`
 - **错误信息**: 
 ````
@@ -6334,6 +6688,9 @@ aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `[未找到user消息]`
 - **错误信息**: 
 ````
@@ -6429,6 +6786,9 @@ Request was aborted
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
+- **姓名**: 李一鸣
+- **工号**: 18100937
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -6455,6 +6815,9 @@ This operation was aborted
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
+- **姓名**: 李一鸣
+- **工号**: 18100937
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -6584,6 +6947,9 @@ LLM idle timeout (60s): no response from model
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `[Tue 2026-04-14 15:06 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
 
 [Subagent Task]: 请使用 docx 技能处理 /home/n...`
@@ -6960,6 +7326,9 @@ LLM idle timeout (60s): no response from model
 
 - **事件类型**: `message`
 - **描述**: Assistant调用工具后的下一条消息角色是"assistant"，而非预期的toolResult
+- **姓名**: 蓝启嵩
+- **工号**: 18101108
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -7292,6 +7661,9 @@ Line 30: {"timestamp": "2026-04-03T05:57:05.661Z", "message": {"timestamp": 1775
 
 - **事件类型**: `message`
 - **描述**: Assistant调用工具后的下一条消息角色是"assistant"，而非预期的toolResult
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -7324,6 +7696,9 @@ Line 11: {"timestamp": "2026-04-07T07:11:42.769Z", "message": {"idempotencyKey":
 
 - **事件类型**: `message`
 - **描述**: Assistant调用工具后的下一条消息角色是"assistant"，而非预期的toolResult
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -7356,6 +7731,9 @@ Line 53: {"timestamp": "2026-04-09T09:47:03.558Z", "message": {"idempotencyKey":
 
 - **事件类型**: `message`
 - **描述**: Assistant调用工具后的下一条消息角色是"assistant"，而非预期的toolResult
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -7422,6 +7800,9 @@ Line 29: {"timestamp": "2026-04-15T01:19:35.561Z", "message": {"idempotencyKey":
 
 - **事件类型**: `message`
 - **描述**: 用户提问后的下一条消息角色是"toolResult"，而非预期的assistant
+- **姓名**: 程缤瑶
+- **工号**: 18101151
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -7454,6 +7835,9 @@ Line 8: {"timestamp": "2026-04-15T05:47:32.843Z", "message": {"timestamp": 17762
 
 - **事件类型**: `message`
 - **描述**: 用户提问后没有任何回复（文件在此结束）
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -7483,6 +7867,9 @@ Line 72: {"timestamp": "2026-04-09T09:29:14.877Z", "message": {"content": [{"tex
 
 - **事件类型**: `message`
 - **描述**: 用户提问后没有任何回复（文件在此结束）
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Pre-compaction memory flush. Store durable memories only in memory/2026-04-02.md (create memory/ if needed). Treat workspace bootstrap/reference files such as MEMORY.md, SOUL.md, TOOLS.md, and AGENTS....`
 - **错误信息**: 
 ````
@@ -7504,6 +7891,9 @@ Line 148: {"timestamp": "2026-04-02T08:56:03.465Z", "message": {"content": [{"te
 
 - **事件类型**: `message`
 - **描述**: 用户提问后没有任何回复（文件在此结束）
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Pre-compaction memory flush. Store durable memories only in memory/2026-04-02.md (create memory/ if needed). Treat workspace bootstrap/reference files such as MEMORY.md, SOUL.md, TOOLS.md, and AGENTS....`
 - **错误信息**: 
 ````
@@ -7525,6 +7915,9 @@ Line 84: {"timestamp": "2026-04-02T15:05:05.579Z", "message": {"content": [{"tex
 
 - **事件类型**: `message`
 - **描述**: 用户提问后没有任何回复（文件在此结束）
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Pre-compaction memory flush. Store durable memories only in memory/2026-04-02.md (create memory/ if needed). Treat workspace bootstrap/reference files such as MEMORY.md, SOUL.md, TOOLS.md, and AGENTS....`
 - **错误信息**: 
 ````
@@ -7546,6 +7939,9 @@ Line 59: {"timestamp": "2026-04-02T09:27:00.471Z", "message": {"content": [{"tex
 
 - **事件类型**: `message`
 - **描述**: 用户提问后的下一条消息角色是"toolResult"，而非预期的assistant
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -7578,6 +7974,9 @@ Line 12: {"timestamp": "2026-03-25T08:24:58.566Z", "message": {"timestamp": 1774
 
 - **事件类型**: `message`
 - **描述**: 用户提问后没有任何回复（文件在此结束）
+- **姓名**: 曹睿
+- **工号**: 18100774
+- **部门**: 研发中心
 - **用户输入**: `Sender (untrusted metadata):
 \`\`\`json
 {
@@ -7762,6 +8161,9 @@ Line 19: {"timestamp": "2026-04-15T05:12:50.453Z", "message": {"timestamp": 1776
 
 - **事件类型**: `message`
 - **描述**: 工具执行完成后没有Assistant的最终回复（文件在此结束）
+- **姓名**: 任健鑫
+- **工号**: 18101138
+- **部门**: 研发中心
 - **用户输入**: `[Tue 2026-04-14 15:18 GMT+8] <<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>
 OpenClaw runtime context (internal):
 This context is runtime-generated, not user-authored. Keep internal details private.
