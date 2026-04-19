@@ -34,6 +34,8 @@ clawboard:
       - "A new session was started"
       - "Run your Session Startup sequence"
       - "Read HEARTBEAT.md"
+      - "<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>"
+      - "System: ["
       - "<inbound_metadata>"
       - "<openclaw-envelope>"
     delivery-mirror-filter: true

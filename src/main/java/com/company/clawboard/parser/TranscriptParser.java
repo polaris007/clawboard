@@ -65,9 +65,14 @@ public class TranscriptParser {
             return new ParsedTranscript(null, List.of(), List.of(), List.of(), List.of());
         }
 
+        // If no session ID found, use filename as fallback (matching Python behavior)
         if (sessionId == null) {
-            log.warn("No session ID found in file: {}", filePath);
-            return new ParsedTranscript(null, List.of(), List.of(), List.of(), List.of());
+            String fileName = filePath.getFileName().toString();
+            // Extract base filename without extensions (e.g., "xxx.jsonl.reset.2026-04-13" -> "xxx")
+            sessionId = fileName.contains(".jsonl") ? 
+                fileName.substring(0, fileName.indexOf(".jsonl")) : 
+                fileName;
+            log.debug("No session ID found in file: {}, using filename as sessionId: {}", filePath, sessionId);
         }
 
         // Detect issues

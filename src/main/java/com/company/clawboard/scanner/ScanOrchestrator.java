@@ -14,9 +14,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
@@ -50,6 +53,9 @@ public class ScanOrchestrator {
     // Concurrency control
     private final AtomicBoolean scanning = new AtomicBoolean(false);
     private volatile Long currentScanId = null;
+    
+    // Thread-safe set to collect all scanned file paths (relative to base path)
+    private Set<String> scannedFilePaths;
     
     public boolean isScanning() { return scanning.get(); }
     public Long getCurrentScanId() { return currentScanId; }
@@ -105,6 +111,9 @@ public class ScanOrchestrator {
                 accountsReader.loadFromCsv(csvFilePath);
                 log.info("Loaded {} employee mappings", accountsReader.getEmployeeCount());
             }
+
+            // Initialize file path collection
+            scannedFilePaths = ConcurrentHashMap.newKeySet();
 
             // Step 2: Scan users
             var users = userScanner.scanUsers();
@@ -187,6 +196,13 @@ public class ScanOrchestrator {
                 // Don't fail the scan if report generation fails
             }
 
+            // Save scanned files list for comparison with Python
+            try {
+                saveScannedFilesList();
+            } catch (Exception e) {
+                log.error("Failed to save scanned files list", e);
+            }
+
             return scanId;
 
         } catch (Exception e) {
@@ -259,6 +275,17 @@ public class ScanOrchestrator {
                 totalFiles += jsonlFiles.size();
                 log.info("Agent {}: found {} transcript files", agentDir.getName(), jsonlFiles.size());
                 
+                // Collect file paths for comparison (relative to base path)
+                Path basePathObj = Path.of(basePath);
+                for (Path jsonlFile : jsonlFiles) {
+                    try {
+                        String relativePath = basePathObj.relativize(jsonlFile).toString();
+                        scannedFilePaths.add(relativePath);
+                    } catch (Exception e) {
+                        log.debug("Failed to compute relative path for: {}", jsonlFile, e);
+                    }
+                }
+                
                 // Process each file sequentially within this user's thread
                 for (Path jsonlFile : jsonlFiles) {
                     try {
@@ -267,8 +294,9 @@ public class ScanOrchestrator {
                         // Parse transcript file
                         var parsed = transcriptParser.parseFile(jsonlFile, employeeId);
                         
+                        // Defensive check: skip if sessionId is still null (should not happen after TranscriptParser fix)
                         if (parsed.sessionId() == null) {
-                            log.warn("Skipping file with no session ID: {}", jsonlFile);
+                            log.debug("Skipping file with no session ID (unexpected): {}", jsonlFile);
                             skippedFiles++;
                             continue;
                         }
@@ -411,6 +439,28 @@ public class ScanOrchestrator {
         
         // Fallback: use username as-is (might be truncated hash)
         return username;
+    }
+    
+    /**
+     * Save scanned files list to a text file for comparison with Python
+     */
+    private void saveScannedFilesList() throws IOException {
+        if (scannedFilePaths == null || scannedFilePaths.isEmpty()) {
+            log.warn("No scanned files to save");
+            return;
+        }
+        
+        // Create report directory
+        String reportDir = "scripts/reports/" + LocalDateTime.now().toString().substring(0, 10);
+        Path reportPath = Path.of(reportDir);
+        Files.createDirectories(reportPath);
+        
+        // Save file list
+        Path filePath = reportPath.resolve("java-scanned-files.txt");
+        List<String> sortedPaths = scannedFilePaths.stream().sorted().toList();
+        Files.write(filePath, sortedPaths);
+        
+        log.info("Java scanned files list saved to: {} ({} files)", filePath.toAbsolutePath(), sortedPaths.size());
     }
     
     /**

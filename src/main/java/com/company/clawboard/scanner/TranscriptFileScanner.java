@@ -58,13 +58,9 @@ public class TranscriptFileScanner {
                     fileCount.incrementAndGet();
                     String fileName = file.getFileName().toString();
                     
-                    // Match files ending with .jsonl but exclude temporary/backup files
-                    if (fileName.endsWith(".jsonl") && 
-                        !fileName.contains(".deleted") && 
-                        !fileName.contains(".checkpoint") && 
-                        !fileName.contains(".reset") && 
-                        !fileName.contains(".bak-") &&
-                        !fileName.endsWith(".swp")) {
+                    // Scan ALL files containing ".jsonl" in filename (no filtering)
+                    // Duplicate data will be handled by database batchInsertIgnore
+                    if (fileName.contains(".jsonl")) {
                         jsonlFiles.add(file);
                     }
                     

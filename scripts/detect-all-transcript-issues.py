@@ -54,7 +54,6 @@ if sys.version_info[0] == 2:
     sys.setdefaultencoding('utf-8')
 
     # 设置 PYTHONIOENCODING 环境变量，确保所有 I/O 使用 UTF-8
-    import os
     os.environ['PYTHONIOENCODING'] = 'utf-8'
 
     # Windows 控制台编码修复
@@ -905,6 +904,18 @@ def _find_jsonl_files_walk(dir_path):
     safe_print('   ✅ 扫描完成：共遍历 %d 个目录，%d 个文件，找到 %d 个 JSONL 文件 (%.1f秒)\n' % (
         dir_count, file_count, len(results), elapsed_time))
 
+    # Save scanned files list for comparison
+    report_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'reports', datetime.now().strftime('%Y-%m-%d'))
+    if not os.path.exists(report_dir):
+        os.makedirs(report_dir)
+    files_list_path = os.path.join(report_dir, 'python-scanned-files.txt')
+    with open(files_list_path, 'w') as f:
+        for file_path in sorted(results):
+            # Use relative path from base directory for easier comparison
+            rel_path = os.path.relpath(file_path, dir_path)
+            f.write(rel_path + '\n')
+    safe_print('   [INFO] Python scanned files list saved to: %s\n' % files_list_path)
+
     return results
 
 
@@ -1240,12 +1251,12 @@ def main():
             transcript_dir = custom_dir
         else:
             transcript_dir = os.path.join(os.getcwd(), custom_dir)
-        safe_print('📂 使用自定义路径: %s\n' % transcript_dir)
+        safe_print('[INFO] Using custom path: %s\n' % transcript_dir)
     else:
         script_dir = os.path.dirname(os.path.abspath(__file__))
         transcript_dir = os.path.join(
             script_dir, '..', 'logs', 'session-transcript', 'openclaw-logs')
-        safe_print('📂 使用默认路径: %s\n' % transcript_dir)
+        safe_print('[INFO] Using default path: %s\n' % transcript_dir)
 
     if not os.path.exists(transcript_dir):
         safe_print('❌ Transcript directory not found: %s' % transcript_dir)
