@@ -7,10 +7,6 @@ spring:
     username: ${DB_USER:root}
     password: ${DB_PASS:}
     driver-class-name: com.mysql.cj.jdbc.Driver
-  flyway:
-    enabled: false
-    locations: classpath:db/migration
-    baseline-on-migrate: true
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

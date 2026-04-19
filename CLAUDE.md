@@ -63,3 +63,11 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+
+# 测试环境配置
+1. 测试环境使用的是MySQL 5.7，服务器地址：127.0.0.1，端口：3306，用户名：clawboard，密码：Clqc@1234，数据库：clawboard
+2. JAVA安装在D:\Program Files\Java\jdk-17.0.18
+3. Maven安装在F:\Program\Maven\apache-maven-3.9.15 .m2的位置在：I:\m2
+4. MySQL在F:\Program\Database\mysql-5.7.44-winx64，数据库已经启动，账号和数据库也已经建了，并配置了权限
+5. scrpts\detect-all-transcript-issues.py是Python 2.7的脚本，需要用D:\Python27来执行

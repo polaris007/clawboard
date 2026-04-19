@@ -23,6 +23,7 @@ public class DashboardMessage {
     private String stopReason;
     private Integer durationMs;
     private Integer isError;
+    private String errorMessage;  // Added for storing detailed error messages
     private String toolName;
     private String toolCallId;
     private String parentId;

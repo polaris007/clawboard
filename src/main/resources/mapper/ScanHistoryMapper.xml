@@ -37,9 +37,41 @@
 
     <update id="updateStatus">
         UPDATE dashboard_scan_history
-        SET status = #{status}, finished_at = NOW(), duration_ms = #{durationMs}
+        SET status = #{status}, 
+            finished_at = NOW(), 
+            duration_ms = #{durationMs}
         <if test="errorMessage != null">
             , error_message = #{errorMessage}
+        </if>
+        <if test="usersScanned != null">
+            , users_scanned = #{usersScanned}
+        </if>
+        <if test="dirsScanned != null">
+            , dirs_scanned = #{dirsScanned}
+        </if>
+        <if test="filesTotal != null">
+            , files_total = #{filesTotal}
+        </if>
+        <if test="filesProcessed != null">
+            , files_processed = #{filesProcessed}
+        </if>
+        <if test="filesSkipped != null">
+            , files_skipped = #{filesSkipped}
+        </if>
+        <if test="filesError != null">
+            , files_error = #{filesError}
+        </if>
+        <if test="newMessages != null">
+            , new_messages = #{newMessages}
+        </if>
+        <if test="newTurns != null">
+            , new_turns = #{newTurns}
+        </if>
+        <if test="newIssues != null">
+            , new_issues = #{newIssues}
+        </if>
+        <if test="newSkillCalls != null">
+            , new_skill_calls = #{newSkillCalls}
         </if>
         WHERE id = #{id}
     </update>

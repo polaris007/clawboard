@@ -119,15 +119,11 @@ public class IssueDetector {
         }
 
         // Check for abnormal stop reasons
-        // Skip if already detected as error pattern (to avoid double counting)
+        // Note: We check this regardless of hasErrorPattern to capture both error details and stop reason
         if ("assistant".equals(msg.role()) && msg.stopReason() != null && !msg.stopReason().isEmpty()) {
             String stopReason = msg.stopReason();
             
-            // If stop reason is 'error' or 'aborted' and we already detected an error pattern,
-            // skip abnormal_stop detection to avoid double counting
-            if (("error".equals(stopReason) || "aborted".equals(stopReason)) && hasErrorPattern) {
-                // Already counted in error pattern detection, skip
-            } else if (!NORMAL_STOP_REASONS.contains(stopReason)) {
+            if (!NORMAL_STOP_REASONS.contains(stopReason)) {
                 String errorMsg = msg.errorMessage() != null ? msg.errorMessage() : "Unexpected stop reason: " + stopReason;
                 String severity = ("aborted".equals(stopReason) || "error".equals(stopReason)) ? "high" : "medium";
                 

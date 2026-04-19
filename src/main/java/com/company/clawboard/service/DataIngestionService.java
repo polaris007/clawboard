@@ -30,6 +30,7 @@ public class DataIngestionService {
     private final ConversationTurnMapper turnMapper;
     private final SkillInvocationMapper skillMapper;
     private final TranscriptIssueMapper issueMapper;
+    private final SessionSummaryMapper sessionSummaryMapper;
 
     /**
      * Ingest parsed transcript data into database
@@ -77,6 +78,10 @@ public class DataIngestionService {
             log.debug("Inserted {} issues for session {}", inserted, sessionId);
         }
 
+        // Step 5: Update session summary
+        updateSessionSummary(scanId, sessionId, employeeId, 
+            messages.size(), turns.size(), skills.size(), issues.size(), now);
+
         log.info("Ingested session {}: {} messages, {} turns, {} skills, {} issues",
                 sessionId, messages.size(), turns.size(), skills.size(), issues.size());
     }
@@ -120,6 +125,7 @@ public class DataIngestionService {
             entity.setStopReason(msg.stopReason());
             entity.setDurationMs(msg.durationMs());
             entity.setIsError(msg.isError() ? 1 : 0);
+            entity.setErrorMessage(msg.errorMessage());  // Added for storing error messages
             
             // Extract tool information if present
             if (msg.toolCalls() != null && !msg.toolCalls().isEmpty()) {
@@ -263,5 +269,40 @@ public class DataIngestionService {
         entity.setSkillCallsCount(0);
         entity.setSkillCallsSuccess(0);
         entity.setSkillCallsError(0);
+    }
+
+    /**
+     * Update session summary with incremental data
+     * Uses upsert to handle both new and existing sessions
+     */
+    private void updateSessionSummary(Long scanId, String sessionId, String employeeId,
+                                      int messageCount, int turnCount, 
+                                      int skillCount, int issueCount,
+                                      LocalDateTime now) {
+        try {
+            // Find first and last message timestamps from the messages list
+            // For now, use current time as approximation
+            // TODO: Extract actual timestamps from parsed messages
+            
+            DashboardSessionSummary summary = new DashboardSessionSummary();
+            summary.setSessionId(sessionId);
+            summary.setEmployeeId(employeeId);
+            summary.setAgentName("main"); // Default agent name, can be extracted from path
+            summary.setTotalMessages(messageCount);
+            summary.setTotalTurns(turnCount);
+            summary.setTotalIssues(issueCount);
+            summary.setTotalSkills(skillCount);
+            summary.setFirstMessageAt(now);
+            summary.setLastMessageAt(now);
+            summary.setLastScanId(scanId);
+            summary.setLastUpdatedAt(now);
+            
+            // Upsert will incrementally update counts
+            sessionSummaryMapper.upsert(summary);
+            log.debug("Updated session summary for {}", sessionId);
+        } catch (Exception e) {
+            log.error("Failed to update session summary for {}", sessionId, e);
+            // Don't fail the ingestion if summary update fails
+        }
     }
 }

@@ -22,6 +22,7 @@ public class TranscriptParser {
     private final SkillDetector skillDetector;
     private final IssueDetector issueDetector;
     private final TurnAssembler turnAssembler;
+    private final FlowIntegrityChecker flowIntegrityChecker;
 
     public record ParsedTranscript(
         String sessionId,
@@ -75,11 +76,14 @@ public class TranscriptParser {
             log.debug("No session ID found in file: {}, using filename as sessionId: {}", filePath, sessionId);
         }
 
-        // Detect issues
+        // Detect issues (single message level)
         List<IssueDetector.DetectedIssue> allIssues = new ArrayList<>();
         for (MessageRecord msg : messages) {
             allIssues.addAll(issueDetector.detectIssues(msg));
         }
+
+        // Check flow integrity (session level)
+        allIssues.addAll(flowIntegrityChecker.checkFlowIntegrity(messages));
 
         // Detect skill invocations
         List<SkillInvocation> skillInvocations = new ArrayList<>();

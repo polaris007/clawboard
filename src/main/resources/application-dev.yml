@@ -4,8 +4,6 @@ spring:
     username: clawboard
     password: Clqc@1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-  flyway:
-    enabled: false  # Disabled for MySQL 5.7 compatibility
 
 clawboard:
   nas:

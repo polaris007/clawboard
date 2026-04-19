@@ -346,12 +346,23 @@ public class ScanOrchestrator {
                 errorMessage.substring(0, 1000) : errorMessage);
         }
         
-        if ("completed".equals(status)) {
-            scanHistoryMapper.updateStatus(scanId, status, history.getDurationMs(), null);
-        } else {
-            scanHistoryMapper.updateStatus(scanId, status, history.getDurationMs(), 
-                history.getErrorMessage());
-        }
+        // Update scan history with all statistics
+        scanHistoryMapper.updateStatus(
+            scanId, 
+            status, 
+            history.getDurationMs(), 
+            history.getErrorMessage(),
+            history.getUsersScanned(),
+            history.getDirsScanned(),
+            history.getFilesTotal(),
+            history.getFilesProcessed(),
+            history.getFilesSkipped(),
+            history.getFilesError(),
+            history.getNewMessages(),
+            history.getNewTurns(),
+            history.getNewIssues(),
+            history.getNewSkillCalls()
+        );
     }
     
     /**
