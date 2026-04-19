@@ -168,4 +168,12 @@ public class AccountsCsvReader {
     public int getEmployeeCount() {
         return employeeMap.size();
     }
+    
+    /**
+     * Get all loaded employees
+     * @return Collection of EmployeeInfo objects
+     */
+    public java.util.Collection<EmployeeInfo> getAllEmployees() {
+        return employeeMap.values();
+    }
 }

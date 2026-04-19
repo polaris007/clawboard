@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -200,6 +201,10 @@ public class ScanOrchestrator {
     
     /**
      * Scan a single user's directory (executed in parallel for different users)
+     * 
+     * Supports both standard and hash-based directory structures:
+     * - Standard: basePath/username/openclawDir/agents/main/sessions
+     * - Hash-based: basePath/{sha512_hash}/agents/{agentName}/sessions
      */
     private UserScanResult scanUserDirectory(String username, Long scanId) {
         int totalFiles = 0;
@@ -212,70 +217,86 @@ public class ScanOrchestrator {
         int totalSkills = 0;
         
         try {
-            // Build user's openclaw directory path
             String basePath = properties.getNas().getBasePath();
             String openclawDir = properties.getNas().getOpenclawDir();
             
-            Path userDir;
-            if (openclawDir != null && !openclawDir.isEmpty()) {
-                // Standard structure: basePath/username/openclawDir/agents/main/sessions
-                userDir = Path.of(basePath, username, openclawDir, "agents", "main", "sessions");
-            } else {
-                // Flat structure: basePath/agents/main/sessions (for testing)
-                userDir = Path.of(basePath, "agents", "main", "sessions");
-            }
-
-            if (!userDir.toFile().exists()) {
-                log.debug("User sessions directory not found: {}", userDir);
+            // Find the hash directory for this user
+            Path userHashDir = findUserHashDirectory(basePath, username);
+            
+            if (userHashDir == null || !userHashDir.toFile().exists()) {
+                log.debug("User directory not found for: {}", username);
                 return new UserScanResult(0, 0, 0, 0, 0, 0, 0, 0);
             }
-
-            // Scan for JSONL files
-            List<Path> jsonlFiles = fileScanner.scanForJsonlFiles(userDir);
-            totalFiles = jsonlFiles.size();
-            log.info("User {}: found {} transcript files", username, jsonlFiles.size());
-
-            // Process each file sequentially within this user's thread
-            for (Path jsonlFile : jsonlFiles) {
-                try {
-                    // Extract employee info from path
-                    AccountsCsvReader.EmployeeInfo employee = accountsReader.extractEmployeeFromPath(jsonlFile);
-                    String employeeId = employee != null ? employee.getEmployeeId() : "unknown";
-
-                    log.debug("Processing file: {} (employee: {})", jsonlFile.getFileName(), employeeId);
-
-                    // Parse transcript file
-                    var parsed = transcriptParser.parseFile(jsonlFile, employeeId);
-
-                    if (parsed.sessionId() == null) {
-                        log.warn("Skipping file with no session ID: {}", jsonlFile);
-                        skippedFiles++;
-                        continue;
+            
+            // Scan all agent directories under this hash directory
+            Path agentsDir = userHashDir.resolve("agents");
+            if (!agentsDir.toFile().exists() || !agentsDir.toFile().isDirectory()) {
+                log.debug("Agents directory not found: {}", agentsDir);
+                return new UserScanResult(0, 0, 0, 0, 0, 0, 0, 0);
+            }
+            
+            // Get employee info
+            String employeeId = resolveEmployeeId(username);
+            log.info("Scanning user {} (employee ID: {})", username, employeeId);
+            
+            // Scan all agent subdirectories (e.g., "main", or other names)
+            File[] agentDirs = agentsDir.toFile().listFiles(File::isDirectory);
+            if (agentDirs == null || agentDirs.length == 0) {
+                log.debug("No agent directories found under: {}", agentsDir);
+                return new UserScanResult(0, 0, 0, 0, 0, 0, 0, 0);
+            }
+            
+            // Process each agent directory
+            for (File agentDir : agentDirs) {
+                Path sessionsDir = agentDir.toPath().resolve("sessions");
+                if (!sessionsDir.toFile().exists()) {
+                    log.debug("Sessions directory not found: {}", sessionsDir);
+                    continue;
+                }
+                
+                // Scan for JSONL files in this agent's sessions directory
+                List<Path> jsonlFiles = fileScanner.scanForJsonlFiles(sessionsDir);
+                totalFiles += jsonlFiles.size();
+                log.info("Agent {}: found {} transcript files", agentDir.getName(), jsonlFiles.size());
+                
+                // Process each file sequentially within this user's thread
+                for (Path jsonlFile : jsonlFiles) {
+                    try {
+                        log.debug("Processing file: {} (employee: {})", jsonlFile.getFileName(), employeeId);
+                        
+                        // Parse transcript file
+                        var parsed = transcriptParser.parseFile(jsonlFile, employeeId);
+                        
+                        if (parsed.sessionId() == null) {
+                            log.warn("Skipping file with no session ID: {}", jsonlFile);
+                            skippedFiles++;
+                            continue;
+                        }
+                        
+                        // Batch insert into database
+                        dataIngestionService.ingestParsedTranscript(scanId, employeeId, parsed);
+                        
+                        int msgCount = parsed.messages().size();
+                        int turnCount = parsed.turns().size();
+                        int issueCount = parsed.issues().size();
+                        int skillCount = parsed.skillInvocations().size();
+                        
+                        totalMessages += msgCount;
+                        totalTurns += turnCount;
+                        totalIssues += issueCount;
+                        totalSkills += skillCount;
+                        processedFiles++;
+                        
+                        log.debug("Parsed file: {} messages, {} turns, {} issues, {} skills",
+                                msgCount, turnCount, issueCount, skillCount);
+                        
+                    } catch (Exception e) {
+                        log.error("Failed to process file: {}", jsonlFile, e);
+                        errorFiles++;
                     }
-
-                    // Batch insert into database
-                    dataIngestionService.ingestParsedTranscript(scanId, employeeId, parsed);
-                    
-                    int msgCount = parsed.messages().size();
-                    int turnCount = parsed.turns().size();
-                    int issueCount = parsed.issues().size();
-                    int skillCount = parsed.skillInvocations().size();
-
-                    totalMessages += msgCount;
-                    totalTurns += turnCount;
-                    totalIssues += issueCount;
-                    totalSkills += skillCount;
-                    processedFiles++;
-
-                    log.debug("Parsed file: {} messages, {} turns, {} issues, {} skills",
-                            msgCount, turnCount, issueCount, skillCount);
-
-                } catch (Exception e) {
-                    log.error("Failed to process file: {}", jsonlFile, e);
-                    errorFiles++;
                 }
             }
-
+            
         } catch (Exception e) {
             log.error("Failed to scan user: {}", username, e);
         }
@@ -303,6 +324,93 @@ public class ScanOrchestrator {
             scanHistoryMapper.updateStatus(scanId, status, history.getDurationMs(), 
                 history.getErrorMessage());
         }
+    }
+    
+    /**
+     * Find the hash-based directory for a user
+     * 
+     * @param basePath Base path containing hash directories
+     * @param username Employee ID or truncated hash
+     * @return Path to the hash directory, or null if not found
+     */
+    private Path findUserHashDirectory(String basePath, String username) {
+        File baseDir = new File(basePath);
+        if (!baseDir.exists() || !baseDir.isDirectory()) {
+            return null;
+        }
+        
+        // If username looks like a full SHA512 hash (128 hex chars), use it directly
+        if (username.length() == 128 && username.matches("[0-9a-f]+")) {
+            Path hashDir = Path.of(basePath, username);
+            if (hashDir.toFile().exists()) {
+                return hashDir;
+            }
+        }
+        
+        // Otherwise, search for matching hash directory
+        File[] hashDirs = baseDir.listFiles(File::isDirectory);
+        if (hashDirs != null) {
+            for (File hashDir : hashDirs) {
+                String dirName = hashDir.getName();
+                
+                // Check if this is a valid hash directory (has 'agents' subdirectory)
+                Path agentsPath = hashDir.toPath().resolve("agents");
+                if (!agentsPath.toFile().exists()) {
+                    continue;
+                }
+                
+                // Try to match by employee ID
+                AccountsCsvReader.EmployeeInfo employee = accountsReader.getEmployeeByHash(dirName);
+                if (employee != null && username.equals(employee.getEmployeeId())) {
+                    return hashDir.toPath();
+                }
+                
+                // Try prefix matching (for truncated hashes)
+                if (dirName.startsWith(username) || username.startsWith(dirName.substring(0, Math.min(16, dirName.length())))) {
+                    log.debug("Found matching hash directory: {} for username: {}", dirName, username);
+                    return hashDir.toPath();
+                }
+            }
+        }
+        
+        log.warn("Could not find hash directory for username: {}", username);
+        return null;
+    }
+    
+    /**
+     * Resolve employee ID from username (which could be employee ID or truncated hash)
+     * 
+     * @param username Username/identifier from UserScanner
+     * @return Employee ID or "unknown"
+     */
+    private String resolveEmployeeId(String username) {
+        // If username is already an employee ID (from accounts.csv), return it
+        var employees = accountsReader.getAllEmployees();
+        for (var emp : employees) {
+            if (username.equals(emp.getEmployeeId())) {
+                return username;
+            }
+        }
+        
+        // If username looks like a hash, try to find matching employee
+        if (username.length() >= 16 && username.matches("[0-9a-f]+")) {
+            File baseDir = new File(properties.getNas().getBasePath());
+            File[] hashDirs = baseDir.listFiles(File::isDirectory);
+            if (hashDirs != null) {
+                for (File hashDir : hashDirs) {
+                    String dirName = hashDir.getName();
+                    if (dirName.startsWith(username) || username.startsWith(dirName.substring(0, Math.min(16, dirName.length())))) {
+                        AccountsCsvReader.EmployeeInfo employee = accountsReader.getEmployeeByHash(dirName);
+                        if (employee != null) {
+                            return employee.getEmployeeId();
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Fallback: use username as-is (might be truncated hash)
+        return username;
     }
     
     /**
