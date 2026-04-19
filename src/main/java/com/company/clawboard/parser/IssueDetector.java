@@ -132,26 +132,6 @@ public class IssueDetector {
                         continue;
                     }
                 }
-
-                if (issues.isEmpty()) {
-                    issues.add(new DetectedIssue(
-                        "ASSISTANT_ERROR",
-                        "high",
-                        "Assistant returned an error message",
-                        truncate(errorMsg, 500),
-                        "message",
-                        null,
-                        "助手返回了错误消息，可能是模型API调用失败或参数错误",
-                        null,
-                        null,
-                        null,
-                        msg.lineNumber(),
-                        null,
-                        msg.provider(),
-                        msg.model(),
-                        msg.id()
-                    ));
-                }
             }
         }
 
@@ -180,26 +160,6 @@ public class IssueDetector {
                     msg.id()
                 ));
             }
-        }
-
-        if (msg.isError()) {
-            issues.add(new DetectedIssue(
-                "TOOL_ERROR",
-                "medium",
-                "Tool execution failed: " + msg.toolName(),
-                msg.textContent(),
-                "toolResult",
-                null,
-                "工具执行失败，可能是权限不足、参数错误或外部服务不可用",
-                null,
-                null,
-                null,
-                msg.lineNumber(),
-                null,
-                null,
-                null,
-                msg.id()
-            ));
         }
 
         return issues;
