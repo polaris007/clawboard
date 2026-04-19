@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.clawboard.mapper.SessionSummaryMapper">
+
+    <resultMap id="BaseResultMap" type="com.company.clawboard.entity.DashboardSessionSummary">
+        <id column="session_id" property="sessionId"/>
+        <result column="employee_id" property="employeeId"/>
+        <result column="agent_name" property="agentName"/>
+        <result column="total_messages" property="totalMessages"/>
+        <result column="total_turns" property="totalTurns"/>
+        <result column="total_issues" property="totalIssues"/>
+        <result column="total_skills" property="totalSkills"/>
+        <result column="first_message_at" property="firstMessageAt"/>
+        <result column="last_message_at" property="lastMessageAt"/>
+        <result column="last_scan_id" property="lastScanId"/>
+        <result column="last_updated_at" property="lastUpdatedAt"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <!-- Upsert single session summary -->
+    <insert id="upsert">
+        INSERT INTO dashboard_session_summary (
+            session_id, employee_id, agent_name, total_messages, total_turns,
+            total_issues, total_skills, first_message_at, last_message_at,
+            last_scan_id, last_updated_at
+        ) VALUES (
+            #{sessionId}, #{employeeId}, #{agentName}, #{totalMessages}, #{totalTurns},
+            #{totalIssues}, #{totalSkills}, #{firstMessageAt}, #{lastMessageAt},
+            #{lastScanId}, #{lastUpdatedAt}
+        )
+        ON DUPLICATE KEY UPDATE
+            employee_id = VALUES(employee_id),
+            agent_name = VALUES(agent_name),
+            total_messages = total_messages + VALUES(total_messages),
+            total_turns = total_turns + VALUES(total_turns),
+            total_issues = total_issues + VALUES(total_issues),
+            total_skills = total_skills + VALUES(total_skills),
+            first_message_at = LEAST(VALUES(first_message_at), IFNULL(first_message_at, '9999-12-31')),
+            last_message_at = GREATEST(VALUES(last_message_at), IFNULL(last_message_at, '0000-01-01')),
+            last_scan_id = VALUES(last_scan_id),
+            last_updated_at = VALUES(last_updated_at)
+    </insert>
+
+    <!-- Batch upsert session summaries -->
+    <insert id="batchUpsert">
+        INSERT INTO dashboard_session_summary (
+            session_id, employee_id, agent_name, total_messages, total_turns,
+            total_issues, total_skills, first_message_at, last_message_at,
+            last_scan_id, last_updated_at
+        ) VALUES
+        <foreach collection="list" item="summary" separator=",">
+            (
+                #{summary.sessionId}, #{summary.employeeId}, #{summary.agentName}, 
+                #{summary.totalMessages}, #{summary.totalTurns},
+                #{summary.totalIssues}, #{summary.totalSkills}, 
+                #{summary.firstMessageAt}, #{summary.lastMessageAt},
+                #{summary.lastScanId}, #{summary.lastUpdatedAt}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+            employee_id = VALUES(employee_id),
+            agent_name = VALUES(agent_name),
+            total_messages = total_messages + VALUES(total_messages),
+            total_turns = total_turns + VALUES(total_turns),
+            total_issues = total_issues + VALUES(total_issues),
+            total_skills = total_skills + VALUES(total_skills),
+            first_message_at = LEAST(VALUES(first_message_at), IFNULL(first_message_at, '9999-12-31')),
+            last_message_at = GREATEST(VALUES(last_message_at), IFNULL(last_message_at, '0000-01-01')),
+            last_scan_id = VALUES(last_scan_id),
+            last_updated_at = VALUES(last_updated_at)
+    </insert>
+
+    <select id="selectBySessionId" resultMap="BaseResultMap">
+        SELECT * FROM dashboard_session_summary WHERE session_id = #{sessionId}
+    </select>
+
+</mapper>

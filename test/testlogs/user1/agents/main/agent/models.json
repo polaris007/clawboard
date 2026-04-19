@@ -1,0 +1,69 @@
+{
+  "providers": {
+    "custom-integrate-api-nvidia-com": {
+      "baseUrl": "https://integrate.api.nvidia.com/v1",
+      "apiKey": "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",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "z-ai/glm5",
+          "name": "z-ai/glm5 (Custom Provider)",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 262144,
+          "maxTokens": 16384,
+          "api": "openai-completions"
+        }
+      ]
+    },
+    "custom-wishub-x6-ctyun-cn": {
+      "baseUrl": "https://wishub-x6.ctyun.cn/v1",
+      "apiKey": "f7184a88ccd44e739c2fced746dfa9fd",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "GLM-5",
+          "name": "GLM-5 (Custom Provider)",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 262144,
+          "maxTokens": 16384,
+          "api": "openai-completions"
+        },
+        {
+          "id": "Qwen3.5-397B-A17B",
+          "name": "Qwen3.5-397B-A17B (Custom Provider)",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 262144,
+          "maxTokens": 16384,
+          "api": "openai-completions"
+        }
+      ]
+    }
+  }
+}
