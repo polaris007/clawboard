@@ -29,7 +29,7 @@ public class ReportGenerator {
 
     public void generateReport(Long scanId, LocalDateTime scanStartTime) {
         try {
-            // Query all issues for this scan
+            // Query issues for this scan
             var issues = issueMapper.selectByScanId(scanId);
 
             // Generate Markdown content
@@ -78,7 +78,18 @@ public class ReportGenerator {
         
         // Get total conversation turns and problematic turns from database
         int totalConversationTurns = sessionSummaryMapper.selectTotalTurns();
-        int totalProblematicTurns = issues.size();
+        // Calculate problematic turns by counting unique sessionId-lineNumber combinations (like Python does)
+        // Note: Python includes all issues, even those without line numbers
+        // We need to handle null line numbers by using a fallback value
+        int totalProblematicTurns = (int) issues.stream()
+            .map(issue -> {
+                Integer lineNumber = issue.getLineNumber();
+                // For issues without line numbers, use a combination of sessionId and errorType as fallback
+                // This ensures that each unique issue is counted as a separate problematic turn
+                return lineNumber != null ? issue.getSessionId() + "-" + lineNumber : (issue.getSessionId() + "-" + issue.getErrorType()).hashCode();
+            })
+            .distinct()
+            .count();
         
         sb.append("- **总问题数**: ").append(issues.size()).append("\n");
         sb.append("- **总对话轮数**: ").append(totalConversationTurns).append(" （排除系统消息）\n");

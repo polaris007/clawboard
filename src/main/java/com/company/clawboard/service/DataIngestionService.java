@@ -79,11 +79,36 @@ public class DataIngestionService {
         }
 
         // Step 5: Update session summary
+        // Calculate conversation turns like Python does: count non-system user messages
+        int conversationTurns = 0;
+        for (MessageRecord msg : parsed.messages()) {
+            if ("user".equals(msg.role())) {
+                // Check if this is a system-generated user message
+                // We need to replicate the system message filter logic here
+                String content = msg.textContent();
+                if (content != null && !content.isEmpty()) {
+                    // Check for system message patterns (matching Python's is_system_generated_user_message)
+                    boolean isSystemGenerated = false;
+                    // Use string contains checks instead of regex to avoid escape issues
+                    if (content.toLowerCase().contains("a new session was started via /new or /reset") ||
+                        content.toLowerCase().contains("run your session startup sequence") ||
+                        content.toLowerCase().contains("read heartbeat.md if it exists") ||
+                        content.toLowerCase().contains("<<<begin_openclaw_internal_context>>>") ||
+                        content.toLowerCase().startsWith("system: [")) {
+                        isSystemGenerated = true;
+                    }
+                    if (!isSystemGenerated) {
+                        conversationTurns++;
+                    }
+                }
+            }
+        }
+
         updateSessionSummary(scanId, sessionId, employeeId, 
-            messages.size(), turns.size(), skills.size(), issues.size(), now);
+            messages.size(), conversationTurns, skills.size(), issues.size(), now);
 
         log.info("Ingested session {}: {} messages, {} turns, {} skills, {} issues",
-                sessionId, messages.size(), turns.size(), skills.size(), issues.size());
+                sessionId, messages.size(), conversationTurns, skills.size(), issues.size());
     }
 
     /**

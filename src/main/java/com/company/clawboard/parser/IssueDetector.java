@@ -165,7 +165,7 @@ public class IssueDetector {
         return issues;
     }
 
-    public List<DetectedIssue> detectCustomEventIssues(String customType, String dataJson, String lineId, String timestamp) {
+    public List<DetectedIssue> detectCustomEventIssues(String customType, String dataJson, String lineId, String timestamp, Integer lineNumber) {
         List<DetectedIssue> issues = new ArrayList<>();
         if (customType == null || customType.isEmpty()) {
             return issues;
@@ -188,7 +188,7 @@ public class IssueDetector {
                         null,
                         null,
                         null,
-                        null,
+                        lineNumber,
                         extractRunId(dataJson),
                         extractProvider(dataJson),
                         extractModel(dataJson),

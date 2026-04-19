@@ -35,9 +35,12 @@ public class TranscriptParser {
 
     public record SkillInvocation(String skillName, String toolCallId, long invokedAt) {}
 
+    // Record to store custom record with its line number
+    private record CustomRecordWithLineNumber(CustomRecord customRecord, int lineNumber) {}
+
     public ParsedTranscript parseFile(Path filePath, String employeeId) {
         List<MessageRecord> messages = new ArrayList<>();
-        List<CustomRecord> customRecords = new ArrayList<>();
+        List<CustomRecordWithLineNumber> customRecords = new ArrayList<>();
         List<Object> allEvents = new ArrayList<>();
         String sessionId = null;
 
@@ -65,7 +68,8 @@ public class TranscriptParser {
                     messages.add(msg);
                     allEvents.add(msg);
                 } else if (record instanceof CustomRecord custom) {
-                    customRecords.add(custom);
+                    // Store custom record with its line number
+                    customRecords.add(new CustomRecordWithLineNumber(custom, lineNumber));
                     allEvents.add(custom);
                 }
             }
@@ -95,10 +99,13 @@ public class TranscriptParser {
             }
         }
 
-        for (CustomRecord custom : customRecords) {
+        for (CustomRecordWithLineNumber customWithLine : customRecords) {
+            CustomRecord custom = customWithLine.customRecord();
+            int lineNumber = customWithLine.lineNumber();
             String dataJson = custom.data() != null ? custom.data().toString() : null;
+            
             List<IssueDetector.DetectedIssue> customIssues = issueDetector.detectCustomEventIssues(
-                custom.customType(), dataJson, custom.id(), custom.timestamp());
+                custom.customType(), dataJson, custom.id(), custom.timestamp(), lineNumber);
             if (!customIssues.isEmpty()) {
                 log.debug("Custom event detected issues: type={}, issues={}", custom.customType(), customIssues.size());
             }
@@ -114,7 +121,7 @@ public class TranscriptParser {
                     filePathStr,
                     null,
                     null,
-                    issue.lineNumber(),
+                    lineNumber,
                     issue.runId(),
                     issue.provider(),
                     issue.model(),
@@ -123,6 +130,7 @@ public class TranscriptParser {
                 allIssues.add(enriched);
             }
         }
+
 
         List<IssueDetector.DetectedIssue> flowIssues = flowIntegrityChecker.checkFlowIntegrity(allEvents, messages);
         for (var issue : flowIssues) {
