@@ -46,7 +46,8 @@ public class FlowIntegrityChecker {
                         "high",
                         "用户提问后没有任何回复（文件在此结束）",
                         "Expected assistant message after user message, but reached end of file\n" +
-                        "Line: " + current.id() + ", Timestamp: " + current.epochMs()
+                        "Line: " + current.id() + ", Timestamp: " + current.epochMs(),
+                        "message", null, null, null, null, null, current.lineNumber()
                     ));
                 } else if (!"assistant".equals(next.role())) {
                     // Next message is not assistant
@@ -57,7 +58,8 @@ public class FlowIntegrityChecker {
                             "high",
                             "用户提问后的下一条消息角色是\"" + next.role() + "\"，而非预期的assistant",
                             "Expected \"assistant\" after \"user\", but got \"" + next.role() + "\"\n" +
-                            "Line: " + current.id() + ", Timestamp: " + current.epochMs()
+                            "Line: " + current.id() + ", Timestamp: " + current.epochMs(),
+                            "message", null, null, null, null, null, current.lineNumber()
                         ));
                     }
                 }
@@ -72,7 +74,8 @@ public class FlowIntegrityChecker {
                         "high",
                         "Assistant调用了工具但没有收到工具执行结果（文件在此结束）",
                         "Expected toolResult after toolCall, but reached end of file\n" +
-                        "Tool: " + current.toolCalls().get(0).name() + ", Line: " + current.id()
+                        "Tool: " + current.toolCalls().get(0).name() + ", Line: " + current.id(),
+                        "message", null, null, null, null, null, current.lineNumber()
                     ));
                 } else if (!"toolResult".equals(next.role())) {
                     issues.add(new DetectedIssue(
@@ -80,7 +83,8 @@ public class FlowIntegrityChecker {
                         "high",
                         "Assistant调用工具后的下一条消息角色是\"" + next.role() + "\"，而非预期的toolResult",
                         "Expected \"toolResult\" after \"toolCall\", but got \"" + next.role() + "\"\n" +
-                        "Tool: " + current.toolCalls().get(0).name() + ", Line: " + current.id()
+                        "Tool: " + current.toolCalls().get(0).name() + ", Line: " + current.id(),
+                        "message", null, null, null, null, null, current.lineNumber()
                     ));
                 }
             }
@@ -94,7 +98,8 @@ public class FlowIntegrityChecker {
                         "medium",
                         "工具执行完成后没有Assistant的最终回复（文件在此结束）",
                         "Expected assistant message after toolResult, but reached end of file\n" +
-                        "Line: " + current.id()
+                        "Line: " + current.id(),
+                        "message", null, null, null, null, null, current.lineNumber()
                     ));
                 } else if (!"assistant".equals(next.role()) && !"toolResult".equals(next.role())) {
                     issues.add(new DetectedIssue(
@@ -102,7 +107,8 @@ public class FlowIntegrityChecker {
                         "medium",
                         "工具执行完成后的下一条消息角色是\"" + next.role() + "\"，而非预期的assistant最终回复或另一个toolResult",
                         "Expected \"assistant\" or \"toolResult\" after \"toolResult\", but got \"" + next.role() + "\"\n" +
-                        "Line: " + current.id()
+                        "Line: " + current.id(),
+                        "message", null, null, null, null, null, current.lineNumber()
                     ));
                 }
             }

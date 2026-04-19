@@ -21,4 +21,9 @@ public interface SessionSummaryMapper {
      * Select session summary by session_id
      */
     DashboardSessionSummary selectBySessionId(@Param("sessionId") String sessionId);
+    
+    /**
+     * Get total conversation turns across all sessions
+     */
+    int selectTotalTurns();
 }

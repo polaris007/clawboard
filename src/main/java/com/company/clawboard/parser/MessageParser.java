@@ -19,21 +19,23 @@ public class MessageParser {
     /**
      * Parse a single JSONL line into a typed record.
      * Returns null for unparseable lines or unknown types.
+     * @param line The JSONL line to parse
+     * @param lineNumber The line number in the file (1-based), use -1 if unknown
      */
-    public JsonlRecord parseLine(String line) {
+    public JsonlRecord parseLine(String line, int lineNumber) {
         if (line == null || line.isBlank()) return null;
         try {
             JsonNode root = mapper.readTree(line);
             String type = root.path("type").asText("");
             return switch (type) {
                 case "session" -> parseSession(root);
-                case "message" -> parseMessage(root);
+                case "message" -> parseMessage(root, lineNumber);
                 case "custom" -> parseCustom(root);
                 case "model_change", "thinking_level_change" -> parseMetadata(root, type);
                 default -> null;
             };
         } catch (Exception e) {
-            log.warn("Failed to parse JSONL line: {}", truncate(line, 200), e);
+            log.debug("Failed to parse JSONL line (data quality issue): {}", truncate(line, 100));
             return null;
         }
     }
@@ -47,7 +49,7 @@ public class MessageParser {
         );
     }
 
-    private MessageRecord parseMessage(JsonNode root) {
+    private MessageRecord parseMessage(JsonNode root, int lineNumber) {
         JsonNode msg = root.path("message");
         String role = msg.path("role").asText("");
         String id = root.path("id").asText("");
@@ -84,7 +86,7 @@ public class MessageParser {
 
         return new MessageRecord(id, parentId, timestamp, role,
             textContent, errorMessage, toolCalls, toolCallId, toolName, isError,
-            provider, model, stopReason, usage, durationMs, epochMs);
+            provider, model, stopReason, usage, durationMs, epochMs, lineNumber);
     }
 
     private String extractTextContent(JsonNode contentArray) {

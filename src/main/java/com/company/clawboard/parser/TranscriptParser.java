@@ -6,8 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +39,13 @@ public class TranscriptParser {
         List<MessageRecord> messages = new ArrayList<>();
         String sessionId = null;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()))) {
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream(filePath.toFile()), "UTF-8"))) {
             String line;
+            int lineNumber = 0;
             while ((line = reader.readLine()) != null) {
-                JsonlRecord record = messageParser.parseLine(line);
+                lineNumber++;
+                JsonlRecord record = messageParser.parseLine(line, lineNumber);
 
                 if (record instanceof SessionRecord session) {
                     sessionId = session.id();
@@ -78,12 +82,33 @@ public class TranscriptParser {
 
         // Detect issues (single message level)
         List<IssueDetector.DetectedIssue> allIssues = new ArrayList<>();
+        String filePathStr = filePath.toString();
+        log.debug("Processing transcript file: {}", filePathStr);
         for (MessageRecord msg : messages) {
-            allIssues.addAll(issueDetector.detectIssues(msg));
+            List<IssueDetector.DetectedIssue> msgIssues = issueDetector.detectIssues(msg);
+            // Enrich issues with file path and user input
+            for (var issue : msgIssues) {
+                String userInput = extractUserInput(messages, msg);
+                IssueDetector.DetectedIssue enriched = enrichIssue(issue, filePathStr, userInput, null, null);
+                if (log.isDebugEnabled()) {
+                    log.debug("Enriched issue - type: {}, filePath: {}, userInput length: {}", 
+                        enriched.errorType(), 
+                        enriched.filePath() != null ? enriched.filePath().substring(Math.max(0, enriched.filePath().length() - 50)) : "null",
+                        enriched.userInput() != null ? enriched.userInput().length() : 0);
+                }
+                allIssues.add(enriched);
+            }
         }
 
         // Check flow integrity (session level)
-        allIssues.addAll(flowIntegrityChecker.checkFlowIntegrity(messages));
+        List<IssueDetector.DetectedIssue> flowIssues = flowIntegrityChecker.checkFlowIntegrity(messages);
+        // Enrich flow issues with file path and line content
+        for (var issue : flowIssues) {
+            String enrichedFilePath = filePathStr;
+            String errorLineContent = extractLineContent(messages, issue);
+            String nextLineContent = extractNextLineContent(messages, issue);
+            allIssues.add(enrichIssue(issue, enrichedFilePath, null, errorLineContent, nextLineContent));
+        }
 
         // Detect skill invocations
         List<SkillInvocation> skillInvocations = new ArrayList<>();
@@ -102,6 +127,158 @@ public class TranscriptParser {
         List<TurnAssembler.AssembledTurn> turns = assembleTurns(messages);
 
         return new ParsedTranscript(sessionId, messages, turns, allIssues, skillInvocations);
+    }
+
+    /**
+     * Extract user input from the most recent user message before the current message
+     */
+    private String extractUserInput(List<MessageRecord> messages, MessageRecord currentMsg) {
+        if (messages == null || currentMsg == null) {
+            return null;
+        }
+        
+        // Find the index of current message
+        int currentIndex = -1;
+        for (int i = 0; i < messages.size(); i++) {
+            if (messages.get(i).id().equals(currentMsg.id())) {
+                currentIndex = i;
+                break;
+            }
+        }
+        
+        if (currentIndex <= 0) {
+            return null;
+        }
+        
+        // Search backwards for the most recent user message
+        for (int i = currentIndex - 1; i >= 0; i--) {
+            MessageRecord msg = messages.get(i);
+            if ("user".equals(msg.role()) && msg.textContent() != null) {
+                // Truncate to 200 chars
+                String content = msg.textContent();
+                return content.length() > 200 ? content.substring(0, 200) + "..." : content;
+            }
+        }
+        
+        return null;
+    }
+
+    /**
+     * Extract error line content for flow integrity issues
+     */
+    private String extractLineContent(List<MessageRecord> messages, IssueDetector.DetectedIssue issue) {
+        if (messages == null || issue == null) {
+            return null;
+        }
+        
+        // Try to find the message by ID in the error message
+        String errorMsg = issue.errorMessage();
+        if (errorMsg == null) {
+            return null;
+        }
+        
+        // Extract line ID from error message (e.g., "Line: xxx")
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("Line:\\s*(\\w+)");
+        java.util.regex.Matcher matcher = pattern.matcher(errorMsg);
+        if (!matcher.find()) {
+            return null;
+        }
+        
+        String lineId = matcher.group(1);
+        for (MessageRecord msg : messages) {
+            if (msg.id().equals(lineId)) {
+                return formatMessageForDisplay(msg);
+            }
+        }
+        
+        return null;
+    }
+
+    /**
+     * Extract next line content for flow integrity issues
+     */
+    private String extractNextLineContent(List<MessageRecord> messages, IssueDetector.DetectedIssue issue) {
+        if (messages == null || issue == null) {
+            return null;
+        }
+        
+        String errorMsg = issue.errorMessage();
+        if (errorMsg == null) {
+            return null;
+        }
+        
+        // For flow errors, we need to find the next message after the error line
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("Line:\\s*(\\w+)");
+        java.util.regex.Matcher matcher = pattern.matcher(errorMsg);
+        if (!matcher.find()) {
+            return null;
+        }
+        
+        String lineId = matcher.group(1);
+        for (int i = 0; i < messages.size() - 1; i++) {
+            if (messages.get(i).id().equals(lineId)) {
+                // Return the next message
+                return formatMessageForDisplay(messages.get(i + 1));
+            }
+        }
+        
+        return null;
+    }
+
+    /**
+     * Format a message for display in error reports
+     */
+    private String formatMessageForDisplay(MessageRecord msg) {
+        if (msg == null) {
+            return null;
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("[").append(msg.role()).append("]");
+        
+        if (msg.textContent() != null && !msg.textContent().isEmpty()) {
+            String content = msg.textContent();
+            // Truncate long content
+            if (content.length() > 100) {
+                content = content.substring(0, 100) + "...";
+            }
+            sb.append(" ").append(content.replace("\n", " "));
+        }
+        
+        if (msg.toolCalls() != null && !msg.toolCalls().isEmpty()) {
+            sb.append(" [ToolCall: ").append(msg.toolCalls().get(0).name()).append("]");
+        }
+        
+        if (msg.isError()) {
+            sb.append(" [ERROR]");
+        }
+        
+        return sb.toString();
+    }
+
+    /**
+     * Enrich an issue with additional context information
+     */
+    private IssueDetector.DetectedIssue enrichIssue(
+            IssueDetector.DetectedIssue original,
+            String filePath,
+            String userInput,
+            String errorLineContent,
+            String nextLineContent) {
+        
+        return new IssueDetector.DetectedIssue(
+            original.errorType(),
+            original.severity(),
+            original.description(),
+            original.errorMessage(),
+            original.eventType(),
+            userInput != null ? userInput : original.userInput(),
+            original.causeAnalysis(),
+            filePath != null ? filePath : original.filePath(),
+            errorLineContent != null ? errorLineContent : original.errorLineContent(),
+            nextLineContent != null ? nextLineContent : original.nextLineContent(),
+            original.lineNumber()
+        );
     }
 
     private List<TurnAssembler.AssembledTurn> assembleTurns(List<MessageRecord> messages) {

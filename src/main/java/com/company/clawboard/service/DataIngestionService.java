@@ -228,7 +228,13 @@ public class DataIngestionService {
             entity.setSeverity(issue.severity());
             entity.setDescription(issue.description());
             entity.setErrorMessage(issue.errorMessage());
-            entity.setEventType("message"); // Default event type
+            entity.setUserInput(issue.userInput());
+            entity.setCauseAnalysis(issue.causeAnalysis());
+            entity.setFilePath(issue.filePath());
+            entity.setErrorLineContent(issue.errorLineContent());
+            entity.setNextLineContent(issue.nextLineContent());
+            entity.setLineNumber(issue.lineNumber());
+            entity.setEventType(issue.eventType() != null ? issue.eventType() : "message");
             entity.setOccurredAt(now);
             entity.setCreatedAt(now);
 

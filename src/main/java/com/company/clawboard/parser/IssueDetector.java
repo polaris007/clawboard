@@ -12,7 +12,19 @@ import java.util.regex.Pattern;
 @Component
 public class IssueDetector {
 
-    public record DetectedIssue(String errorType, String severity, String description, String errorMessage) {}
+    public record DetectedIssue(
+        String errorType, 
+        String severity, 
+        String description, 
+        String errorMessage,
+        String eventType,
+        String userInput,
+        String causeAnalysis,
+        String filePath,
+        String errorLineContent,
+        String nextLineContent,
+        Integer lineNumber
+    ) {}
 
     // Error pattern definitions (matching Python script)
     private static final List<ErrorPattern> ERROR_PATTERNS = List.of(
@@ -98,7 +110,14 @@ public class IssueDetector {
                             ep.category(),
                             "high",
                             "Detected " + getCategoryDescription(ep.category()),
-                            truncate(errorMsg, 500)
+                            truncate(errorMsg, 500),
+                            "message",
+                            null,  // userInput - extracted from context in TranscriptParser
+                            analyzeCause(ep.category()),
+                            null,  // filePath - set in TranscriptParser
+                            null,  // errorLineContent - set in FlowIntegrityChecker
+                            null,  // nextLineContent - set in FlowIntegrityChecker
+                            msg.lineNumber()
                         ));
                         hasErrorPattern = true;
                         break;
@@ -113,14 +132,20 @@ public class IssueDetector {
                     "ASSISTANT_ERROR",
                     "high",
                     "Assistant returned an error message",
-                    truncate(errorMsg, 500)
+                    truncate(errorMsg, 500),
+                    "message",
+                    null,
+                    "助手返回了错误消息，可能是模型API调用失败或参数错误",
+                    null,
+                    null,
+                    null,
+                    msg.lineNumber()
                 ));
                 hasErrorPattern = true;  // Mark as detected to avoid double counting with abnormal_stop
             }
         }
 
         // Check for abnormal stop reasons
-        // Note: We check this regardless of hasErrorPattern to capture both error details and stop reason
         if ("assistant".equals(msg.role()) && msg.stopReason() != null && !msg.stopReason().isEmpty()) {
             String stopReason = msg.stopReason();
             
@@ -132,7 +157,14 @@ public class IssueDetector {
                     "abnormal_stop",
                     severity,
                     "Detected abnormal stop reason: " + stopReason,
-                    truncate(errorMsg, 500)
+                    truncate(errorMsg, 500),
+                    "message",
+                    null,
+                    "会话异常停止，可能是网络中断、系统崩溃或用户主动终止",
+                    null,
+                    null,
+                    null,
+                    msg.lineNumber()
                 ));
             }
         }
@@ -143,11 +175,31 @@ public class IssueDetector {
                 "TOOL_ERROR",
                 "medium",
                 "Tool execution failed: " + msg.toolName(),
-                msg.textContent()
+                msg.textContent(),
+                "toolResult",
+                null,
+                "工具执行失败，可能是权限不足、参数错误或外部服务不可用",
+                null,
+                null,
+                null,
+                msg.lineNumber()
             ));
         }
 
         return issues;
+    }
+    
+    private String analyzeCause(String errorType) {
+        return switch (errorType) {
+            case "modelErrors" -> "模型API调用失败，可能是网络问题、API配额耗尽或服务端错误";
+            case "timeoutErrors" -> "请求超时，可能是网络延迟、服务器负载过高或请求处理时间过长";
+            case "rateLimitErrors" -> "达到API速率限制，需要降低请求频率或升级API配额";
+            case "toolErrors" -> "工具执行失败，可能是权限不足、参数错误或外部服务不可用";
+            case "permissionErrors" -> "权限不足，检查API密钥、访问令牌或资源权限配置";
+            case "parsingErrors" -> "JSON解析错误，响应格式不正确或包含非法字符";
+            case "networkErrors" -> "网络连接错误，检查网络稳定性、DNS解析或防火墙配置";
+            default -> "未知错误类型";
+        };
     }
 
     private String getCategoryDescription(String category) {

@@ -14,6 +14,11 @@ public class DashboardTranscriptIssue {
     private String severity;
     private String description;
     private String errorMessage;
+    private String userInput;           // User input content
+    private String causeAnalysis;       // Cause analysis
+    private String filePath;            // File path
+    private String errorLineContent;    // Error line content
+    private String nextLineContent;     // Next line content
     private String eventType;
     private String provider;
     private String model;

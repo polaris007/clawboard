@@ -18,7 +18,8 @@ public record MessageRecord(
     String stopReason,
     UsageInfo usage,
     int durationMs,
-    long epochMs                  // message.timestamp (epoch ms)
+    long epochMs,                 // message.timestamp (epoch ms)
+    int lineNumber                // JSONL file line number (1-based)
 ) implements JsonlRecord {
 
     public record ToolCallInfo(String id, String name, String argumentsJson) {}
