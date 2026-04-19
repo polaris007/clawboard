@@ -113,18 +113,32 @@ public class FlowIntegrityChecker {
 
     /**
      * Check if a message is system-generated (should be skipped in flow checks)
+     * Matching Python's is_system_generated_user_message function
      */
     private boolean isSystemGeneratedMessage(MessageRecord msg) {
         String content = msg.textContent();
-        if (content == null) {
+        if (content == null || content.isEmpty()) {
             return false;
         }
         
-        // Check for common system message patterns
-        return content.contains("OpenClaw runtime context") ||
-               content.contains("[Internal task completion event]") ||
-               content.contains("session_key:") ||
-               content.trim().startsWith("[");
+        // System message patterns (matching Python script)
+        if (content.contains("A new session was started via /new or /reset")) {
+            return true;
+        }
+        if (content.contains("Run your Session Startup sequence")) {
+            return true;
+        }
+        if (content.contains("Read HEARTBEAT.md if it exists")) {
+            return true;
+        }
+        if (content.contains("<<<BEGIN_OPENCLAW_INTERNAL_CONTEXT>>>")) {
+            return true;
+        }
+        if (content.startsWith("System: [")) {
+            return true;
+        }
+        
+        return false;
     }
 
     /**

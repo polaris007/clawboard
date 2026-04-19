@@ -77,7 +77,8 @@ public class IssueDetector {
         ))
     );
 
-    private static final List<String> NORMAL_STOP_REASONS = List.of("stop", "toolUse", "length", "end_turn", "tool_use");
+    // Normal stop reasons (matching Python script exactly)
+    private static final List<String> NORMAL_STOP_REASONS = List.of("stop", "toolUse", "length");
 
     private record ErrorPattern(String category, List<Pattern> patterns) {}
 
