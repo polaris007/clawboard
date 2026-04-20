@@ -10,4 +10,5 @@ public interface ConversationTurnMapper {
     int batchInsertIgnore(List<DashboardConversationTurn> turns);
     DashboardConversationTurn selectById(Long id);
     List<DashboardConversationTurn> selectBySessionId(String sessionId);
+    List<DashboardConversationTurn> selectAll();
 }

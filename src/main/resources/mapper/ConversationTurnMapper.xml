@@ -97,4 +97,8 @@
         SELECT * FROM dashboard_conversation_turn WHERE session_id = #{sessionId} ORDER BY start_time
     </select>
 
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT * FROM dashboard_conversation_turn ORDER BY start_time DESC
+    </select>
+
 </mapper>

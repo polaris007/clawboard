@@ -1,31 +1,128 @@
 package com.company.clawboard.service;
 
 import com.company.clawboard.dto.*;
+import com.company.clawboard.entity.DashboardConversationTurn;
+import com.company.clawboard.entity.DashboardTranscriptIssue;
 import com.company.clawboard.mapper.ConversationTurnMapper;
 import com.company.clawboard.mapper.TranscriptIssueMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
-@RequiredArgsConstructor
+// @RequiredArgsConstructor
 public class TurnErrorService {
 
     private final ConversationTurnMapper turnMapper;
     private final TranscriptIssueMapper issueMapper;
 
+    public TurnErrorService(ConversationTurnMapper turnMapper, TranscriptIssueMapper issueMapper) {
+        this.turnMapper = turnMapper;
+        this.issueMapper = issueMapper;
+    }
+
     public PageResult<TurnSearchItem> searchTurns(TurnSearchRequest request) {
-        return new PageResult<>(0, request.getPageOrDefault(), request.getPageSizeOrDefault(), java.util.List.of());
+        // 从 conversation_turn 表查询数据
+        List<DashboardConversationTurn> turns = turnMapper.selectAll();
+        
+        // 转换为响应格式
+        List<TurnSearchItem> items = turns.stream().map(turn -> {
+            var item = new TurnSearchItem();
+            item.setTurnId(turn.getId());
+            if (turn.getStartTime() != null) {
+                item.setTimeStamp(turn.getStartTime().toInstant(java.time.ZoneOffset.UTC).toEpochMilli());
+            } else {
+                item.setTimeStamp(0L);
+            }
+            item.setUserName(turn.getEmployeeId());
+            item.setUserInput(turn.getUserInput());
+            item.setDurationMs(turn.getTotalDurationMs());
+            item.setResultStatus(turn.getStatus());
+            item.setQualityStatus(turn.getQualityStatus());
+            
+            var tokens = new TurnSearchItem.TokenInfo();
+            tokens.setTotal(turn.getTotalTokens());
+            tokens.setInput(turn.getTotalInputTokens());
+            tokens.setOutput(turn.getTotalOutputTokens());
+            item.setTokens(tokens);
+            
+            // 技能和工具需要从其他表查询，暂时返回空列表
+            item.setSkills(List.of());
+            item.setTools(List.of());
+            item.setLogFileName(turn.getLogFilePath());
+            
+            return item;
+        }).collect(Collectors.toList());
+        
+        return new PageResult<>(items.size(), request.getPageOrDefault(), request.getPageSizeOrDefault(), items);
     }
 
     public TraceResponse getTrace(Long turnId) {
-        return new TraceResponse();
+        // 从 conversation_turn 表查询
+        DashboardConversationTurn turn = turnMapper.selectById(turnId);
+        var response = new TraceResponse();
+        response.setTurnId(turnId.toString());
+        
+        // 如果没有数据，返回空节点列表
+        if (turn == null) {
+            response.setNodes(List.of());
+            return response;
+        }
+        
+        // 构建简单的执行链路
+        var nodes = List.of(
+            createTraceNode(0, "user_input", "用户输入", true, turn.getStartTime()),
+            createTraceNode(1, "skill_call", "技能调用", true, turn.getStartTime()),
+            createTraceNode(2, "tool_call", "工具调用", true, turn.getStartTime()),
+            createTraceNode(3, "reply", "回复用户", "success".equals(turn.getStatus()), turn.getEndTime())
+        );
+        response.setNodes(nodes);
+        return response;
+    }
+
+    private TraceNode createTraceNode(int stepOrder, String nodeType, String nodeName, boolean status, java.time.LocalDateTime time) {
+        var node = new TraceNode();
+        node.setStepOrder(stepOrder);
+        node.setNodeType(nodeType);
+        node.setNodeName(nodeName);
+        node.setStatus(status);
+        if (time != null) {
+            node.setTimeStamp(time.toInstant(java.time.ZoneOffset.UTC).toEpochMilli());
+        } else {
+            node.setTimeStamp(0L);
+        }
+        return node;
     }
 
     public ErrorSummaryResponse getErrorSummary(TimeRangeRequest request) {
-        return new ErrorSummaryResponse();
+        // 从 transcript_issue 表查询数据
+        List<DashboardTranscriptIssue> issues = issueMapper.selectAll();
+        var response = new ErrorSummaryResponse();
+        response.setTotalErrors(issues.size());
+        // 这里可以根据需要统计不同类型的错误
+        return response;
     }
 
     public PageResult<ErrorSearchItem> searchErrors(ErrorSearchRequest request) {
-        return new PageResult<>(0, request.getPageOrDefault(), request.getPageSizeOrDefault(), java.util.List.of());
+        // 从 transcript_issue 表查询数据
+        List<DashboardTranscriptIssue> issues = issueMapper.selectAll();
+        
+        // 转换为响应格式
+        List<ErrorSearchItem> items = issues.stream().map(issue -> {
+            var item = new ErrorSearchItem();
+            item.setId(issue.getId());
+            item.setErrorType(issue.getErrorType());
+            item.setSeverity(issue.getSeverity());
+            item.setDescription(issue.getDescription());
+            item.setErrorMessage(issue.getErrorMessage());
+            item.setEmployeeName(issue.getEmployeeId());
+            item.setOccurredAt(issue.getOccurredAt());
+            item.setTurnId(issue.getTurnId());
+            return item;
+        }).collect(Collectors.toList());
+        
+        return new PageResult<>(items.size(), request.getPageOrDefault(), request.getPageSizeOrDefault(), items);
     }
 }
