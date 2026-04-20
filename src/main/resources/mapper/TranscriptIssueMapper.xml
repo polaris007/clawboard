@@ -21,4 +21,8 @@
         SELECT * FROM dashboard_transcript_issue WHERE scan_id = #{scanId} ORDER BY occurred_at
     </select>
 
+    <select id="selectAll" resultType="com.company.clawboard.entity.DashboardTranscriptIssue">
+        SELECT * FROM dashboard_transcript_issue ORDER BY occurred_at
+    </select>
+
 </mapper>

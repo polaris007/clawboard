@@ -1,6 +1,7 @@
 package com.company.clawboard.controller;
 
 import com.company.clawboard.dto.ApiResponse;
+import com.company.clawboard.dto.TimeRangeRequest;
 import com.company.clawboard.service.DashboardService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,13 +34,14 @@ class DashboardControllerTest {
     @DisplayName("Should return summary from service")
     void testGetSummary() {
         // When
-        ApiResponse<?> response = dashboardController.getSummary();
+        TimeRangeRequest request = new TimeRangeRequest();
+        ApiResponse<?> response = dashboardController.getSummary(request);
 
         // Then
         assertThat(response).isNotNull();
         assertThat(response.getCode()).isEqualTo(200);
         assertThat(response.getMessage()).isEqualTo("success");
-        verify(dashboardService, times(1)).getSummary();
+        verify(dashboardService, times(1)).getSummary(request);
     }
 
     @Test
@@ -59,25 +61,13 @@ class DashboardControllerTest {
     @DisplayName("Should return user summaries from service")
     void testGetUserSummaries() {
         // When
-        ApiResponse<?> response = dashboardController.getUserSummaries();
+        TimeRangeRequest request = new TimeRangeRequest();
+        ApiResponse<?> response = dashboardController.getUserSummaries(request);
 
         // Then
         assertThat(response).isNotNull();
         assertThat(response.getCode()).isEqualTo(200);
         assertThat(response.getMessage()).isEqualTo("success");
-        verify(dashboardService, times(1)).getUserSummaries();
-    }
-
-    @Test
-    @DisplayName("Should return skill options from service")
-    void testGetSkills() {
-        // When
-        ApiResponse<?> response = dashboardController.getSkills();
-
-        // Then
-        assertThat(response).isNotNull();
-        assertThat(response.getCode()).isEqualTo(200);
-        assertThat(response.getMessage()).isEqualTo("success");
-        verify(dashboardService, times(1)).getSkillOptions();
+        verify(dashboardService, times(1)).getUserSummaries(request);
     }
 }

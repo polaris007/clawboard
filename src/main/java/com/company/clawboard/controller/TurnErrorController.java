@@ -2,31 +2,32 @@ package com.company.clawboard.controller;
 
 import com.company.clawboard.dto.ApiResponse;
 import com.company.clawboard.dto.ErrorSearchRequest;
+import com.company.clawboard.dto.TimeRangeRequest;
 import com.company.clawboard.dto.TurnSearchRequest;
 import com.company.clawboard.service.TurnErrorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/turns")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class TurnErrorController {
 
     private final TurnErrorService turnErrorService;
 
-    @PostMapping("/search")
+    @PostMapping("/turns/search")
     public ApiResponse<?> searchTurns(@RequestBody TurnSearchRequest request) {
         return ApiResponse.ok(turnErrorService.searchTurns(request));
     }
 
-    @GetMapping("/{turnId}/trace")
+    @GetMapping("/turns/{turnId}/trace")
     public ApiResponse<?> getTrace(@PathVariable Long turnId) {
         return ApiResponse.ok(turnErrorService.getTrace(turnId));
     }
 
-    @GetMapping("/errors/summary")
-    public ApiResponse<?> getErrorSummary() {
-        return ApiResponse.ok(turnErrorService.getErrorSummary());
+    @PostMapping("/errors/summary")
+    public ApiResponse<?> getErrorSummary(@RequestBody TimeRangeRequest request) {
+        return ApiResponse.ok(turnErrorService.getErrorSummary(request));
     }
 
     @PostMapping("/errors/search")

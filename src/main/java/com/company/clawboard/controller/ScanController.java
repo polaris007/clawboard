@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/scan")
+@RequestMapping("/api/v1/scan")
 @RequiredArgsConstructor
 public class ScanController {
 
@@ -17,6 +17,8 @@ public class ScanController {
         Long scanId = scanOrchestrator.executeScan("manual");
         return ApiResponse.ok(new java.util.HashMap<>() {{
             put("scanId", scanId);
+            put("triggerType", "manual");
+            put("startedAt", System.currentTimeMillis());
         }});
     }
 
@@ -24,11 +26,19 @@ public class ScanController {
     public ApiResponse<?> getStatus() {
         return ApiResponse.ok(new java.util.HashMap<>() {{
             put("scanning", false);
+            put("nextScheduledAt", null);
+            put("currentScan", null);
+            put("lastCompletedScan", null);
         }});
     }
 
     @GetMapping("/history")
-    public ApiResponse<?> getHistory(@RequestParam(defaultValue = "10") int limit) {
-        return ApiResponse.ok(java.util.List.of());
+    public ApiResponse<?> getHistory(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int pageSize) {
+        return ApiResponse.ok(new java.util.HashMap<>() {{
+            put("total", 0);
+            put("page", page);
+            put("pageSize", pageSize);
+            put("list", java.util.List.of());
+        }});
     }
 }

@@ -57,6 +57,9 @@ public class ScanOrchestrator {
     // Thread-safe set to collect all scanned file paths (relative to base path)
     private Set<String> scannedFilePaths;
     
+    // Thread-safe map to collect all skipped files with their error messages
+    private ConcurrentHashMap<String, String> skippedFiles;
+    
     public boolean isScanning() { return scanning.get(); }
     public Long getCurrentScanId() { return currentScanId; }
 
@@ -112,8 +115,9 @@ public class ScanOrchestrator {
                 log.info("Loaded {} employee mappings", accountsReader.getEmployeeCount());
             }
 
-            // Initialize file path collection
+            // Initialize file path collections
             scannedFilePaths = ConcurrentHashMap.newKeySet();
+            skippedFiles = new ConcurrentHashMap<>();
 
             // Step 2: Scan users
             var users = userScanner.scanUsers();
@@ -139,7 +143,7 @@ public class ScanOrchestrator {
             // Step 4: Collect results from all users
             int totalFiles = 0;
             int processedFiles = 0;
-            int skippedFiles = 0;
+            int skippedFilesCount = 0;
             int errorFiles = 0;
             int totalMessages = 0;
             int totalTurns = 0;
@@ -151,7 +155,7 @@ public class ScanOrchestrator {
                     UserScanResult result = entry.getValue().get(30, TimeUnit.MINUTES);
                     totalFiles += result.filesTotal();
                     processedFiles += result.filesProcessed();
-                    skippedFiles += result.filesSkipped();
+                    skippedFilesCount += result.filesSkipped();
                     errorFiles += result.filesError();
                     totalMessages += result.totalMessages();
                     totalTurns += result.totalTurns();
@@ -170,7 +174,7 @@ public class ScanOrchestrator {
             history.setDirsScanned(users.size());
             history.setFilesTotal(totalFiles);
             history.setFilesProcessed(processedFiles);
-            history.setFilesSkipped(skippedFiles);
+            history.setFilesSkipped(skippedFilesCount);
             history.setFilesError(errorFiles);
             history.setNewMessages(totalMessages);
             history.setNewTurns(totalTurns);
@@ -199,8 +203,9 @@ public class ScanOrchestrator {
             // Save scanned files list for comparison with Python
             try {
                 saveScannedFilesList();
+                saveSkippedFilesList();
             } catch (Exception e) {
-                log.error("Failed to save scanned files list", e);
+                log.error("Failed to save files lists", e);
             }
 
             return scanId;
@@ -226,7 +231,7 @@ public class ScanOrchestrator {
     private UserScanResult scanUserDirectory(String username, Long scanId) {
         int totalFiles = 0;
         int processedFiles = 0;
-        int skippedFiles = 0;
+        int skippedFilesCount = 0;
         int errorFiles = 0;
         int totalMessages = 0;
         int totalTurns = 0;
@@ -297,8 +302,10 @@ public class ScanOrchestrator {
                         
                         // Defensive check: skip if sessionId is still null (should not happen after TranscriptParser fix)
                         if (parsed.sessionId() == null) {
-                            log.debug("Skipping file with no session ID (unexpected): {}", jsonlFile);
-                            skippedFiles++;
+                            String errorMsg = "Skipping file with no session ID (unexpected)";
+                            log.debug("{}", errorMsg);
+                            skippedFiles.put(jsonlFile.toString(), errorMsg);
+                            skippedFilesCount++;
                             continue;
                         }
                         
@@ -320,7 +327,9 @@ public class ScanOrchestrator {
                                 msgCount, turnCount, issueCount, skillCount);
                         
                     } catch (Exception e) {
-                        log.error("Failed to process file: {}", jsonlFile, e);
+                        String errorMsg = "Failed to process file: " + e.getMessage();
+                        log.error("{}", errorMsg, e);
+                        skippedFiles.put(jsonlFile.toString(), errorMsg);
                         errorFiles++;
                     }
                 }
@@ -330,7 +339,7 @@ public class ScanOrchestrator {
             log.error("Failed to scan user: {}", username, e);
         }
         
-        return new UserScanResult(totalFiles, processedFiles, skippedFiles, errorFiles,
+        return new UserScanResult(totalFiles, processedFiles, skippedFilesCount, errorFiles,
             totalMessages, totalTurns, totalIssues, totalSkills);
     }
     
@@ -468,7 +477,7 @@ public class ScanOrchestrator {
         }
         
         // Create report directory
-        String reportDir = "scripts/reports/" + LocalDateTime.now().toString().substring(0, 10);
+        String reportDir = "reports/" + LocalDateTime.now().toString().substring(0, 10);
         Path reportPath = Path.of(reportDir);
         Files.createDirectories(reportPath);
         
@@ -478,6 +487,31 @@ public class ScanOrchestrator {
         Files.write(filePath, sortedPaths);
         
         log.info("Java scanned files list saved to: {} ({} files)", filePath.toAbsolutePath(), sortedPaths.size());
+    }
+    
+    /**
+     * Save skipped files list to a text file with error messages
+     */
+    private void saveSkippedFilesList() throws IOException {
+        if (skippedFiles == null || skippedFiles.isEmpty()) {
+            log.warn("No skipped files to save");
+            return;
+        }
+        
+        // Create report directory
+        String reportDir = "reports/" + LocalDateTime.now().toString().substring(0, 10);
+        Path reportPath = Path.of(reportDir);
+        Files.createDirectories(reportPath);
+        
+        // Save skipped files list
+        Path filePath = reportPath.resolve("java-skipped-files.txt");
+        List<String> skippedLines = new java.util.ArrayList<>();
+        skippedFiles.forEach((file, error) -> {
+            skippedLines.add(file + " | " + error);
+        });
+        Files.write(filePath, skippedLines);
+        
+        log.info("Java skipped files list saved to: {} ({} files)", filePath.toAbsolutePath(), skippedFiles.size());
     }
     
     /**

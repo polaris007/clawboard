@@ -15,7 +15,7 @@ public class DashboardService {
     private final EmployeeMapper employeeMapper;
     private final SkillInvocationMapper skillInvocationMapper;
 
-    public DashboardSummaryResponse getSummary() {
+    public DashboardSummaryResponse getSummary(TimeRangeRequest request) {
         return new DashboardSummaryResponse();
     }
 
@@ -23,8 +23,12 @@ public class DashboardService {
         return new GlobalStatsResponse();
     }
 
-    public List<UserSummaryItem> getUserSummaries() {
+    public List<TrendDataPoint> getTrend(TimeRangeRequest request) {
         return List.of();
+    }
+
+    public PageResult<UserSummaryItem> getUserSummaries(TimeRangeRequest request) {
+        return new PageResult<>(0, request.getPageOrDefault(), request.getPageSizeOrDefault(), List.of());
     }
 
     public List<SkillOption> getSkillOptions() {

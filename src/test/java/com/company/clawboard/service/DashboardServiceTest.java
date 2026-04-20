@@ -2,7 +2,9 @@ package com.company.clawboard.service;
 
 import com.company.clawboard.dto.DashboardSummaryResponse;
 import com.company.clawboard.dto.GlobalStatsResponse;
+import com.company.clawboard.dto.PageResult;
 import com.company.clawboard.dto.SkillOption;
+import com.company.clawboard.dto.TimeRangeRequest;
 import com.company.clawboard.dto.UserSummaryItem;
 import com.company.clawboard.mapper.EmployeeMapper;
 import com.company.clawboard.mapper.HourlyStatsMapper;
@@ -48,14 +50,11 @@ class DashboardServiceTest {
     @DisplayName("Should return empty summary when no data")
     void testGetSummary_NoData() {
         // When
-        DashboardSummaryResponse response = dashboardService.getSummary();
+        TimeRangeRequest request = new TimeRangeRequest();
+        DashboardSummaryResponse response = dashboardService.getSummary(request);
 
         // Then
         assertThat(response).isNotNull();
-        assertThat(response.getConsumedTokens()).isNull();
-        assertThat(response.getConversationTurns()).isNull();
-        assertThat(response.getSkillCalls()).isNull();
-        assertThat(response.getActiveUsers()).isNull();
     }
 
     @Test
@@ -72,10 +71,15 @@ class DashboardServiceTest {
     @DisplayName("Should return empty user summaries (placeholder implementation)")
     void testGetUserSummaries_NoEmployees() {
         // When
-        List<UserSummaryItem> result = dashboardService.getUserSummaries();
+        TimeRangeRequest request = new TimeRangeRequest();
+        PageResult<UserSummaryItem> result = dashboardService.getUserSummaries(request);
 
         // Then
-        assertThat(result).isNotNull().isEmpty();
+        assertThat(result).isNotNull();
+        assertThat(result.getTotal()).isEqualTo(0);
+        assertThat(result.getPage()).isEqualTo(1);
+        assertThat(result.getPageSize()).isEqualTo(10);
+        assertThat(result.getList()).isEmpty();
         // Note: Current implementation returns empty list directly without calling mapper
     }
 

@@ -1,27 +1,6483 @@
 # OpenClaw Session Transcript 综合错误检测报告
 
-**生成时间**: 2026-04-20T05:43:05.450000Z
+**生成时间**: 2026-04-20T08:06:13.731000Z
 
 ## 📊 统计概览
 
-- **总错误数**: 134
-- **总对话轮数**: 455 （排除系统消息）
-- **有错误轮数**: 108 （存在任何类型错误的轮次）
-- **错误率**: 23.74% （有错误轮数 / 总对话轮数）
+- **总错误数**: 509
+- **总对话轮数**: 607 （排除系统消息）
+- **有错误轮数**: 444 （存在任何类型错误的轮次）
+- **错误率**: 73.15% （有错误轮数 / 总对话轮数）
 
 ### 错误类型分布
 
 | 错误类型 | 数量 | 说明 |
 |---------|------|------|
-| abnormal_stop | 78 | 异常停止 |
-| modelErrors | 34 | 模型API错误 |
-| timeoutErrors | 22 | 超时错误 |
+| abnormal_stop | 395 | 异常停止 |
+| modelErrors | 50 | 模型API错误 |
+| timeoutErrors | 36 | 超时错误 |
+| rateLimitErrors | 24 | 速率限制错误 |
+| flow_integrity_missing_final_answer | 4 | 工具执行后无最终回复 |
 
 ---
 
-## abnormal_stop - 异常停止 (78)
+## abnormal_stop - 异常停止 (395)
 
 ### 错误 #1
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集昨天 9:00 到今天 9:00 之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索昨天 9:00 ...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\0bef5f9c-4907-4730-bd17-cc5510fed2fc.jsonl.deleted.2026-04-13T00-53-49.392Z`
+- **Session ID**: `0bef5f9c-4907-4730-bd17-cc5510fed2fc`
+- **行号**: 48
+- **时间戳**: 2026-04-10T10:47:19.146Z
+
+---
+
+### 错误 #2
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集昨天 9:00 到今天 9:00 之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索昨天 9:00 ...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\0bef5f9c-4907-4730-bd17-cc5510fed2fc.jsonl.deleted.2026-04-13T00-53-49.392Z`
+- **Session ID**: `0bef5f9c-4907-4730-bd17-cc5510fed2fc`
+- **行号**: 49
+- **时间戳**: 2026-04-10T10:47:23.436Z
+
+---
+
+### 错误 #3
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集昨天 9:00 到今天 9:00 之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索昨天 9:00 ...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\0bef5f9c-4907-4730-bd17-cc5510fed2fc.jsonl.deleted.2026-04-13T00-53-49.392Z`
+- **Session ID**: `0bef5f9c-4907-4730-bd17-cc5510fed2fc`
+- **行号**: 50
+- **时间戳**: 2026-04-10T10:47:29.550Z
+
+---
+
+### 错误 #4
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集昨天 9:00 到今天 9:00 之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索昨天 9:00 ...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\0bef5f9c-4907-4730-bd17-cc5510fed2fc.jsonl.deleted.2026-04-13T00-53-49.392Z`
+- **Session ID**: `0bef5f9c-4907-4730-bd17-cc5510fed2fc`
+- **行号**: 51
+- **时间戳**: 2026-04-10T10:47:39.767Z
+
+---
+
+### 错误 #5
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "test",
+  "id": "test"
+}
+\`\`\`
+
+[Fri 2026-04-03 14:21 GMT+8] 刚刚我把评级台账.xlsx放到了./2026-04-03目录下。我的需求是：使用xlsx技能； 请对文件信息进行分析，并绘制柱状图，要求横坐标为月份，纵坐标为件数`
+- **错误信息**: 
+````
+list index out of range
+````
+- **完整行记录**: 
+```json
+{"type":"message","id":"5d03c958","parentId":"8c249e9d","timestamp":"2026-04-03T06:22:00.037Z","message":{"role":"assistant","content":[{"type":"text","text":"好的！我理解了数据结构。A 列是日期（Excel 序列号），B 列是\"股份\"件数，C 列是\"集团\"件数。让我提取所有数据并按月份汇总，然后绘制柱状图：\n\n"},{"type":"toolCall","id":"call_a2fbb22c89a2449fa2acffa6","name":"exec","arguments":{"command":"cd /root/.openclaw/workspace && python3 << 'EOF'\nimport openpyxl\nfrom datetime import datetime\nfrom collections import defaultdict\nimport matplotlib\nmatplotlib.use('Agg')  # 使用非交互式后端\nimport matplotlib.pyplot as plt\nimport matplotlib.font_manager as fm\n\n# 读取工作簿\nwb = openpyxl.load_workbook('2026-04-03/评级台账.xlsx')\nws = wb['一处']\n\n# 提取数据\ndata = []\nfor row in ws.iter_rows(min_row=3, max_col=4):\n    date_val = row[0].value\n    if date_val is None:\n        continue\n    try:\n        # Excel 日期序列号转日期\n        if isinstance(date_val, (int, float)):\n            date = datetime.fromordinal(date_val - 693594)\n        else:\n            continue\n        \n        # 获取件数（股份 + 集团）\n        gufen = row[1].value if row[1].value is not None else 0\n        jituan = row[2].value if row[2].value is not None else 0\n        total = gufen + jituan\n        \n        if total > 0:\n            data.append({\n                'date': date,\n                'month': date.strftime('%Y-%m'),\n                'total': total\n            })\n    except Exception as e:\n        continue\n\nprint(f\"成功提取 {len(data)} 条数据记录\")\n\n# 按月份汇总\nmonth_counts = defaultdict(int)\nfor record in data:\n    month_counts[record['month']] += record['total']\n\n# 排序\nsorted_months = sorted(month_counts.keys())\nprint(\"\\n=== 月份汇总 ===\")\nfor month in sorted_months:\n    print(f\"{month}: {month_counts[month]} 件\")\n\n# 绘制柱状图\nplt.figure(figsize=(12, 6))\nplt.bar(sorted_months, [month_counts[m] for m in sorted_months], color='steelblue', edgecolor='black')\n\n# 设置中文显示\nplt.rcParams['font.sans-serif'] = ['SimHei', 'DejaVu Sans']\nplt.rcParams['axes.unicode_minus'] = False\n\nplt.xlabel('月份', fontsize=12)\nplt.ylabel('件数', fontsize=12)\nplt.title('评级台账 - 各月件数统计', fontsize=14)\nplt.xticks(rotation=45)\n\n# 在柱子上标注数值\nfor i, (month, count) in enumerate(zip(sorted_months, [month_counts[m] for m in sorted_months])):\n    plt.text(i, count + max(month_counts.values())*0.01, str(count), ha='center', va='bottom')\n\nplt.tight_layout()\nplt.savefig('2026-04-03/评级台账_月份统计.png', dpi=150, bbox_inches='tight')\nprint(f\"\\n柱状图已保存至：2026-04-03/评级台账_月份统计.png\")\n\n# 显示数据统计\nprint(f\"\\n=== 数据统计 ===\")\nprint(f\"总记录数：{len(data)}\")\nprint(f\"月份数：{len(sorted_months)}\")\nprint(f\"总件数：{sum(month_counts.values())}\")\nprint(f\"月均件数：{sum(month_counts.values())/len(sorted_months):.1f}\")\nEOF\n"},"partialArgs":"{\"command\": \"cd /root/.openclaw/workspace && python3 << 'EOF'\\nimport openpyxl\\nfrom datetime import datetime\\nfrom collections import defaultdict\\nimport matplotlib\\nmatplotlib.use('Agg')  # 使用非交互式后端\\nimport matplotlib.pyplot as plt\\nimport matplotlib.font_manager as fm\\n\\n# 读取工作簿\\nwb = openpyxl.load_workbook('2026-04-03/评级台账.xlsx')\\nws = wb['一处']\\n\\n# 提取数据\\ndata = []\\nfor row in ws.iter_rows(min_row=3, max_col=4):\\n    date_val = row[0].value\\n    if date_val is None:\\n        continue\\n    try:\\n        # Excel 日期序列号转日期\\n        if isinstance(date_val, (int, float)):\\n            date = datetime.fromordinal(date_val - 693594)\\n        else:\\n            continue\\n        \\n        # 获取件数（股份 + 集团）\\n        gufen = row[1].value if row[1].value is not None else 0\\n        jituan = row[2].value if row[2].value is not None else 0\\n        total = gufen + jituan\\n        \\n        if total > 0:\\n            data.append({\\n                'date': date,\\n                'month': date.strftime('%Y-%m'),\\n                'total': total\\n            })\\n    except Exception as e:\\n        continue\\n\\nprint(f\\\"成功提取 {len(data)} 条数据记录\\\")\\n\\n# 按月份汇总\\nmonth_counts = defaultdict(int)\\nfor record in data:\\n    month_counts[record['month']] += record['total']\\n\\n# 排序\\nsorted_months = sorted(month_counts.keys())\\nprint(\\\"\\\\n=== 月份汇总 ===\\\")\\nfor month in sorted_months:\\n    print(f\\\"{month}: {month_counts[month]} 件\\\")\\n\\n# 绘制柱状图\\nplt.figure(figsize=(12, 6))\\nplt.bar(sorted_months, [month_counts[m] for m in sorted_months], color='steelblue', edgecolor='black')\\n\\n# 设置中文显示\\nplt.rcParams['font.sans-serif'] = ['SimHei', 'DejaVu Sans']\\nplt.rcParams['axes.unicode_minus'] = False\\n\\nplt.xlabel('月份', fontsize=12)\\nplt.ylabel('件数', fontsize=12)\\nplt.title('评级台账 - 各月件数统计', fontsize=14)\\nplt.xticks(rotation=45)\\n\\n# 在柱子上标注数值\\nfor i, (month, count) in enumerate(zip(sorted_months, [month_counts[m] for m in sorted_months])):\\n    plt.text(i, count + max(month_counts.values())*0.01, str(count), ha='center', va='bottom')\\n\\nplt.tight_layout()\\nplt.savefig('2026-04-03/评级台账_月份统计.png', dpi=150, bbox_inches='tight')\\nprint(f\\\"\\\\n柱状图已保存至：2026-04-03/评级台账_月份统计.png\\\")\\n\\n# 显示数据统计\\nprint(f\\\"\\\\n=== 数据统计 ===\\\")\\nprint(f\\\"总记录数：{len(data)}\\\")\\nprint(f\\\"月份数：{len(sorted_months)}\\\")\\nprint(f\\\"总件数：{sum(month_counts.values())}\\\")\\nprint(f\\\"月均件数：{sum(month_counts.values())/len(sorted_months):.1f}\\\")\\nEOF\\n\""}],"api":"openai-completions","provider":"my-qwen-provider","model":"qwen35-397b-claw-normal","usage":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"totalTokens":0,"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"total":0}},"stopReason":"error","timestamp":1775197307794,"errorMessage":"list index out of range"}}
+```
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\0f736d41-a0a2-4867-bbb5-79047d19da62.jsonl.reset.2026-04-08T02-20-20.878Z`
+- **Session ID**: `0f736d41-a0a2-4867-bbb5-79047d19da62`
+- **行号**: 14
+- **时间戳**: 2026-04-03T06:22:00.037Z
+
+---
+
+### 错误 #6
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\14630ba5-15a3-44a8-a62e-7e9272b5531c.jsonl`
+- **Session ID**: `14630ba5-15a3-44a8-a62e-7e9272b5531c`
+- **行号**: 6
+- **时间戳**: 2026-04-13T16:55:42.259Z
+
+---
+
+### 错误 #7
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\14630ba5-15a3-44a8-a62e-7e9272b5531c.jsonl`
+- **Session ID**: `14630ba5-15a3-44a8-a62e-7e9272b5531c`
+- **行号**: 7
+- **时间戳**: 2026-04-13T16:55:45.850Z
+
+---
+
+### 错误 #8
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\14630ba5-15a3-44a8-a62e-7e9272b5531c.jsonl`
+- **Session ID**: `14630ba5-15a3-44a8-a62e-7e9272b5531c`
+- **行号**: 8
+- **时间戳**: 2026-04-13T16:55:51.425Z
+
+---
+
+### 错误 #9
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\14630ba5-15a3-44a8-a62e-7e9272b5531c.jsonl`
+- **Session ID**: `14630ba5-15a3-44a8-a62e-7e9272b5531c`
+- **行号**: 9
+- **时间戳**: 2026-04-13T16:56:00.742Z
+
+---
+
+### 错误 #10
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\18fde982-d380-45bd-9ce5-a27b87720a47.jsonl`
+- **Session ID**: `18fde982-d380-45bd-9ce5-a27b87720a47`
+- **行号**: 6
+- **时间戳**: 2026-04-13T10:53:30.059Z
+
+---
+
+### 错误 #11
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\18fde982-d380-45bd-9ce5-a27b87720a47.jsonl`
+- **Session ID**: `18fde982-d380-45bd-9ce5-a27b87720a47`
+- **行号**: 7
+- **时间戳**: 2026-04-13T10:53:33.380Z
+
+---
+
+### 错误 #12
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\18fde982-d380-45bd-9ce5-a27b87720a47.jsonl`
+- **Session ID**: `18fde982-d380-45bd-9ce5-a27b87720a47`
+- **行号**: 8
+- **时间戳**: 2026-04-13T10:53:38.971Z
+
+---
+
+### 错误 #13
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\18fde982-d380-45bd-9ce5-a27b87720a47.jsonl`
+- **Session ID**: `18fde982-d380-45bd-9ce5-a27b87720a47`
+- **行号**: 9
+- **时间戳**: 2026-04-13T10:53:48.376Z
+
+---
+
+### 错误 #14
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\24d2498b-0c83-4a43-9dc1-54953bf7f13a.jsonl`
+- **Session ID**: `24d2498b-0c83-4a43-9dc1-54953bf7f13a`
+- **行号**: 6
+- **时间戳**: 2026-04-13T01:48:36.963Z
+
+---
+
+### 错误 #15
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\24d2498b-0c83-4a43-9dc1-54953bf7f13a.jsonl`
+- **Session ID**: `24d2498b-0c83-4a43-9dc1-54953bf7f13a`
+- **行号**: 7
+- **时间戳**: 2026-04-13T01:48:40.548Z
+
+---
+
+### 错误 #16
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\24d2498b-0c83-4a43-9dc1-54953bf7f13a.jsonl`
+- **Session ID**: `24d2498b-0c83-4a43-9dc1-54953bf7f13a`
+- **行号**: 8
+- **时间戳**: 2026-04-13T01:48:46.118Z
+
+---
+
+### 错误 #17
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\24d2498b-0c83-4a43-9dc1-54953bf7f13a.jsonl`
+- **Session ID**: `24d2498b-0c83-4a43-9dc1-54953bf7f13a`
+- **行号**: 9
+- **时间戳**: 2026-04-13T01:48:55.669Z
+
+---
+
+### 错误 #18
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\2bb2d971-7f27-4fec-be45-cdcb61081191.jsonl`
+- **Session ID**: `2bb2d971-7f27-4fec-be45-cdcb61081191`
+- **行号**: 6
+- **时间戳**: 2026-04-13T10:08:09.021Z
+
+---
+
+### 错误 #19
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\2bb2d971-7f27-4fec-be45-cdcb61081191.jsonl`
+- **Session ID**: `2bb2d971-7f27-4fec-be45-cdcb61081191`
+- **行号**: 7
+- **时间戳**: 2026-04-13T10:08:12.542Z
+
+---
+
+### 错误 #20
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\2bb2d971-7f27-4fec-be45-cdcb61081191.jsonl`
+- **Session ID**: `2bb2d971-7f27-4fec-be45-cdcb61081191`
+- **行号**: 8
+- **时间戳**: 2026-04-13T10:08:17.973Z
+
+---
+
+### 错误 #21
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\2bb2d971-7f27-4fec-be45-cdcb61081191.jsonl`
+- **Session ID**: `2bb2d971-7f27-4fec-be45-cdcb61081191`
+- **行号**: 9
+- **时间戳**: 2026-04-13T10:08:27.289Z
+
+---
+
+### 错误 #22
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\361299ea-fed7-49c3-8087-7ac4702c6dfc.jsonl`
+- **Session ID**: `361299ea-fed7-49c3-8087-7ac4702c6dfc`
+- **行号**: 6
+- **时间戳**: 2026-04-13T07:02:01.034Z
+
+---
+
+### 错误 #23
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\361299ea-fed7-49c3-8087-7ac4702c6dfc.jsonl`
+- **Session ID**: `361299ea-fed7-49c3-8087-7ac4702c6dfc`
+- **行号**: 7
+- **时间戳**: 2026-04-13T07:02:04.503Z
+
+---
+
+### 错误 #24
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\361299ea-fed7-49c3-8087-7ac4702c6dfc.jsonl`
+- **Session ID**: `361299ea-fed7-49c3-8087-7ac4702c6dfc`
+- **行号**: 8
+- **时间戳**: 2026-04-13T07:02:10.125Z
+
+---
+
+### 错误 #25
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\361299ea-fed7-49c3-8087-7ac4702c6dfc.jsonl`
+- **Session ID**: `361299ea-fed7-49c3-8087-7ac4702c6dfc`
+- **行号**: 9
+- **时间戳**: 2026-04-13T07:02:19.397Z
+
+---
+
+### 错误 #26
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\36459a6f-ee3d-468e-b74f-1ffafdc6c8a7.jsonl`
+- **Session ID**: `36459a6f-ee3d-468e-b74f-1ffafdc6c8a7`
+- **行号**: 22
+- **时间戳**: 2026-04-13T00:51:52.384Z
+
+---
+
+### 错误 #27
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\36459a6f-ee3d-468e-b74f-1ffafdc6c8a7.jsonl`
+- **Session ID**: `36459a6f-ee3d-468e-b74f-1ffafdc6c8a7`
+- **行号**: 23
+- **时间戳**: 2026-04-13T00:51:56.401Z
+
+---
+
+### 错误 #28
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\37953cda-7cdc-4542-978e-98726480009d.jsonl`
+- **Session ID**: `37953cda-7cdc-4542-978e-98726480009d`
+- **行号**: 6
+- **时间戳**: 2026-04-13T11:53:50.992Z
+
+---
+
+### 错误 #29
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\37953cda-7cdc-4542-978e-98726480009d.jsonl`
+- **Session ID**: `37953cda-7cdc-4542-978e-98726480009d`
+- **行号**: 7
+- **时间戳**: 2026-04-13T11:53:55.505Z
+
+---
+
+### 错误 #30
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\37953cda-7cdc-4542-978e-98726480009d.jsonl`
+- **Session ID**: `37953cda-7cdc-4542-978e-98726480009d`
+- **行号**: 8
+- **时间戳**: 2026-04-13T11:54:01.102Z
+
+---
+
+### 错误 #31
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\37953cda-7cdc-4542-978e-98726480009d.jsonl`
+- **Session ID**: `37953cda-7cdc-4542-978e-98726480009d`
+- **行号**: 9
+- **时间戳**: 2026-04-13T11:54:10.688Z
+
+---
+
+### 错误 #32
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\3a67937c-f06b-464c-b14e-db7ea3c4f445.jsonl`
+- **Session ID**: `3a67937c-f06b-464c-b14e-db7ea3c4f445`
+- **行号**: 6
+- **时间戳**: 2026-04-13T10:18:08.973Z
+
+---
+
+### 错误 #33
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\3a67937c-f06b-464c-b14e-db7ea3c4f445.jsonl`
+- **Session ID**: `3a67937c-f06b-464c-b14e-db7ea3c4f445`
+- **行号**: 7
+- **时间戳**: 2026-04-13T10:18:12.510Z
+
+---
+
+### 错误 #34
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\3a67937c-f06b-464c-b14e-db7ea3c4f445.jsonl`
+- **Session ID**: `3a67937c-f06b-464c-b14e-db7ea3c4f445`
+- **行号**: 8
+- **时间戳**: 2026-04-13T10:18:18.118Z
+
+---
+
+### 错误 #35
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\3a67937c-f06b-464c-b14e-db7ea3c4f445.jsonl`
+- **Session ID**: `3a67937c-f06b-464c-b14e-db7ea3c4f445`
+- **行号**: 9
+- **时间戳**: 2026-04-13T10:18:27.703Z
+
+---
+
+### 错误 #36
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-17 15:19 GMT+8] 第一个，和第二个`
+- **错误信息**: 
+````
+list index out of range
+````
+- **完整行记录**: 
+```json
+{"type":"message","id":"1624f58b","parentId":"d4845cdb","timestamp":"2026-04-17T07:19:52.065Z","message":{"role":"assistant","content":[{"type":"text","text":"好的，我来对比 `XXX 公司情况报告_汇总.docx` 和 `XXX 公司情况报告_汇总_v2.docx` 这两个文档。\n\n首先，我需要读取这两个文档的内容来进行对比分析。\n\n"},{"type":"toolCall","id":"call_cca5538feb7a45c2bb07d5d1","name":"exec","arguments":{},"partialArgs":"{"}],"api":"openai-completions","provider":"my-qwen-provider","model":"qwen35-397b-claw-normal","usage":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"totalTokens":0,"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"total":0}},"stopReason":"error","timestamp":1776410386961,"responseId":"chatcmpl-b522e24d-b459-4370-91cf-a0d8dd9a691c","errorMessage":"list index out of range"}}
+```
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\3ad83790-42d3-4f1d-b89e-42c7ce8c7c4b.jsonl.reset.2026-04-17T09-27-34.845Z`
+- **Session ID**: `3ad83790-42d3-4f1d-b89e-42c7ce8c7c4b`
+- **行号**: 27
+- **时间戳**: 2026-04-17T07:19:52.065Z
+
+---
+
+### 错误 #37
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "cli",
+  "id": "cli"
+}
+\`\`\`
+
+[Fri 2026-04-17 15:45 GMT+8] 刚刚我把在职证明-费远-英文.pdf,在职证明-费远-中文.pdf放到了./2026-04-17目录下。我的需求是： 帮我对比一下这两个文件差异，并输出分析报告`
+- **错误信息**: 
+````
+list index out of range
+````
+- **完整行记录**: 
+```json
+{"type":"message","id":"59f02ce7","parentId":"70b4ced6","timestamp":"2026-04-17T07:45:54.680Z","message":{"role":"assistant","content":[{"type":"text","text":"让我先确认文件的位置和名称：\n\n"},{"type":"toolCall","id":"call_4ed65971a964427c8cbd245f","name":"exec","arguments":{},"partialArgs":"{"}],"api":"openai-completions","provider":"my-qwen-provider","model":"qwen35-397b-claw-normal","usage":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"totalTokens":0,"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"total":0}},"stopReason":"error","timestamp":1776411951460,"responseId":"chatcmpl-ac1f8e51-e06d-440b-a1d7-9be4eb54ac15","errorMessage":"list index out of range"}}
+```
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\3ad83790-42d3-4f1d-b89e-42c7ce8c7c4b.jsonl.reset.2026-04-17T09-27-34.845Z`
+- **Session ID**: `3ad83790-42d3-4f1d-b89e-42c7ce8c7c4b`
+- **行号**: 97
+- **时间戳**: 2026-04-17T07:45:54.680Z
+
+---
+
+### 错误 #38
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-17 16:55 GMT+8] 我有点儿想知道，你执行不下去任务，为什么直接agent就停掉了呢`
+- **错误信息**: 
+````
+list index out of range
+````
+- **完整行记录**: 
+```json
+{"type":"message","id":"b51ff542","parentId":"6990d029","timestamp":"2026-04-17T08:55:54.876Z","message":{"role":"assistant","content":[{"type":"text","text":"好的，文件确实存在！让我先检查这两个 PDF 文件的内容。由于 PDF 文件需要特殊处理，我先尝试用 Python 来提取文本内容：\n\n"},{"type":"toolCall","id":"call_3c563a7919ea4cc59860eed3","name":"exec","arguments":{},"partialArgs":"{"}],"api":"openai-completions","provider":"my-qwen-provider","model":"qwen35-397b-claw-normal","usage":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"totalTokens":0,"cost":{"input":0,"output":0,"cacheRead":0,"cacheWrite":0,"total":0}},"stopReason":"error","timestamp":1776416142854,"responseId":"chatcmpl-74604bcb-6272-403c-82e4-ef8905948d63","errorMessage":"list index out of range"}}
+```
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\3ad83790-42d3-4f1d-b89e-42c7ce8c7c4b.jsonl.reset.2026-04-17T09-27-34.845Z`
+- **Session ID**: `3ad83790-42d3-4f1d-b89e-42c7ce8c7c4b`
+- **行号**: 102
+- **时间戳**: 2026-04-17T08:55:54.876Z
+
+---
+
+### 错误 #39
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\3e59a0e5-692b-4243-8774-59c2bac1802a.jsonl`
+- **Session ID**: `3e59a0e5-692b-4243-8774-59c2bac1802a`
+- **行号**: 6
+- **时间戳**: 2026-04-13T18:56:24.477Z
+
+---
+
+### 错误 #40
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\3e59a0e5-692b-4243-8774-59c2bac1802a.jsonl`
+- **Session ID**: `3e59a0e5-692b-4243-8774-59c2bac1802a`
+- **行号**: 7
+- **时间戳**: 2026-04-13T18:56:27.811Z
+
+---
+
+### 错误 #41
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\3e59a0e5-692b-4243-8774-59c2bac1802a.jsonl`
+- **Session ID**: `3e59a0e5-692b-4243-8774-59c2bac1802a`
+- **行号**: 8
+- **时间戳**: 2026-04-13T18:56:33.233Z
+
+---
+
+### 错误 #42
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\3e59a0e5-692b-4243-8774-59c2bac1802a.jsonl`
+- **Session ID**: `3e59a0e5-692b-4243-8774-59c2bac1802a`
+- **行号**: 9
+- **时间戳**: 2026-04-13T18:56:42.577Z
+
+---
+
+### 错误 #43
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\4aacfb6d-ca07-4fce-9714-fec3327cfb47.jsonl`
+- **Session ID**: `4aacfb6d-ca07-4fce-9714-fec3327cfb47`
+- **行号**: 6
+- **时间戳**: 2026-04-13T12:54:14.299Z
+
+---
+
+### 错误 #44
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\4aacfb6d-ca07-4fce-9714-fec3327cfb47.jsonl`
+- **Session ID**: `4aacfb6d-ca07-4fce-9714-fec3327cfb47`
+- **行号**: 7
+- **时间戳**: 2026-04-13T12:54:18.007Z
+
+---
+
+### 错误 #45
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\4aacfb6d-ca07-4fce-9714-fec3327cfb47.jsonl`
+- **Session ID**: `4aacfb6d-ca07-4fce-9714-fec3327cfb47`
+- **行号**: 8
+- **时间戳**: 2026-04-13T12:54:24.578Z
+
+---
+
+### 错误 #46
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\4aacfb6d-ca07-4fce-9714-fec3327cfb47.jsonl`
+- **Session ID**: `4aacfb6d-ca07-4fce-9714-fec3327cfb47`
+- **行号**: 9
+- **时间戳**: 2026-04-13T12:54:34.060Z
+
+---
+
+### 错误 #47
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\4c6bd2fa-6ba6-43d4-a894-13a236786a1d.jsonl`
+- **Session ID**: `4c6bd2fa-6ba6-43d4-a894-13a236786a1d`
+- **行号**: 24
+- **时间戳**: 2026-04-13T05:45:51.371Z
+
+---
+
+### 错误 #48
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\4c6bd2fa-6ba6-43d4-a894-13a236786a1d.jsonl`
+- **Session ID**: `4c6bd2fa-6ba6-43d4-a894-13a236786a1d`
+- **行号**: 25
+- **时间戳**: 2026-04-13T05:45:55.063Z
+
+---
+
+### 错误 #49
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\5420451a-6369-41ee-831b-872b16dff9a6.jsonl`
+- **Session ID**: `5420451a-6369-41ee-831b-872b16dff9a6`
+- **行号**: 6
+- **时间戳**: 2026-04-13T17:56:03.503Z
+
+---
+
+### 错误 #50
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\5420451a-6369-41ee-831b-872b16dff9a6.jsonl`
+- **Session ID**: `5420451a-6369-41ee-831b-872b16dff9a6`
+- **行号**: 7
+- **时间戳**: 2026-04-13T17:56:07.035Z
+
+---
+
+### 错误 #51
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\5420451a-6369-41ee-831b-872b16dff9a6.jsonl`
+- **Session ID**: `5420451a-6369-41ee-831b-872b16dff9a6`
+- **行号**: 8
+- **时间戳**: 2026-04-13T17:56:12.620Z
+
+---
+
+### 错误 #52
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\5420451a-6369-41ee-831b-872b16dff9a6.jsonl`
+- **Session ID**: `5420451a-6369-41ee-831b-872b16dff9a6`
+- **行号**: 9
+- **时间戳**: 2026-04-13T17:56:22.048Z
+
+---
+
+### 错误 #53
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\563d1b27-42ee-4206-ad01-127e7dd0dfa2.jsonl`
+- **Session ID**: `563d1b27-42ee-4206-ad01-127e7dd0dfa2`
+- **行号**: 6
+- **时间戳**: 2026-04-13T10:38:09.152Z
+
+---
+
+### 错误 #54
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\563d1b27-42ee-4206-ad01-127e7dd0dfa2.jsonl`
+- **Session ID**: `563d1b27-42ee-4206-ad01-127e7dd0dfa2`
+- **行号**: 7
+- **时间戳**: 2026-04-13T10:38:12.530Z
+
+---
+
+### 错误 #55
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\563d1b27-42ee-4206-ad01-127e7dd0dfa2.jsonl`
+- **Session ID**: `563d1b27-42ee-4206-ad01-127e7dd0dfa2`
+- **行号**: 8
+- **时间戳**: 2026-04-13T10:38:17.974Z
+
+---
+
+### 错误 #56
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\563d1b27-42ee-4206-ad01-127e7dd0dfa2.jsonl`
+- **Session ID**: `563d1b27-42ee-4206-ad01-127e7dd0dfa2`
+- **行号**: 9
+- **时间戳**: 2026-04-13T10:38:27.432Z
+
+---
+
+### 错误 #57
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\63a12907-b0d6-4271-b44b-1df396d3afb1.jsonl`
+- **Session ID**: `63a12907-b0d6-4271-b44b-1df396d3afb1`
+- **行号**: 6
+- **时间戳**: 2026-04-13T07:22:01.384Z
+
+---
+
+### 错误 #58
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\63a12907-b0d6-4271-b44b-1df396d3afb1.jsonl`
+- **Session ID**: `63a12907-b0d6-4271-b44b-1df396d3afb1`
+- **行号**: 7
+- **时间戳**: 2026-04-13T07:22:04.748Z
+
+---
+
+### 错误 #59
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\63a12907-b0d6-4271-b44b-1df396d3afb1.jsonl`
+- **Session ID**: `63a12907-b0d6-4271-b44b-1df396d3afb1`
+- **行号**: 8
+- **时间戳**: 2026-04-13T07:22:10.309Z
+
+---
+
+### 错误 #60
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\63a12907-b0d6-4271-b44b-1df396d3afb1.jsonl`
+- **Session ID**: `63a12907-b0d6-4271-b44b-1df396d3afb1`
+- **行号**: 9
+- **时间戳**: 2026-04-13T07:22:19.911Z
+
+---
+
+### 错误 #61
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 22
+- **时间戳**: 2026-04-13T01:50:26.127Z
+
+---
+
+### 错误 #62
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 23
+- **时间戳**: 2026-04-13T01:50:29.715Z
+
+---
+
+### 错误 #63
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 24
+- **时间戳**: 2026-04-13T01:50:35.259Z
+
+---
+
+### 错误 #64
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 25
+- **时间戳**: 2026-04-13T01:50:44.712Z
+
+---
+
+### 错误 #65
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 27
+- **时间戳**: 2026-04-13T02:20:25.700Z
+
+---
+
+### 错误 #66
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 28
+- **时间戳**: 2026-04-13T02:20:29.241Z
+
+---
+
+### 错误 #67
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 29
+- **时间戳**: 2026-04-13T02:20:34.654Z
+
+---
+
+### 错误 #68
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 30
+- **时间戳**: 2026-04-13T02:20:44.030Z
+
+---
+
+### 错误 #69
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 32
+- **时间戳**: 2026-04-13T02:50:25.787Z
+
+---
+
+### 错误 #70
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 33
+- **时间戳**: 2026-04-13T02:50:29.098Z
+
+---
+
+### 错误 #71
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 34
+- **时间戳**: 2026-04-13T02:50:34.393Z
+
+---
+
+### 错误 #72
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 35
+- **时间戳**: 2026-04-13T02:50:43.932Z
+
+---
+
+### 错误 #73
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 37
+- **时间戳**: 2026-04-13T03:20:25.976Z
+
+---
+
+### 错误 #74
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 38
+- **时间戳**: 2026-04-13T03:20:29.221Z
+
+---
+
+### 错误 #75
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 39
+- **时间戳**: 2026-04-13T03:20:34.642Z
+
+---
+
+### 错误 #76
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 40
+- **时间戳**: 2026-04-13T03:20:44.193Z
+
+---
+
+### 错误 #77
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 42
+- **时间戳**: 2026-04-13T03:50:25.590Z
+
+---
+
+### 错误 #78
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 43
+- **时间戳**: 2026-04-13T03:50:29.051Z
+
+---
+
+### 错误 #79
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 44
+- **时间戳**: 2026-04-13T03:50:34.507Z
+
+---
+
+### 错误 #80
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 45
+- **时间戳**: 2026-04-13T03:50:43.868Z
+
+---
+
+### 错误 #81
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 47
+- **时间戳**: 2026-04-13T04:20:25.832Z
+
+---
+
+### 错误 #82
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 48
+- **时间戳**: 2026-04-13T04:20:29.329Z
+
+---
+
+### 错误 #83
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 49
+- **时间戳**: 2026-04-13T04:20:34.774Z
+
+---
+
+### 错误 #84
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 50
+- **时间戳**: 2026-04-13T04:20:44.139Z
+
+---
+
+### 错误 #85
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 52
+- **时间戳**: 2026-04-13T04:50:25.591Z
+
+---
+
+### 错误 #86
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 53
+- **时间戳**: 2026-04-13T04:50:28.910Z
+
+---
+
+### 错误 #87
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 54
+- **时间戳**: 2026-04-13T04:50:34.336Z
+
+---
+
+### 错误 #88
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 55
+- **时间戳**: 2026-04-13T04:50:43.908Z
+
+---
+
+### 错误 #89
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 61
+- **时间戳**: 2026-04-13T07:12:06.563Z
+
+---
+
+### 错误 #90
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 62
+- **时间戳**: 2026-04-13T07:12:10.124Z
+
+---
+
+### 错误 #91
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 63
+- **时间戳**: 2026-04-13T07:12:15.517Z
+
+---
+
+### 错误 #92
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 64
+- **时间戳**: 2026-04-13T07:12:24.842Z
+
+---
+
+### 错误 #93
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 66
+- **时间戳**: 2026-04-13T07:42:01.235Z
+
+---
+
+### 错误 #94
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 67
+- **时间戳**: 2026-04-13T07:42:04.621Z
+
+---
+
+### 错误 #95
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 68
+- **时间戳**: 2026-04-13T07:42:10.152Z
+
+---
+
+### 错误 #96
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 69
+- **时间戳**: 2026-04-13T07:42:19.777Z
+
+---
+
+### 错误 #97
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 71
+- **时间戳**: 2026-04-13T08:12:00.456Z
+
+---
+
+### 错误 #98
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 72
+- **时间戳**: 2026-04-13T08:12:03.964Z
+
+---
+
+### 错误 #99
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 73
+- **时间戳**: 2026-04-13T08:12:09.507Z
+
+---
+
+### 错误 #100
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 74
+- **时间戳**: 2026-04-13T08:12:18.969Z
+
+---
+
+### 错误 #101
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 76
+- **时间戳**: 2026-04-13T08:42:00.300Z
+
+---
+
+### 错误 #102
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 77
+- **时间戳**: 2026-04-13T08:42:03.879Z
+
+---
+
+### 错误 #103
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 78
+- **时间戳**: 2026-04-13T08:42:09.495Z
+
+---
+
+### 错误 #104
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 79
+- **时间戳**: 2026-04-13T08:42:18.993Z
+
+---
+
+### 错误 #105
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 81
+- **时间戳**: 2026-04-13T09:12:00.512Z
+
+---
+
+### 错误 #106
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 82
+- **时间戳**: 2026-04-13T09:12:03.913Z
+
+---
+
+### 错误 #107
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 83
+- **时间戳**: 2026-04-13T09:12:09.396Z
+
+---
+
+### 错误 #108
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 84
+- **时间戳**: 2026-04-13T09:12:18.789Z
+
+---
+
+### 错误 #109
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Mon 2026-04-13 17:13 GMT+8] 你有哪些skill是？`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 86
+- **时间戳**: 2026-04-13T09:13:37.144Z
+
+---
+
+### 错误 #110
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Mon 2026-04-13 17:13 GMT+8] 你有哪些skill是？`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 87
+- **时间戳**: 2026-04-13T09:13:40.592Z
+
+---
+
+### 错误 #111
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Mon 2026-04-13 17:13 GMT+8] 你有哪些skill是？`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 88
+- **时间戳**: 2026-04-13T09:13:46.032Z
+
+---
+
+### 错误 #112
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Mon 2026-04-13 17:13 GMT+8] 你有哪些skill是？`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 89
+- **时间戳**: 2026-04-13T09:13:55.442Z
+
+---
+
+### 错误 #113
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Mon 2026-04-13 17:15 GMT+8] 调用imap-smtp-email技能查询最近的10封邮件`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 109
+- **时间戳**: 2026-04-13T09:16:49.736Z
+
+---
+
+### 错误 #114
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Mon 2026-04-13 17:15 GMT+8] 调用imap-smtp-email技能查询最近的10封邮件`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 110
+- **时间戳**: 2026-04-13T09:16:53.813Z
+
+---
+
+### 错误 #115
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 125
+- **时间戳**: 2026-04-13T10:13:24.195Z
+
+---
+
+### 错误 #116
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 126
+- **时间戳**: 2026-04-13T10:13:27.719Z
+
+---
+
+### 错误 #117
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 127
+- **时间戳**: 2026-04-13T10:13:33.163Z
+
+---
+
+### 错误 #118
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 128
+- **时间戳**: 2026-04-13T10:13:42.602Z
+
+---
+
+### 错误 #119
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 130
+- **时间戳**: 2026-04-13T10:43:24.178Z
+
+---
+
+### 错误 #120
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 131
+- **时间戳**: 2026-04-13T10:43:27.822Z
+
+---
+
+### 错误 #121
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 132
+- **时间戳**: 2026-04-13T10:43:33.182Z
+
+---
+
+### 错误 #122
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 133
+- **时间戳**: 2026-04-13T10:43:42.673Z
+
+---
+
+### 错误 #123
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 135
+- **时间戳**: 2026-04-13T11:13:24.337Z
+
+---
+
+### 错误 #124
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 136
+- **时间戳**: 2026-04-13T11:13:27.882Z
+
+---
+
+### 错误 #125
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 137
+- **时间戳**: 2026-04-13T11:13:33.377Z
+
+---
+
+### 错误 #126
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 138
+- **时间戳**: 2026-04-13T11:13:42.970Z
+
+---
+
+### 错误 #127
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 140
+- **时间戳**: 2026-04-13T11:43:24.461Z
+
+---
+
+### 错误 #128
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 141
+- **时间戳**: 2026-04-13T11:43:29.013Z
+
+---
+
+### 错误 #129
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 142
+- **时间戳**: 2026-04-13T11:43:34.577Z
+
+---
+
+### 错误 #130
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 143
+- **时间戳**: 2026-04-13T11:43:44.002Z
+
+---
+
+### 错误 #131
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 145
+- **时间戳**: 2026-04-13T12:13:24.116Z
+
+---
+
+### 错误 #132
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 146
+- **时间戳**: 2026-04-13T12:13:29.500Z
+
+---
+
+### 错误 #133
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 147
+- **时间戳**: 2026-04-13T12:13:38.192Z
+
+---
+
+### 错误 #134
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 148
+- **时间戳**: 2026-04-13T12:13:48.921Z
+
+---
+
+### 错误 #135
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 150
+- **时间戳**: 2026-04-13T12:43:24.230Z
+
+---
+
+### 错误 #136
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 151
+- **时间戳**: 2026-04-13T12:43:27.711Z
+
+---
+
+### 错误 #137
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 152
+- **时间戳**: 2026-04-13T12:43:33.126Z
+
+---
+
+### 错误 #138
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 153
+- **时间戳**: 2026-04-13T12:43:43.689Z
+
+---
+
+### 错误 #139
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 155
+- **时间戳**: 2026-04-13T13:13:26.397Z
+
+---
+
+### 错误 #140
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 156
+- **时间戳**: 2026-04-13T13:13:30.752Z
+
+---
+
+### 错误 #141
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 157
+- **时间戳**: 2026-04-13T13:13:37.247Z
+
+---
+
+### 错误 #142
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 158
+- **时间戳**: 2026-04-13T13:13:46.771Z
+
+---
+
+### 错误 #143
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 160
+- **时间戳**: 2026-04-13T13:43:25.368Z
+
+---
+
+### 错误 #144
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 161
+- **时间戳**: 2026-04-13T13:43:28.836Z
+
+---
+
+### 错误 #145
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 162
+- **时间戳**: 2026-04-13T13:43:34.340Z
+
+---
+
+### 错误 #146
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 163
+- **时间戳**: 2026-04-13T13:43:44.824Z
+
+---
+
+### 错误 #147
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 165
+- **时间戳**: 2026-04-13T14:13:24.372Z
+
+---
+
+### 错误 #148
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 166
+- **时间戳**: 2026-04-13T14:13:27.722Z
+
+---
+
+### 错误 #149
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 167
+- **时间戳**: 2026-04-13T14:13:33.280Z
+
+---
+
+### 错误 #150
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 168
+- **时间戳**: 2026-04-13T14:13:43.763Z
+
+---
+
+### 错误 #151
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 170
+- **时间戳**: 2026-04-13T14:43:24.287Z
+
+---
+
+### 错误 #152
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 171
+- **时间戳**: 2026-04-13T14:43:27.567Z
+
+---
+
+### 错误 #153
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 172
+- **时间戳**: 2026-04-13T14:43:33.037Z
+
+---
+
+### 错误 #154
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 173
+- **时间戳**: 2026-04-13T14:43:42.611Z
+
+---
+
+### 错误 #155
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 175
+- **时间戳**: 2026-04-13T15:13:24.364Z
+
+---
+
+### 错误 #156
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 176
+- **时间戳**: 2026-04-13T15:13:27.759Z
+
+---
+
+### 错误 #157
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 177
+- **时间戳**: 2026-04-13T15:13:33.130Z
+
+---
+
+### 错误 #158
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 178
+- **时间戳**: 2026-04-13T15:13:42.548Z
+
+---
+
+### 错误 #159
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 180
+- **时间戳**: 2026-04-13T15:43:24.083Z
+
+---
+
+### 错误 #160
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 181
+- **时间戳**: 2026-04-13T15:43:27.572Z
+
+---
+
+### 错误 #161
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 182
+- **时间戳**: 2026-04-13T15:43:33.018Z
+
+---
+
+### 错误 #162
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 183
+- **时间戳**: 2026-04-13T15:43:42.465Z
+
+---
+
+### 错误 #163
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 185
+- **时间戳**: 2026-04-13T16:13:24.342Z
+
+---
+
+### 错误 #164
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 186
+- **时间戳**: 2026-04-13T16:13:27.742Z
+
+---
+
+### 错误 #165
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 187
+- **时间戳**: 2026-04-13T16:13:33.256Z
+
+---
+
+### 错误 #166
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 188
+- **时间戳**: 2026-04-13T16:13:42.825Z
+
+---
+
+### 错误 #167
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 190
+- **时间戳**: 2026-04-13T16:43:24.125Z
+
+---
+
+### 错误 #168
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 191
+- **时间戳**: 2026-04-13T16:43:27.491Z
+
+---
+
+### 错误 #169
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 192
+- **时间戳**: 2026-04-13T16:43:32.910Z
+
+---
+
+### 错误 #170
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 193
+- **时间戳**: 2026-04-13T16:43:42.292Z
+
+---
+
+### 错误 #171
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 195
+- **时间戳**: 2026-04-13T17:13:24.240Z
+
+---
+
+### 错误 #172
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 196
+- **时间戳**: 2026-04-13T17:13:27.613Z
+
+---
+
+### 错误 #173
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 197
+- **时间戳**: 2026-04-13T17:13:33.119Z
+
+---
+
+### 错误 #174
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 198
+- **时间戳**: 2026-04-13T17:13:42.447Z
+
+---
+
+### 错误 #175
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 200
+- **时间戳**: 2026-04-13T17:43:24.436Z
+
+---
+
+### 错误 #176
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 201
+- **时间戳**: 2026-04-13T17:43:28.057Z
+
+---
+
+### 错误 #177
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 202
+- **时间戳**: 2026-04-13T17:43:33.622Z
+
+---
+
+### 错误 #178
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 203
+- **时间戳**: 2026-04-13T17:43:42.965Z
+
+---
+
+### 错误 #179
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 205
+- **时间戳**: 2026-04-13T18:13:24.276Z
+
+---
+
+### 错误 #180
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 206
+- **时间戳**: 2026-04-13T18:13:27.752Z
+
+---
+
+### 错误 #181
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 207
+- **时间戳**: 2026-04-13T18:13:33.176Z
+
+---
+
+### 错误 #182
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 208
+- **时间戳**: 2026-04-13T18:13:42.486Z
+
+---
+
+### 错误 #183
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 210
+- **时间戳**: 2026-04-13T18:43:24.317Z
+
+---
+
+### 错误 #184
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 211
+- **时间戳**: 2026-04-13T18:43:27.694Z
+
+---
+
+### 错误 #185
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 212
+- **时间戳**: 2026-04-13T18:43:33.302Z
+
+---
+
+### 错误 #186
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 213
+- **时间戳**: 2026-04-13T18:43:42.790Z
+
+---
+
+### 错误 #187
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 215
+- **时间戳**: 2026-04-13T19:13:24.552Z
+
+---
+
+### 错误 #188
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 216
+- **时间戳**: 2026-04-13T19:13:28.068Z
+
+---
+
+### 错误 #189
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 217
+- **时间戳**: 2026-04-13T19:13:33.470Z
+
+---
+
+### 错误 #190
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 218
+- **时间戳**: 2026-04-13T19:13:42.953Z
+
+---
+
+### 错误 #191
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 220
+- **时间戳**: 2026-04-13T19:43:24.175Z
+
+---
+
+### 错误 #192
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 221
+- **时间戳**: 2026-04-13T19:43:27.477Z
+
+---
+
+### 错误 #193
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 222
+- **时间戳**: 2026-04-13T19:43:32.830Z
+
+---
+
+### 错误 #194
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 223
+- **时间戳**: 2026-04-13T19:43:42.303Z
+
+---
+
+### 错误 #195
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 225
+- **时间戳**: 2026-04-13T20:13:24.127Z
+
+---
+
+### 错误 #196
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 226
+- **时间戳**: 2026-04-13T20:13:27.672Z
+
+---
+
+### 错误 #197
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 227
+- **时间戳**: 2026-04-13T20:13:33.244Z
+
+---
+
+### 错误 #198
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 228
+- **时间戳**: 2026-04-13T20:13:42.753Z
+
+---
+
+### 错误 #199
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 230
+- **时间戳**: 2026-04-13T20:43:24.500Z
+
+---
+
+### 错误 #200
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 231
+- **时间戳**: 2026-04-13T20:43:27.997Z
+
+---
+
+### 错误 #201
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 232
+- **时间戳**: 2026-04-13T20:43:33.461Z
+
+---
+
+### 错误 #202
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 233
+- **时间戳**: 2026-04-13T20:43:42.892Z
+
+---
+
+### 错误 #203
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 235
+- **时间戳**: 2026-04-13T21:13:24.337Z
+
+---
+
+### 错误 #204
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 236
+- **时间戳**: 2026-04-13T21:13:27.763Z
+
+---
+
+### 错误 #205
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 237
+- **时间戳**: 2026-04-13T21:13:33.187Z
+
+---
+
+### 错误 #206
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 238
+- **时间戳**: 2026-04-13T21:13:42.672Z
+
+---
+
+### 错误 #207
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 240
+- **时间戳**: 2026-04-13T21:43:24.354Z
+
+---
+
+### 错误 #208
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 241
+- **时间戳**: 2026-04-13T21:43:27.823Z
+
+---
+
+### 错误 #209
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 242
+- **时间戳**: 2026-04-13T21:43:33.298Z
+
+---
+
+### 错误 #210
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 243
+- **时间戳**: 2026-04-13T21:43:42.806Z
+
+---
+
+### 错误 #211
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 245
+- **时间戳**: 2026-04-13T22:13:24.240Z
+
+---
+
+### 错误 #212
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 246
+- **时间戳**: 2026-04-13T22:13:27.845Z
+
+---
+
+### 错误 #213
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 247
+- **时间戳**: 2026-04-13T22:13:33.258Z
+
+---
+
+### 错误 #214
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 248
+- **时间戳**: 2026-04-13T22:13:42.728Z
+
+---
+
+### 错误 #215
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 250
+- **时间戳**: 2026-04-13T22:43:24.209Z
+
+---
+
+### 错误 #216
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 251
+- **时间戳**: 2026-04-13T22:43:27.544Z
+
+---
+
+### 错误 #217
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 252
+- **时间戳**: 2026-04-13T22:43:32.990Z
+
+---
+
+### 错误 #218
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 253
+- **时间戳**: 2026-04-13T22:43:42.464Z
+
+---
+
+### 错误 #219
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 255
+- **时间戳**: 2026-04-13T23:13:24.409Z
+
+---
+
+### 错误 #220
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 256
+- **时间戳**: 2026-04-13T23:13:27.867Z
+
+---
+
+### 错误 #221
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 257
+- **时间戳**: 2026-04-13T23:13:33.426Z
+
+---
+
+### 错误 #222
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 258
+- **时间戳**: 2026-04-13T23:13:42.795Z
+
+---
+
+### 错误 #223
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-10 17:59 GMT+8] 定时任务最新的运行结果里，找到了3封邮件，但是我要求的是最近10分钟收到的邮件，那3封邮件都超过了时间。为什么会这样？如何...`
+- **错误信息**: 
+````
+400 messages 字段值文本已超过最大输入上限65536
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl.reset.2026-04-10T10-05-09.303Z`
+- **Session ID**: `6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5`
+- **行号**: 115
+- **时间戳**: 2026-04-10T09:59:26.315Z
+
+---
+
+### 错误 #224
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-10 18:01 GMT+8] 定时任务最新的运行结果里，找到了3封邮件，但是我要求的是最近10分钟收到的邮件，那3封邮件都超过了时间。为什么会这样？如何...`
+- **错误信息**: 
+````
+400 messages 字段值文本已超过最大输入上限65536
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl.reset.2026-04-10T10-05-09.303Z`
+- **Session ID**: `6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5`
+- **行号**: 118
+- **时间戳**: 2026-04-10T10:01:35.243Z
+
+---
+
+### 错误 #225
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-10 18:57 GMT+8] “投诉邮件每日汇总”任务改成查询当天的邮件`
+- **错误信息**: 
+````
+400 messages 字段值文本已超过最大输入上限65536
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl.reset.2026-04-10T11-04-48.721Z`
+- **Session ID**: `91ff9b78-cfb3-4d7a-8094-3337d0ab4ea9`
+- **行号**: 69
+- **时间戳**: 2026-04-10T10:57:55.407Z
+
+---
+
+### 错误 #226
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\72206d26-abcf-493d-b85c-740e6c3e80bf.jsonl`
+- **Session ID**: `72206d26-abcf-493d-b85c-740e6c3e80bf`
+- **行号**: 6
+- **时间戳**: 2026-04-13T13:54:37.851Z
+
+---
+
+### 错误 #227
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\72206d26-abcf-493d-b85c-740e6c3e80bf.jsonl`
+- **Session ID**: `72206d26-abcf-493d-b85c-740e6c3e80bf`
+- **行号**: 7
+- **时间戳**: 2026-04-13T13:54:41.404Z
+
+---
+
+### 错误 #228
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\72206d26-abcf-493d-b85c-740e6c3e80bf.jsonl`
+- **Session ID**: `72206d26-abcf-493d-b85c-740e6c3e80bf`
+- **行号**: 8
+- **时间戳**: 2026-04-13T13:54:46.771Z
+
+---
+
+### 错误 #229
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\72206d26-abcf-493d-b85c-740e6c3e80bf.jsonl`
+- **Session ID**: `72206d26-abcf-493d-b85c-740e6c3e80bf`
+- **行号**: 9
+- **时间戳**: 2026-04-13T13:54:57.370Z
+
+---
+
+### 错误 #230
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\7411e78a-e81d-4d5c-bc56-c543a7c933fa.jsonl`
+- **Session ID**: `7411e78a-e81d-4d5c-bc56-c543a7c933fa`
+- **行号**: 6
+- **时间戳**: 2026-04-13T01:58:36.974Z
+
+---
+
+### 错误 #231
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\7411e78a-e81d-4d5c-bc56-c543a7c933fa.jsonl`
+- **Session ID**: `7411e78a-e81d-4d5c-bc56-c543a7c933fa`
+- **行号**: 7
+- **时间戳**: 2026-04-13T01:58:40.382Z
+
+---
+
+### 错误 #232
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\7411e78a-e81d-4d5c-bc56-c543a7c933fa.jsonl`
+- **Session ID**: `7411e78a-e81d-4d5c-bc56-c543a7c933fa`
+- **行号**: 8
+- **时间戳**: 2026-04-13T01:58:45.957Z
+
+---
+
+### 错误 #233
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\7411e78a-e81d-4d5c-bc56-c543a7c933fa.jsonl`
+- **Session ID**: `7411e78a-e81d-4d5c-bc56-c543a7c933fa`
+- **行号**: 9
+- **时间戳**: 2026-04-13T01:58:55.351Z
+
+---
+
+### 错误 #234
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\768719fa-c1c3-47b4-9c35-fe69190fac6e.jsonl`
+- **Session ID**: `768719fa-c1c3-47b4-9c35-fe69190fac6e`
+- **行号**: 6
+- **时间戳**: 2026-04-13T02:18:36.923Z
+
+---
+
+### 错误 #235
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\768719fa-c1c3-47b4-9c35-fe69190fac6e.jsonl`
+- **Session ID**: `768719fa-c1c3-47b4-9c35-fe69190fac6e`
+- **行号**: 7
+- **时间戳**: 2026-04-13T02:18:40.285Z
+
+---
+
+### 错误 #236
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\768719fa-c1c3-47b4-9c35-fe69190fac6e.jsonl`
+- **Session ID**: `768719fa-c1c3-47b4-9c35-fe69190fac6e`
+- **行号**: 8
+- **时间戳**: 2026-04-13T02:18:45.796Z
+
+---
+
+### 错误 #237
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\768719fa-c1c3-47b4-9c35-fe69190fac6e.jsonl`
+- **Session ID**: `768719fa-c1c3-47b4-9c35-fe69190fac6e`
+- **行号**: 9
+- **时间戳**: 2026-04-13T02:18:55.398Z
+
+---
+
+### 错误 #238
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\7a9dd51b-19c0-4d85-b80e-71863f1a2219.jsonl`
+- **Session ID**: `7a9dd51b-19c0-4d85-b80e-71863f1a2219`
+- **行号**: 6
+- **时间戳**: 2026-04-13T10:28:08.925Z
+
+---
+
+### 错误 #239
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\7a9dd51b-19c0-4d85-b80e-71863f1a2219.jsonl`
+- **Session ID**: `7a9dd51b-19c0-4d85-b80e-71863f1a2219`
+- **行号**: 7
+- **时间戳**: 2026-04-13T10:28:12.196Z
+
+---
+
+### 错误 #240
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\7a9dd51b-19c0-4d85-b80e-71863f1a2219.jsonl`
+- **Session ID**: `7a9dd51b-19c0-4d85-b80e-71863f1a2219`
+- **行号**: 8
+- **时间戳**: 2026-04-13T10:28:17.730Z
+
+---
+
+### 错误 #241
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\7a9dd51b-19c0-4d85-b80e-71863f1a2219.jsonl`
+- **Session ID**: `7a9dd51b-19c0-4d85-b80e-71863f1a2219`
+- **行号**: 9
+- **时间戳**: 2026-04-13T10:28:27.136Z
+
+---
+
+### 错误 #242
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\7b2d9208-e322-497a-8cfe-97771e3234a0.jsonl`
+- **Session ID**: `7b2d9208-e322-497a-8cfe-97771e3234a0`
+- **行号**: 6
+- **时间戳**: 2026-04-13T22:57:48.392Z
+
+---
+
+### 错误 #243
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\7b2d9208-e322-497a-8cfe-97771e3234a0.jsonl`
+- **Session ID**: `7b2d9208-e322-497a-8cfe-97771e3234a0`
+- **行号**: 7
+- **时间戳**: 2026-04-13T22:57:51.855Z
+
+---
+
+### 错误 #244
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\7b2d9208-e322-497a-8cfe-97771e3234a0.jsonl`
+- **Session ID**: `7b2d9208-e322-497a-8cfe-97771e3234a0`
+- **行号**: 8
+- **时间戳**: 2026-04-13T22:57:57.244Z
+
+---
+
+### 错误 #245
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\7b2d9208-e322-497a-8cfe-97771e3234a0.jsonl`
+- **Session ID**: `7b2d9208-e322-497a-8cfe-97771e3234a0`
+- **行号**: 9
+- **时间戳**: 2026-04-13T22:58:06.781Z
+
+---
+
+### 错误 #246
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\8b9ee256-47a5-4a34-888e-09acbc59dfb5.jsonl`
+- **Session ID**: `8b9ee256-47a5-4a34-888e-09acbc59dfb5`
+- **行号**: 6
+- **时间戳**: 2026-04-13T07:47:24.091Z
+
+---
+
+### 错误 #247
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\8b9ee256-47a5-4a34-888e-09acbc59dfb5.jsonl`
+- **Session ID**: `8b9ee256-47a5-4a34-888e-09acbc59dfb5`
+- **行号**: 7
+- **时间戳**: 2026-04-13T07:47:27.443Z
+
+---
+
+### 错误 #248
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\8b9ee256-47a5-4a34-888e-09acbc59dfb5.jsonl`
+- **Session ID**: `8b9ee256-47a5-4a34-888e-09acbc59dfb5`
+- **行号**: 8
+- **时间戳**: 2026-04-13T07:47:33.018Z
+
+---
+
+### 错误 #249
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\8b9ee256-47a5-4a34-888e-09acbc59dfb5.jsonl`
+- **Session ID**: `8b9ee256-47a5-4a34-888e-09acbc59dfb5`
+- **行号**: 9
+- **时间戳**: 2026-04-13T07:47:42.454Z
+
+---
+
+### 错误 #250
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\92df639c-fc69-40d4-b070-569e7916b2ab.jsonl`
+- **Session ID**: `92df639c-fc69-40d4-b070-569e7916b2ab`
+- **行号**: 6
+- **时间戳**: 2026-04-13T19:56:45.261Z
+
+---
+
+### 错误 #251
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\92df639c-fc69-40d4-b070-569e7916b2ab.jsonl`
+- **Session ID**: `92df639c-fc69-40d4-b070-569e7916b2ab`
+- **行号**: 7
+- **时间戳**: 2026-04-13T19:56:48.854Z
+
+---
+
+### 错误 #252
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\92df639c-fc69-40d4-b070-569e7916b2ab.jsonl`
+- **Session ID**: `92df639c-fc69-40d4-b070-569e7916b2ab`
+- **行号**: 8
+- **时间戳**: 2026-04-13T19:56:54.380Z
+
+---
+
+### 错误 #253
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\92df639c-fc69-40d4-b070-569e7916b2ab.jsonl`
+- **Session ID**: `92df639c-fc69-40d4-b070-569e7916b2ab`
+- **行号**: 9
+- **时间戳**: 2026-04-13T19:57:03.811Z
+
+---
+
+### 错误 #254
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\96fd5232-0b83-4f78-a8da-0ef429c013fa.jsonl`
+- **Session ID**: `96fd5232-0b83-4f78-a8da-0ef429c013fa`
+- **行号**: 6
+- **时间戳**: 2026-04-13T07:32:00.911Z
+
+---
+
+### 错误 #255
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\96fd5232-0b83-4f78-a8da-0ef429c013fa.jsonl`
+- **Session ID**: `96fd5232-0b83-4f78-a8da-0ef429c013fa`
+- **行号**: 7
+- **时间戳**: 2026-04-13T07:32:04.425Z
+
+---
+
+### 错误 #256
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\96fd5232-0b83-4f78-a8da-0ef429c013fa.jsonl`
+- **Session ID**: `96fd5232-0b83-4f78-a8da-0ef429c013fa`
+- **行号**: 8
+- **时间戳**: 2026-04-13T07:32:09.930Z
+
+---
+
+### 错误 #257
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\96fd5232-0b83-4f78-a8da-0ef429c013fa.jsonl`
+- **Session ID**: `96fd5232-0b83-4f78-a8da-0ef429c013fa`
+- **行号**: 9
+- **时间戳**: 2026-04-13T07:32:19.449Z
+
+---
+
+### 错误 #258
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\9c1eeaaa-9761-44b9-9627-58abb48fc1d1.jsonl`
+- **Session ID**: `9c1eeaaa-9761-44b9-9627-58abb48fc1d1`
+- **行号**: 22
+- **时间戳**: 2026-04-13T05:55:51.210Z
+
+---
+
+### 错误 #259
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\9c1eeaaa-9761-44b9-9627-58abb48fc1d1.jsonl`
+- **Session ID**: `9c1eeaaa-9761-44b9-9627-58abb48fc1d1`
+- **行号**: 23
+- **时间戳**: 2026-04-13T05:55:55.004Z
+
+---
+
+### 错误 #260
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 18
+- **时间戳**: 2026-04-10T11:07:55.132Z
+
+---
+
+### 错误 #261
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 33
+- **时间戳**: 2026-04-10T11:08:48.602Z
+
+---
+
+### 错误 #262
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 34
+- **时间戳**: 2026-04-10T11:08:52.496Z
+
+---
+
+### 错误 #263
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 35
+- **时间戳**: 2026-04-10T11:08:58.346Z
+
+---
+
+### 错误 #264
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 58
+- **时间戳**: 2026-04-10T11:10:42.467Z
+
+---
+
+### 错误 #265
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 59
+- **时间戳**: 2026-04-10T11:10:46.415Z
+
+---
+
+### 错误 #266
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 60
+- **时间戳**: 2026-04-10T11:10:52.364Z
+
+---
+
+### 错误 #267
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 71
+- **时间戳**: 2026-04-10T11:11:38.922Z
+
+---
+
+### 错误 #268
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 72
+- **时间戳**: 2026-04-10T11:11:42.866Z
+
+---
+
+### 错误 #269
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 73
+- **时间戳**: 2026-04-10T11:11:48.639Z
+
+---
+
+### 错误 #270
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 74
+- **时间戳**: 2026-04-10T11:11:58.694Z
+
+---
+
+### 错误 #271
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b7b0c93f-add1-436b-a081-546a0c93c9a3.jsonl`
+- **Session ID**: `b7b0c93f-add1-436b-a081-546a0c93c9a3`
+- **行号**: 6
+- **时间戳**: 2026-04-13T14:54:59.972Z
+
+---
+
+### 错误 #272
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b7b0c93f-add1-436b-a081-546a0c93c9a3.jsonl`
+- **Session ID**: `b7b0c93f-add1-436b-a081-546a0c93c9a3`
+- **行号**: 7
+- **时间戳**: 2026-04-13T14:55:03.413Z
+
+---
+
+### 错误 #273
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b7b0c93f-add1-436b-a081-546a0c93c9a3.jsonl`
+- **Session ID**: `b7b0c93f-add1-436b-a081-546a0c93c9a3`
+- **行号**: 8
+- **时间戳**: 2026-04-13T14:55:08.860Z
+
+---
+
+### 错误 #274
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b7b0c93f-add1-436b-a081-546a0c93c9a3.jsonl`
+- **Session ID**: `b7b0c93f-add1-436b-a081-546a0c93c9a3`
+- **行号**: 9
+- **时间戳**: 2026-04-13T14:55:18.417Z
+
+---
+
+### 错误 #275
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\c93b052d-01a4-47be-8320-5aee52003af0.jsonl`
+- **Session ID**: `c93b052d-01a4-47be-8320-5aee52003af0`
+- **行号**: 6
+- **时间戳**: 2026-04-13T08:47:45.126Z
+
+---
+
+### 错误 #276
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\c93b052d-01a4-47be-8320-5aee52003af0.jsonl`
+- **Session ID**: `c93b052d-01a4-47be-8320-5aee52003af0`
+- **行号**: 7
+- **时间戳**: 2026-04-13T08:47:48.638Z
+
+---
+
+### 错误 #277
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\c93b052d-01a4-47be-8320-5aee52003af0.jsonl`
+- **Session ID**: `c93b052d-01a4-47be-8320-5aee52003af0`
+- **行号**: 8
+- **时间戳**: 2026-04-13T08:47:54.087Z
+
+---
+
+### 错误 #278
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\c93b052d-01a4-47be-8320-5aee52003af0.jsonl`
+- **Session ID**: `c93b052d-01a4-47be-8320-5aee52003af0`
+- **行号**: 9
+- **时间戳**: 2026-04-13T08:48:03.467Z
+
+---
+
+### 错误 #279
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\cba87e4e-5268-4c6d-9845-735b24e21639.jsonl`
+- **Session ID**: `cba87e4e-5268-4c6d-9845-735b24e21639`
+- **行号**: 6
+- **时间戳**: 2026-04-13T02:33:57.928Z
+
+---
+
+### 错误 #280
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\cba87e4e-5268-4c6d-9845-735b24e21639.jsonl`
+- **Session ID**: `cba87e4e-5268-4c6d-9845-735b24e21639`
+- **行号**: 7
+- **时间戳**: 2026-04-13T02:34:01.195Z
+
+---
+
+### 错误 #281
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\cba87e4e-5268-4c6d-9845-735b24e21639.jsonl`
+- **Session ID**: `cba87e4e-5268-4c6d-9845-735b24e21639`
+- **行号**: 8
+- **时间戳**: 2026-04-13T02:34:06.493Z
+
+---
+
+### 错误 #282
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\cba87e4e-5268-4c6d-9845-735b24e21639.jsonl`
+- **Session ID**: `cba87e4e-5268-4c6d-9845-735b24e21639`
+- **行号**: 9
+- **时间戳**: 2026-04-13T02:34:16.004Z
+
+---
+
+### 错误 #283
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\ceb08420-add6-47e8-b284-b7ded766057c.jsonl`
+- **Session ID**: `ceb08420-add6-47e8-b284-b7ded766057c`
+- **行号**: 6
+- **时间戳**: 2026-04-13T03:34:18.466Z
+
+---
+
+### 错误 #284
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\ceb08420-add6-47e8-b284-b7ded766057c.jsonl`
+- **Session ID**: `ceb08420-add6-47e8-b284-b7ded766057c`
+- **行号**: 7
+- **时间戳**: 2026-04-13T03:34:21.740Z
+
+---
+
+### 错误 #285
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\ceb08420-add6-47e8-b284-b7ded766057c.jsonl`
+- **Session ID**: `ceb08420-add6-47e8-b284-b7ded766057c`
+- **行号**: 8
+- **时间戳**: 2026-04-13T03:34:27.247Z
+
+---
+
+### 错误 #286
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\ceb08420-add6-47e8-b284-b7ded766057c.jsonl`
+- **Session ID**: `ceb08420-add6-47e8-b284-b7ded766057c`
+- **行号**: 9
+- **时间戳**: 2026-04-13T03:34:36.512Z
+
+---
+
+### 错误 #287
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+terminated
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\d563fcfc-375c-4423-82e0-0be9cf40984b.jsonl`
+- **Session ID**: `d563fcfc-375c-4423-82e0-0be9cf40984b`
+- **行号**: 12
+- **时间戳**: 2026-04-13T09:59:12.860Z
+
+---
+
+### 错误 #288
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\d563fcfc-375c-4423-82e0-0be9cf40984b.jsonl`
+- **Session ID**: `d563fcfc-375c-4423-82e0-0be9cf40984b`
+- **行号**: 13
+- **时间戳**: 2026-04-13T09:59:16.351Z
+
+---
+
+### 错误 #289
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\d563fcfc-375c-4423-82e0-0be9cf40984b.jsonl`
+- **Session ID**: `d563fcfc-375c-4423-82e0-0be9cf40984b`
+- **行号**: 14
+- **时间戳**: 2026-04-13T09:59:21.682Z
+
+---
+
+### 错误 #290
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\d563fcfc-375c-4423-82e0-0be9cf40984b.jsonl`
+- **Session ID**: `d563fcfc-375c-4423-82e0-0be9cf40984b`
+- **行号**: 15
+- **时间戳**: 2026-04-13T09:59:31.212Z
+
+---
+
+### 错误 #291
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\db00c5eb-a386-4f7d-82e8-74dd65248084.jsonl`
+- **Session ID**: `db00c5eb-a386-4f7d-82e8-74dd65248084`
+- **行号**: 6
+- **时间戳**: 2026-04-13T02:08:37.010Z
+
+---
+
+### 错误 #292
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\db00c5eb-a386-4f7d-82e8-74dd65248084.jsonl`
+- **Session ID**: `db00c5eb-a386-4f7d-82e8-74dd65248084`
+- **行号**: 7
+- **时间戳**: 2026-04-13T02:08:40.524Z
+
+---
+
+### 错误 #293
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\db00c5eb-a386-4f7d-82e8-74dd65248084.jsonl`
+- **Session ID**: `db00c5eb-a386-4f7d-82e8-74dd65248084`
+- **行号**: 8
+- **时间戳**: 2026-04-13T02:08:46.093Z
+
+---
+
+### 错误 #294
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\db00c5eb-a386-4f7d-82e8-74dd65248084.jsonl`
+- **Session ID**: `db00c5eb-a386-4f7d-82e8-74dd65248084`
+- **行号**: 9
+- **时间戳**: 2026-04-13T02:08:55.475Z
+
+---
+
+### 错误 #295
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\df2384ab-836d-490c-a1a7-042478b1951e.jsonl`
+- **Session ID**: `df2384ab-836d-490c-a1a7-042478b1951e`
+- **行号**: 6
+- **时间戳**: 2026-04-13T04:34:38.992Z
+
+---
+
+### 错误 #296
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\df2384ab-836d-490c-a1a7-042478b1951e.jsonl`
+- **Session ID**: `df2384ab-836d-490c-a1a7-042478b1951e`
+- **行号**: 7
+- **时间戳**: 2026-04-13T04:34:42.412Z
+
+---
+
+### 错误 #297
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\df2384ab-836d-490c-a1a7-042478b1951e.jsonl`
+- **Session ID**: `df2384ab-836d-490c-a1a7-042478b1951e`
+- **行号**: 8
+- **时间戳**: 2026-04-13T04:34:47.969Z
+
+---
+
+### 错误 #298
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\df2384ab-836d-490c-a1a7-042478b1951e.jsonl`
+- **Session ID**: `df2384ab-836d-490c-a1a7-042478b1951e`
+- **行号**: 9
+- **时间戳**: 2026-04-13T04:34:57.305Z
+
+---
+
+### 错误 #299
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e1af6529-edef-4e22-8e25-06ce10c5a845.jsonl`
+- **Session ID**: `e1af6529-edef-4e22-8e25-06ce10c5a845`
+- **行号**: 6
+- **时间戳**: 2026-04-13T15:55:20.949Z
+
+---
+
+### 错误 #300
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e1af6529-edef-4e22-8e25-06ce10c5a845.jsonl`
+- **Session ID**: `e1af6529-edef-4e22-8e25-06ce10c5a845`
+- **行号**: 7
+- **时间戳**: 2026-04-13T15:55:24.468Z
+
+---
+
+### 错误 #301
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e1af6529-edef-4e22-8e25-06ce10c5a845.jsonl`
+- **Session ID**: `e1af6529-edef-4e22-8e25-06ce10c5a845`
+- **行号**: 8
+- **时间戳**: 2026-04-13T15:55:29.959Z
+
+---
+
+### 错误 #302
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e1af6529-edef-4e22-8e25-06ce10c5a845.jsonl`
+- **Session ID**: `e1af6529-edef-4e22-8e25-06ce10c5a845`
+- **行号**: 9
+- **时间戳**: 2026-04-13T15:55:39.578Z
+
+---
+
+### 错误 #303
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用imap-smtp-email技能的imap功能检查我的邮箱中最近10分钟内收到的邮件。找出其中有时间限制、特别紧急的邮件（如截止日期临近、会议即将开始、需要立即处理的事项等）。将这些紧急邮件的主题和关键信息整理成一封邮件，然后使用imap-smtp-email技能的smtp功...`
+- **错误信息**: 
+````
+很抱歉，关于这个问题我无法提供相应的信息。如果您有其他问题，我将很愿意为您回答。
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e4fedafb-43c1-43e2-8ecb-a00aca5bef29.jsonl.deleted.2026-04-13T00-53-49.391Z`
+- **Session ID**: `e4fedafb-43c1-43e2-8ecb-a00aca5bef29`
+- **行号**: 38
+- **时间戳**: 2026-04-10T09:24:39.860Z
+
+---
+
+### 错误 #304
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: aborted
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-10 17:27 GMT+8] 查一下你的日志，上次运行为什么失败了？`
+- **错误信息**: 
+````
+Request was aborted.
+````
+- **原因分析**: 请求被中止，可能原因：1) 用户主动取消操作；2) 系统资源限制触发中止；3) 会话超时被清理；4) 新请求到来时旧请求被取消
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e4fedafb-43c1-43e2-8ecb-a00aca5bef29.jsonl.deleted.2026-04-13T00-53-49.391Z`
+- **Session ID**: `e4fedafb-43c1-43e2-8ecb-a00aca5bef29`
+- **行号**: 53
+- **时间戳**: 2026-04-10T09:28:30.877Z
+
+---
+
+### 错误 #305
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e877bd15-2f2d-40aa-a323-fcad2600b2a9.jsonl`
+- **Session ID**: `e877bd15-2f2d-40aa-a323-fcad2600b2a9`
+- **行号**: 6
+- **时间戳**: 2026-04-13T07:12:06.485Z
+
+---
+
+### 错误 #306
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e877bd15-2f2d-40aa-a323-fcad2600b2a9.jsonl`
+- **Session ID**: `e877bd15-2f2d-40aa-a323-fcad2600b2a9`
+- **行号**: 7
+- **时间戳**: 2026-04-13T07:12:10.115Z
+
+---
+
+### 错误 #307
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e877bd15-2f2d-40aa-a323-fcad2600b2a9.jsonl`
+- **Session ID**: `e877bd15-2f2d-40aa-a323-fcad2600b2a9`
+- **行号**: 8
+- **时间戳**: 2026-04-13T07:12:15.547Z
+
+---
+
+### 错误 #308
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e877bd15-2f2d-40aa-a323-fcad2600b2a9.jsonl`
+- **Session ID**: `e877bd15-2f2d-40aa-a323-fcad2600b2a9`
+- **行号**: 9
+- **时间戳**: 2026-04-13T07:12:25.103Z
+
+---
+
+### 错误 #309
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\eb4ac9f4-9462-4c1b-9419-681b3c0f8c9d.jsonl`
+- **Session ID**: `eb4ac9f4-9462-4c1b-9419-681b3c0f8c9d`
+- **行号**: 6
+- **时间戳**: 2026-04-13T20:57:06.312Z
+
+---
+
+### 错误 #310
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\eb4ac9f4-9462-4c1b-9419-681b3c0f8c9d.jsonl`
+- **Session ID**: `eb4ac9f4-9462-4c1b-9419-681b3c0f8c9d`
+- **行号**: 7
+- **时间戳**: 2026-04-13T20:57:09.911Z
+
+---
+
+### 错误 #311
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\eb4ac9f4-9462-4c1b-9419-681b3c0f8c9d.jsonl`
+- **Session ID**: `eb4ac9f4-9462-4c1b-9419-681b3c0f8c9d`
+- **行号**: 8
+- **时间戳**: 2026-04-13T20:57:15.293Z
+
+---
+
+### 错误 #312
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\eb4ac9f4-9462-4c1b-9419-681b3c0f8c9d.jsonl`
+- **Session ID**: `eb4ac9f4-9462-4c1b-9419-681b3c0f8c9d`
+- **行号**: 9
+- **时间戳**: 2026-04-13T20:57:24.687Z
+
+---
+
+### 错误 #313
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\ed56c709-ee3d-4b8f-9759-9ca4ffe72364.jsonl`
+- **Session ID**: `ed56c709-ee3d-4b8f-9759-9ca4ffe72364`
+- **行号**: 6
+- **时间戳**: 2026-04-13T21:57:27.284Z
+
+---
+
+### 错误 #314
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\ed56c709-ee3d-4b8f-9759-9ca4ffe72364.jsonl`
+- **Session ID**: `ed56c709-ee3d-4b8f-9759-9ca4ffe72364`
+- **行号**: 7
+- **时间戳**: 2026-04-13T21:57:30.813Z
+
+---
+
+### 错误 #315
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\ed56c709-ee3d-4b8f-9759-9ca4ffe72364.jsonl`
+- **Session ID**: `ed56c709-ee3d-4b8f-9759-9ca4ffe72364`
+- **行号**: 8
+- **时间戳**: 2026-04-13T21:57:36.224Z
+
+---
+
+### 错误 #316
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+Connection error.
+````
+- **原因分析**: 模型API调用失败，可能原因：1) API密钥无效或过期；2) 模型服务暂时不可用；3) 请求格式不正确；4) 配额已用完
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\ed56c709-ee3d-4b8f-9759-9ca4ffe72364.jsonl`
+- **Session ID**: `ed56c709-ee3d-4b8f-9759-9ca4ffe72364`
+- **行号**: 9
+- **时间戳**: 2026-04-13T21:57:45.807Z
+
+---
+
+### 错误 #317
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\ee02ba14-71d6-4fc5-ad8e-e50e5f6d040c.jsonl`
+- **Session ID**: `ee02ba14-71d6-4fc5-ad8e-e50e5f6d040c`
+- **行号**: 32
+- **时间戳**: 2026-04-13T01:39:56.178Z
+
+---
+
+### 错误 #318
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
@@ -48,7 +6504,7 @@ Request was aborted
 
 ---
 
-### 错误 #2
+### 错误 #319
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
@@ -73,7 +6529,7 @@ Request was aborted
 
 ---
 
-### 错误 #3
+### 错误 #320
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -98,7 +6554,7 @@ Request was aborted
 
 ---
 
-### 错误 #4
+### 错误 #321
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -123,7 +6579,7 @@ Request was aborted
 
 ---
 
-### 错误 #5
+### 错误 #322
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -148,7 +6604,7 @@ Request was aborted
 
 ---
 
-### 错误 #6
+### 错误 #323
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -173,7 +6629,7 @@ Request was aborted
 
 ---
 
-### 错误 #7
+### 错误 #324
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -198,7 +6654,7 @@ Request was aborted
 
 ---
 
-### 错误 #8
+### 错误 #325
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -223,7 +6679,7 @@ Request was aborted
 
 ---
 
-### 错误 #9
+### 错误 #326
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -248,7 +6704,7 @@ Request was aborted
 
 ---
 
-### 错误 #10
+### 错误 #327
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -273,7 +6729,7 @@ Request was aborted
 
 ---
 
-### 错误 #11
+### 错误 #328
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -298,7 +6754,7 @@ Request was aborted
 
 ---
 
-### 错误 #12
+### 错误 #329
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -320,7 +6776,7 @@ System: Session was just compacted. The conversation summary above is a hint, NO
 
 ---
 
-### 错误 #13
+### 错误 #330
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -340,7 +6796,7 @@ System: Session was just compacted. The conversation summary above is a hint, NO
 
 ---
 
-### 错误 #14
+### 错误 #331
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -362,7 +6818,7 @@ System: Session was just compacted. The conversation summary above is a hint, NO
 
 ---
 
-### 错误 #15
+### 错误 #332
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -382,7 +6838,7 @@ System: Session was just compacted. The conversation summary above is a hint, NO
 
 ---
 
-### 错误 #16
+### 错误 #333
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -404,7 +6860,7 @@ System: Session was just compacted. The conversation summary above is a hint, NO
 
 ---
 
-### 错误 #17
+### 错误 #334
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -423,7 +6879,7 @@ Sys...`
 
 ---
 
-### 错误 #18
+### 错误 #335
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -448,7 +6904,7 @@ Sys...`
 
 ---
 
-### 错误 #19
+### 错误 #336
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -467,7 +6923,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #20
+### 错误 #337
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -486,7 +6942,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #21
+### 错误 #338
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -505,7 +6961,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #22
+### 错误 #339
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -524,7 +6980,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #23
+### 错误 #340
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -549,7 +7005,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #24
+### 错误 #341
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -574,7 +7030,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #25
+### 错误 #342
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -599,7 +7055,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #26
+### 错误 #343
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -624,7 +7080,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #27
+### 错误 #344
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -649,7 +7105,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #28
+### 错误 #345
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -674,7 +7130,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #29
+### 错误 #346
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -691,7 +7147,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #30
+### 错误 #347
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -716,7 +7172,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #31
+### 错误 #348
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -744,7 +7200,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #32
+### 错误 #349
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -772,7 +7228,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #33
+### 错误 #350
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -800,7 +7256,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #34
+### 错误 #351
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -822,7 +7278,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #35
+### 错误 #352
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -844,7 +7300,7 @@ System: Run: openclaw...`
 
 ---
 
-### 错误 #36
+### 错误 #353
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
@@ -872,7 +7328,7 @@ Request was aborted
 
 ---
 
-### 错误 #37
+### 错误 #354
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -900,7 +7356,7 @@ Request was aborted
 
 ---
 
-### 错误 #38
+### 错误 #355
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -928,7 +7384,7 @@ Request was aborted
 
 ---
 
-### 错误 #39
+### 错误 #356
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -956,7 +7412,7 @@ Request was aborted
 
 ---
 
-### 错误 #40
+### 错误 #357
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -978,7 +7434,7 @@ Request was aborted
 
 ---
 
-### 错误 #41
+### 错误 #358
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1006,7 +7462,7 @@ Request was aborted
 
 ---
 
-### 错误 #42
+### 错误 #359
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1034,7 +7490,7 @@ Request was aborted
 
 ---
 
-### 错误 #43
+### 错误 #360
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1062,7 +7518,7 @@ Request was aborted
 
 ---
 
-### 错误 #44
+### 错误 #361
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1090,7 +7546,7 @@ Request was aborted
 
 ---
 
-### 错误 #45
+### 错误 #362
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1118,7 +7574,7 @@ Request was aborted
 
 ---
 
-### 错误 #46
+### 错误 #363
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1146,7 +7602,7 @@ Request was aborted
 
 ---
 
-### 错误 #47
+### 错误 #364
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1174,7 +7630,7 @@ Request was aborted
 
 ---
 
-### 错误 #48
+### 错误 #365
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1199,7 +7655,7 @@ Request was aborted
 
 ---
 
-### 错误 #49
+### 错误 #366
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1220,7 +7676,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #50
+### 错误 #367
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1241,7 +7697,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #51
+### 错误 #368
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1262,7 +7718,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #52
+### 错误 #369
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1283,7 +7739,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #53
+### 错误 #370
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1304,7 +7760,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #54
+### 错误 #371
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1325,7 +7781,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #55
+### 错误 #372
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1346,7 +7802,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #56
+### 错误 #373
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1367,7 +7823,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #57
+### 错误 #374
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1388,7 +7844,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #58
+### 错误 #375
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1409,7 +7865,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #59
+### 错误 #376
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1430,7 +7886,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #60
+### 错误 #377
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1451,7 +7907,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #61
+### 错误 #378
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1472,7 +7928,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #62
+### 错误 #379
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1493,7 +7949,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #63
+### 错误 #380
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1511,7 +7967,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #64
+### 错误 #381
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1529,7 +7985,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #65
+### 错误 #382
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1547,7 +8003,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #66
+### 错误 #383
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1565,7 +8021,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #67
+### 错误 #384
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1590,7 +8046,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #68
+### 错误 #385
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1618,7 +8074,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #69
+### 错误 #386
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1638,7 +8094,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #70
+### 错误 #387
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1660,7 +8116,7 @@ System: Session was just compacted. The conversation summary above is a hint, NO
 
 ---
 
-### 错误 #71
+### 错误 #388
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
@@ -1685,7 +8141,7 @@ Request was aborted
 
 ---
 
-### 错误 #72
+### 错误 #389
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1710,7 +8166,7 @@ Request was aborted
 
 ---
 
-### 错误 #73
+### 错误 #390
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1735,7 +8191,7 @@ Request was aborted
 
 ---
 
-### 错误 #74
+### 错误 #391
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1760,7 +8216,7 @@ Request was aborted
 
 ---
 
-### 错误 #75
+### 错误 #392
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1785,7 +8241,7 @@ Request was aborted
 
 ---
 
-### 错误 #76
+### 错误 #393
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1810,7 +8266,7 @@ Request was aborted
 
 ---
 
-### 错误 #77
+### 错误 #394
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1835,7 +8291,7 @@ Request was aborted
 
 ---
 
-### 错误 #78
+### 错误 #395
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -1857,9 +8313,356 @@ Request was aborted
 
 ---
 
-## modelErrors - 模型API错误 (34)
+## modelErrors - 模型API错误 (50)
 
-### 错误 #79
+### 错误 #396
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用imap-smtp-email技能的imap功能检查我的邮箱中最近10分钟内收到的邮件。找出其中有时间限制、特别紧急的邮件（如截止日期临近、会议即将开始、需要立即处理的事项等）。将这些紧急邮件的主题和关键信息整理成一封邮件，然后使用imap-smtp-email技能的smtp功...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\2205f579-0df8-4b92-ba65-e9210d5b1f37.jsonl.deleted.2026-04-13T00-53-49.390Z`
+- **Session ID**: `2205f579-0df8-4b92-ba65-e9210d5b1f37`
+- **行号**: 8
+- **时间戳**: 2026-04-10T07:24:09.403Z
+- **Run ID**: `2205f579-0df8-4b92-ba65-e9210d5b1f37`
+
+---
+
+### 错误 #397
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请检查我的邮箱中最近10分钟内收到的邮件。找出其中有时间限制、特别紧急的邮件（如截止日期临近、会议即将开始、需要立即处理的事项等）。将这些紧急邮件的主题和关键信息整理成一封邮件，然后使用imap-smtp-email技能的smtp功能将这封邮件发送给我自己。邮件主题请包含'【紧急邮件...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\34de3e79-209a-4386-a7b2-83181ad9924a.jsonl.deleted.2026-04-13T00-53-49.390Z`
+- **Session ID**: `34de3e79-209a-4386-a7b2-83181ad9924a`
+- **行号**: 8
+- **时间戳**: 2026-04-10T07:19:55.705Z
+- **Run ID**: `34de3e79-209a-4386-a7b2-83181ad9924a`
+
+---
+
+### 错误 #398
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-tui",
+  "id": "openclaw-tui",
+  "name": "openclaw-tui",
+  "username": "openclaw-tui"
+}
+\`\`\`
+
+[Fri 2026-04-10 11:28 GMT+8] 你的配置文件在哪里？`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 43
+- **时间戳**: 2026-04-10T03:30:59.885Z
+- **Run ID**: `0a6c090b-ef52-43b5-8019-c0172f235561`
+
+---
+
+### 错误 #399
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 90
+- **时间戳**: 2026-04-10T05:59:16.425Z
+- **Run ID**: `cb0982d0-bac6-4322-8bab-4a49346b4d3d`
+
+---
+
+### 错误 #400
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 92
+- **时间戳**: 2026-04-10T06:29:46.971Z
+- **Run ID**: `c62297c1-c778-4082-970d-c00a785b5e81`
+
+---
+
+### 错误 #401
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 96
+- **时间戳**: 2026-04-10T07:01:58.654Z
+- **Run ID**: `fddbc810-8984-4f49-94fa-7b09013026a0`
+
+---
+
+### 错误 #402
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-10 15:23 GMT+8] 你有哪些技能可用？`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 101
+- **时间戳**: 2026-04-10T07:24:54.835Z
+- **Run ID**: `6d14eb10-35a7-4012-a752-a0aa1b0fe78e`
+
+---
+
+### 错误 #403
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 103
+- **时间戳**: 2026-04-10T07:32:40.895Z
+- **Run ID**: `1e08f9e2-911a-46ec-9f06-40cbec61799c`
+
+---
+
+### 错误 #404
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-tui",
+  "id": "openclaw-tui",
+  "name": "openclaw-tui",
+  "username": "openclaw-tui"
+}
+\`\`\`
+
+[Fri 2026-04-10 11:28 GMT+8] 你的配置文件在哪里？`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 43
+- **时间戳**: 2026-04-10T03:30:59.885Z
+- **Run ID**: `0a6c090b-ef52-43b5-8019-c0172f235561`
+
+---
+
+### 错误 #405
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 90
+- **时间戳**: 2026-04-10T05:59:16.425Z
+- **Run ID**: `cb0982d0-bac6-4322-8bab-4a49346b4d3d`
+
+---
+
+### 错误 #406
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 92
+- **时间戳**: 2026-04-10T06:29:46.971Z
+- **Run ID**: `c62297c1-c778-4082-970d-c00a785b5e81`
+
+---
+
+### 错误 #407
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 96
+- **时间戳**: 2026-04-10T07:01:58.654Z
+- **Run ID**: `fddbc810-8984-4f49-94fa-7b09013026a0`
+
+---
+
+### 错误 #408
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-10 15:23 GMT+8] 你有哪些技能可用？`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 101
+- **时间戳**: 2026-04-10T07:24:54.835Z
+- **Run ID**: `6d14eb10-35a7-4012-a752-a0aa1b0fe78e`
+
+---
+
+### 错误 #409
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 模型服务响应超时，可能原因：1) 网络延迟或不稳定；2) 模型服务端负载过高；3) Prompt过长导致处理时间增加；4) 前置工具执行失败导致模型等待用户输入
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 103
+- **时间戳**: 2026-04-10T07:32:40.895Z
+- **Run ID**: `1e08f9e2-911a-46ec-9f06-40cbec61799c`
+
+---
+
+### 错误 #410
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到模型API错误事件
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-10 17:27 GMT+8] 查一下你的日志，上次运行为什么失败了？`
+- **错误信息**: 
+````
+This operation was aborted | This operation was aborted
+````
+- **原因分析**: 请求被中止，可能原因：1) 用户主动取消操作；2) 系统资源限制触发中止；3) 会话超时被清理；4) 新请求到来时旧请求被取消
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e4fedafb-43c1-43e2-8ecb-a00aca5bef29.jsonl.deleted.2026-04-13T00-53-49.391Z`
+- **Session ID**: `e4fedafb-43c1-43e2-8ecb-a00aca5bef29`
+- **行号**: 52
+- **时间戳**: 2026-04-10T09:28:30.875Z
+- **Run ID**: `a9442ede-f1e1-438b-9a3f-1f7acd6be958`
+
+---
+
+### 错误 #411
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到模型API错误
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-10 17:27 GMT+8] 查一下你的日志，上次运行为什么失败了？`
+- **错误信息**: 
+````
+Request was aborted.
+````
+- **原因分析**: 请求被中止，可能原因：1) 用户主动取消操作；2) 系统资源限制触发中止；3) 会话超时被清理；4) 新请求到来时旧请求被取消
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e4fedafb-43c1-43e2-8ecb-a00aca5bef29.jsonl.deleted.2026-04-13T00-53-49.391Z`
+- **Session ID**: `e4fedafb-43c1-43e2-8ecb-a00aca5bef29`
+- **行号**: 53
+- **时间戳**: 2026-04-10T09:28:30.877Z
+
+---
+
+### 错误 #412
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -1887,7 +8690,7 @@ This operation was aborted
 
 ---
 
-### 错误 #80
+### 错误 #413
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
@@ -1914,7 +8717,7 @@ Request was aborted
 
 ---
 
-### 错误 #81
+### 错误 #414
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -1940,7 +8743,7 @@ This operation was aborted
 
 ---
 
-### 错误 #82
+### 错误 #415
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
@@ -1965,7 +8768,7 @@ Request was aborted
 
 ---
 
-### 错误 #83
+### 错误 #416
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -1985,7 +8788,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #84
+### 错误 #417
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2007,7 +8810,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #85
+### 错误 #418
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2027,7 +8830,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #86
+### 错误 #419
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2047,7 +8850,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #87
+### 错误 #420
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2068,7 +8871,7 @@ aborted
 
 ---
 
-### 错误 #88
+### 错误 #421
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2097,7 +8900,7 @@ This operation was aborted
 
 ---
 
-### 错误 #89
+### 错误 #422
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2117,7 +8920,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #90
+### 错误 #423
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2140,7 +8943,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #91
+### 错误 #424
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2169,7 +8972,7 @@ aborted
 
 ---
 
-### 错误 #92
+### 错误 #425
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
@@ -2197,7 +9000,7 @@ Request was aborted
 
 ---
 
-### 错误 #93
+### 错误 #426
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2217,7 +9020,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #94
+### 错误 #427
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2243,7 +9046,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #95
+### 错误 #428
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2269,7 +9072,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #96
+### 错误 #429
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2289,7 +9092,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #97
+### 错误 #430
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2309,7 +9112,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #98
+### 错误 #431
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2329,7 +9132,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #99
+### 错误 #432
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2349,7 +9152,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #100
+### 错误 #433
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2369,7 +9172,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #101
+### 错误 #434
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2389,7 +9192,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #102
+### 错误 #435
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2409,7 +9212,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #103
+### 错误 #436
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2429,7 +9232,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #104
+### 错误 #437
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2449,7 +9252,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #105
+### 错误 #438
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2469,7 +9272,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #106
+### 错误 #439
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2489,7 +9292,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #107
+### 错误 #440
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2509,7 +9312,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #108
+### 错误 #441
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2529,7 +9332,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #109
+### 错误 #442
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2550,7 +9353,7 @@ aborted
 
 ---
 
-### 错误 #110
+### 错误 #443
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2571,7 +9374,7 @@ aborted
 
 ---
 
-### 错误 #111
+### 错误 #444
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -2597,7 +9400,7 @@ This operation was aborted
 
 ---
 
-### 错误 #112
+### 错误 #445
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
@@ -2622,9 +9425,305 @@ Request was aborted
 
 ---
 
-## timeoutErrors - 超时错误 (22)
+## timeoutErrors - 超时错误 (36)
 
-### 错误 #113
+### 错误 #446
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用imap-smtp-email技能的imap功能检查我的邮箱中最近10分钟内收到的邮件。找出其中有时间限制、特别紧急的邮件（如截止日期临近、会议即将开始、需要立即处理的事项等）。将这些紧急邮件的主题和关键信息整理成一封邮件，然后使用imap-smtp-email技能的smtp功...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\2205f579-0df8-4b92-ba65-e9210d5b1f37.jsonl.deleted.2026-04-13T00-53-49.390Z`
+- **Session ID**: `2205f579-0df8-4b92-ba65-e9210d5b1f37`
+- **行号**: 8
+- **时间戳**: 2026-04-10T07:24:09.403Z
+- **Run ID**: `2205f579-0df8-4b92-ba65-e9210d5b1f37`
+
+---
+
+### 错误 #447
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请检查我的邮箱中最近10分钟内收到的邮件。找出其中有时间限制、特别紧急的邮件（如截止日期临近、会议即将开始、需要立即处理的事项等）。将这些紧急邮件的主题和关键信息整理成一封邮件，然后使用imap-smtp-email技能的smtp功能将这封邮件发送给我自己。邮件主题请包含'【紧急邮件...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\34de3e79-209a-4386-a7b2-83181ad9924a.jsonl.deleted.2026-04-13T00-53-49.390Z`
+- **Session ID**: `34de3e79-209a-4386-a7b2-83181ad9924a`
+- **行号**: 8
+- **时间戳**: 2026-04-10T07:19:55.705Z
+- **Run ID**: `34de3e79-209a-4386-a7b2-83181ad9924a`
+
+---
+
+### 错误 #448
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-tui",
+  "id": "openclaw-tui",
+  "name": "openclaw-tui",
+  "username": "openclaw-tui"
+}
+\`\`\`
+
+[Fri 2026-04-10 11:28 GMT+8] 你的配置文件在哪里？`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 43
+- **时间戳**: 2026-04-10T03:30:59.885Z
+- **Run ID**: `0a6c090b-ef52-43b5-8019-c0172f235561`
+
+---
+
+### 错误 #449
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 90
+- **时间戳**: 2026-04-10T05:59:16.425Z
+- **Run ID**: `cb0982d0-bac6-4322-8bab-4a49346b4d3d`
+
+---
+
+### 错误 #450
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 92
+- **时间戳**: 2026-04-10T06:29:46.971Z
+- **Run ID**: `c62297c1-c778-4082-970d-c00a785b5e81`
+
+---
+
+### 错误 #451
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 96
+- **时间戳**: 2026-04-10T07:01:58.654Z
+- **Run ID**: `fddbc810-8984-4f49-94fa-7b09013026a0`
+
+---
+
+### 错误 #452
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-10 15:23 GMT+8] 你有哪些技能可用？`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 101
+- **时间戳**: 2026-04-10T07:24:54.835Z
+- **Run ID**: `6d14eb10-35a7-4012-a752-a0aa1b0fe78e`
+
+---
+
+### 错误 #453
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 103
+- **时间戳**: 2026-04-10T07:32:40.895Z
+- **Run ID**: `1e08f9e2-911a-46ec-9f06-40cbec61799c`
+
+---
+
+### 错误 #454
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-tui",
+  "id": "openclaw-tui",
+  "name": "openclaw-tui",
+  "username": "openclaw-tui"
+}
+\`\`\`
+
+[Fri 2026-04-10 11:28 GMT+8] 你的配置文件在哪里？`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 43
+- **时间戳**: 2026-04-10T03:30:59.885Z
+- **Run ID**: `0a6c090b-ef52-43b5-8019-c0172f235561`
+
+---
+
+### 错误 #455
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 90
+- **时间戳**: 2026-04-10T05:59:16.425Z
+- **Run ID**: `cb0982d0-bac6-4322-8bab-4a49346b4d3d`
+
+---
+
+### 错误 #456
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 92
+- **时间戳**: 2026-04-10T06:29:46.971Z
+- **Run ID**: `c62297c1-c778-4082-970d-c00a785b5e81`
+
+---
+
+### 错误 #457
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 96
+- **时间戳**: 2026-04-10T07:01:58.654Z
+- **Run ID**: `fddbc810-8984-4f49-94fa-7b09013026a0`
+
+---
+
+### 错误 #458
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-10 15:23 GMT+8] 你有哪些技能可用？`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 101
+- **时间戳**: 2026-04-10T07:24:54.835Z
+- **Run ID**: `6d14eb10-35a7-4012-a752-a0aa1b0fe78e`
+
+---
+
+### 错误 #459
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
+When reading HEARTBEAT.md, us...`
+- **错误信息**: 
+````
+LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
+- **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
+- **行号**: 103
+- **时间戳**: 2026-04-10T07:32:40.895Z
+- **Run ID**: `1e08f9e2-911a-46ec-9f06-40cbec61799c`
+
+---
+
+### 错误 #460
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2644,7 +9743,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #114
+### 错误 #461
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2666,7 +9765,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #115
+### 错误 #462
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2686,7 +9785,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #116
+### 错误 #463
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2706,7 +9805,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #117
+### 错误 #464
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2726,7 +9825,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #118
+### 错误 #465
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2749,7 +9848,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #119
+### 错误 #466
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2769,7 +9868,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #120
+### 错误 #467
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2795,7 +9894,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #121
+### 错误 #468
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2821,7 +9920,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #122
+### 错误 #469
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2841,7 +9940,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #123
+### 错误 #470
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2861,7 +9960,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #124
+### 错误 #471
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2881,7 +9980,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #125
+### 错误 #472
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2901,7 +10000,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #126
+### 错误 #473
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2921,7 +10020,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #127
+### 错误 #474
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2941,7 +10040,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #128
+### 错误 #475
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2961,7 +10060,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #129
+### 错误 #476
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -2981,7 +10080,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #130
+### 错误 #477
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -3001,7 +10100,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #131
+### 错误 #478
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -3021,7 +10120,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #132
+### 错误 #479
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -3041,7 +10140,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #133
+### 错误 #480
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -3061,7 +10160,7 @@ LLM idle timeout (60s): no response from model
 
 ---
 
-### 错误 #134
+### 错误 #481
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -3078,6 +10177,698 @@ LLM idle timeout (60s): no response from model
 - **行号**: 40
 - **时间戳**: 2026-04-14T09:06:10.791Z
 - **Run ID**: `62ca17d5-cbc7-45a4-a5ea-7d5faeeb11d0`
+
+---
+
+## rateLimitErrors - 速率限制错误 (24)
+
+### 错误 #482
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集昨天 9:00 到今天 9:00 之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索昨天 9:00 ...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\0bef5f9c-4907-4730-bd17-cc5510fed2fc.jsonl.deleted.2026-04-13T00-53-49.392Z`
+- **Session ID**: `0bef5f9c-4907-4730-bd17-cc5510fed2fc`
+- **行号**: 48
+- **时间戳**: 2026-04-10T10:47:19.146Z
+
+---
+
+### 错误 #483
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集昨天 9:00 到今天 9:00 之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索昨天 9:00 ...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\0bef5f9c-4907-4730-bd17-cc5510fed2fc.jsonl.deleted.2026-04-13T00-53-49.392Z`
+- **Session ID**: `0bef5f9c-4907-4730-bd17-cc5510fed2fc`
+- **行号**: 49
+- **时间戳**: 2026-04-10T10:47:23.436Z
+
+---
+
+### 错误 #484
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集昨天 9:00 到今天 9:00 之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索昨天 9:00 ...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\0bef5f9c-4907-4730-bd17-cc5510fed2fc.jsonl.deleted.2026-04-13T00-53-49.392Z`
+- **Session ID**: `0bef5f9c-4907-4730-bd17-cc5510fed2fc`
+- **行号**: 50
+- **时间戳**: 2026-04-10T10:47:29.550Z
+
+---
+
+### 错误 #485
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集昨天 9:00 到今天 9:00 之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索昨天 9:00 ...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\0bef5f9c-4907-4730-bd17-cc5510fed2fc.jsonl.deleted.2026-04-13T00-53-49.392Z`
+- **Session ID**: `0bef5f9c-4907-4730-bd17-cc5510fed2fc`
+- **行号**: 51
+- **时间戳**: 2026-04-10T10:47:39.767Z
+
+---
+
+### 错误 #486
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\36459a6f-ee3d-468e-b74f-1ffafdc6c8a7.jsonl`
+- **Session ID**: `36459a6f-ee3d-468e-b74f-1ffafdc6c8a7`
+- **行号**: 22
+- **时间戳**: 2026-04-13T00:51:52.384Z
+
+---
+
+### 错误 #487
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\36459a6f-ee3d-468e-b74f-1ffafdc6c8a7.jsonl`
+- **Session ID**: `36459a6f-ee3d-468e-b74f-1ffafdc6c8a7`
+- **行号**: 23
+- **时间戳**: 2026-04-13T00:51:56.401Z
+
+---
+
+### 错误 #488
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\4c6bd2fa-6ba6-43d4-a894-13a236786a1d.jsonl`
+- **Session ID**: `4c6bd2fa-6ba6-43d4-a894-13a236786a1d`
+- **行号**: 24
+- **时间戳**: 2026-04-13T05:45:51.371Z
+
+---
+
+### 错误 #489
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\4c6bd2fa-6ba6-43d4-a894-13a236786a1d.jsonl`
+- **Session ID**: `4c6bd2fa-6ba6-43d4-a894-13a236786a1d`
+- **行号**: 25
+- **时间戳**: 2026-04-13T05:45:55.063Z
+
+---
+
+### 错误 #490
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Mon 2026-04-13 17:15 GMT+8] 调用imap-smtp-email技能查询最近的10封邮件`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 109
+- **时间戳**: 2026-04-13T09:16:49.736Z
+
+---
+
+### 错误 #491
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Mon 2026-04-13 17:15 GMT+8] 调用imap-smtp-email技能查询最近的10封邮件`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl`
+- **Session ID**: `c2b6491d-e34a-4f4e-ab6e-7cce30e9bc5b`
+- **行号**: 110
+- **时间戳**: 2026-04-13T09:16:53.813Z
+
+---
+
+### 错误 #492
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\9c1eeaaa-9761-44b9-9627-58abb48fc1d1.jsonl`
+- **Session ID**: `9c1eeaaa-9761-44b9-9627-58abb48fc1d1`
+- **行号**: 22
+- **时间戳**: 2026-04-13T05:55:51.210Z
+
+---
+
+### 错误 #493
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\9c1eeaaa-9761-44b9-9627-58abb48fc1d1.jsonl`
+- **Session ID**: `9c1eeaaa-9761-44b9-9627-58abb48fc1d1`
+- **行号**: 23
+- **时间戳**: 2026-04-13T05:55:55.004Z
+
+---
+
+### 错误 #494
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 18
+- **时间戳**: 2026-04-10T11:07:55.132Z
+
+---
+
+### 错误 #495
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 33
+- **时间戳**: 2026-04-10T11:08:48.602Z
+
+---
+
+### 错误 #496
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 34
+- **时间戳**: 2026-04-10T11:08:52.496Z
+
+---
+
+### 错误 #497
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 35
+- **时间戳**: 2026-04-10T11:08:58.346Z
+
+---
+
+### 错误 #498
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 58
+- **时间戳**: 2026-04-10T11:10:42.467Z
+
+---
+
+### 错误 #499
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 59
+- **时间戳**: 2026-04-10T11:10:46.415Z
+
+---
+
+### 错误 #500
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 60
+- **时间戳**: 2026-04-10T11:10:52.364Z
+
+---
+
+### 错误 #501
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 71
+- **时间戳**: 2026-04-10T11:11:38.922Z
+
+---
+
+### 错误 #502
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 72
+- **时间戳**: 2026-04-10T11:11:42.866Z
+
+---
+
+### 错误 #503
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 73
+- **时间戳**: 2026-04-10T11:11:48.639Z
+
+---
+
+### 错误 #504
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:4f652496-0267-4bbc-ab17-98c662b310f9 投诉邮件每日汇总] 请执行投诉邮件每日汇总任务：
+
+## 任务目标
+收集**当天 0:00 到当前时间**之间收到的投诉类邮件，下载附件并生成摘要，最后发送汇总报告到 nwftool@sina.com。
+
+## 执行步骤
+
+### 1. 搜索投诉邮件
+使用 imap-smtp-email 技能搜索**今天 0:0...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\b43a28cf-a3a6-4060-a993-41853c383152.jsonl.deleted.2026-04-13T00-53-49.393Z`
+- **Session ID**: `b43a28cf-a3a6-4060-a993-41853c383152`
+- **行号**: 74
+- **时间戳**: 2026-04-10T11:11:58.694Z
+
+---
+
+### 错误 #505
+
+- **事件类型**: `message`
+- **描述**: 在message事件中检测到速率限制错误
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用 imap-smtp-email 技能的 imap 功能检查我的邮箱中最近 10 分钟内收到的邮件。
+
+**重要：必须使用 --recent 10m 参数来严格限制时间范围**
+
+执行步骤：
+1. 运行命令：\`node scripts/imap.js check --recen...`
+- **错误信息**: 
+````
+429 用户请求TPM超限，请减少tokens后重试
+````
+- **原因分析**: 触发速率限制，可能原因：1) 短时间内请求过于频繁；2) 超过API配额限制；3) 多个实例共享同一API密钥；4) 未实现请求排队或退避机制
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\ee02ba14-71d6-4fc5-ad8e-e50e5f6d040c.jsonl`
+- **Session ID**: `ee02ba14-71d6-4fc5-ad8e-e50e5f6d040c`
+- **行号**: 32
+- **时间戳**: 2026-04-13T01:39:56.178Z
+
+---
+
+## flow_integrity_missing_final_answer - 工具执行后无最终回复 (4)
+
+### 错误 #506
+
+- **事件类型**: `message`
+- **描述**: 工具执行完成后没有Assistant的最终回复（文件在此结束）
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用imap-smtp-email技能的imap功能检查我的邮箱中最近10分钟内收到的邮件。找出其中有时间限制、特别紧急的邮件（如截止日期临近、会议即将开始、需要立即处理的事项等）。将这些紧急邮件的主题和关键信息整理成一封邮件，然后使用imap-smtp-email技能的smtp功...`
+- **错误信息**: 
+````
+Expected assistant message after toolResult, but reached end of file
+
+--- 错误行内容 ---
+Line 19: {"timestamp": "2026-04-10T07:49:44.852Z", "message": {"timestamp": 1775807384847, "toolCallId": "chatcmpl-tool-a3044ccdd4a875e9", "content": [{"text": "ERROR: Email credentials not configured\nPlease set EMAIL_USER and EMAIL_PASS environment variables\n/bin/bash: line 58: {}: command not found\n\nCommand not found", "type": "text"}], "toolName": "exec", "role": "toolResult", "details": {"status": "failed", "timedOut": false, "durationMs": 85, "aggregated": "ERROR: Email credentials not configure
+
+````
+- **原因分析**: 可能的原因：1) Assistant在处理工具结果时出错；2) 会话被意外终止；3) 工具结果过于复杂导致无法生成回复；4) 系统资源耗尽
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\3b3c99b0-41eb-4fe0-a29b-e80b634fe6f1.jsonl.deleted.2026-04-13T00-53-49.390Z`
+- **Session ID**: `3b3c99b0-41eb-4fe0-a29b-e80b634fe6f1`
+- **行号**: 19
+- **时间戳**: 2026-04-10T07:49:44.852Z
+
+---
+
+### 错误 #507
+
+- **事件类型**: `message`
+- **描述**: 工具执行完成后没有Assistant的最终回复（文件在此结束）
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-10 15:57 GMT+8] 请用imap-smtp-email技能的imap功能查找我最近的5封邮件`
+- **错误信息**: 
+````
+Expected assistant message after toolResult, but reached end of file
+
+--- 错误行内容 ---
+Line 33: {"timestamp": "2026-04-10T07:58:19.907Z", "message": {"timestamp": 1775807899893, "toolCallId": "call_f70c27fbfe3a488e9e2d99f7", "content": [{"text": "[\n  {\n    \"uid\": 23,\n    \"from\": \"nwftool@sina.com\",\n    \"to\": \"nwftool@sina.com\",\n    \"subject\": \"SMTP Connection Test\",\n    \"date\": \"2026-04-10T03:10:07.000Z\",\n    \"text\": \"This is a test email from the IMAP/SMTP email skill.\",\n    \"html\": \"<p>This is a <strong>test email</strong> from the IMAP/SMTP email skill.<
+
+````
+- **原因分析**: 可能的原因：1) Assistant在处理工具结果时出错；2) 会话被意外终止；3) 工具结果过于复杂导致无法生成回复；4) 系统资源耗尽
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl.bak-292-1775810216210`
+- **Session ID**: `6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5`
+- **行号**: 33
+- **时间戳**: 2026-04-10T07:58:19.907Z
+
+---
+
+### 错误 #508
+
+- **事件类型**: `message`
+- **描述**: 工具执行完成后的下一条消息角色是"user"，而非预期的assistant最终回复或另一个toolResult
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Fri 2026-04-10 15:57 GMT+8] 请用imap-smtp-email技能的imap功能查找我最近的5封邮件`
+- **错误信息**: 
+````
+Expected "assistant" or "toolResult" after "toolResult", but got "user"
+
+--- 错误行内容 ---
+Line 33: {"timestamp": "2026-04-10T07:58:19.907Z", "message": {"timestamp": 1775807899893, "toolCallId": "call_f70c27fbfe3a488e9e2d99f7", "content": [{"text": "[\n  {\n    \"uid\": 23,\n    \"from\": \"nwftool@sina.com\",\n    \"to\": \"nwftool@sina.com\",\n    \"subject\": \"SMTP Connection Test\",\n    \"date\": \"2026-04-10T03:10:07.000Z\",\n    \"text\": \"This is a test email from the IMAP/SMTP email skill.\",\n    \"html\": \"<p>This is a <strong>test email</strong> from the IMAP/SMTP email skill.<
+
+--- 下一行内容 ---
+Line 34: {"timestamp": "2026-04-10T08:36:56.253Z", "message": {"content": [{"text": "Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.\nWhen reading HEARTBEAT.md, use workspace file /home/chinalife/.openclaw/workspace/HEARTBEAT.md (exact case). Do not read docs/heartbeat.md.\nCurrent time: Friday, April 10th, 2026 - 4:36 PM (Asia/Shanghai) / 2026-04-10 08:36 UTC", "type": "text"}], "ti
+
+````
+- **原因分析**: 可能的原因：1) Assistant未能正确处理工具结果；2) 触发了新的用户输入打断流程；3) 消息顺序异常；4) 并发请求导致消息交错
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl.reset.2026-04-10T10-05-09.303Z`
+- **Session ID**: `6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5`
+- **行号**: 33
+- **时间戳**: 2026-04-10T07:58:19.907Z
+
+---
+
+### 错误 #509
+
+- **事件类型**: `message`
+- **描述**: 工具执行完成后没有Assistant的最终回复（文件在此结束）
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用imap-smtp-email技能的imap功能检查我的邮箱中最近10分钟内收到的邮件。找出其中有时间限制、特别紧急的邮件（如截止日期临近、会议即将开始、需要立即处理的事项等）。将这些紧急邮件的主题和关键信息整理成一封邮件，然后使用imap-smtp-email技能的smtp功...`
+- **错误信息**: 
+````
+Expected assistant message after toolResult, but reached end of file
+
+--- 错误行内容 ---
+Line 40: {"timestamp": "2026-04-10T09:32:12.054Z", "message": {"timestamp": 1775813532051, "toolCallId": "chatcmpl-tool-b961c0c5016898ae", "content": [{"text": "# BOOTSTRAP.md - Hello, World\n\n_You just woke up. Time to figure out who you are._\n\nThere is no memory yet. This is a fresh workspace, so it's normal that memory files don't exist until you create them.\n\n## The Conversation\n\nDon't interrogate. Don't be robotic. Just... talk.\n\nStart with something like:\n\n> \"Hey. I just came online. Wh
+
+````
+- **原因分析**: 可能的原因：1) Assistant在处理工具结果时出错；2) 会话被意外终止；3) 工具结果过于复杂导致无法生成回复；4) 系统资源耗尽
+- **文件位置**: `d:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\837153f3-7e9d-4583-bf37-64b203e2f1c8.jsonl.deleted.2026-04-13T00-53-49.391Z`
+- **Session ID**: `837153f3-7e9d-4583-bf37-64b203e2f1c8`
+- **行号**: 40
+- **时间戳**: 2026-04-10T09:32:12.054Z
 
 ---
 

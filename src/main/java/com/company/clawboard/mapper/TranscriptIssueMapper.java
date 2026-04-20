@@ -8,4 +8,5 @@ import java.util.List;
 public interface TranscriptIssueMapper {
     int batchInsertIgnore(List<DashboardTranscriptIssue> issues);
     List<DashboardTranscriptIssue> selectByScanId(Long scanId);
+    List<DashboardTranscriptIssue> selectAll();
 }

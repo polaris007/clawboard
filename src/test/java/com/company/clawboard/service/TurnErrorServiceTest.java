@@ -68,7 +68,8 @@ class TurnErrorServiceTest {
     @DisplayName("Should return empty error summary")
     void testGetErrorSummary_EmptyResponse() {
         // When
-        ErrorSummaryResponse response = turnErrorService.getErrorSummary();
+        TimeRangeRequest request = new TimeRangeRequest();
+        ErrorSummaryResponse response = turnErrorService.getErrorSummary(request);
 
         // Then
         assertThat(response).isNotNull();

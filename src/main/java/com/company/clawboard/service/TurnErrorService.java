@@ -21,7 +21,7 @@ public class TurnErrorService {
         return new TraceResponse();
     }
 
-    public ErrorSummaryResponse getErrorSummary() {
+    public ErrorSummaryResponse getErrorSummary(TimeRangeRequest request) {
         return new ErrorSummaryResponse();
     }
 

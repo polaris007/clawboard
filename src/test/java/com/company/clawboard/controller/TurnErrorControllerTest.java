@@ -2,6 +2,7 @@ package com.company.clawboard.controller;
 
 import com.company.clawboard.dto.ApiResponse;
 import com.company.clawboard.dto.ErrorSearchRequest;
+import com.company.clawboard.dto.TimeRangeRequest;
 import com.company.clawboard.dto.TurnSearchRequest;
 import com.company.clawboard.service.TurnErrorService;
 import org.junit.jupiter.api.BeforeEach;
@@ -63,16 +64,17 @@ class TurnErrorControllerTest {
     }
 
     @Test
-    @DisplayName("Should get error summary")
+    @DisplayName("Should return error summary from service")
     void testGetErrorSummary() {
         // When
-        ApiResponse<?> response = turnErrorController.getErrorSummary();
+        TimeRangeRequest request = new TimeRangeRequest();
+        ApiResponse<?> response = turnErrorController.getErrorSummary(request);
 
         // Then
         assertThat(response).isNotNull();
         assertThat(response.getCode()).isEqualTo(200);
         assertThat(response.getMessage()).isEqualTo("success");
-        verify(turnErrorService, times(1)).getErrorSummary();
+        verify(turnErrorService, times(1)).getErrorSummary(request);
     }
 
     @Test
