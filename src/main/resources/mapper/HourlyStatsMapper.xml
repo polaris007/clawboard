@@ -57,4 +57,89 @@
         ORDER BY stat_hour
     </select>
 
+    <select id="selectDistinctEmployeeHours" resultType="com.company.clawboard.mapper.HourlyStatsMapper$EmployeeHourKey">
+        SELECT DISTINCT employee_id AS employeeId,
+               DATE_FORMAT(stat_hour, '%Y-%m-%d %H:00:00') AS statHour
+        FROM (
+            SELECT employee_id, message_timestamp AS stat_hour
+            FROM dashboard_message WHERE message_timestamp IS NOT NULL
+            UNION ALL
+            SELECT employee_id, COALESCE(start_time, created_at) AS stat_hour
+            FROM dashboard_conversation_turn WHERE start_time IS NOT NULL OR created_at IS NOT NULL
+            UNION ALL
+            SELECT employee_id, COALESCE(occurred_at, created_at) AS stat_hour
+            FROM dashboard_transcript_issue WHERE occurred_at IS NOT NULL OR created_at IS NOT NULL
+        ) AS all_hours
+        WHERE stat_hour IS NOT NULL
+    </select>
+
+    <select id="selectDistinctEmployeeHoursByEmployees" resultType="com.company.clawboard.mapper.HourlyStatsMapper$EmployeeHourKey">
+        SELECT DISTINCT employee_id AS employeeId,
+               DATE_FORMAT(stat_hour, '%Y-%m-%d %H:00:00') AS statHour
+        FROM (
+            SELECT employee_id, message_timestamp AS stat_hour
+            FROM dashboard_message WHERE message_timestamp IS NOT NULL AND employee_id IN
+            <foreach collection="employeeIds" item="employeeId" open="(" separator="," close=")">
+                #{employeeId}
+            </foreach>
+            UNION ALL
+            SELECT employee_id, COALESCE(start_time, created_at) AS stat_hour
+            FROM dashboard_conversation_turn WHERE (start_time IS NOT NULL OR created_at IS NOT NULL) AND employee_id IN
+            <foreach collection="employeeIds" item="employeeId" open="(" separator="," close=")">
+                #{employeeId}
+            </foreach>
+            UNION ALL
+            SELECT employee_id, COALESCE(occurred_at, created_at) AS stat_hour
+            FROM dashboard_transcript_issue WHERE (occurred_at IS NOT NULL OR created_at IS NOT NULL) AND employee_id IN
+            <foreach collection="employeeIds" item="employeeId" open="(" separator="," close=")">
+                #{employeeId}
+            </foreach>
+        ) AS all_hours
+        WHERE stat_hour IS NOT NULL
+    </select>
+
+    <select id="aggregateTokensByHour" resultType="com.company.clawboard.entity.DashboardHourlyStats">
+        SELECT
+            m.employee_id AS employeeId,
+            DATE_FORMAT(m.message_timestamp, '%Y-%m-%d %H:00:00') AS statHour,
+            COALESCE(SUM(m.total_tokens), 0) AS totalTokens,
+            COALESCE(SUM(m.input_tokens), 0) AS inputTokens,
+            COALESCE(SUM(m.output_tokens), 0) AS outputTokens,
+            COALESCE(SUM(m.cost_total), 0) AS totalCost,
+            COALESCE(SUM(m.cache_read_tokens), 0) AS cacheReadTokens,
+            COALESCE(SUM(m.cache_write_tokens), 0) AS cacheWriteTokens
+        FROM dashboard_message m
+        WHERE m.role = 'assistant'
+          AND m.message_timestamp IS NOT NULL
+          AND m.employee_id = #{employeeId}
+          AND DATE_FORMAT(m.message_timestamp, '%Y-%m-%d %H:00:00') = #{statHour}
+        GROUP BY m.employee_id, DATE_FORMAT(m.message_timestamp, '%Y-%m-%d %H:00:00')
+    </select>
+
+    <select id="aggregateTurnsByHour" resultType="com.company.clawboard.entity.DashboardHourlyStats">
+        SELECT
+            employee_id AS employeeId,
+            DATE_FORMAT(COALESCE(start_time, created_at), '%Y-%m-%d %H:00:00') AS statHour,
+            COUNT(*) AS conversationTurns,
+            SUM(CASE WHEN status = 'complete' THEN 1 ELSE 0 END) AS completeTurns,
+            SUM(CASE WHEN status = 'error' THEN 1 ELSE 0 END) AS errorTurns,
+            COALESCE(SUM(tool_calls_count), 0) AS toolCalls,
+            COALESCE(SUM(tool_calls_error), 0) AS toolErrors,
+            COALESCE(SUM(skill_calls_count), 0) AS skillInvocations,
+            COALESCE(SUM(skill_calls_error), 0) AS skillErrors
+        FROM dashboard_conversation_turn
+        WHERE (start_time IS NOT NULL OR created_at IS NOT NULL)
+          AND employee_id = #{employeeId}
+          AND DATE_FORMAT(COALESCE(start_time, created_at), '%Y-%m-%d %H:00:00') = #{statHour}
+        GROUP BY employee_id, DATE_FORMAT(COALESCE(start_time, created_at), '%Y-%m-%d %H:00:00')
+    </select>
+
+    <select id="aggregateIssuesByHour" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM dashboard_transcript_issue
+        WHERE (occurred_at IS NOT NULL OR created_at IS NOT NULL)
+          AND employee_id = #{employeeId}
+          AND DATE_FORMAT(COALESCE(occurred_at, created_at), '%Y-%m-%d %H:00:00') = #{statHour}
+    </select>
+
 </mapper>

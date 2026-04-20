@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -39,6 +40,7 @@ public class ScanOrchestrator {
     private final ScanProgressService scanProgressService;
     private final DataIngestionService dataIngestionService;
     private final ReportGenerator reportGenerator;
+    private final HourlyStatsAggregator hourlyStatsAggregator;
     
     // Mappers for batch insert
     private final MessageMapper messageMapper;
@@ -56,6 +58,9 @@ public class ScanOrchestrator {
     
     // Thread-safe set to collect all scanned file paths (relative to base path)
     private Set<String> scannedFilePaths;
+    
+    // Thread-safe set to collect all employee IDs scanned in this run
+    private Set<String> scannedEmployeeIds;
     
     // Thread-safe map to collect all skipped files with their error messages
     private ConcurrentHashMap<String, String> skippedFiles;
@@ -117,6 +122,7 @@ public class ScanOrchestrator {
 
             // Initialize file path collections
             scannedFilePaths = ConcurrentHashMap.newKeySet();
+            scannedEmployeeIds = ConcurrentHashMap.newKeySet();
             skippedFiles = new ConcurrentHashMap<>();
 
             // Step 2: Scan users
@@ -182,6 +188,17 @@ public class ScanOrchestrator {
             history.setNewSkillCalls(totalSkills);
 
             finishScan(scanId, history, "completed", startTime, null);
+
+            // Aggregate hourly stats from the scanned data
+            try {
+                if (!scannedEmployeeIds.isEmpty()) {
+                    hourlyStatsAggregator.aggregateForEmployees(new ArrayList<>(scannedEmployeeIds));
+                } else {
+                    log.info("No employees scanned, skipping hourly stats aggregation");
+                }
+            } catch (Exception e) {
+                log.error("Failed to aggregate hourly stats for scan {}", scanId, e);
+            }
 
             log.info("Scan {} completed in {}ms - Users: {}, Files: {}/{}, Messages: {}, Turns: {}, Issues: {}, Skills: {}",
                     scanId, history.getDurationMs(),
@@ -259,6 +276,7 @@ public class ScanOrchestrator {
             
             // Get employee info
             String employeeId = resolveEmployeeId(username);
+            scannedEmployeeIds.add(employeeId);
             log.info("Scanning user {} (employee ID: {})", username, employeeId);
             
             // Scan all agent subdirectories (e.g., "main", or other names)
