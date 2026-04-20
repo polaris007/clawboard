@@ -32,6 +32,15 @@ public class IssueDetector {
     ) {}
 
     private static final List<ErrorPattern> ERROR_PATTERNS = List.of(
+        new ErrorPattern("timeoutErrors", List.of(
+            Pattern.compile("timeout", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("timed.*out", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("ETIMEDOUT", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("idle.*timeout", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("connection.*timeout", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("request.*timeout", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("deadline.*exceeded", Pattern.CASE_INSENSITIVE)
+        )),
         new ErrorPattern("modelErrors", List.of(
             Pattern.compile("model.*error", Pattern.CASE_INSENSITIVE),
             Pattern.compile("api.*error", Pattern.CASE_INSENSITIVE),
@@ -43,15 +52,6 @@ public class IssueDetector {
             Pattern.compile("inference.*error", Pattern.CASE_INSENSITIVE),
             Pattern.compile("generation.*failed", Pattern.CASE_INSENSITIVE),
             Pattern.compile("model.*unavailable", Pattern.CASE_INSENSITIVE)
-        )),
-        new ErrorPattern("timeoutErrors", List.of(
-            Pattern.compile("timeout", Pattern.CASE_INSENSITIVE),
-            Pattern.compile("timed.*out", Pattern.CASE_INSENSITIVE),
-            Pattern.compile("ETIMEDOUT", Pattern.CASE_INSENSITIVE),
-            Pattern.compile("idle.*timeout", Pattern.CASE_INSENSITIVE),
-            Pattern.compile("connection.*timeout", Pattern.CASE_INSENSITIVE),
-            Pattern.compile("request.*timeout", Pattern.CASE_INSENSITIVE),
-            Pattern.compile("deadline.*exceeded", Pattern.CASE_INSENSITIVE)
         )),
         new ErrorPattern("rateLimitErrors", List.of(
             Pattern.compile("rate.*limit", Pattern.CASE_INSENSITIVE),
@@ -200,7 +200,7 @@ public class IssueDetector {
                         lineId != null ? lineId : "custom-" + System.currentTimeMillis(),
                         null
                     ));
-                    break;
+                    return issues; // Return after first match like Python does
                 }
             }
         }

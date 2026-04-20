@@ -19,4 +19,4 @@ clawboard:
     
     accounts-csv-path: G:/Workplace/github/clawboard/scripts/accounts.csv  # Employee ID mapping file
   reports:
-    output-dir: scripts/reports  # Configurable reports directory
+    output-dir: reports  # Configurable reports directory
