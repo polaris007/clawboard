@@ -41,13 +41,6 @@ public class UserScanner {
             return users;
         }
 
-        // Always use flat directory structure for testing
-        log.info("Using flat directory structure, treating '{}' as sessions root", basePath);
-        users.add("default");  // Use a placeholder username
-        return users;
-
-        // Original code for hash-based structure
-        /*
         // If openclawDir is empty, treat basePath as the sessions directory (flat structure)
         if (openclawDir == null || openclawDir.isEmpty()) {
             log.info("Using flat directory structure, treating '{}' as sessions root", basePath);
@@ -86,7 +79,6 @@ public class UserScanner {
 
         log.info("Found {} user directories", users.size());
         return users;
-        */
     }
     
     /**

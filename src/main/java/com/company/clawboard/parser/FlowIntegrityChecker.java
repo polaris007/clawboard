@@ -15,7 +15,7 @@ public class FlowIntegrityChecker {
 
     private static final List<String> NORMAL_STOP_REASONS = List.of("stop", "toolUse", "length");
 
-    public List<DetectedIssue> checkFlowIntegrity(List<Object> allEvents, List<MessageRecord> messages) {
+    public List<DetectedIssue> checkFlowIntegrity(List<Object> allEvents, List<MessageRecord> messages, String employeeId) {
         List<DetectedIssue> issues = new ArrayList<>();
 
         if (allEvents == null || allEvents.isEmpty()) {
@@ -41,7 +41,8 @@ public class FlowIntegrityChecker {
                             "用户提问后没有任何回复（文件在此结束）",
                             "Expected assistant message after user message, but reached end of file\n" +
                             "Line: " + currentMsg.id() + ", Timestamp: " + currentMsg.epochMs(),
-                            "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id()
+                            "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id(),
+                            employeeId
                         ));
                     } else if (nextObj instanceof MessageRecord nextMsg) {
                         if (!"assistant".equals(nextMsg.role())) {
@@ -52,7 +53,8 @@ public class FlowIntegrityChecker {
                                     "用户提问后的下一条消息角色是\"" + nextMsg.role() + "\"，而非预期的assistant",
                                     "Expected \"assistant\" after \"user\", but got \"" + nextMsg.role() + "\"\n" +
                                     "Line: " + currentMsg.id() + ", Timestamp: " + currentMsg.epochMs(),
-                                    "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id()
+                                    "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id(),
+                                    employeeId
                                 ));
                             }
                         }
@@ -64,7 +66,8 @@ public class FlowIntegrityChecker {
                                 "用户提问后的下一条消息是custom事件\"" + nextCustom.customType() + "\"，而非预期的assistant",
                                 "Expected \"assistant\" after \"user\", but got \"custom:" + nextCustom.customType() + "\"\n" +
                                 "Line: " + currentMsg.id() + ", Timestamp: " + currentMsg.epochMs(),
-                                "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id()
+                                "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id(),
+                                employeeId
                             ));
                         }
                     }
@@ -83,7 +86,8 @@ public class FlowIntegrityChecker {
                             "Assistant调用了工具但没有收到工具执行结果（文件在此结束）",
                             "Expected toolResult after toolCall, but reached end of file\n" +
                             "Tool: " + currentMsg.toolCalls().get(0).name() + ", Line: " + currentMsg.id(),
-                            "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id()
+                            "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id(),
+                            employeeId
                         ));
                     } else if (nextObj instanceof MessageRecord nextMsg) {
                         if (!"toolResult".equals(nextMsg.role())) {
@@ -93,7 +97,8 @@ public class FlowIntegrityChecker {
                                 "Assistant调用工具后的下一条消息角色是\"" + nextMsg.role() + "\"，而非预期的toolResult",
                                 "Expected \"toolResult\" after \"toolCall\", but got \"" + nextMsg.role() + "\"\n" +
                                 "Tool: " + currentMsg.toolCalls().get(0).name() + ", Line: " + currentMsg.id(),
-                                "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id()
+                                "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id(),
+                                employeeId
                             ));
                         }
                     } else if (nextObj instanceof CustomRecord nextCustom) {
@@ -104,7 +109,8 @@ public class FlowIntegrityChecker {
                                 "Assistant调用工具后的下一条消息是custom事件\"" + nextCustom.customType() + "\"，而非预期的toolResult",
                                 "Expected \"toolResult\" after \"toolCall\", but got \"custom:" + nextCustom.customType() + "\"\n" +
                                 "Tool: " + currentMsg.toolCalls().get(0).name() + ", Line: " + currentMsg.id(),
-                                "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id()
+                                "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id(),
+                                employeeId
                             ));
                         }
                     }
@@ -122,7 +128,8 @@ public class FlowIntegrityChecker {
                             "工具执行完成后没有Assistant的最终回复（文件在此结束）",
                             "Expected assistant message after toolResult, but reached end of file\n" +
                             "Line: " + currentMsg.id(),
-                            "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id()
+                            "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id(),
+                            employeeId
                         ));
                     } else if (nextObj instanceof MessageRecord nextMsg) {
                         if (!"assistant".equals(nextMsg.role()) && !"toolResult".equals(nextMsg.role())) {
@@ -133,7 +140,8 @@ public class FlowIntegrityChecker {
                                     "工具执行完成后的下一条消息角色是\"" + nextMsg.role() + "\"，而非预期的assistant最终回复或另一个toolResult",
                                     "Expected \"assistant\" or \"toolResult\" after \"toolResult\", but got \"" + nextMsg.role() + "\"\n" +
                                     "Line: " + currentMsg.id(),
-                                    "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id()
+                                    "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id(),
+                                    employeeId
                                 ));
                             }
                         }
@@ -145,7 +153,8 @@ public class FlowIntegrityChecker {
                                 "工具执行完成后出现custom事件\"" + nextCustom.customType() + "\"，而非预期的assistant最终回复",
                                 "Expected \"assistant\" after \"toolResult\", but got \"custom:" + nextCustom.customType() + "\"\n" +
                                 "Line: " + currentMsg.id(),
-                                "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id()
+                                "message", null, null, null, null, null, currentMsg.lineNumber(), null, null, null, currentMsg.id(),
+                                employeeId
                             ));
                         }
                     }

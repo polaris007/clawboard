@@ -27,7 +27,8 @@ public class IssueDetector {
         String runId,
         String provider,
         String model,
-        String messageId
+        String messageId,
+        String employeeId
     ) {}
 
     private static final List<ErrorPattern> ERROR_PATTERNS = List.of(
@@ -122,7 +123,8 @@ public class IssueDetector {
                                 null,
                                 msg.provider(),
                                 msg.model(),
-                                msg.id()
+                                msg.id(),
+                                null
                             ));
                             categoryMatched = true;
                             break;
@@ -157,7 +159,8 @@ public class IssueDetector {
                     null,
                     msg.provider(),
                     msg.model(),
-                    msg.id()
+                    msg.id(),
+                    null
                 ));
             }
         }
@@ -192,7 +195,8 @@ public class IssueDetector {
                         extractRunId(dataJson),
                         extractProvider(dataJson),
                         extractModel(dataJson),
-                        lineId != null ? lineId : "custom-" + System.currentTimeMillis()
+                        lineId != null ? lineId : "custom-" + System.currentTimeMillis(),
+                        null
                     ));
                     break;
                 }

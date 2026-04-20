@@ -94,7 +94,7 @@ public class TranscriptParser {
             List<IssueDetector.DetectedIssue> msgIssues = issueDetector.detectIssues(msg);
             for ( var issue : msgIssues) {
                 String userInput = extractUserInput(messages, msg);
-                IssueDetector.DetectedIssue enriched = enrichIssue(issue, filePathStr, userInput, null, null);
+                IssueDetector.DetectedIssue enriched = enrichIssue(issue, filePathStr, userInput, null, null, employeeId);
                 allIssues.add(enriched);
             }
         }
@@ -125,18 +125,19 @@ public class TranscriptParser {
                     issue.runId(),
                     issue.provider(),
                     issue.model(),
-                    issue.messageId()
+                    issue.messageId(),
+                    employeeId
                 );
                 allIssues.add(enriched);
             }
         }
 
 
-        List<IssueDetector.DetectedIssue> flowIssues = flowIntegrityChecker.checkFlowIntegrity(allEvents, messages);
+        List<IssueDetector.DetectedIssue> flowIssues = flowIntegrityChecker.checkFlowIntegrity(allEvents, messages, employeeId);
         for (var issue : flowIssues) {
             String errorLineContent = extractLineContent(messages, issue);
             String nextLineContent = extractNextLineContent(messages, issue);
-            allIssues.add(enrichIssue(issue, filePathStr, null, errorLineContent, nextLineContent));
+            allIssues.add(enrichIssue(issue, filePathStr, null, errorLineContent, nextLineContent, employeeId));
         }
 
         List<SkillInvocation> skillInvocations = new ArrayList<>();
@@ -268,7 +269,8 @@ public class TranscriptParser {
             String filePath,
             String userInput,
             String errorLineContent,
-            String nextLineContent) {
+            String nextLineContent,
+            String employeeId) {
 
         return new IssueDetector.DetectedIssue(
             original.errorType(),
@@ -285,7 +287,8 @@ public class TranscriptParser {
             original.runId(),
             original.provider(),
             original.model(),
-            original.messageId()
+            original.messageId(),
+            employeeId
         );
     }
 
