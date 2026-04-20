@@ -33,7 +33,7 @@ public class ReportGenerator {
             var issues = issueMapper.selectByScanId(scanId);
 
             // Generate Markdown content
-            String markdown = buildMarkdownReport(issues, scanStartTime);
+            String markdown = buildMarkdownReport(issues, scanStartTime, scanId);
 
             // Get reports directory from configuration
             String reportsDir = properties.getReports().getOutputDir();
@@ -52,17 +52,17 @@ public class ReportGenerator {
         }
     }
 
-    private String buildMarkdownReport(List<DashboardTranscriptIssue> issues, LocalDateTime scanStartTime) {
+    private String buildMarkdownReport(List<DashboardTranscriptIssue> issues, LocalDateTime scanStartTime, Long scanId) {
         StringBuilder sb = new StringBuilder();
         
         // Header
-        sb.append("# OpenClaw Session Transcript 综合问题检测报告\n\n");
+        sb.append("# OpenClaw Session Transcript 综合错误检测报告\n\n");
         String nowStr = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             .format(java.time.LocalDateTime.now());
-        sb.append("**生成时间**: ").append(nowStr).append("\n\n");
+        sb.append("**生成时间**: " + nowStr + "\n\n");
 
         if (issues.isEmpty()) {
-            sb.append("No issues found in this scan.\n");
+            sb.append("No errors found in this scan.\n");
             return sb.toString();
         }
 
@@ -91,18 +91,18 @@ public class ReportGenerator {
             .distinct()
             .count();
         
-        sb.append("- **总问题数**: ").append(issues.size()).append("\n");
+        sb.append("- **总错误数**: ").append(issues.size()).append("\n");
         sb.append("- **总对话轮数**: ").append(totalConversationTurns).append(" （排除系统消息）\n");
-        sb.append("- **有问题轮数**: ").append(totalProblematicTurns).append(" （存在任何类型问题的轮次）\n");
+        sb.append("- **有错误轮数**: ").append(totalProblematicTurns).append(" （存在任何类型错误的轮次）\n");
         if (totalConversationTurns > 0) {
             double problemRate = ((double) totalProblematicTurns / totalConversationTurns) * 100;
-            sb.append(String.format("- **问题率**: %.2f%% （有问题轮数 / 总对话轮数）\n", problemRate));
+            sb.append(String.format("- **错误率**: %.2f%% （有错误轮数 / 总对话轮数）\n", problemRate));
         }
         sb.append("\n");
 
-        // Problem type distribution table
-        sb.append("### 问题类型分布\n\n");
-        sb.append("| 问题类型 | 数量 | 说明 |\n");
+        // Error type distribution table
+        sb.append("### 错误类型分布\n\n");
+        sb.append("| 错误类型 | 数量 | 说明 |\n");
         sb.append("|---------|------|------|\n");
         
         java.util.Map<String, String> typeDescriptions = new java.util.HashMap<>();
@@ -150,7 +150,7 @@ public class ReportGenerator {
             sb.append(String.format("## %s - %s (%d)\n\n", errorType, typeDesc, typeIssues.size()));
             
             for (DashboardTranscriptIssue issue : typeIssues) {
-                sb.append(String.format("### 问题 #%d\n\n", globalIssueNumber++));
+                sb.append(String.format("### 错误 #%d\n\n", globalIssueNumber++));
                 sb.append("- **事件类型**: `").append(issue.getEventType() != null ? issue.getEventType() : "message").append("`\n");
                 sb.append("- **描述**: ").append(issue.getDescription()).append("\n");
                 
@@ -159,9 +159,11 @@ public class ReportGenerator {
                     sb.append("- **工号**: ").append(issue.getEmployeeId()).append("\n");
                 }
                 
-                // User input (if available)
+                // User input (if available) - truncated to 200 chars like Python
                 if (issue.getUserInput() != null && !issue.getUserInput().isEmpty()) {
-                    String escapedInput = issue.getUserInput().replace("`", "\\`");
+                    String userInput = issue.getUserInput();
+                    String truncatedInput = userInput.length() > 200 ? userInput.substring(0, 200) + "..." : userInput;
+                    String escapedInput = truncatedInput.replace("`", "\\`");
                     sb.append("- **用户输入**: `").append(escapedInput).append("`\n");
                 }
                 
@@ -172,6 +174,15 @@ public class ReportGenerator {
                       .append("\n````\n");
                 }
                 
+                // If error message contains "list index out of range", show full line record
+                if (issue.getErrorMessage() != null && issue.getErrorMessage().toLowerCase().contains("list index out of range")) {
+                    if (issue.getErrorLineContent() != null && !issue.getErrorLineContent().isEmpty()) {
+                        sb.append("- **完整行记录**: \n```json\n")
+                          .append(issue.getErrorLineContent())
+                          .append("\n```\n");
+                    }
+                }
+                
                 // Cause analysis
                 String causeAnalysis = issue.getCauseAnalysis();
                 if (causeAnalysis == null || causeAnalysis.isEmpty()) {
@@ -179,13 +190,10 @@ public class ReportGenerator {
                 }
                 sb.append("- **原因分析**: ").append(causeAnalysis).append("\n");
                 
-                // File path (if available)
+                // File path (if available) - show relative path like Python does
                 if (issue.getFilePath() != null && !issue.getFilePath().isEmpty()) {
-                    // Show relative path if possible
+                    // Show relative path like Python does
                     String displayPath = issue.getFilePath();
-                    if (displayPath.length() > 80) {
-                        displayPath = "..." + displayPath.substring(displayPath.length() - 77);
-                    }
                     sb.append("- **文件位置**: `").append(displayPath).append("`\n");
                 } else {
                     sb.append("- **文件位置**: `[数据未存储]`\n");
@@ -204,6 +212,11 @@ public class ReportGenerator {
                 // Timestamp
                 if (issue.getOccurredAt() != null) {
                     sb.append("- **时间戳**: ").append(issue.getOccurredAt()).append("\n");
+                }
+                
+                // Run ID
+                if (issue.getRunId() != null && !issue.getRunId().isEmpty()) {
+                    sb.append("- **Run ID**: `").append(issue.getRunId()).append("`\n");
                 }
                 
                 // For flow integrity errors, show error line and next line content

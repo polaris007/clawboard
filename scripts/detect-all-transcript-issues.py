@@ -745,7 +745,7 @@ def analyze_transcript(file_path, accounts_mapping=None):
     """分析单个transcript文件"""
     all_issues = []
     conversation_turns = 0  # 真实对话轮数
-    problematic_turns = 0   # 有问题的对话轮数
+    problematic_turns = 0   # 有错误的对话轮数
 
     # 提取员工信息
     employee_info = extract_employee_from_path(file_path, accounts_mapping)
@@ -817,10 +817,10 @@ def analyze_transcript(file_path, accounts_mapping=None):
             for issue in all_issues:
                 issue['employee'] = employee_info
 
-        # 统计有问题的对话轮数（存在任何类型问题的轮次）
+        # 统计有错误的对话轮数（存在任何类型错误的轮次）
         problematic_turn_set = set()
         for issue in all_issues:
-            # 所有问题的lineNumber都对应触发该问题的消息行号
+            # 所有错误的lineNumber都对应触发该错误的消息行号
             problematic_turn_set.add(issue['lineNumber'])
         problematic_turns = len(problematic_turn_set)
 
@@ -945,7 +945,7 @@ def generate_markdown_report(all_issues, total_conversation_turns, total_problem
     now = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.') + \
         str(datetime.utcnow().microsecond).zfill(6) + 'Z'
 
-    markdown = '# OpenClaw Session Transcript 综合问题检测报告\n\n'
+    markdown = '# OpenClaw Session Transcript 综合错误检测报告\n\n'
     markdown += '**生成时间**: %s\n\n' % now
 
     # 统计概览
@@ -959,18 +959,18 @@ def generate_markdown_report(all_issues, total_conversation_turns, total_problem
         stats['byType'][error_type] = stats['byType'].get(error_type, 0) + 1
 
     markdown += '## 📊 统计概览\n\n'
-    markdown += '- **总问题数**: %d\n' % stats['total']
+    markdown += '- **总错误数**: %d\n' % stats['total']
     markdown += '- **总对话轮数**: %d （排除系统消息）\n' % total_conversation_turns
-    markdown += '- **有问题轮数**: %d （存在任何类型问题的轮次）\n' % total_problematic_turns
+    markdown += '- **有错误轮数**: %d （存在任何类型错误的轮次）\n' % total_problematic_turns
     if total_conversation_turns > 0:
         problem_rate = '%.2f' % (
             (float(total_problematic_turns) / total_conversation_turns) * 100)
-        markdown += '- **问题率**: %s%% （有问题轮数 / 总对话轮数）\n' % problem_rate
+        markdown += '- **错误率**: %s%% （有错误轮数 / 总对话轮数）\n' % problem_rate
 
     markdown += '\n'
 
-    markdown += '### 问题类型分布\n\n'
-    markdown += '| 问题类型 | 数量 | 说明 |\n'
+    markdown += '### 错误类型分布\n\n'
+    markdown += '| 错误类型 | 数量 | 说明 |\n'
     markdown += '|---------|------|------|\n'
 
     type_descriptions = {
@@ -1029,7 +1029,7 @@ def generate_markdown_report(all_issues, total_conversation_turns, total_problem
                                              type_desc, len(issues))
 
         for issue in issues:
-            markdown += '### 问题 #%d\n\n' % global_issue_number
+            markdown += '### 错误 #%d\n\n' % global_issue_number
             global_issue_number += 1
             markdown += '- **事件类型**: `%s`\n' % issue['eventType']
             markdown += '- **描述**: %s\n' % issue['description']
@@ -1322,11 +1322,11 @@ def main():
             if progress > 0:
                 estimated_total = elapsed / progress
                 remaining = estimated_total - elapsed
-                safe_print('   进度: %d/%d (%.1f%%), 发现问题 %d 个, 预计剩余 %.0f 秒...' % (
+                safe_print('   进度: %d/%d (%.1f%%), 发现错误 %d 个, 预计剩余 %.0f 秒...' % (
                     i + 1, len(jsonl_files), progress * 100, len(all_issues), remaining))
 
     elapsed_time = time.time() - start_time
-    safe_print('\n✅ 分析完成！共发现 %d 个问题 (耗时 %.1f 秒)\n' %
+    safe_print('\n✅ 分析完成！共发现 %d 个错误 (耗时 %.1f 秒)\n' %
                (len(all_issues), elapsed_time))
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -1346,7 +1346,7 @@ def main():
         error_type = issue['errorType']
         stats[error_type] = stats.get(error_type, 0) + 1
 
-    safe_print('📊 问题类型统计:')
+    safe_print('📊 错误类型统计:')
     for error_type, count in sorted(stats.items(), key=lambda x: x[1], reverse=True):
         safe_print('  - %s: %d' % (error_type, count))
 

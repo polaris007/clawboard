@@ -77,5 +77,6 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 4. MySQL在D:\Program\Database\mysql-5.7.44-winx64，数据库已经启动，账号和数据库也已经建了，并配置了权限
 5. scrpts\detect-all-transcript-issues.py是Python 2.7的脚本，需要用D:\Python27来执行
 6. OpenClaw的源码在..\openclaw目录下
-7. 开发过程中需要使用dev环境(application-dev.yml)启动和调试应用
+7. 开发过程中需要使用dev profile(application-dev.yml)启动和调试应用
+8. 每次启动前清空数据库表，再触发扫描
 

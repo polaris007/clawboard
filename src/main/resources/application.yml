@@ -16,8 +16,10 @@ mybatis:
 
 clawboard:
   nas:
-    base-path: ${NAS_BASE_PATH:/mnt/nas}
+    base-path: D:/workplace/github/clawboard/test/session-transcript
     openclaw-dir: .openclaw
+  reports:
+    output-dir: reports
   scan:
     cron: "0 0 */6 * * *"
     thread-pool-size: 8

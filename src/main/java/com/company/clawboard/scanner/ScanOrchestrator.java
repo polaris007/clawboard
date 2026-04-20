@@ -221,6 +221,7 @@ public class ScanOrchestrator {
      * Supports both standard and hash-based directory structures:
      * - Standard: basePath/username/openclawDir/agents/main/sessions
      * - Hash-based: basePath/{sha512_hash}/agents/{agentName}/sessions
+     * - Flat: basePath/*.jsonl (for testing)
      */
     private UserScanResult scanUserDirectory(String username, Long scanId) {
         int totalFiles = 0;
@@ -234,20 +235,11 @@ public class ScanOrchestrator {
         
         try {
             String basePath = properties.getNas().getBasePath();
-            String openclawDir = properties.getNas().getOpenclawDir();
             
-            // Find the hash directory for this user
-            Path userHashDir = findUserHashDirectory(basePath, username);
-            
-            if (userHashDir == null || !userHashDir.toFile().exists()) {
-                log.debug("User directory not found for: {}", username);
-                return new UserScanResult(0, 0, 0, 0, 0, 0, 0, 0);
-            }
-            
-            // Scan all agent directories under this hash directory
-            Path agentsDir = userHashDir.resolve("agents");
-            if (!agentsDir.toFile().exists() || !agentsDir.toFile().isDirectory()) {
-                log.debug("Agents directory not found: {}", agentsDir);
+            // For flat directory structure (testing), scan directly in basePath
+            Path basePathObj = Path.of(basePath);
+            if (!basePathObj.toFile().exists()) {
+                log.debug("Base path not found: {}", basePath);
                 return new UserScanResult(0, 0, 0, 0, 0, 0, 0, 0);
             }
             
@@ -255,73 +247,56 @@ public class ScanOrchestrator {
             String employeeId = resolveEmployeeId(username);
             log.info("Scanning user {} (employee ID: {})", username, employeeId);
             
-            // Scan all agent subdirectories (e.g., "main", or other names)
-            File[] agentDirs = agentsDir.toFile().listFiles(File::isDirectory);
-            if (agentDirs == null || agentDirs.length == 0) {
-                log.debug("No agent directories found under: {}", agentsDir);
-                return new UserScanResult(0, 0, 0, 0, 0, 0, 0, 0);
+            // Scan for JSONL files directly in basePath
+            List<Path> jsonlFiles = fileScanner.scanForJsonlFiles(basePathObj);
+            totalFiles += jsonlFiles.size();
+            log.info("Found {} transcript files in {}", jsonlFiles.size(), basePath);
+            
+            // Collect file paths for comparison (relative to base path)
+            for (Path jsonlFile : jsonlFiles) {
+                try {
+                    String relativePath = basePathObj.relativize(jsonlFile).toString();
+                    scannedFilePaths.add(relativePath);
+                } catch (Exception e) {
+                    log.debug("Failed to compute relative path for: {}", jsonlFile, e);
+                }
             }
             
-            // Process each agent directory
-            for (File agentDir : agentDirs) {
-                Path sessionsDir = agentDir.toPath().resolve("sessions");
-                if (!sessionsDir.toFile().exists()) {
-                    log.debug("Sessions directory not found: {}", sessionsDir);
-                    continue;
-                }
-                
-                // Scan for JSONL files in this agent's sessions directory
-                List<Path> jsonlFiles = fileScanner.scanForJsonlFiles(sessionsDir);
-                totalFiles += jsonlFiles.size();
-                log.info("Agent {}: found {} transcript files", agentDir.getName(), jsonlFiles.size());
-                
-                // Collect file paths for comparison (relative to base path)
-                Path basePathObj = Path.of(basePath);
-                for (Path jsonlFile : jsonlFiles) {
-                    try {
-                        String relativePath = basePathObj.relativize(jsonlFile).toString();
-                        scannedFilePaths.add(relativePath);
-                    } catch (Exception e) {
-                        log.debug("Failed to compute relative path for: {}", jsonlFile, e);
+            // Process each file sequentially within this user's thread
+            for (Path jsonlFile : jsonlFiles) {
+                try {
+                    log.debug("Processing file: {} (employee: {})", jsonlFile.getFileName(), employeeId);
+                    
+                    // Parse transcript file
+                    var parsed = transcriptParser.parseFile(jsonlFile, employeeId);
+                    
+                    // Defensive check: skip if sessionId is still null (should not happen after TranscriptParser fix)
+                    if (parsed.sessionId() == null) {
+                        log.debug("Skipping file with no session ID (unexpected): {}", jsonlFile);
+                        skippedFiles++;
+                        continue;
                     }
-                }
-                
-                // Process each file sequentially within this user's thread
-                for (Path jsonlFile : jsonlFiles) {
-                    try {
-                        log.debug("Processing file: {} (employee: {})", jsonlFile.getFileName(), employeeId);
-                        
-                        // Parse transcript file
-                        var parsed = transcriptParser.parseFile(jsonlFile, employeeId);
-                        
-                        // Defensive check: skip if sessionId is still null (should not happen after TranscriptParser fix)
-                        if (parsed.sessionId() == null) {
-                            log.debug("Skipping file with no session ID (unexpected): {}", jsonlFile);
-                            skippedFiles++;
-                            continue;
-                        }
-                        
-                        // Batch insert into database
-                        dataIngestionService.ingestParsedTranscript(scanId, employeeId, parsed);
-                        
-                        int msgCount = parsed.messages().size();
-                        int turnCount = parsed.turns().size();
-                        int issueCount = parsed.issues().size();
-                        int skillCount = parsed.skillInvocations().size();
-                        
-                        totalMessages += msgCount;
-                        totalTurns += turnCount;
-                        totalIssues += issueCount;
-                        totalSkills += skillCount;
-                        processedFiles++;
-                        
-                        log.debug("Parsed file: {} messages, {} turns, {} issues, {} skills",
-                                msgCount, turnCount, issueCount, skillCount);
-                        
-                    } catch (Exception e) {
-                        log.error("Failed to process file: {}", jsonlFile, e);
-                        errorFiles++;
-                    }
+                    
+                    // Batch insert into database
+                    dataIngestionService.ingestParsedTranscript(scanId, employeeId, parsed);
+                    
+                    int msgCount = parsed.messages().size();
+                    int turnCount = parsed.turns().size();
+                    int issueCount = parsed.issues().size();
+                    int skillCount = parsed.skillInvocations().size();
+                    
+                    totalMessages += msgCount;
+                    totalTurns += turnCount;
+                    totalIssues += issueCount;
+                    totalSkills += skillCount;
+                    processedFiles++;
+                    
+                    log.debug("Parsed file: {} messages, {} turns, {} issues, {} skills",
+                            msgCount, turnCount, issueCount, skillCount);
+                    
+                } catch (Exception e) {
+                    log.error("Failed to process file: {}", jsonlFile, e);
+                    errorFiles++;
                 }
             }
             
