@@ -7,7 +7,7 @@ spring:
 
 clawboard:
   nas:
-    base-path: G:/Workplace/github/clawboard/test/session-transcript   # Test directory
+    base-path: D:/workplace/github/clawboard/test/session-transcript   # Test directory
     # Examples:
     # base-path: D:/CompanyData/OpenClaw    # Windows absolute path
     # base-path: /mnt/nas                   # Linux NAS mount point
@@ -17,6 +17,6 @@ clawboard:
     # If your structure is: {basePath}/{employeeId}/.openclaw/agents/main/sessions/
     # Then set: openclaw-dir: .openclaw
     
-    accounts-csv-path: G:/Workplace/github/clawboard/scripts/accounts.csv  # Employee ID mapping file
+    accounts-csv-path: D:/workplace/github/clawboard/scripts/accounts.csv  # Employee ID mapping file
   reports:
-    output-dir: scripts/reports  # Configurable reports directory
+    output-dir: reports  # Configurable reports directory
