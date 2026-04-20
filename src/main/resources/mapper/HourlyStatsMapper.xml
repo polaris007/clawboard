@@ -51,9 +51,16 @@
 
     <select id="selectByTimeRange" resultMap="BaseResultMap">
         SELECT * FROM dashboard_hourly_stats
-        WHERE employee_id = #{employeeId}
+        WHERE 1=1
+        <if test="employeeId != null">
+          AND employee_id = #{employeeId}
+        </if>
+        <if test="startTime != null">
           AND stat_hour &gt;= FROM_UNIXTIME(#{startTime} / 1000)
+        </if>
+        <if test="endTime != null">
           AND stat_hour &lt;= FROM_UNIXTIME(#{endTime} / 1000)
+        </if>
         ORDER BY stat_hour
     </select>
 
