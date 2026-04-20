@@ -146,7 +146,7 @@ public class FlowIntegrityChecker {
                             }
                         }
                     } else if (nextObj instanceof CustomRecord nextCustom) {
-                        if (nextCustom.customType() == null || !nextCustom.customType().contains("prompt-error")) {
+                        if (nextCustom.customType() == null || !nextCustom.customType().toLowerCase().contains("prompt-error")) {
                             issues.add(new DetectedIssue(
                                 "flow_integrity_missing_final_answer",
                                 "medium",

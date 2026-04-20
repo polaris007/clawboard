@@ -174,20 +174,22 @@ public class IssueDetector {
             return issues;
         }
 
-        String searchText = (customType + " " + (dataJson != null ? dataJson : "")).toLowerCase();
-        log.debug("detectCustomEventIssues: customType={}, dataJson={}, searchText={}", customType, dataJson, searchText);
+        String customTypeLower = customType.toLowerCase();
+        String dataStr = (dataJson != null ? dataJson : "").toLowerCase();
+        log.debug("detectCustomEventIssues: customType={}, customTypeLower={}, dataJson={}, dataStr={}", customType, customTypeLower, dataJson, dataStr);
 
         for (ErrorPattern ep : ERROR_PATTERNS) {
             for (Pattern pattern : ep.patterns()) {
-                if (pattern.matcher(customType).find() || pattern.matcher(searchText).find()) {
+                if (pattern.matcher(customTypeLower).find() || pattern.matcher(dataStr).find()) {
+                    String errorMessage = dataJson != null ? dataJson : customType;
                     issues.add(new DetectedIssue(
                         ep.category(),
                         "high",
                         "检测到" + getCategoryDescription(ep.category()) + "事件",
-                        truncate(dataJson != null ? dataJson : customType, 500),
+                        truncate(errorMessage, 500),
                         customType,
                         null,
-                        analyzeCause(ep.category(), dataJson != null ? dataJson : customType),
+                        analyzeCause(ep.category(), errorMessage),
                         null,
                         null,
                         null,

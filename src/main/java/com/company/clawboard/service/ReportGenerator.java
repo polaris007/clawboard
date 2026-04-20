@@ -78,15 +78,16 @@ public class ReportGenerator {
         
         // Get total conversation turns and problematic turns from database
         int totalConversationTurns = sessionSummaryMapper.selectTotalTurnsByScanId(scanId);
-        // Calculate problematic turns by counting unique sessionId-lineNumber combinations (like Python does)
+        // Calculate problematic turns by counting unique lineNumber values (exactly like Python does)
         // Note: Python includes all issues, even those without line numbers
-        // We need to handle null line numbers by using a fallback value
+        // We need to handle null line numbers by using a combination of sessionId and errorType as fallback
+        // This ensures that each unique issue is counted as a separate problematic turn
         int totalProblematicTurns = (int) issues.stream()
             .map(issue -> {
                 Integer lineNumber = issue.getLineNumber();
                 // For issues without line numbers, use a combination of sessionId and errorType as fallback
                 // This ensures that each unique issue is counted as a separate problematic turn
-                return lineNumber != null ? issue.getSessionId() + "-" + lineNumber : (issue.getSessionId() + "-" + issue.getErrorType()).hashCode();
+                return lineNumber != null ? lineNumber : (issue.getSessionId() + "-" + issue.getErrorType()).hashCode();
             })
             .distinct()
             .count();

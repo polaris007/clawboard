@@ -42,6 +42,7 @@ public class TranscriptParser {
         List<MessageRecord> messages = new ArrayList<>();
         List<CustomRecordWithLineNumber> customRecords = new ArrayList<>();
         List<Object> allEvents = new ArrayList<>();
+        List<String> rawLines = new ArrayList<>(); // Store raw lines for error context
         String sessionId = null;
 
         try (BufferedReader reader = new BufferedReader(
@@ -50,6 +51,7 @@ public class TranscriptParser {
             int lineNumber = 0;
             while ((line = reader.readLine()) != null) {
                 lineNumber++;
+                rawLines.add(line); // Store raw line
                 JsonlRecord record = messageParser.parseLine(line, lineNumber);
 
                 if (record instanceof SessionRecord session) {
@@ -110,13 +112,15 @@ public class TranscriptParser {
                 log.debug("Custom event detected issues: type={}, issues={}", custom.customType(), customIssues.size());
             }
             for ( var issue : customIssues) {
+                // Extract user input for custom events (like Python does)
+                String userInput = extractUserInputForCustomEvent(messages, lineNumber);
                 IssueDetector.DetectedIssue enriched = new IssueDetector.DetectedIssue(
                     issue.errorType(),
                     issue.severity(),
                     issue.description(),
                     issue.errorMessage(),
                     issue.eventType(),
-                    null,
+                    userInput,
                     issue.causeAnalysis(),
                     filePathStr,
                     null,
@@ -135,8 +139,8 @@ public class TranscriptParser {
 
         List<IssueDetector.DetectedIssue> flowIssues = flowIntegrityChecker.checkFlowIntegrity(allEvents, messages, employeeId);
         for (var issue : flowIssues) {
-            String errorLineContent = extractLineContent(messages, issue);
-            String nextLineContent = extractNextLineContent(messages, issue);
+            String errorLineContent = extractLineContent(rawLines, issue);
+            String nextLineContent = extractNextLineContent(rawLines, issue);
             allIssues.add(enrichIssue(issue, filePathStr, null, errorLineContent, nextLineContent, employeeId));
         }
 
@@ -185,53 +189,54 @@ public class TranscriptParser {
         return null;
     }
 
-    private String extractLineContent(List<MessageRecord> messages, IssueDetector.DetectedIssue issue) {
-        if (messages == null || issue == null) {
+    private String extractUserInputForCustomEvent(List<MessageRecord> messages, int lineNumber) {
+        if (messages == null) {
             return null;
         }
 
-        String errorMsg = issue.errorMessage();
-        if (errorMsg == null) {
-            return null;
-        }
+        // Find the message that is closest to the custom event line number (but before it)
+        MessageRecord closestMsg = null;
+        int closestLineDiff = Integer.MAX_VALUE;
 
-        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("Line:\\s*(\\w+)");
-        java.util.regex.Matcher matcher = pattern.matcher(errorMsg);
-        if (!matcher.find()) {
-            return null;
-        }
-
-        String lineId = matcher.group(1);
         for (MessageRecord msg : messages) {
-            if (msg.id().equals(lineId)) {
-                return formatMessageForDisplay(msg);
+            if (msg.lineNumber() < lineNumber) {
+                int diff = lineNumber - msg.lineNumber();
+                if (diff < closestLineDiff) {
+                    closestLineDiff = diff;
+                    closestMsg = msg;
+                }
             }
+        }
+
+        // If we found a message, extract user input from it or earlier messages
+        if (closestMsg != null) {
+            return extractUserInput(messages, closestMsg);
         }
 
         return null;
     }
 
-    private String extractNextLineContent(List<MessageRecord> messages, IssueDetector.DetectedIssue issue) {
-        if (messages == null || issue == null) {
+    private String extractLineContent(List<String> rawLines, IssueDetector.DetectedIssue issue) {
+        if (rawLines == null || issue == null || issue.lineNumber() == null) {
             return null;
         }
 
-        String errorMsg = issue.errorMessage();
-        if (errorMsg == null) {
+        int lineNum = issue.lineNumber() - 1; // Convert to 0-based index
+        if (lineNum >= 0 && lineNum < rawLines.size()) {
+            return rawLines.get(lineNum);
+        }
+
+        return null;
+    }
+
+    private String extractNextLineContent(List<String> rawLines, IssueDetector.DetectedIssue issue) {
+        if (rawLines == null || issue == null || issue.lineNumber() == null) {
             return null;
         }
 
-        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("Line:\\s*(\\w+)");
-        java.util.regex.Matcher matcher = pattern.matcher(errorMsg);
-        if (!matcher.find()) {
-            return null;
-        }
-
-        String lineId = matcher.group(1);
-        for (int i = 0; i < messages.size() - 1; i++) {
-            if (messages.get(i).id().equals(lineId)) {
-                return formatMessageForDisplay(messages.get(i + 1));
-            }
+        int lineNum = issue.lineNumber(); // Convert to 0-based index for next line
+        if (lineNum >= 0 && lineNum < rawLines.size()) {
+            return rawLines.get(lineNum);
         }
 
         return null;

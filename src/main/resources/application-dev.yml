@@ -16,7 +16,7 @@ mybatis:
 
 clawboard:
   nas:
-    base-path: D:/workplace/github/clawboard/test/session-transcript
+    base-path: D:/workplace/github/clawboard/logs/session-transcript/openclaw-logs
     openclaw-dir: agents
     accounts-csv-path: D:/workplace/github/clawboard/scripts/accounts.csv
   reports:
