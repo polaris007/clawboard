@@ -38,12 +38,12 @@ public class ReportGenerator {
             // Get reports directory from configuration
             String reportsDir = properties.getReports().getOutputDir();
             
-            // Write to file with date-based directory structure
+            // Write to file with date-based directory structure and scanId in filename
             String dateStr = LocalDateTime.now().format(DATE_FORMATTER);
             Path reportDir = Paths.get(reportsDir, dateStr);
             Files.createDirectories(reportDir);
 
-            Path reportPath = reportDir.resolve("transcript-comprehensive-issues.md");
+            Path reportPath = reportDir.resolve("transcript-comprehensive-issues-scan-" + scanId + ".md");
             Files.writeString(reportPath, markdown);
 
             log.info("Report generated: {}", reportPath.toAbsolutePath());
@@ -77,7 +77,7 @@ public class ReportGenerator {
             ));
         
         // Get total conversation turns and problematic turns from database
-        int totalConversationTurns = sessionSummaryMapper.selectTotalTurns();
+        int totalConversationTurns = sessionSummaryMapper.selectTotalTurnsByScanId(scanId);
         // Calculate problematic turns by counting unique sessionId-lineNumber combinations (like Python does)
         // Note: Python includes all issues, even those without line numbers
         // We need to handle null line numbers by using a fallback value

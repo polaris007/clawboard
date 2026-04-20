@@ -78,5 +78,9 @@
     <select id="selectTotalTurns" resultType="int">
         SELECT COALESCE(SUM(total_turns), 0) FROM dashboard_session_summary
     </select>
+    
+    <select id="selectTotalTurnsByScanId" resultType="int">
+        SELECT COALESCE(SUM(total_turns), 0) FROM dashboard_session_summary WHERE last_scan_id = #{scanId}
+    </select>
 
 </mapper>

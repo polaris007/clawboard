@@ -26,4 +26,9 @@ public interface SessionSummaryMapper {
      * Get total conversation turns across all sessions
      */
     int selectTotalTurns();
+    
+    /**
+     * Get total conversation turns for specific scan
+     */
+    int selectTotalTurnsByScanId(@Param("scanId") Long scanId);
 }
