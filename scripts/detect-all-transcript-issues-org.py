@@ -629,8 +629,7 @@ def detect_known_errors(messages, file_path, session_id):
                         # 提取用户输入
                         user_input = extract_user_input(
                             msg['lineNum'], 'assistant', messages)
-                        
-                        issue = {
+                        issues.append({
                             'id': generate_id(),
                             'errorType': category,
                             'eventType': event['customType'],
@@ -646,13 +645,7 @@ def detect_known_errors(messages, file_path, session_id):
                             'model': (event.get('data') or {}).get('model'),
                             'userInput': user_input,
                             'severity': 'HIGH',
-                        }
-                        
-                        # 如果错误信息包含"list index out of range"，添加原始的完整行记录
-                        if 'list index out of range' in error_message.lower():
-                            issue['fullLineRecord'] = msg.get('rawLine', '')
-                        
-                        issues.append(issue)
+                        })
                         break
 
         # 检测message中的错误（仅针对assistant角色）
@@ -670,8 +663,7 @@ def detect_known_errors(messages, file_path, session_id):
                         # 提取用户输入
                         user_input = extract_user_input(
                             msg['lineNum'], 'assistant', messages)
-                        
-                        issue = {
+                        issues.append({
                             'id': generate_id(),
                             'errorType': category,
                             'eventType': 'message',
@@ -686,13 +678,7 @@ def detect_known_errors(messages, file_path, session_id):
                             'model': event['message'].get('model'),
                             'userInput': user_input,
                             'severity': 'HIGH',
-                        }
-                        
-                        # 如果错误信息包含"list index out of range"，添加原始的完整行记录
-                        if 'list index out of range' in error_message.lower():
-                            issue['fullLineRecord'] = msg.get('rawLine', '')
-                        
-                        issues.append(issue)
+                        })
                         break
 
     return issues
@@ -715,7 +701,7 @@ def detect_abnormal_stops(messages, file_path, session_id):
                 user_input = extract_user_input(
                     msg['lineNum'], 'assistant', messages)
 
-                issue = {
+                issues.append({
                     'id': generate_id(),
                     'errorType': 'abnormal_stop',
                     'eventType': 'message',
@@ -730,13 +716,7 @@ def detect_abnormal_stops(messages, file_path, session_id):
                     'model': event['message'].get('model'),
                     'userInput': user_input,
                     'severity': 'HIGH' if stop_reason in ['aborted', 'error'] else 'MEDIUM',
-                }
-                
-                # 如果错误信息包含"list index out of range"，添加原始的完整行记录
-                if error_message and 'list index out of range' in error_message.lower():
-                    issue['fullLineRecord'] = msg.get('rawLine', '')
-                
-                issues.append(issue)
+                })
 
     return issues
 
@@ -788,7 +768,6 @@ def analyze_transcript(file_path, accounts_mapping=None):
                     messages.append({
                         'lineNum': i + 1,
                         'event': event,
-                        'rawLine': line,  # 保存原始行内容
                     })
 
                     # 统计真实用户消息（排除系统生成）
@@ -1050,11 +1029,6 @@ def generate_markdown_report(all_issues, total_conversation_turns, total_problem
                 markdown += '- **用户输入**: `%s`\n' % escaped_input
 
             markdown += '- **错误信息**: \n````\n%s\n````\n' % issue['errorMessage']
-            
-            # 如果存在完整行记录（针对list index out of range错误），显示它
-            if issue.get('fullLineRecord'):
-                markdown += '- **完整行记录**: \n```json\n%s\n```\n' % issue['fullLineRecord']
-            
             markdown += '- **原因分析**: %s\n' % issue['causeAnalysis']
             markdown += '- **文件位置**: `%s`\n' % issue['filePath'].replace(
                 os.getcwd() + os.sep, '')
