@@ -202,8 +202,18 @@ public class DataIngestionService {
             // Set start and end message IDs from AssembledTurn
             entity.setStartMessageId(turn.startMessageId() != null ? turn.startMessageId() : "");
             entity.setEndMessageId(turn.endMessageId() != null ? turn.endMessageId() : "");
-            entity.setStartTime(now);
-            entity.setEndTime(now);
+            
+            // Set start and end times from AssembledTurn
+            if (turn.startTime() > 0) {
+                entity.setStartTime(LocalDateTime.ofInstant(Instant.ofEpochMilli(turn.startTime()), BEIJING_ZONE));
+            } else {
+                entity.setStartTime(now);
+            }
+            if (turn.endTime() > 0) {
+                entity.setEndTime(LocalDateTime.ofInstant(Instant.ofEpochMilli(turn.endTime()), BEIJING_ZONE));
+            } else {
+                entity.setEndTime(now);
+            }
             entity.setTotalInputTokens(0);
             entity.setTotalOutputTokens(0);
             entity.setTotalTokens(0);

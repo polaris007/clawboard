@@ -62,10 +62,9 @@ public class TranscriptParser {
                         continue;
                     }
 
-                    if ("user".equals(msg.role()) &&
-                        systemMessageFilter.isSystemGeneratedUserMessage(msg.textContent())) {
-                        continue;
-                    }
+                    // 不再过滤系统消息，而是在后续处理中标记为系统消息
+                    // 这样系统消息也能被正确处理并入库
+
 
                     messages.add(msg);
                     allEvents.add(msg);
@@ -307,8 +306,11 @@ public class TranscriptParser {
                     turns.add(turnAssembler.assembleTurn(currentTurnMessages));
                 }
                 currentTurnMessages.clear();
+                currentTurnMessages.add(msg);
+            } else if (!currentTurnMessages.isEmpty()) {
+                currentTurnMessages.add(msg);
             }
-            currentTurnMessages.add(msg);
+            // 跳过以assistant消息开始的轮次
         }
 
         if (!currentTurnMessages.isEmpty()) {

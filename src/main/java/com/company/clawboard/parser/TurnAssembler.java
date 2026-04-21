@@ -27,12 +27,14 @@ public class TurnAssembler {
         String status,
         String startMessageId,
         String endMessageId,
+        long startTime,
+        long endTime,
         boolean isSystemTurn
     ) {}
 
     public AssembledTurn assembleTurn(List<MessageRecord> messages) {
         if (messages == null || messages.isEmpty()) {
-            return new AssembledTurn(null, List.of(), false, false, "incomplete", null, null, false);
+            return new AssembledTurn(null, List.of(), false, false, "incomplete", null, null, 0, 0, false);
         }
 
         // Find user input (first user message)
@@ -63,8 +65,12 @@ public class TurnAssembler {
         // Get start and end message IDs
         String startMessageId = messages.get(0).id();
         String endMessageId = messages.get(messages.size() - 1).id();
+        
+        // Get start and end times
+        long startTime = messages.get(0).epochMs();
+        long endTime = messages.get(messages.size() - 1).epochMs();
 
-        return new AssembledTurn(userInput, chainSteps, isComplete, hasError, status, startMessageId, endMessageId, isSystemTurn);
+        return new AssembledTurn(userInput, chainSteps, isComplete, hasError, status, startMessageId, endMessageId, startTime, endTime, isSystemTurn);
     }
 
     private List<ChainStep> buildChainSteps(List<MessageRecord> messages) {
