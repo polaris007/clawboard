@@ -5,6 +5,7 @@ import com.company.clawboard.mapper.*;
 import com.company.clawboard.parser.IssueDetector;
 import com.company.clawboard.parser.TranscriptParser;
 import com.company.clawboard.parser.TurnAssembler;
+import com.company.clawboard.parser.SystemMessageFilter;
 import com.company.clawboard.parser.model.MessageRecord;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,7 @@ public class DataIngestionService {
     private final SkillInvocationMapper skillMapper;
     private final TranscriptIssueMapper issueMapper;
     private final SessionSummaryMapper sessionSummaryMapper;
+    private final SystemMessageFilter systemMessageFilter;
 
     /**
      * Ingest parsed transcript data into database
@@ -84,19 +86,10 @@ public class DataIngestionService {
         for (MessageRecord msg : parsed.messages()) {
             if ("user".equals(msg.role())) {
                 // Check if this is a system-generated user message
-                // We need to replicate the system message filter logic here
                 String content = msg.textContent();
                 if (content != null && !content.isEmpty()) {
-                    // Check for system message patterns (matching Python's is_system_generated_user_message)
-                    boolean isSystemGenerated = false;
-                    // Use string contains checks instead of regex to avoid escape issues
-                    if (content.toLowerCase().contains("a new session was started via /new or /reset") ||
-                        content.toLowerCase().contains("run your session startup sequence") ||
-                        content.toLowerCase().contains("read heartbeat.md if it exists") ||
-                        content.toLowerCase().contains("<<<begin_openclaw_internal_context>>>") ||
-                        content.toLowerCase().startsWith("system: [")) {
-                        isSystemGenerated = true;
-                    }
+                    // Use systemMessageFilter to check if this is a system-generated user message
+                    boolean isSystemGenerated = systemMessageFilter.isSystemGeneratedUserMessage(content);
                     if (!isSystemGenerated) {
                         conversationTurns++;
                     }
@@ -158,6 +151,13 @@ public class DataIngestionService {
                 entity.setToolCallId(msg.toolCalls().get(0).id());
             }
             
+            // 标记系统消息
+            if ("user".equals(msg.role())) {
+                boolean isSystem = systemMessageFilter.isSystemGeneratedUserMessage(msg.textContent());
+                entity.setIsSystem(isSystem ? 1 : 0);
+            } else {
+                entity.setIsSystem(0);
+            }
             entity.setParentId(msg.parentId());
             entity.setCreatedAt(now);
 
@@ -193,7 +193,34 @@ public class DataIngestionService {
             entity.setStatus(turn.status());
             entity.setIsComplete(turn.isComplete() ? 1 : 0);
             entity.setHasError(turn.hasError() ? 1 : 0);
-            entity.setQualityStatus(0); // Default quality status
+            
+            // Set start and end message IDs from AssembledTurn
+            entity.setStartMessageId(turn.startMessageId() != null ? turn.startMessageId() : "");
+            entity.setEndMessageId(turn.endMessageId() != null ? turn.endMessageId() : "");
+            entity.setStartTime(now);
+            entity.setEndTime(now);
+            entity.setTotalInputTokens(0);
+            entity.setTotalOutputTokens(0);
+            entity.setTotalTokens(0);
+            entity.setTotalCost(BigDecimal.ZERO);
+            entity.setToolCallsCount(0);
+            entity.setToolCallsSuccess(0);
+            entity.setToolCallsError(0);
+            entity.setSkillCallsCount(0);
+            entity.setSkillCallsSuccess(0);
+            entity.setSkillCallsError(0);
+            entity.setTotalDurationMs(0);
+            entity.setToolDurationMs(0);
+            entity.setModelDurationMs(0);
+            entity.setChainSummary("");
+            entity.setLogFilePath("");
+            entity.setQualityStatus(0);
+            // 标记系统轮次：使用AssembledTurn中的isSystemTurn字段
+            entity.setSystemTurn(turn.isSystemTurn() ? 1 : 0);
+            // 调试日志
+            if (turn.isSystemTurn()) {
+                log.debug("System turn detected: sessionId={}, userInput={}", sessionId, turn.userInput());
+            }
             entity.setCreatedAt(now);
 
             result.add(entity);

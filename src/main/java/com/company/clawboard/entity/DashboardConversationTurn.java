@@ -35,5 +35,6 @@ public class DashboardConversationTurn {
     private String chainSummary;
     private String logFilePath;
     private Integer qualityStatus;
+    private Integer systemTurn; // 是否系统轮次
     private LocalDateTime createdAt;
 }

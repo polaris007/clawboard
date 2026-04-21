@@ -27,5 +27,6 @@ public class DashboardMessage {
     private String toolName;
     private String toolCallId;
     private String parentId;
+    private Integer isSystem; // 是否系统消息
     private LocalDateTime createdAt;
 }

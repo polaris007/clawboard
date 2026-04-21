@@ -129,14 +129,15 @@
             DATE_FORMAT(COALESCE(start_time, created_at), '%Y-%m-%d %H:00:00') AS statHour,
             COUNT(*) AS conversationTurns,
             SUM(CASE WHEN status = 'complete' THEN 1 ELSE 0 END) AS completeTurns,
-            SUM(CASE WHEN status = 'error' THEN 1 ELSE 0 END) AS errorTurns,
+            SUM(CASE WHEN has_error = 1 THEN 1 ELSE 0 END) AS errorTurns,
             COALESCE(SUM(tool_calls_count), 0) AS toolCalls,
             COALESCE(SUM(tool_calls_error), 0) AS toolErrors,
             COALESCE(SUM(skill_calls_count), 0) AS skillInvocations,
-            COALESCE(SUM(skill_calls_error), 0) AS skillErrors
+            COALESCE(SUM(skill_calls_count), 0) - COALESCE(SUM(skill_calls_success), 0) AS skillErrors
         FROM dashboard_conversation_turn
         WHERE (start_time IS NOT NULL OR created_at IS NOT NULL)
           AND employee_id = #{employeeId}
+          AND system_turn = 0
           AND DATE_FORMAT(COALESCE(start_time, created_at), '%Y-%m-%d %H:00:00') = #{statHour}
         GROUP BY employee_id, DATE_FORMAT(COALESCE(start_time, created_at), '%Y-%m-%d %H:00:00')
     </select>

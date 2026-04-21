@@ -40,13 +40,13 @@
             start_time, end_time, user_input, total_input_tokens, total_output_tokens, total_tokens, total_cost,
             tool_calls_count, tool_calls_success, tool_calls_error, skill_calls_count, skill_calls_success, skill_calls_error,
             is_complete, has_error, status, total_duration_ms, tool_duration_ms, model_duration_ms,
-            chain_summary, log_file_path, quality_status
+            chain_summary, log_file_path, quality_status, system_turn
         ) VALUES (
             #{scanId}, #{sessionId}, #{employeeId}, #{turnIndex}, #{startMessageId}, #{endMessageId},
             #{startTime}, #{endTime}, #{userInput}, #{totalInputTokens}, #{totalOutputTokens}, #{totalTokens}, #{totalCost},
             #{toolCallsCount}, #{toolCallsSuccess}, #{toolCallsError}, #{skillCallsCount}, #{skillCallsSuccess}, #{skillCallsError},
             #{isComplete}, #{hasError}, #{status}, #{totalDurationMs}, #{toolDurationMs}, #{modelDurationMs},
-            #{chainSummary}, #{logFilePath}, #{qualityStatus}
+            #{chainSummary}, #{logFilePath}, #{qualityStatus}, #{systemTurn}
         )
         ON DUPLICATE KEY UPDATE
             end_message_id = VALUES(end_message_id),
@@ -67,7 +67,8 @@
             total_duration_ms = VALUES(total_duration_ms),
             tool_duration_ms = VALUES(tool_duration_ms),
             model_duration_ms = VALUES(model_duration_ms),
-            chain_summary = VALUES(chain_summary)
+            chain_summary = VALUES(chain_summary),
+            system_turn = VALUES(system_turn)
     </insert>
 
     <insert id="batchInsertIgnore">
@@ -76,7 +77,7 @@
             start_time, end_time, user_input, total_input_tokens, total_output_tokens, total_tokens, total_cost,
             tool_calls_count, tool_calls_success, tool_calls_error, skill_calls_count, skill_calls_success, skill_calls_error,
             is_complete, has_error, status, total_duration_ms, tool_duration_ms, model_duration_ms,
-            chain_summary, log_file_path, quality_status
+            chain_summary, log_file_path, quality_status, system_turn
         ) VALUES
         <foreach collection="list" item="turn" separator=",">
             (
@@ -84,7 +85,7 @@
                 #{turn.startTime}, #{turn.endTime}, #{turn.userInput}, #{turn.totalInputTokens}, #{turn.totalOutputTokens}, #{turn.totalTokens}, #{turn.totalCost},
                 #{turn.toolCallsCount}, #{turn.toolCallsSuccess}, #{turn.toolCallsError}, #{turn.skillCallsCount}, #{turn.skillCallsSuccess}, #{turn.skillCallsError},
                 #{turn.isComplete}, #{turn.hasError}, #{turn.status}, #{turn.totalDurationMs}, #{turn.toolDurationMs}, #{turn.modelDurationMs},
-                #{turn.chainSummary}, #{turn.logFilePath}, #{turn.qualityStatus}
+                #{turn.chainSummary}, #{turn.logFilePath}, #{turn.qualityStatus}, #{turn.systemTurn}
             )
         </foreach>
     </insert>

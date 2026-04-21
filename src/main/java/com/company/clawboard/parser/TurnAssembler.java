@@ -2,6 +2,7 @@ package com.company.clawboard.parser;
 
 import com.company.clawboard.parser.model.ChainStep;
 import com.company.clawboard.parser.model.MessageRecord;
+import com.company.clawboard.parser.SystemMessageFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -12,17 +13,26 @@ import java.util.List;
 @Component
 public class TurnAssembler {
 
+    private final SystemMessageFilter systemMessageFilter;
+
+    public TurnAssembler(SystemMessageFilter systemMessageFilter) {
+        this.systemMessageFilter = systemMessageFilter;
+    }
+
     public record AssembledTurn(
         String userInput,
         List<ChainStep> chainSteps,
         boolean isComplete,
         boolean hasError,
-        String status
+        String status,
+        String startMessageId,
+        String endMessageId,
+        boolean isSystemTurn
     ) {}
 
     public AssembledTurn assembleTurn(List<MessageRecord> messages) {
         if (messages == null || messages.isEmpty()) {
-            return new AssembledTurn(null, List.of(), false, false, "incomplete");
+            return new AssembledTurn(null, List.of(), false, false, "incomplete", null, null, false);
         }
 
         // Find user input (first user message)
@@ -43,8 +53,18 @@ public class TurnAssembler {
             .anyMatch(m -> "assistant".equals(m.role()) && m.toolCalls().isEmpty());
 
         String status = isComplete ? "complete" : "incomplete";
+        
+        // Check if this is a system turn
+        boolean isSystemTurn = false;
+        if (userInput != null) {
+            isSystemTurn = systemMessageFilter.isSystemGeneratedUserMessage(userInput);
+        }
+        
+        // Get start and end message IDs
+        String startMessageId = messages.get(0).id();
+        String endMessageId = messages.get(messages.size() - 1).id();
 
-        return new AssembledTurn(userInput, chainSteps, isComplete, hasError, status);
+        return new AssembledTurn(userInput, chainSteps, isComplete, hasError, status, startMessageId, endMessageId, isSystemTurn);
     }
 
     private List<ChainStep> buildChainSteps(List<MessageRecord> messages) {
