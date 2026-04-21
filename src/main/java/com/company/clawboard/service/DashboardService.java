@@ -29,7 +29,7 @@ public class DashboardService {
         // 从 hourly_stats 表查询数据，支持团队和姓名筛选
         List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(
             request.getTeamName(),
-            request.getUserName(),
+            request.getUserId(),
             request.getStartTime(),
             request.getEndTime()
         );
@@ -85,7 +85,7 @@ public class DashboardService {
         // 从 hourly_stats 表查询数据，支持团队和姓名筛选
         List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(
             request.getTeamName(),
-            request.getUserName(),
+            request.getUserId(),
             request.getStartTime(),
             request.getEndTime()
         );
@@ -125,7 +125,7 @@ public class DashboardService {
         // 从 hourly_stats 表查询数据，支持团队和姓名筛选
         List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(
             request.getTeamName(),
-            request.getUserName(),
+            request.getUserId(),
             request.getStartTime(),
             request.getEndTime()
         );

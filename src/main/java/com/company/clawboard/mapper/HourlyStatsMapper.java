@@ -11,16 +11,16 @@ public interface HourlyStatsMapper {
     int upsertStats(DashboardHourlyStats stats);
     
     /**
-     * 根据时间范围、团队和姓名筛选小时统计数据
+     * 根据时间范围、团队和工号筛选小时统计数据
      * @param teamName 团队名称（可选）
-     * @param userName 姓名（可选，模糊匹配）
+     * @param userId 工号（employee_id，可选，精确匹配）
      * @param startTime 开始时间（可选）
      * @param endTime 结束时间（可选）
      * @return 小时统计数据列表
      */
     List<DashboardHourlyStats> selectByTimeRange(
         @Param("teamName") String teamName,
-        @Param("userName") String userName,
+        @Param("userId") String userId,
         @Param("startTime") String startTime,
         @Param("endTime") String endTime
     );

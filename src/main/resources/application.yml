@@ -14,6 +14,13 @@ mybatis:
     map-underscore-to-camel-case: true
     default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
 
+# PageHelper Configuration
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
 clawboard:
   nas:
     base-path: ${NAS_BASE_PATH:/mnt/nas}
