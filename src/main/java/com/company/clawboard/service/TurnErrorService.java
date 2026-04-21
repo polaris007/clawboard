@@ -63,7 +63,7 @@ public class TurnErrorService {
         // 从 conversation_turn 表查询
         DashboardConversationTurn turn = turnMapper.selectById(turnId);
         var response = new TraceResponse();
-        response.setTurnId(turnId.toString());
+        response.setTurnId(turnId);
         
         // 如果没有数据，返回空节点列表
         if (turn == null) {
