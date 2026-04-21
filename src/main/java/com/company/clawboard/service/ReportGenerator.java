@@ -1,7 +1,9 @@
 package com.company.clawboard.service;
 
 import com.company.clawboard.config.ClawboardProperties;
+import com.company.clawboard.entity.DashboardEmployee;
 import com.company.clawboard.entity.DashboardTranscriptIssue;
+import com.company.clawboard.mapper.EmployeeMapper;
 import com.company.clawboard.mapper.SessionSummaryMapper;
 import com.company.clawboard.mapper.TranscriptIssueMapper;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ public class ReportGenerator {
 
     private final TranscriptIssueMapper issueMapper;
     private final SessionSummaryMapper sessionSummaryMapper;
+    private final EmployeeMapper employeeMapper;
     private final ClawboardProperties properties;
     
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -157,7 +160,21 @@ public class ReportGenerator {
                 
                 // Employee info (if available)
                 if (issue.getEmployeeId() != null && !issue.getEmployeeId().isEmpty()) {
-                    sb.append("- **工号**: ").append(issue.getEmployeeId()).append("\n");
+                    sb.append("- **工号**: " + issue.getEmployeeId() + "\n");
+                    // Get employee name and department from database
+                    try {
+                        DashboardEmployee employee = employeeMapper.selectByEmployeeId(issue.getEmployeeId());
+                        if (employee != null) {
+                            if (employee.getEmployeeName() != null && !employee.getEmployeeName().isEmpty()) {
+                                sb.append("- **姓名**: " + employee.getEmployeeName() + "\n");
+                            }
+                            if (employee.getTeamName() != null && !employee.getTeamName().isEmpty()) {
+                                sb.append("- **部门**: " + employee.getTeamName() + "\n");
+                            }
+                        }
+                    } catch (Exception e) {
+                        log.debug("Failed to get employee info for {}: {}", issue.getEmployeeId(), e.getMessage());
+                    }
                 }
                 
                 // User input (if available) - truncated to 200 chars like Python

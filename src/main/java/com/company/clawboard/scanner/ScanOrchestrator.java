@@ -108,16 +108,23 @@ public class ScanOrchestrator {
         log.info("Created scan record with ID: {}", scanId);
 
         try {
-            // Step 1: Load accounts mapping from CSV
-            String csvPath = properties.getNas().getAccountsCsvPath();
-            if (csvPath != null && !csvPath.isEmpty()) {
-                Path csvFilePath = Path.of(csvPath);
-                if (!csvFilePath.isAbsolute()) {
-                    // Resolve relative to current working directory
-                    csvFilePath = Path.of(System.getProperty("user.dir"), csvPath);
+            // Step 1: Load accounts mapping from database
+            // This replaces the old CSV-based approach
+            accountsReader.loadFromDatabase();
+            log.info("Loaded {} employee mappings from database", accountsReader.getEmployeeCount());
+
+            // For backward compatibility, still load from CSV if database load fails
+            if (accountsReader.getEmployeeCount() == 0) {
+                String csvPath = properties.getNas().getAccountsCsvPath();
+                if (csvPath != null && !csvPath.isEmpty()) {
+                    Path csvFilePath = Path.of(csvPath);
+                    if (!csvFilePath.isAbsolute()) {
+                        // Resolve relative to current working directory
+                        csvFilePath = Path.of(System.getProperty("user.dir"), csvPath);
+                    }
+                    accountsReader.loadFromCsv(csvFilePath);
+                    log.info("Fallback: Loaded {} employee mappings from CSV", accountsReader.getEmployeeCount());
                 }
-                accountsReader.loadFromCsv(csvFilePath);
-                log.info("Loaded {} employee mappings", accountsReader.getEmployeeCount());
             }
 
             // Initialize file path collections
