@@ -77,12 +77,11 @@ public class TestPost {
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
         
-        long now = System.currentTimeMillis();
-        long oneDay = 24 * 60 * 60 * 1000;
-        long startTime = now - oneDay;
-        long endTime = now + oneDay;
+        // 使用字符串格式时间：YYYY-MM-DD HH:mm:ss
+        String startTime = "2026-04-21 00:00:00";
+        String endTime = "2026-04-21 23:59:59";
         
-        String json = String.format("{\"startTime\": %d, \"endTime\": %d}", startTime, endTime);
+        String json = String.format("{\"startTime\": \"%s\", \"endTime\": \"%s\"}", startTime, endTime);
         try (OutputStream os = conn.getOutputStream()) {
             os.write(json.getBytes());
         }
@@ -106,12 +105,11 @@ public class TestPost {
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
         
-        long now = System.currentTimeMillis();
-        long oneDay = 24 * 60 * 60 * 1000;
-        long startTime = now - oneDay;
-        long endTime = now + oneDay;
+        // 使用字符串格式时间：YYYY-MM-DD HH:mm:ss
+        String startTime = "2026-04-21 00:00:00";
+        String endTime = "2026-04-21 23:59:59";
         
-        String json = String.format("{\"startTime\": %d, \"endTime\": %d}", startTime, endTime);
+        String json = String.format("{\"startTime\": \"%s\", \"endTime\": \"%s\"}", startTime, endTime);
         try (OutputStream os = conn.getOutputStream()) {
             os.write(json.getBytes());
         }
@@ -135,12 +133,11 @@ public class TestPost {
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
         
-        long now = System.currentTimeMillis();
-        long oneDay = 24 * 60 * 60 * 1000;
-        long startTime = now - oneDay;
-        long endTime = now + oneDay;
+        // 使用字符串格式时间：YYYY-MM-DD HH:mm:ss
+        String startTime = "2026-04-21 00:00:00";
+        String endTime = "2026-04-21 23:59:59";
         
-        String json = String.format("{\"teamName\": \"18100000\", \"startTime\": %d, \"endTime\": %d, \"page\": 1, \"pageSize\": 10}", startTime, endTime);
+        String json = String.format("{\"teamName\": \"18100000\", \"startTime\": \"%s\", \"endTime\": \"%s\", \"page\": 1, \"pageSize\": 10}", startTime, endTime);
         try (OutputStream os = conn.getOutputStream()) {
             os.write(json.getBytes());
         }
@@ -164,12 +161,11 @@ public class TestPost {
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
         
-        long now = System.currentTimeMillis();
-        long oneDay = 24 * 60 * 60 * 1000;
-        long startTime = now - oneDay;
-        long endTime = now + oneDay;
+        // 使用字符串格式时间：YYYY-MM-DD HH:mm:ss
+        String startTime = "2026-04-21 00:00:00";
+        String endTime = "2026-04-21 23:59:59";
         
-        String json = String.format("{\"startTime\": %d, \"endTime\": %d, \"page\": 1, \"pageSize\": 10}", startTime, endTime);
+        String json = String.format("{\"startTime\": \"%s\", \"endTime\": \"%s\", \"page\": 1, \"pageSize\": 10}", startTime, endTime);
         try (OutputStream os = conn.getOutputStream()) {
             os.write(json.getBytes());
         }

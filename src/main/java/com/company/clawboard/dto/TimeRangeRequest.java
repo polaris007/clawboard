@@ -6,8 +6,8 @@ import lombok.Data;
 public class TimeRangeRequest {
     private String teamName;   // 机构号筛选
     private String userName;   // 姓名模糊匹配
-    private Long startTime;    // 开始时间戳（毫秒）
-    private Long endTime;      // 结束时间戳（毫秒）
+    private String startTime;  // 开始时间，格式 YYYY-MM-DD HH:mm:ss
+    private String endTime;    // 结束时间，格式 YYYY-MM-DD HH:mm:ss
     private Integer page;      // 默认 1
     private Integer pageSize;  // 默认 10
 

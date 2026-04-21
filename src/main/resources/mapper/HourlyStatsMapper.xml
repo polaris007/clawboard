@@ -50,18 +50,22 @@
     </insert>
 
     <select id="selectByTimeRange" resultMap="BaseResultMap">
-        SELECT * FROM dashboard_hourly_stats
+        SELECT s.* FROM dashboard_hourly_stats s
+        INNER JOIN dashboard_employee e ON s.employee_id = e.employee_id
         WHERE 1=1
-        <if test="employeeId != null">
-          AND employee_id = #{employeeId}
+        <if test="teamName != null and teamName != ''">
+          AND e.team_name = #{teamName}
         </if>
-        <if test="startTime != null">
-          AND stat_hour &gt;= FROM_UNIXTIME(#{startTime} / 1000)
+        <if test="userName != null and userName != ''">
+          AND e.employee_name LIKE CONCAT('%', #{userName}, '%')
         </if>
-        <if test="endTime != null">
-          AND stat_hour &lt;= FROM_UNIXTIME(#{endTime} / 1000)
+        <if test="startTime != null and startTime != ''">
+          AND s.stat_hour &gt;= #{startTime}
         </if>
-        ORDER BY stat_hour
+        <if test="endTime != null and endTime != ''">
+          AND s.stat_hour &lt;= #{endTime}
+        </if>
+        ORDER BY s.stat_hour
     </select>
 
     <select id="selectDistinctEmployeeHours" resultType="com.company.clawboard.mapper.HourlyStatsMapper$EmployeeHourKey">

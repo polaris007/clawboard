@@ -1,6 +1,7 @@
 package com.company.clawboard.service;
 
 import com.company.clawboard.dto.*;
+import com.company.clawboard.entity.DashboardEmployee;
 import com.company.clawboard.entity.DashboardHourlyStats;
 import com.company.clawboard.mapper.*;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,13 @@ public class DashboardService {
     public DashboardSummaryResponse getSummary(TimeRangeRequest request) {
         var response = new DashboardSummaryResponse();
         
-        // 从 hourly_stats 表查询数据
-        List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(null, request.getStartTime(), request.getEndTime());
+        // 从 hourly_stats 表查询数据，支持团队和姓名筛选
+        List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(
+            request.getTeamName(),
+            request.getUserName(),
+            request.getStartTime(),
+            request.getEndTime()
+        );
         
         // 聚合计算
         long consumedTokens = stats.stream().mapToLong(DashboardHourlyStats::getTotalTokens).sum();
@@ -52,8 +58,8 @@ public class DashboardService {
     public GlobalStatsResponse getGlobalStats() {
         var response = new GlobalStatsResponse();
         
-        // 从 hourly_stats 表查询所有数据
-        List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(null, null, null);
+        // 从 hourly_stats 表查询所有数据（不受筛选条件影响）
+        List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(null, null, null, null);
         
         // 聚合计算
         long totalTokens = stats.stream().mapToLong(DashboardHourlyStats::getTotalTokens).sum();
@@ -74,10 +80,25 @@ public class DashboardService {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:00:00");
 
     public List<TrendDataPoint> getTrend(TimeRangeRequest request) {
-        // 从 hourly_stats 表查询数据
-        List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(null, request.getStartTime(), request.getEndTime());
+        // 从 hourly_stats 表查询数据，支持团队和姓名筛选
+        List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(
+            request.getTeamName(),
+            request.getUserName(),
+            request.getStartTime(),
+            request.getEndTime()
+        );
         
-        // 按小时分组并转换为趋势数据点，限制最大返回720条
+        // 按小时分组并转换为趋势数据点
+        // API文档要求：后端始终以小时为最小粒度返回，不做聚合
+        // 从startTime所在的小时开始，到endTime所在的小时结束
+        List<TrendDataPoint> trendPoints = new java.util.ArrayList<>();
+        
+        // 如果查询结果为空，直接返回空列表
+        if (stats == null || stats.isEmpty()) {
+            return trendPoints;
+        }
+        
+        // 按小时分组，每个小时一个数据点
         return stats.stream()
                 .collect(Collectors.groupingBy(DashboardHourlyStats::getStatHour))
                 .entrySet().stream()
@@ -94,13 +115,18 @@ public class DashboardService {
                     
                     return point;
                 })
-                .limit(720)
+                .limit(720)  // 最多返回720条（30天）
                 .collect(Collectors.toList());
     }
 
     public PageResult<UserSummaryItem> getUserSummaries(TimeRangeRequest request) {
-        // 从 hourly_stats 表查询数据
-        List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(null, request.getStartTime(), request.getEndTime());
+        // 从 hourly_stats 表查询数据，支持团队和姓名筛选
+        List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(
+            request.getTeamName(),
+            request.getUserName(),
+            request.getStartTime(),
+            request.getEndTime()
+        );
         
         // 按员工分组并转换为用户明细
         var userItems = stats.stream()
@@ -112,10 +138,20 @@ public class DashboardService {
                     
                     var item = new UserSummaryItem();
                     item.setUserId(employeeId);
-                    item.setUserName(employeeId); // 暂时使用 employeeId 作为 userName
-                    item.setOrgCode("18100000"); // 暂时使用默认机构号
-                    item.setStatus("active"); // 暂时设置为 active
-                    item.setLastHeartbeat(System.currentTimeMillis()); // 暂时使用当前时间
+                    
+                    // 从 employee 表获取员工信息
+                    DashboardEmployee employee = employeeMapper.selectByEmployeeId(employeeId);
+                    if (employee != null) {
+                        item.setUserName(employee.getEmployeeName());
+                        item.setOrgCode(employee.getTeamName());
+                    } else {
+                        item.setUserName(employeeId);
+                        item.setOrgCode("未知");
+                    }
+                    
+                    // 暂时设置为 active（实际应根据心跳时间判断）
+                    item.setStatus("active");
+                    item.setLastHeartbeat(System.currentTimeMillis());
                     
                     // 计算 token 统计
                     var tokenStats = new UserSummaryItem.TokenStats();
