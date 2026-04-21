@@ -28,11 +28,16 @@ public class TurnErrorService {
     }
 
     public PageResult<TurnSearchItem> searchTurns(TurnSearchRequest request) {
-        // 从 conversation_turn 表查询数据
+        // 从 conversation_turn 表查询数据，排除系统轮次
         List<DashboardConversationTurn> turns = turnMapper.selectAll();
         
+        // 过滤掉系统轮次
+        List<DashboardConversationTurn> nonSystemTurns = turns.stream()
+            .filter(turn -> turn.getSystemTurn() == null || turn.getSystemTurn() == 0)
+            .collect(Collectors.toList());
+        
         // 转换为响应格式
-        List<TurnSearchItem> items = turns.stream().map(turn -> {
+        List<TurnSearchItem> items = nonSystemTurns.stream().map(turn -> {
             var item = new TurnSearchItem();
             item.setTurnId(turn.getId());
             if (turn.getStartTime() != null) {

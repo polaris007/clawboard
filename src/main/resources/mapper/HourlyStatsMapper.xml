@@ -73,10 +73,10 @@
                DATE_FORMAT(stat_hour, '%Y-%m-%d %H:00:00') AS statHour
         FROM (
             SELECT employee_id, message_timestamp AS stat_hour
-            FROM dashboard_message WHERE message_timestamp IS NOT NULL
+            FROM dashboard_message WHERE message_timestamp IS NOT NULL AND is_system = 0
             UNION ALL
             SELECT employee_id, COALESCE(start_time, created_at) AS stat_hour
-            FROM dashboard_conversation_turn WHERE start_time IS NOT NULL OR created_at IS NOT NULL
+            FROM dashboard_conversation_turn WHERE (start_time IS NOT NULL OR created_at IS NOT NULL) AND system_turn = 0
             UNION ALL
             SELECT employee_id, COALESCE(occurred_at, created_at) AS stat_hour
             FROM dashboard_transcript_issue WHERE occurred_at IS NOT NULL OR created_at IS NOT NULL
@@ -89,13 +89,13 @@
                DATE_FORMAT(stat_hour, '%Y-%m-%d %H:00:00') AS statHour
         FROM (
             SELECT employee_id, message_timestamp AS stat_hour
-            FROM dashboard_message WHERE message_timestamp IS NOT NULL AND employee_id IN
+            FROM dashboard_message WHERE message_timestamp IS NOT NULL AND is_system = 0 AND employee_id IN
             <foreach collection="employeeIds" item="employeeId" open="(" separator="," close=")">
                 #{employeeId}
             </foreach>
             UNION ALL
             SELECT employee_id, COALESCE(start_time, created_at) AS stat_hour
-            FROM dashboard_conversation_turn WHERE (start_time IS NOT NULL OR created_at IS NOT NULL) AND employee_id IN
+            FROM dashboard_conversation_turn WHERE (start_time IS NOT NULL OR created_at IS NOT NULL) AND system_turn = 0 AND employee_id IN
             <foreach collection="employeeIds" item="employeeId" open="(" separator="," close=")">
                 #{employeeId}
             </foreach>
