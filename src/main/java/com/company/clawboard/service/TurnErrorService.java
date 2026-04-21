@@ -33,21 +33,9 @@ public class TurnErrorService {
         // 开启分页（会自动在SQL中添加LIMIT/OFFSET，并执行COUNT查询）
         PageHelper.startPage(request.getPageOrDefault(), request.getPageSizeOrDefault());
         
-        // 将时间戳转换为字符串格式 (YYYY-MM-DD HH:mm:ss)
-        String startTimeStr = null;
-        String endTimeStr = null;
-        if (request.getStartTime() != null) {
-            startTimeStr = java.time.Instant.ofEpochMilli(request.getStartTime())
-                .atZone(BEIJING_ZONE)
-                .toLocalDateTime()
-                .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        }
-        if (request.getEndTime() != null) {
-            endTimeStr = java.time.Instant.ofEpochMilli(request.getEndTime())
-                .atZone(BEIJING_ZONE)
-                .toLocalDateTime()
-                .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        }
+        // 直接使用字符串格式日期
+        String startTimeStr = request.getStartTime();
+        String endTimeStr = request.getEndTime();
         
         // 根据条件查询非系统轮次
         List<DashboardConversationTurn> turns = turnMapper.selectTurnsWithFilters(
