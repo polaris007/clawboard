@@ -10,10 +10,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.time.ZoneId;
 
 @Service
 // @RequiredArgsConstructor
 public class TurnErrorService {
+
+    // 北京时区
+    private static final ZoneId BEIJING_ZONE = ZoneId.of("Asia/Shanghai");
 
     private final ConversationTurnMapper turnMapper;
     private final TranscriptIssueMapper issueMapper;
@@ -32,7 +36,7 @@ public class TurnErrorService {
             var item = new TurnSearchItem();
             item.setTurnId(turn.getId());
             if (turn.getStartTime() != null) {
-                item.setTimeStamp(turn.getStartTime().toInstant(java.time.ZoneOffset.UTC).toEpochMilli());
+                item.setTimeStamp(turn.getStartTime().toInstant(BEIJING_ZONE.getRules().getOffset(turn.getStartTime())).toEpochMilli());
             } else {
                 item.setTimeStamp(0L);
             }
@@ -51,7 +55,20 @@ public class TurnErrorService {
             // 技能和工具需要从其他表查询，暂时返回空列表
             item.setSkills(List.of());
             item.setTools(List.of());
-            item.setLogFileName(turn.getLogFilePath());
+            // 只返回文件名，不含路径
+            if (turn.getLogFilePath() != null) {
+                String logFilePath = turn.getLogFilePath();
+                int lastSlashIndex = logFilePath.lastIndexOf('/');
+                int lastBackslashIndex = logFilePath.lastIndexOf('\\');
+                int lastSeparatorIndex = Math.max(lastSlashIndex, lastBackslashIndex);
+                if (lastSeparatorIndex != -1) {
+                    item.setLogFileName(logFilePath.substring(lastSeparatorIndex + 1));
+                } else {
+                    item.setLogFileName(logFilePath);
+                }
+            } else {
+                item.setLogFileName("");
+            }
             
             return item;
         }).collect(Collectors.toList());

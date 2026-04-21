@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,15 @@ public class DashboardService {
         response.setSkillCalls(skillCalls);
         response.setActiveUsers(activeUsers);
         
+        // 计算任务成功率
+        if (conversationTurns > 0) {
+            int completeTurns = stats.stream().mapToInt(DashboardHourlyStats::getCompleteTurns).sum();
+            double successRate = ((double) completeTurns / conversationTurns) * 100;
+            response.setTaskSuccessRate(successRate);
+        } else {
+            response.setTaskSuccessRate(0.0);
+        }
+        
         return response;
     }
 
@@ -59,11 +69,15 @@ public class DashboardService {
         return response;
     }
 
+    // 北京时区
+    private static final ZoneId BEIJING_ZONE = ZoneId.of("Asia/Shanghai");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:00:00");
+
     public List<TrendDataPoint> getTrend(TimeRangeRequest request) {
         // 从 hourly_stats 表查询数据
         List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(null, request.getStartTime(), request.getEndTime());
         
-        // 按小时分组并转换为趋势数据点
+        // 按小时分组并转换为趋势数据点，限制最大返回720条
         return stats.stream()
                 .collect(Collectors.groupingBy(DashboardHourlyStats::getStatHour))
                 .entrySet().stream()
@@ -72,13 +86,15 @@ public class DashboardService {
                     List<DashboardHourlyStats> hourStats = entry.getValue();
                     
                     var point = new TrendDataPoint();
-                    point.setTimeLabel(hour.toInstant(ZoneOffset.UTC).toEpochMilli());
+                    // 格式化为 YYYY-MM-DD HH:00:00（北京时区）
+                    point.setTimeLabel(hour.format(TIME_FORMATTER));
                     point.setTokens(hourStats.stream().mapToLong(DashboardHourlyStats::getTotalTokens).sum());
                     point.setTurns(hourStats.stream().mapToInt(DashboardHourlyStats::getConversationTurns).sum());
                     point.setSkills(hourStats.stream().mapToInt(DashboardHourlyStats::getSkillInvocations).sum());
                     
                     return point;
                 })
+                .limit(720)
                 .collect(Collectors.toList());
     }
 
@@ -97,7 +113,7 @@ public class DashboardService {
                     var item = new UserSummaryItem();
                     item.setUserId(employeeId);
                     item.setUserName(employeeId); // 暂时使用 employeeId 作为 userName
-                    item.setTeamName("未知团队"); // 暂时使用默认团队
+                    item.setOrgCode("18100000"); // 暂时使用默认机构号
                     item.setStatus("active"); // 暂时设置为 active
                     item.setLastHeartbeat(System.currentTimeMillis()); // 暂时使用当前时间
                     

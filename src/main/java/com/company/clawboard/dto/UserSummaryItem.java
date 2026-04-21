@@ -7,7 +7,7 @@ import java.util.List;
 public class UserSummaryItem {
     private String userId;
     private String userName;
-    private String teamName;
+    private String orgCode;
     private String status;
     private Long lastHeartbeat;
     private TokenStats tokens;

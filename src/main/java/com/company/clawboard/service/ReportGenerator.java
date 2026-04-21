@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,10 @@ public class ReportGenerator {
     private final EmployeeMapper employeeMapper;
     private final ClawboardProperties properties;
     
+    // 北京时区
+    private static final ZoneId BEIJING_ZONE = ZoneId.of("Asia/Shanghai");
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     public void generateReport(Long scanId, LocalDateTime scanStartTime) {
         try {
@@ -60,8 +64,7 @@ public class ReportGenerator {
         
         // Header
         sb.append("# OpenClaw Session Transcript 综合错误检测报告\n\n");
-        String nowStr = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            .format(java.time.LocalDateTime.now());
+        String nowStr = DATETIME_FORMATTER.format(LocalDateTime.now(BEIJING_ZONE));
         sb.append("**生成时间**: " + nowStr + "\n\n");
 
         if (issues.isEmpty()) {

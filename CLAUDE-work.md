@@ -78,7 +78,8 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 5. scrpts\detect-all-transcript-issues.py是Python 2.7的脚本，需要用D:\Python27来执行
 6. OpenClaw的源码在..\openclaw目录下
 7. 开发过程中需要使用dev profile(application-dev.yml)启动和调试应用
-8. 每次启动y应用前清空数据库表（参照scripts\reset-database.sql）
+8. 每次启动应用前清空数据库表（参照scripts\reset-database.sql）
 9. 所有 PowerShell 命令中的 `Invoke-WebRequest` 或 `irm`，必须加上 `-UseBasicParsing` 参数，避免弹出安全确认框。
 10. 设计文档为：docs\2026-04-18-openclaw-monitoring-dashboard-design.md，计划文档为：docs\2026-04-18-clawboard-implementation-plan.md
+11. 日期都要是北京(+8)时区
 

@@ -16,6 +16,8 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DataIngestionService {
+
+    // 北京时区
+    private static final ZoneId BEIJING_ZONE = ZoneId.of("Asia/Shanghai");
 
     private final MessageMapper messageMapper;
     private final ConversationTurnMapper turnMapper;
@@ -125,7 +130,7 @@ public class DataIngestionService {
             // Convert epoch milliseconds to LocalDateTime
             if (msg.epochMs() > 0) {
                 entity.setMessageTimestamp(
-                    LocalDateTime.ofInstant(Instant.ofEpochMilli(msg.epochMs()), ZoneId.systemDefault()));
+                    LocalDateTime.ofInstant(Instant.ofEpochMilli(msg.epochMs()), BEIJING_ZONE));
             }
             
             // Extract token info from UsageInfo
@@ -246,7 +251,7 @@ public class DataIngestionService {
             entity.setSessionId(sessionId);
             entity.setEmployeeId(employeeId);
             entity.setSkillName(skill.skillName());
-            entity.setInvokedAt(LocalDateTime.ofInstant(Instant.ofEpochMilli(skill.invokedAt()), ZoneId.systemDefault()));
+            entity.setInvokedAt(LocalDateTime.ofInstant(Instant.ofEpochMilli(skill.invokedAt()), BEIJING_ZONE));
             entity.setReadMessageId(null); // TODO: Extract from context if needed
             entity.setResultMessageId(null); // TODO: Extract from context if needed
             entity.setIsError(0); // Default to no error

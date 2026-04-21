@@ -8,4 +8,5 @@ public class DashboardSummaryResponse {
     private Integer conversationTurns;
     private Integer skillCalls;
     private Integer activeUsers;
+    private Double taskSuccessRate;
 }

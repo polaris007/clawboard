@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class TrendDataPoint {
-    private Long timeLabel;
+    private String timeLabel;
     private Long tokens;
     private Integer turns;
     private Integer skills;

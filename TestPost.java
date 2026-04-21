@@ -77,7 +77,12 @@ public class TestPost {
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
         
-        String json = "{\"startTime\": 1680000000000, \"endTime\": 1680086400000}";
+        long now = System.currentTimeMillis();
+        long oneDay = 24 * 60 * 60 * 1000;
+        long startTime = now - oneDay;
+        long endTime = now + oneDay;
+        
+        String json = String.format("{\"startTime\": %d, \"endTime\": %d}", startTime, endTime);
         try (OutputStream os = conn.getOutputStream()) {
             os.write(json.getBytes());
         }
@@ -101,7 +106,12 @@ public class TestPost {
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
         
-        String json = "{\"startTime\": 1680000000000, \"endTime\": 1680086400000}";
+        long now = System.currentTimeMillis();
+        long oneDay = 24 * 60 * 60 * 1000;
+        long startTime = now - oneDay;
+        long endTime = now + oneDay;
+        
+        String json = String.format("{\"startTime\": %d, \"endTime\": %d}", startTime, endTime);
         try (OutputStream os = conn.getOutputStream()) {
             os.write(json.getBytes());
         }
@@ -125,7 +135,12 @@ public class TestPost {
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
         
-        String json = "{\"page\": 1, \"pageSize\": 10}";
+        long now = System.currentTimeMillis();
+        long oneDay = 24 * 60 * 60 * 1000;
+        long startTime = now - oneDay;
+        long endTime = now + oneDay;
+        
+        String json = String.format("{\"teamName\": \"18100000\", \"startTime\": %d, \"endTime\": %d, \"page\": 1, \"pageSize\": 10}", startTime, endTime);
         try (OutputStream os = conn.getOutputStream()) {
             os.write(json.getBytes());
         }
@@ -149,7 +164,12 @@ public class TestPost {
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
         
-        String json = "{\"page\": 1, \"pageSize\": 10}";
+        long now = System.currentTimeMillis();
+        long oneDay = 24 * 60 * 60 * 1000;
+        long startTime = now - oneDay;
+        long endTime = now + oneDay;
+        
+        String json = String.format("{\"startTime\": %d, \"endTime\": %d, \"page\": 1, \"pageSize\": 10}", startTime, endTime);
         try (OutputStream os = conn.getOutputStream()) {
             os.write(json.getBytes());
         }
