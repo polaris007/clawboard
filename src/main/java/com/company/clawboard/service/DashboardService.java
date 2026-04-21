@@ -4,6 +4,8 @@ import com.company.clawboard.dto.*;
 import com.company.clawboard.entity.DashboardEmployee;
 import com.company.clawboard.entity.DashboardHourlyStats;
 import com.company.clawboard.mapper.*;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -190,7 +192,17 @@ public class DashboardService {
                 })
                 .collect(Collectors.toList());
         
-        return new PageResult<>(userItems.size(), request.getPageOrDefault(), request.getPageSizeOrDefault(), userItems);
+        // 由于需要先分组再分页，采用内存分页方式
+        int total = userItems.size();
+        int page = request.getPageOrDefault();
+        int pageSize = request.getPageSizeOrDefault();
+        int fromIndex = (page - 1) * pageSize;
+        int toIndex = Math.min(fromIndex + pageSize, total);
+        
+        List<UserSummaryItem> pagedItems = fromIndex < total ? 
+            userItems.subList(fromIndex, toIndex) : List.of();
+        
+        return new PageResult<>(total, page, pageSize, pagedItems);
     }
 
     public List<SkillOption> getSkillOptions() {

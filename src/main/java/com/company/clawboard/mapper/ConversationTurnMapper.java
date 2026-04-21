@@ -11,4 +11,9 @@ public interface ConversationTurnMapper {
     DashboardConversationTurn selectById(Long id);
     List<DashboardConversationTurn> selectBySessionId(String sessionId);
     List<DashboardConversationTurn> selectAll();
+    
+    /**
+     * 查询非系统轮次（用于分页）
+     */
+    List<DashboardConversationTurn> selectNonSystemTurns();
 }

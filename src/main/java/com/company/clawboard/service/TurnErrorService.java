@@ -5,6 +5,8 @@ import com.company.clawboard.entity.DashboardConversationTurn;
 import com.company.clawboard.entity.DashboardTranscriptIssue;
 import com.company.clawboard.mapper.ConversationTurnMapper;
 import com.company.clawboard.mapper.TranscriptIssueMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,16 +30,17 @@ public class TurnErrorService {
     }
 
     public PageResult<TurnSearchItem> searchTurns(TurnSearchRequest request) {
-        // 从 conversation_turn 表查询数据，排除系统轮次
-        List<DashboardConversationTurn> turns = turnMapper.selectAll();
+        // 开启分页（会自动在SQL中添加LIMIT/OFFSET，并执行COUNT查询）
+        PageHelper.startPage(request.getPageOrDefault(), request.getPageSizeOrDefault());
         
-        // 过滤掉系统轮次
-        List<DashboardConversationTurn> nonSystemTurns = turns.stream()
-            .filter(turn -> turn.getSystemTurn() == null || turn.getSystemTurn() == 0)
-            .collect(Collectors.toList());
+        // 从 conversation_turn 表查询数据，排除系统轮次
+        List<DashboardConversationTurn> turns = turnMapper.selectNonSystemTurns();
+        
+        // 获取分页信息
+        PageInfo<DashboardConversationTurn> pageInfo = new PageInfo<>(turns);
         
         // 转换为响应格式
-        List<TurnSearchItem> items = nonSystemTurns.stream().map(turn -> {
+        List<TurnSearchItem> items = pageInfo.getList().stream().map(turn -> {
             var item = new TurnSearchItem();
             item.setTurnId(turn.getId());
             if (turn.getStartTime() != null) {
@@ -78,7 +81,7 @@ public class TurnErrorService {
             return item;
         }).collect(Collectors.toList());
         
-        return new PageResult<>(items.size(), request.getPageOrDefault(), request.getPageSizeOrDefault(), items);
+        return new PageResult<>(pageInfo.getTotal(), pageInfo.getPageNum(), pageInfo.getPageSize(), items);
     }
 
     public TraceResponse getTrace(Long turnId) {
@@ -128,11 +131,17 @@ public class TurnErrorService {
     }
 
     public PageResult<ErrorSearchItem> searchErrors(ErrorSearchRequest request) {
+        // 开启分页
+        PageHelper.startPage(request.getPageOrDefault(), request.getPageSizeOrDefault());
+        
         // 从 transcript_issue 表查询数据
         List<DashboardTranscriptIssue> issues = issueMapper.selectAll();
         
+        // 获取分页信息
+        PageInfo<DashboardTranscriptIssue> pageInfo = new PageInfo<>(issues);
+        
         // 转换为响应格式
-        List<ErrorSearchItem> items = issues.stream().map(issue -> {
+        List<ErrorSearchItem> items = pageInfo.getList().stream().map(issue -> {
             var item = new ErrorSearchItem();
             item.setId(issue.getId());
             item.setErrorType(issue.getErrorType());
@@ -145,6 +154,6 @@ public class TurnErrorService {
             return item;
         }).collect(Collectors.toList());
         
-        return new PageResult<>(items.size(), request.getPageOrDefault(), request.getPageSizeOrDefault(), items);
+        return new PageResult<>(pageInfo.getTotal(), pageInfo.getPageNum(), pageInfo.getPageSize(), items);
     }
 }

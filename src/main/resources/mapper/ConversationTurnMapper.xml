@@ -102,4 +102,10 @@
         SELECT * FROM dashboard_conversation_turn ORDER BY start_time DESC
     </select>
 
+    <select id="selectNonSystemTurns" resultMap="BaseResultMap">
+        SELECT * FROM dashboard_conversation_turn 
+        WHERE system_turn = 0 OR system_turn IS NULL
+        ORDER BY start_time DESC
+    </select>
+
 </mapper>
