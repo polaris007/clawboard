@@ -925,18 +925,6 @@ def _find_jsonl_files_walk(dir_path):
     safe_print('   [INFO] Scan complete: traversed %d directories, %d files, found %d JSONL files (%.1fs)\n' % (
         dir_count, file_count, len(results), elapsed_time))
 
-    # Save scanned files list for comparison
-    report_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'reports', datetime.now().strftime('%Y-%m-%d'))
-    if not os.path.exists(report_dir):
-        os.makedirs(report_dir)
-    files_list_path = os.path.join(report_dir, 'python-scanned-files.txt')
-    with open(files_list_path, 'w') as f:
-        for file_path in sorted(results):
-            # Use relative path from base directory for easier comparison
-            rel_path = os.path.relpath(file_path, dir_path)
-            f.write(rel_path + '\n')
-    safe_print('   [INFO] Python scanned files list saved to: %s\n' % files_list_path)
-
     return results
 
 
@@ -1296,6 +1284,19 @@ def main():
         safe_print('\n⏰ 正在根据时间范围过滤文件...')
         jsonl_files = filter_files_by_time(jsonl_files, start_time, end_time)
         safe_print('✅ 过滤后剩余 %d 个文件\n' % len(jsonl_files))
+
+    # Save scanned files list for comparison (only filtered files)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    report_dir = os.path.join(script_dir, 'reports', datetime.now().strftime('%Y-%m-%d'))
+    if not os.path.exists(report_dir):
+        os.makedirs(report_dir)
+    files_list_path = os.path.join(report_dir, 'python-scanned-files.txt')
+    with open(files_list_path, 'w') as f:
+        for file_path in sorted(jsonl_files):
+            # Use relative path from transcript directory for easier comparison
+            rel_path = os.path.relpath(file_path, transcript_dir)
+            f.write(rel_path + '\n')
+    safe_print('   [INFO] Python scanned files list saved to: %s\n' % files_list_path)
 
     # 加载账户映射
     script_dir = os.path.dirname(os.path.abspath(__file__))
