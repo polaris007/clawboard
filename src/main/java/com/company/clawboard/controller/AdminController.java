@@ -7,6 +7,7 @@ import com.company.clawboard.mapper.ScanHistoryMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -31,6 +32,30 @@ public class AdminController {
 
         databaseService.truncateAllTables();
         return ApiResponse.ok("数据库已成功清空");
+    }
+
+    @PostMapping("/execute-sql-file")
+    public ApiResponse<String> executeSqlFile(@RequestParam String filePath) {
+        try {
+            databaseService.executeSqlFile(filePath);
+            return ApiResponse.ok("SQL文件执行成功");
+        } catch (SecurityException e) {
+            return ApiResponse.error(403, e.getMessage());
+        } catch (IOException e) {
+            return ApiResponse.error(404, e.getMessage());
+        } catch (Exception e) {
+            return ApiResponse.error(500, "执行SQL文件失败: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/table-structure")
+    public ApiResponse<Object> getTableStructure(@RequestParam String tableName) {
+        try {
+            var result = databaseService.getTableStructure(tableName);
+            return ApiResponse.ok(result);
+        } catch (Exception e) {
+            return ApiResponse.error(500, "查询表结构失败: " + e.getMessage());
+        }
     }
 
     @GetMapping("/stats")

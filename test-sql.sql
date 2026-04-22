@@ -1,0 +1,9 @@
+-- 测试中文注释
+CREATE TABLE IF NOT EXISTS test_table (
+    id INT PRIMARY KEY AUTO_INCREMENT COMMENT '测试ID',
+    name VARCHAR(50) NOT NULL COMMENT '测试名称',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='测试表';
+
+-- 插入测试数据
+INSERT INTO test_table (name) VALUES ('测试数据');
