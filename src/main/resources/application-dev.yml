@@ -44,7 +44,6 @@ clawboard:
       - "System: ["
       - "<inbound_metadata>"
       - "<openclaw-envelope>"
-      - "[cron:"
     delivery-mirror-filter: false
   skill:
     name-mapping:

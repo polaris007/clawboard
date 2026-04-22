@@ -5,10 +5,7 @@ import java.util.Scanner;
 
 public class TestResetDatabase {
     public static void main(String[] args) throws Exception {
-        // Test with wrong confirm code
-        testWrongConfirmCode();
-
-        // Test with correct confirm code (20260421)
+        // Test with correct confirm code (20260422)
         testCorrectConfirmCode();
     }
 
@@ -30,7 +27,7 @@ public class TestResetDatabase {
     }
 
     private static void testCorrectConfirmCode() throws Exception {
-        URL url = new URL("http://localhost:8080/api/v1/admin/reset-database?confirmCode=20260421");
+        URL url = new URL("http://localhost:8080/api/v1/admin/reset-database?confirmCode=20260422");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
 

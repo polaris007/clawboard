@@ -30,4 +30,34 @@ public interface ConversationTurnMapper {
         @Param("startTime") String startTime,
         @Param("endTime") String endTime
     );
+
+    /**
+     * 统计总非系统轮次数
+     * @param teamName 团队名称（机构号）
+     * @param userId 工号（employee_id）精确匹配
+     * @param startTime 开始时间，格式 YYYY-MM-DD HH:mm:ss
+     * @param endTime 结束时间，格式 YYYY-MM-DD HH:mm:ss
+     * @return 总非系统轮次数
+     */
+    Integer countNonSystemTurns(
+        @Param("teamName") String teamName,
+        @Param("userId") String userId,
+        @Param("startTime") String startTime,
+        @Param("endTime") String endTime
+    );
+
+    /**
+     * 统计没有错误的完成轮次数（排除系统轮次）
+     * @param teamName 团队名称（机构号）
+     * @param userId 工号（employee_id）精确匹配
+     * @param startTime 开始时间，格式 YYYY-MM-DD HH:mm:ss
+     * @param endTime 结束时间，格式 YYYY-MM-DD HH:mm:ss
+     * @return 没有错误的完成轮次数
+     */
+    Integer countNoErrorCompleteTurns(
+        @Param("teamName") String teamName,
+        @Param("userId") String userId,
+        @Param("startTime") String startTime,
+        @Param("endTime") String endTime
+    );
 }

@@ -22,6 +22,7 @@ public class DashboardService {
     private final HourlyStatsMapper hourlyStatsMapper;
     private final EmployeeMapper employeeMapper;
     private final SkillInvocationMapper skillInvocationMapper;
+    private final ConversationTurnMapper conversationTurnMapper;
 
     public DashboardSummaryResponse getSummary(TimeRangeRequest request) {
         var response = new DashboardSummaryResponse();
@@ -45,10 +46,25 @@ public class DashboardService {
         response.setSkillCalls(skillCalls);
         response.setActiveUsers(activeUsers);
         
-        // 计算任务成功率
-        if (conversationTurns > 0) {
-            int completeTurns = stats.stream().mapToInt(DashboardHourlyStats::getCompleteTurns).sum();
-            double successRate = ((double) completeTurns / conversationTurns) * 100;
+        // 计算任务成功率：没有错误的完成轮次数 / 总对话轮次数（都排除系统轮次）
+        Integer totalNonSystemTurns = conversationTurnMapper.countNonSystemTurns(
+            request.getTeamName(),
+            request.getUserId(),
+            request.getStartTime(),
+            request.getEndTime()
+        );
+        Integer noErrorCompleteTurns = conversationTurnMapper.countNoErrorCompleteTurns(
+            request.getTeamName(),
+            request.getUserId(),
+            request.getStartTime(),
+            request.getEndTime()
+        );
+        
+        int total = (totalNonSystemTurns != null) ? totalNonSystemTurns : 0;
+        int complete = (noErrorCompleteTurns != null) ? noErrorCompleteTurns : 0;
+        
+        if (total > 0) {
+            double successRate = ((double) complete / total) * 100;
             response.setTaskSuccessRate(successRate);
         } else {
             response.setTaskSuccessRate(0.0);

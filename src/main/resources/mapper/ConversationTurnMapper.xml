@@ -123,4 +123,46 @@
         ORDER BY start_time DESC
     </select>
 
+    <select id="countNonSystemTurns" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM dashboard_conversation_turn t
+        <if test="teamName != null and teamName != ''">
+            INNER JOIN dashboard_employee e ON t.employee_id = e.employee_id
+        </if>
+        WHERE (system_turn = 0 OR system_turn IS NULL)
+        <if test="teamName != null and teamName != ''">
+            AND e.team_name = #{teamName}
+        </if>
+        <if test="userId != null and userId != ''">
+            AND t.employee_id = #{userId}
+        </if>
+        <if test="startTime != null">
+            AND t.start_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND t.start_time &lt;= #{endTime}
+        </if>
+    </select>
+
+    <select id="countNoErrorCompleteTurns" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM dashboard_conversation_turn t
+        <if test="teamName != null and teamName != ''">
+            INNER JOIN dashboard_employee e ON t.employee_id = e.employee_id
+        </if>
+        WHERE (system_turn = 0 OR system_turn IS NULL)
+          AND is_complete = 1
+          AND has_error = 0
+        <if test="teamName != null and teamName != ''">
+            AND e.team_name = #{teamName}
+        </if>
+        <if test="userId != null and userId != ''">
+            AND t.employee_id = #{userId}
+        </if>
+        <if test="startTime != null">
+            AND t.start_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND t.start_time &lt;= #{endTime}
+        </if>
+    </select>
+
 </mapper>

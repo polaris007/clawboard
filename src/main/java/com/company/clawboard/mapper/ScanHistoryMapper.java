@@ -13,4 +13,5 @@ public interface ScanHistoryMapper {
                      Integer newMessages, Integer newTurns, Integer newIssues, Integer newSkillCalls);
     DashboardScanHistory selectById(Long id);
     List<DashboardScanHistory> selectRecent(int limit);
+    DashboardScanHistory selectLatest();
 }
