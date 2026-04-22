@@ -1156,8 +1156,8 @@ def get_file_time_safe(file_path):
             else:
                 unc_path = abs_path
             
-            # 获取文件修改时间（Modification Time）
-            file_time = datetime.fromtimestamp(os.path.getmtime(unc_path))
+            # 获取文件创建时间
+            file_time = datetime.fromtimestamp(os.path.getctime(unc_path))
         else:
             # Linux/Mac 使用 st_mtime（最后修改时间）
             file_time = datetime.fromtimestamp(os.path.getmtime(file_path))
