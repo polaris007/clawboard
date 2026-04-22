@@ -501,9 +501,12 @@ public class ScanOrchestrator {
             return;
         }
         
-        // Create report directory
-        String reportDir = "reports/" + LocalDateTime.now().toString().substring(0, 10);
-        Path reportPath = Path.of(reportDir);
+        // Get reports directory from configuration
+        String reportsDir = properties.getReports().getOutputDir();
+        
+        // Create report directory with date-based structure
+        String dateStr = LocalDateTime.now().toString().substring(0, 10);
+        Path reportPath = Path.of(reportsDir, dateStr);
         Files.createDirectories(reportPath);
         
         // Save file list
@@ -523,9 +526,12 @@ public class ScanOrchestrator {
             return;
         }
         
-        // Create report directory
-        String reportDir = "reports/" + LocalDateTime.now().toString().substring(0, 10);
-        Path reportPath = Path.of(reportDir);
+        // Get reports directory from configuration
+        String reportsDir = properties.getReports().getOutputDir();
+        
+        // Create report directory with date-based structure
+        String dateStr = LocalDateTime.now().toString().substring(0, 10);
+        Path reportPath = Path.of(reportsDir, dateStr);
         Files.createDirectories(reportPath);
         
         // Save skipped files list

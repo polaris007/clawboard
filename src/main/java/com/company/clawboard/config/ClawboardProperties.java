@@ -18,9 +18,9 @@ public class ClawboardProperties {
 
     @Data
     public static class NasConfig {
-        private String basePath = "/mnt/nas";
-        private String openclawDir = ".openclaw";
-        private String accountsCsvPath = "scripts/accounts.csv";
+        private String basePath = "/datafs/openclaw";
+        private String openclawDir = "agents";
+        private String accountsCsvPath = "accounts.csv";
     }
 
     @Data
@@ -52,6 +52,6 @@ public class ClawboardProperties {
 
     @Data
     public static class ReportsConfig {
-        private String outputDir = "scripts/reports";
+        private String outputDir = "reports";
     }
 }

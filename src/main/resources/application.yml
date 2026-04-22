@@ -25,6 +25,8 @@ clawboard:
   nas:
     base-path: ${NAS_BASE_PATH:/mnt/nas}
     openclaw-dir: agents
+  reports:
+    output-dir: reports
   scan:
     cron: "0 0 */6 * * *"
     thread-pool-size: 8
