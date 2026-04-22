@@ -58,6 +58,7 @@ mvn clean package "-Dmaven.test.skip=true"
 - [DATABASE_INIT.md](docs/guides/DATABASE_INIT.md) - 数据库初始化
 - [TESTING.md](docs/guides/TESTING.md) - 测试指南
 - [PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) - 详细目录结构
+- [OPENSPEC_USAGE.md](docs/guides/OPENSPEC_USAGE.md) - OpenSpec 使用指南
 
 ---
 
