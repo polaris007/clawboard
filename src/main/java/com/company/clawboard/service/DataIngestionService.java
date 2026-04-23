@@ -102,16 +102,17 @@ public class DataIngestionService {
         }
 
         // Phase 4: Convert and insert issues with turn_id
-        Map<Integer, Long> turnIdByLineNumber = buildTurnLineNumberMapping(parsed.messages(), turns);
+        // Reuse the messageIdToTurnIndex mapping from Phase 2
         List<DashboardTranscriptIssue> issues = new ArrayList<>();
         for (IssueDetector.DetectedIssue issue : parsed.issues()) {
             DashboardTranscriptIssue entity = convertSingleIssue(scanId, issue, sessionId, employeeId, now);
             
-            // Set turn_id based on line number mapping
-            if (issue.lineNumber() != null) {
-                Long turnId = turnIdByLineNumber.get(issue.lineNumber());
-                if (turnId != null) {
-                    entity.setTurnId(turnId);
+            // Set turn_id based on message ID to turn index mapping
+            if (issue.messageId() != null && !issue.messageId().isEmpty()) {
+                Integer turnIndex = messageIdToTurnIndex.get(issue.messageId());
+                if (turnIndex != null && turnIndex >= 0 && turnIndex < turns.size()) {
+                    DashboardConversationTurn turn = turns.get(turnIndex);
+                    entity.setTurnId(turn.getId());
                 }
             }
             
@@ -354,40 +355,6 @@ public class DataIngestionService {
                 turn.setId(existing.getId());
             }
         }
-    }
-
-    /**
-     * Build mapping from line number to turn ID
-     */
-    private Map<Integer, Long> buildTurnLineNumberMapping(List<MessageRecord> messages,
-                                                           List<DashboardConversationTurn> turns) {
-        Map<Integer, Long> mapping = new HashMap<>();
-        
-        // Create a map from message ID to its index in the messages list
-        Map<String, Integer> messageIdToIndex = new HashMap<>();
-        for (int i = 0; i < messages.size(); i++) {
-            messageIdToIndex.put(messages.get(i).id(), i);
-        }
-        
-        // For each turn, map its start and end line numbers to turn ID
-        for (DashboardConversationTurn turn : turns) {
-            String startMsgId = turn.getStartMessageId();
-            String endMsgId = turn.getEndMessageId();
-            
-            if (startMsgId != null && messageIdToIndex.containsKey(startMsgId)) {
-                int startIndex = messageIdToIndex.get(startMsgId);
-                // Assuming line number correlates with message index
-                // This is an approximation - actual implementation may need adjustment
-                mapping.put(startIndex + 1, turn.getId()); // Line numbers are 1-based
-            }
-            
-            if (endMsgId != null && messageIdToIndex.containsKey(endMsgId)) {
-                int endIndex = messageIdToIndex.get(endMsgId);
-                mapping.put(endIndex + 1, turn.getId());
-            }
-        }
-        
-        return mapping;
     }
 
     /**

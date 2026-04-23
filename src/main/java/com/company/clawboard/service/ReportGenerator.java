@@ -43,9 +43,15 @@ public class ReportGenerator {
             // Query issues for this scan
             var issues = issueMapper.selectByScanId(scanId);
 
+            // Get total conversation turns for this scan from database
+            Integer totalTurns = conversationTurnMapper.countNonSystemTurnsByScanId(scanId);
+            if (totalTurns == null) {
+                totalTurns = 0;
+            }
+
             // Generate Markdown content
             String timeRangeLabel = "Scan ID: " + scanId;
-            String markdown = buildReportContent(issues, timeRangeLabel, null);
+            String markdown = buildReportContent(issues, timeRangeLabel, totalTurns);
 
             // Get reports directory from configuration
             String reportsDir = properties.getReports().getOutputDir();
@@ -130,30 +136,14 @@ public class ReportGenerator {
                 java.util.stream.Collectors.counting()
             ));
         
-        // Get total conversation turns and problematic turns from database
-        int totalConversationTurns;
-        if (totalTurns != null) {
-            // For time range reports, use the provided total turns count
-            totalConversationTurns = totalTurns;
-        } else {
-            // For scan-based reports, calculate from issues list (count unique sessions)
-            totalConversationTurns = issues.isEmpty() ? 0 : 
-                (int) issues.stream()
-                    .map(DashboardTranscriptIssue::getSessionId)
-                    .distinct()
-                    .count();
-        }
-        // Calculate problematic turns by counting unique lineNumber values (exactly like Python does)
-        // Note: Python includes all issues, even those without line numbers
-        // We need to handle null line numbers by using a combination of sessionId and errorType as fallback
-        // This ensures that each unique issue is counted as a separate problematic turn
+        // Get total conversation turns
+        int totalConversationTurns = (totalTurns != null) ? totalTurns : 0;
+        // Calculate problematic turns by counting unique turn_id values
+        // Each issue has a turn_id that links it to a specific conversation turn
+        // A turn is considered "problematic" if it has at least one issue
         int totalProblematicTurns = (int) issues.stream()
-            .map(issue -> {
-                Integer lineNumber = issue.getLineNumber();
-                // For issues without line numbers, use a combination of sessionId and errorType as fallback
-                // This ensures that each unique issue is counted as a separate problematic turn
-                return lineNumber != null ? lineNumber : (issue.getSessionId() + "-" + issue.getErrorType()).hashCode();
-            })
+            .map(DashboardTranscriptIssue::getTurnId)
+            .filter(turnId -> turnId != null)  // Only count issues with valid turn_id
             .distinct()
             .count();
         

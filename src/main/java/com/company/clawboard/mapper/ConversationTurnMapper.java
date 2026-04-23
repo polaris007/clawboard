@@ -73,4 +73,11 @@ public interface ConversationTurnMapper {
         @Param("startTime") LocalDateTime startTime,
         @Param("endTime") LocalDateTime endTime
     );
+
+    /**
+     * 统计指定扫描ID的非系统轮次数
+     * @param scanId 扫描ID
+     * @return 非系统轮次数
+     */
+    Integer countNonSystemTurnsByScanId(@Param("scanId") Long scanId);
 }
