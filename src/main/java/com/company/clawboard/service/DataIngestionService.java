@@ -147,7 +147,7 @@ public class DataIngestionService {
             entity.setModel(msg.model());
             entity.setStopReason(msg.stopReason());
             entity.setDurationMs(msg.durationMs());
-            entity.setIsError(msg.isError() ? 1 : 0);
+            entity.setIsError(hasMessageError(msg) ? 1 : 0);  // Use enhanced error detection
             entity.setErrorMessage(msg.errorMessage());  // Added for storing error messages
             
             // Extract tool information if present
@@ -377,5 +377,35 @@ public class DataIngestionService {
             log.error("Failed to update session summary for {}", sessionId, e);
             // Don't fail the ingestion if summary update fails
         }
+    }
+
+    /**
+     * Determine if a message has any type of error by checking multiple indicators.
+     *
+     * @param msg The message record to check
+     * @return true if any error indicator is present
+     */
+    private boolean hasMessageError(MessageRecord msg) {
+        // 1. Direct error flag
+        if (msg.isError()) {
+            return true;
+        }
+        
+        // 2. Error message content
+        if (msg.errorMessage() != null && !msg.errorMessage().isEmpty()) {
+            return true;
+        }
+        
+        // 3. Stop reason indicates error
+        if (msg.stopReason() != null) {
+            String reason = msg.stopReason().toLowerCase();
+            if (reason.contains("error") || 
+                reason.contains("timeout") ||
+                reason.contains("failure")) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 }
