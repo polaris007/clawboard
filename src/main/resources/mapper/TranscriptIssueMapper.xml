@@ -25,4 +25,14 @@
         SELECT * FROM dashboard_transcript_issue ORDER BY occurred_at
     </select>
 
+    <!-- 根据轮次ID列表查询问题 -->
+    <select id="selectByTurnIds" resultType="com.company.clawboard.entity.DashboardTranscriptIssue">
+        SELECT * FROM dashboard_transcript_issue
+        WHERE turn_id IN
+        <foreach collection="turnIds" item="turnId" open="(" separator="," close=")">
+            #{turnId}
+        </foreach>
+        ORDER BY occurred_at ASC
+    </select>
+
 </mapper>
