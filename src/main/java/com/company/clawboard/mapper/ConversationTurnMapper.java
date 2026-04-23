@@ -3,6 +3,8 @@ package com.company.clawboard.mapper;
 import com.company.clawboard.entity.DashboardConversationTurn;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -59,5 +61,16 @@ public interface ConversationTurnMapper {
         @Param("userId") String userId,
         @Param("startTime") String startTime,
         @Param("endTime") String endTime
+    );
+
+    /**
+     * 根据时间范围查询对话轮次
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return 对话轮次列表，按 start_time 升序排列
+     */
+    List<DashboardConversationTurn> selectTurnsByTimeRange(
+        @Param("startTime") LocalDateTime startTime,
+        @Param("endTime") LocalDateTime endTime
     );
 }

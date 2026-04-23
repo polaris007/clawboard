@@ -165,4 +165,11 @@
         </if>
     </select>
 
+    <!-- 根据时间范围查询对话轮次 -->
+    <select id="selectTurnsByTimeRange" resultMap="BaseResultMap">
+        SELECT * FROM dashboard_conversation_turn
+        WHERE start_time &gt;= #{startTime} AND start_time &lt;= #{endTime}
+        ORDER BY start_time ASC
+    </select>
+
 </mapper>
