@@ -67,6 +67,9 @@ public class DataIngestionService {
         if (!turns.isEmpty()) {
             int inserted = turnMapper.batchInsertIgnore(turns);
             log.debug("Inserted {} conversation turns for session {}", inserted, sessionId);
+            
+            // After insertion, load the generated IDs by querying back
+            loadTurnIds(sessionId, turns);
         }
 
         // Phase 2: Convert and insert messages with turn_id
@@ -329,6 +332,28 @@ public class DataIngestionService {
         entity.setCreatedAt(now);
 
         return entity;
+    }
+
+    /**
+     * Load generated turn IDs after batch insert by querying back
+     */
+    private void loadTurnIds(String sessionId, List<DashboardConversationTurn> turns) {
+        // Query all turns for this session (ordered by turn_index)
+        List<DashboardConversationTurn> existingTurns = turnMapper.selectBySessionId(sessionId);
+        
+        // Create a map from turn_index to turn object
+        Map<Integer, DashboardConversationTurn> turnByIndex = new HashMap<>();
+        for (DashboardConversationTurn turn : existingTurns) {
+            turnByIndex.put(turn.getTurnIndex(), turn);
+        }
+        
+        // Set the IDs on our turn objects
+        for (DashboardConversationTurn turn : turns) {
+            DashboardConversationTurn existing = turnByIndex.get(turn.getTurnIndex());
+            if (existing != null) {
+                turn.setId(existing.getId());
+            }
+        }
     }
 
     /**
