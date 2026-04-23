@@ -1,13 +1,6 @@
 server:
   port: 8080
 
-spring:
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/clawboard?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: clawboard
-    password: Clqc@1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
 logging:
   charset:
     console: UTF-8
@@ -15,12 +8,12 @@ logging:
   pattern:
     console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %5p %t --- [%15.15t] %-40.40logger{39} : %m%n"
 
-
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
-    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/clawboard?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: clawboard
+    password: Clqc@1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 # PageHelper Configuration
 pagehelper:
@@ -31,11 +24,19 @@ pagehelper:
 
 clawboard:
   nas:
-    base-path: D:/workplace/github/clawboard/test/session-transcript
-    openclaw-dir: agents
-    accounts-csv-path: D:/workplace/github/clawboard/scripts/accounts.csv
+    base-path: G:/Workplace/github/clawboard/test/session-transcript   # Test directory
+    # Examples:
+    # base-path: D:/CompanyData/OpenClaw    # Windows absolute path
+    # base-path: /mnt/nas                   # Linux NAS mount point
+    # base-path: C:/Users/YourName/.openclaw # Local OpenClaw data
+    
+    openclaw-dir: agents  # For hash-based structure: {basePath}/{hash}/agents/{agentName}/sessions
+    # If your structure is: {basePath}/{employeeId}/.openclaw/agents/main/sessions/
+    # Then set: openclaw-dir: .openclaw
+    
+    accounts-csv-path: G:/Workplace/github/clawboard/scripts/accounts.csv  # Employee ID mapping file
   reports:
-    output-dir: reports
+    output-dir: reports  # Configurable reports directory
   scan:
     cron: "0 0 */6 * * *"
     thread-pool-size: 8
