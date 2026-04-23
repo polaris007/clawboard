@@ -2,7 +2,7 @@ package com.company.clawboard.scanner;
 
 import com.company.clawboard.entity.DashboardEmployee;
 import com.company.clawboard.mapper.EmployeeMapper;
-import com.company.clawboard.mapper.OpenclawInstanceMapper;
+import com.company.clawboard.mapper.VInstanceDetailMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
@@ -28,7 +28,7 @@ import java.util.Map;
 @Component
 public class AccountsCsvReader {
 
-    private final OpenclawInstanceMapper openclawInstanceMapper;
+    private final VInstanceDetailMapper vInstanceDetailMapper;
     private final EmployeeMapper employeeMapper;
     private final ObjectMapper objectMapper;
 
@@ -42,8 +42,8 @@ public class AccountsCsvReader {
 
     private Map<String, EmployeeInfo> employeeMap = new HashMap<>();
 
-    public AccountsCsvReader(OpenclawInstanceMapper openclawInstanceMapper, EmployeeMapper employeeMapper) {
-        this.openclawInstanceMapper = openclawInstanceMapper;
+    public AccountsCsvReader(VInstanceDetailMapper vInstanceDetailMapper, EmployeeMapper employeeMapper) {
+        this.vInstanceDetailMapper = vInstanceDetailMapper;
         this.employeeMapper = employeeMapper;
         this.objectMapper = new ObjectMapper();
     }
@@ -136,30 +136,27 @@ public class AccountsCsvReader {
      * uid column is employeeId
      * userName and orgCode are extracted from user_config_json
      */
+    /**
+     * Load employee mapping from v_instance_detail view
+     * uid column is employeeId
+     * user_config_name is userName
+     * user_config_org_code is orgCode
+     */
     public void loadFromDatabase() {
-        log.info("Loading employee mapping from database");
+        log.info("Loading employee mapping from v_instance_detail view");
         int count = 0;
 
         try {
-            List<Map<String, Object>> instances = openclawInstanceMapper.selectRunningInstances();
+            List<Map<String, Object>> instances = vInstanceDetailMapper.selectRunningInstances();
             log.info("Found {} running instances in database", instances.size());
 
             for (Map<String, Object> instance : instances) {
                 String uid = (String) instance.get("uid");
-                String userConfigJson = (String) instance.get("user_config_json");
+                String userName = (String) instance.get("user_config_name");
+                String orgCode = (String) instance.get("user_config_org_code");
 
-                if (uid == null || uid.isEmpty() || userConfigJson == null) {
-                    log.debug("Skipping instance with null uid or user_config_json: {}", uid);
-                    continue;
-                }
-
-                // Parse user_config_json to get userName and orgCode
-                JsonNode userConfig = objectMapper.readTree(userConfigJson);
-                String name = userConfig.path("userName").asText("");
-                String department = userConfig.path("orgCode").asText("");
-
-                if (name.isEmpty()) {
-                    log.debug("Skipping instance with empty userName: {}", uid);
+                if (uid == null || uid.isEmpty() || userName == null) {
+                    log.debug("Skipping instance with null uid or userName: {}", uid);
                     continue;
                 }
 
@@ -172,8 +169,8 @@ public class AccountsCsvReader {
 
                 EmployeeInfo info = new EmployeeInfo();
                 info.setEmployeeId(uid);
-                info.setName(name);
-                info.setDepartment(department);
+                info.setName(userName);  // 直接使用 user_config_name，不需要解析 JSON
+                info.setDepartment(orgCode != null ? orgCode : "");  // 直接使用 user_config_org_code
                 info.setSha512Hash(hash);
 
                 employeeMap.put(hash, info);
@@ -182,8 +179,8 @@ public class AccountsCsvReader {
                 try {
                     DashboardEmployee employee = new DashboardEmployee();
                     employee.setEmployeeId(uid);
-                    employee.setEmployeeName(name);
-                    employee.setTeamName(department);
+                    employee.setEmployeeName(userName);
+                    employee.setTeamName(orgCode != null ? orgCode : "");
                     employee.setIsActive(1);
                     employeeMapper.upsert(employee);
                 } catch (Exception e) {
@@ -193,8 +190,7 @@ public class AccountsCsvReader {
                 count++;
             }
 
-            log.info("Successfully loaded {} employee mappings from database", count);
-
+            log.info("Loaded {} employee mappings from database", count);
         } catch (Exception e) {
             log.error("Failed to load employee mapping from database", e);
         }

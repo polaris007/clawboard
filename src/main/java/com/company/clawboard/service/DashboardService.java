@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +24,7 @@ public class DashboardService {
     private final EmployeeMapper employeeMapper;
     private final SkillInvocationMapper skillInvocationMapper;
     private final ConversationTurnMapper conversationTurnMapper;
+    private final VInstanceDetailMapper vInstanceDetailMapper;
 
     public DashboardSummaryResponse getSummary(TimeRangeRequest request) {
         var response = new DashboardSummaryResponse();
@@ -93,6 +95,10 @@ public class DashboardService {
         response.setTotalTurns(totalTurns);
         response.setTotalSkillCalls(totalSkillCalls);
         response.setTotalUsers(totalUsers);
+        
+        // 新增：统计注册用户数（从 v_instance_detail 视图查询）
+        Integer registeredUsers = vInstanceDetailMapper.countRegisteredUsers();
+        response.setRegisteredUsers(registeredUsers != null ? registeredUsers : 0);
         
         return response;
     }
@@ -189,6 +195,23 @@ public class DashboardService {
             normalizedEndTime
         );
         
+        // 新增：收集所有需要查询状态的 employeeId
+        List<String> employeeIds = stats.stream()
+            .map(DashboardHourlyStats::getEmployeeId)
+            .distinct()
+            .toList();
+        
+        // 新增：批量查询用户实例状态
+        Map<String, String> userStatusMap = new java.util.HashMap<>();
+        if (!employeeIds.isEmpty()) {
+            List<Map<String, Object>> statuses = vInstanceDetailMapper.selectStatusByUids(employeeIds);
+            for (Map<String, Object> status : statuses) {
+                String uid = (String) status.get("uid");
+                String instanceStatus = (String) status.get("status");
+                userStatusMap.put(uid, instanceStatus);
+            }
+        }
+        
         // 按员工分组并转换为用户明细
         var userItems = stats.stream()
                 .collect(Collectors.groupingBy(DashboardHourlyStats::getEmployeeId))
@@ -210,8 +233,9 @@ public class DashboardService {
                         item.setOrgCode("未知");
                     }
                     
-                    // 暂时设置为 true（active），实际应根据心跳时间判断
-                    item.setStatus(true);
+                    // 修改：根据 v_instance_detail 的 status 字段判断
+                    String instanceStatus = userStatusMap.get(employeeId);
+                    item.setStatus("running".equals(instanceStatus));
                     item.setLastHeartbeat(System.currentTimeMillis());
                     
                     // 计算 token 统计

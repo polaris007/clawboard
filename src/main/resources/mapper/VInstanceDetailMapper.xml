@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.clawboard.mapper.VInstanceDetailMapper">
+
+    <!-- 查询所有运行中的实例 -->
+    <select id="selectRunningInstances" resultType="java.util.Map">
+        SELECT 
+            uid,
+            user_config_name,
+            user_config_org_code
+        FROM v_instance_detail
+        WHERE status = 'running'
+    </select>
+
+    <!-- 根据 uid 查询实例状态 -->
+    <select id="selectStatusByUid" resultType="java.lang.String">
+        SELECT status
+        FROM v_instance_detail
+        WHERE uid = #{uid}
+        LIMIT 1
+    </select>
+
+    <!-- 批量查询多个 uid 的实例状态 -->
+    <select id="selectStatusByUids" resultType="java.util.Map">
+        SELECT 
+            uid,
+            status
+        FROM v_instance_detail
+        WHERE uid IN
+        <foreach collection="uids" item="uid" open="(" separator="," close=")">
+            #{uid}
+        </foreach>
+    </select>
+
+    <!-- 统计注册用户数 -->
+    <select id="countRegisteredUsers" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT uid)
+        FROM v_instance_detail
+        WHERE status != 'deleted'
+    </select>
+
+</mapper>
