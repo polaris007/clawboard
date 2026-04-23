@@ -226,8 +226,8 @@ public class ScanOrchestrator {
 
             // Save scanned files list for comparison with Python
             try {
-                saveScannedFilesList();
-                saveSkippedFilesList();
+                saveScannedFilesList(scanId);
+                saveSkippedFilesList(scanId);
             } catch (Exception e) {
                 log.error("Failed to save files lists", e);
             }
@@ -495,7 +495,7 @@ public class ScanOrchestrator {
     /**
      * Save scanned files list to a text file for comparison with Python
      */
-    private void saveScannedFilesList() throws IOException {
+    private void saveScannedFilesList(Long scanId) throws IOException {
         if (scannedFilePaths == null || scannedFilePaths.isEmpty()) {
             log.warn("No scanned files to save");
             return;
@@ -509,8 +509,8 @@ public class ScanOrchestrator {
         Path reportPath = Path.of(reportsDir, dateStr);
         Files.createDirectories(reportPath);
         
-        // Save file list
-        Path filePath = reportPath.resolve("java-scanned-files.txt");
+        // Save file list with scanId in filename
+        Path filePath = reportPath.resolve("java-scanned-files-scan-" + scanId + ".txt");
         List<String> sortedPaths = scannedFilePaths.stream().sorted().toList();
         Files.write(filePath, sortedPaths);
         
@@ -520,7 +520,7 @@ public class ScanOrchestrator {
     /**
      * Save skipped files list to a text file with error messages
      */
-    private void saveSkippedFilesList() throws IOException {
+    private void saveSkippedFilesList(Long scanId) throws IOException {
         if (skippedFiles == null || skippedFiles.isEmpty()) {
             log.warn("No skipped files to save");
             return;
@@ -534,8 +534,8 @@ public class ScanOrchestrator {
         Path reportPath = Path.of(reportsDir, dateStr);
         Files.createDirectories(reportPath);
         
-        // Save skipped files list
-        Path filePath = reportPath.resolve("java-skipped-files.txt");
+        // Save skipped files list with scanId in filename
+        Path filePath = reportPath.resolve("java-skipped-files-scan-" + scanId + ".txt");
         List<String> skippedLines = new java.util.ArrayList<>();
         skippedFiles.forEach((file, error) -> {
             skippedLines.add(file + " | " + error);
