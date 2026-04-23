@@ -82,4 +82,6 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 9. 所有 PowerShell 命令中的 `Invoke-WebRequest` 或 `irm`，必须加上 `-UseBasicParsing` 参数，避免弹出安全确认框。
 10. 设计文档为：docs\2026-04-18-openclaw-monitoring-dashboard-design.md，计划文档为：docs\2026-04-18-clawboard-implementation-plan.md
 11. 日期都要是北京(+8)时区
+12. 生成的测试脚本要放到test目录下或者对应的test目录的子目录下，生成的文档要放到docs或者docs的子目录里
+13. 不要自动调用git
 
