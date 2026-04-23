@@ -29,5 +29,8 @@ replay_pid*
 .opencode
 .trae
 .vscode
+.codex
+.qwen
+.qoder
 
 target
