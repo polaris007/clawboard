@@ -28,6 +28,7 @@ public class IssueDetector {
         String provider,
         String model,
         String messageId,
+        Long timestamp,  // NEW: message timestamp in epoch milliseconds
         String employeeId
     ) {}
 
@@ -124,6 +125,7 @@ public class IssueDetector {
                                 msg.provider(),
                                 msg.model(),
                                 msg.id(),
+                                msg.epochMs(),  // NEW: use message timestamp
                                 null
                             ));
                             categoryMatched = true;
@@ -160,6 +162,7 @@ public class IssueDetector {
                     msg.provider(),
                     msg.model(),
                     msg.id(),
+                    msg.epochMs(),  // NEW: use message timestamp
                     null
                 ));
             }
@@ -198,6 +201,7 @@ public class IssueDetector {
                         extractProvider(dataJson),
                         extractModel(dataJson),
                         lineId != null ? lineId : "custom-" + System.currentTimeMillis(),
+                        null,  // Custom events don't have message timestamp
                         null
                     ));
                     return issues; // Return after first match like Python does

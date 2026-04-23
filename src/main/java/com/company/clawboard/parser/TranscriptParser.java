@@ -33,7 +33,8 @@ public class TranscriptParser {
         List<TurnAssembler.AssembledTurn> turns,
         List<IssueDetector.DetectedIssue> issues,
         List<SkillInvocation> skillInvocations,
-        Map<String, Integer> messageIdToTurnIndex  // NEW: maps message ID to turn index (0-based)
+        Map<String, Integer> messageIdToTurnIndex,  // NEW: maps message ID to turn index (0-based)
+        String filePath  // NEW: original file path for log_file_path
     ) {}
 
     public record SkillInvocation(String skillName, String toolCallId, long invokedAt) {}
@@ -79,7 +80,7 @@ public class TranscriptParser {
             }
         } catch (IOException e) {
             log.error("Failed to read transcript file: {}", filePath, e);
-            return new ParsedTranscript(null, List.of(), List.of(), List.of(), List.of(), Map.of());
+            return new ParsedTranscript(null, List.of(), List.of(), List.of(), List.of(), Map.of(), null);
         }
 
         if (sessionId == null) {
@@ -132,6 +133,7 @@ public class TranscriptParser {
                     issue.provider(),
                     issue.model(),
                     issue.messageId(),
+                    issue.timestamp(),
                     employeeId
                 );
                 allIssues.add(enriched);
@@ -163,7 +165,7 @@ public class TranscriptParser {
         // Build message-to-turn mapping
         Map<String, Integer> messageIdToTurnIndex = buildMessageToTurnMapping(messages, turns);
 
-        return new ParsedTranscript(sessionId, messages, turns, allIssues, skillInvocations, messageIdToTurnIndex);
+        return new ParsedTranscript(sessionId, messages, turns, allIssues, skillInvocations, messageIdToTurnIndex, filePathStr);
     }
 
     private String extractUserInput(List<MessageRecord> messages, MessageRecord currentMsg) {
@@ -298,6 +300,7 @@ public class TranscriptParser {
             original.provider(),
             original.model(),
             original.messageId(),
+            original.timestamp(),
             employeeId
         );
     }

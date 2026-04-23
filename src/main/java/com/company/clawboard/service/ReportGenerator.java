@@ -48,10 +48,16 @@ public class ReportGenerator {
             if (totalTurns == null) {
                 totalTurns = 0;
             }
+            
+            // Get problematic turns count directly from conversation_turn table
+            Integer problematicTurns = conversationTurnMapper.countProblematicTurnsByScanId(scanId);
+            if (problematicTurns == null) {
+                problematicTurns = 0;
+            }
 
             // Generate Markdown content
             String timeRangeLabel = "Scan ID: " + scanId;
-            String markdown = buildReportContent(issues, timeRangeLabel, totalTurns);
+            String markdown = buildReportContent(issues, timeRangeLabel, totalTurns, problematicTurns);
 
             // Get reports directory from configuration
             String reportsDir = properties.getReports().getOutputDir();
@@ -78,25 +84,29 @@ public class ReportGenerator {
      */
     public String generateReportByTimeRange(LocalDateTime startTime, LocalDateTime endTime) {
         try {
+            // Get all turns in the time range (excluding system turns)
             var turns = conversationTurnMapper.selectTurnsByTimeRange(startTime, endTime);
             
             if (turns == null || turns.isEmpty()) {
                 log.warn("No conversation turns found in time range [{}, {}]", startTime, endTime);
                 return buildReportContent(new ArrayList<>(), 
                     startTime.format(DATETIME_FORMATTER) + " - " + endTime.format(DATETIME_FORMATTER),
-                    0);  // total turns = 0
+                    0,  // total turns = 0
+                    0); // problematic turns = 0
             }
-
-            // Collect all issues from these turns
-            List<Long> turnIds = turns.stream()
-                .map(DashboardConversationTurn::getId)
-                .collect(Collectors.toList());
             
-            var issues = issueMapper.selectByTurnIds(turnIds);
+            // Query issues within the time range (simple: just check occurred_at)
+            var issues = issueMapper.selectByTimeRange(startTime, endTime);
+            
+            // Get problematic turns count directly from conversation_turn table
+            Integer problematicTurns = conversationTurnMapper.countProblematicTurnsByTimeRange(startTime, endTime);
+            if (problematicTurns == null) {
+                problematicTurns = 0;
+            }
             
             String timeRangeLabel = startTime.format(DATETIME_FORMATTER) + " - " + endTime.format(DATETIME_FORMATTER);
-            int totalTurns = turns.size();  // Total conversation turns in this time range
-            return buildReportContent(issues, timeRangeLabel, totalTurns);
+            int totalTurns = turns.size();  // Total non-system conversation turns in this time range
+            return buildReportContent(issues, timeRangeLabel, totalTurns, problematicTurns);
         } catch (Exception e) {
             log.error("Failed to generate report for time range [{}, {}]", startTime, endTime, e);
             throw new RuntimeException("Failed to generate report", e);
@@ -108,9 +118,10 @@ public class ReportGenerator {
      * @param issues 问题列表
      * @param timeRangeLabel 时间范围标签（如 "Scan ID: 123" 或 "2026-04-20T00:00:00.000Z - 2026-04-23T23:59:59.000Z"）
      * @param totalTurns 总对话轮数（用于时间范围报告，scan 报告传 null 表示从数据库查询）
+     * @param problematicTurns 有错误轮数（可选，如果为 null 则从 issues 中计算）
      * @return Markdown 格式的报告内容
      */
-    private String buildReportContent(List<DashboardTranscriptIssue> issues, String timeRangeLabel, Integer totalTurns) {
+    private String buildReportContent(List<DashboardTranscriptIssue> issues, String timeRangeLabel, Integer totalTurns, Integer problematicTurns) {
         StringBuilder sb = new StringBuilder();
         
         // Header
@@ -138,14 +149,21 @@ public class ReportGenerator {
         
         // Get total conversation turns
         int totalConversationTurns = (totalTurns != null) ? totalTurns : 0;
-        // Calculate problematic turns by counting unique turn_id values
-        // Each issue has a turn_id that links it to a specific conversation turn
-        // A turn is considered "problematic" if it has at least one issue
-        int totalProblematicTurns = (int) issues.stream()
-            .map(DashboardTranscriptIssue::getTurnId)
-            .filter(turnId -> turnId != null)  // Only count issues with valid turn_id
-            .distinct()
-            .count();
+        
+        // Get problematic turns count
+        // If provided, use it directly; otherwise calculate from issues (fallback for backward compatibility)
+        int totalProblematicTurns;
+        if (problematicTurns != null) {
+            // Use the value from database query (excludes system turns)
+            totalProblematicTurns = problematicTurns;
+        } else {
+            // Fallback: calculate from issues (may include system turns if they have issues)
+            totalProblematicTurns = (int) issues.stream()
+                .map(DashboardTranscriptIssue::getTurnId)
+                .filter(turnId -> turnId != null)  // Only count issues with valid turn_id
+                .distinct()
+                .count();
+        }
         
         sb.append("- **总错误数**: ").append(issues.size()).append("\n");
         sb.append("- **总对话轮数**: ").append(totalConversationTurns).append(" （排除系统消息）\n");

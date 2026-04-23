@@ -63,7 +63,7 @@ public class DataIngestionService {
         }
 
         // Phase 1: Insert conversation turns first
-        List<DashboardConversationTurn> turns = convertToTurns(scanId, parsed.turns(), sessionId, employeeId, now);
+        List<DashboardConversationTurn> turns = convertToTurns(scanId, parsed.turns(), sessionId, employeeId, now, parsed.filePath());
         if (!turns.isEmpty()) {
             int inserted = turnMapper.batchInsertIgnore(turns);
             log.debug("Inserted {} conversation turns for session {}", inserted, sessionId);
@@ -209,7 +209,8 @@ public class DataIngestionService {
                                                             List<TurnAssembler.AssembledTurn> turns,
                                                             String sessionId,
                                                             String employeeId,
-                                                            LocalDateTime now) {
+                                                            LocalDateTime now,
+                                                            String filePath) {
         List<DashboardConversationTurn> result = new ArrayList<>();
 
         for (int i = 0; i < turns.size(); i++) {
@@ -258,7 +259,8 @@ public class DataIngestionService {
             entity.setToolDurationMs(0);
             entity.setModelDurationMs(0);
             entity.setChainSummary("");
-            entity.setLogFilePath("");
+            // Set log file path from parameter
+            entity.setLogFilePath(filePath != null ? filePath : "");
             entity.setQualityStatus(0);
             // 标记系统轮次：使用AssembledTurn中的isSystemTurn字段
             entity.setSystemTurn(turn.isSystemTurn() ? 1 : 0);
@@ -329,7 +331,12 @@ public class DataIngestionService {
         entity.setRunId(issue.runId());
         entity.setProvider(issue.provider());
         entity.setModel(issue.model());
-        entity.setOccurredAt(now);
+        // Set occurred_at from message timestamp, fallback to current time if not available
+        if (issue.timestamp() != null && issue.timestamp() > 0) {
+            entity.setOccurredAt(LocalDateTime.ofInstant(Instant.ofEpochMilli(issue.timestamp()), BEIJING_ZONE));
+        } else {
+            entity.setOccurredAt(now);
+        }
         entity.setCreatedAt(now);
 
         return entity;

@@ -80,4 +80,21 @@ public interface ConversationTurnMapper {
      * @return 非系统轮次数
      */
     Integer countNonSystemTurnsByScanId(@Param("scanId") Long scanId);
+    
+    /**
+     * 统计指定扫描ID的有错误非系统轮次数
+     * @param scanId 扫描ID
+     * @return 有错误非系统轮次数（has_error = 1 AND system_turn = 0）
+     */
+    Integer countProblematicTurnsByScanId(@Param("scanId") Long scanId);
+    
+    /**
+     * 统计时间范围内的有错误非系统轮次数
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return 有错误非系统轮次数（has_error = 1 AND system_turn = 0）
+     */
+    Integer countProblematicTurnsByTimeRange(
+        @Param("startTime") LocalDateTime startTime,
+        @Param("endTime") LocalDateTime endTime);
 }

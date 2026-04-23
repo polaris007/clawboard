@@ -179,5 +179,21 @@
         WHERE scan_id = #{scanId}
           AND (system_turn = 0 OR system_turn IS NULL)
     </select>
+    
+    <!-- 统计指定扫描ID的有错误非系统轮次数 -->
+    <select id="countProblematicTurnsByScanId" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM dashboard_conversation_turn
+        WHERE scan_id = #{scanId}
+          AND has_error = 1
+          AND (system_turn = 0 OR system_turn IS NULL)
+    </select>
+    
+    <!-- 统计时间范围内的有错误非系统轮次数 -->
+    <select id="countProblematicTurnsByTimeRange" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM dashboard_conversation_turn
+        WHERE start_time &gt;= #{startTime} AND start_time &lt;= #{endTime}
+          AND has_error = 1
+          AND (system_turn = 0 OR system_turn IS NULL)
+    </select>
 
 </mapper>
