@@ -92,6 +92,7 @@ CREATE TABLE IF NOT EXISTS dashboard_session_summary (
 CREATE TABLE IF NOT EXISTS dashboard_message (
     session_id       VARCHAR(36)   NOT NULL COMMENT 'Session UUID',
     scan_id          BIGINT        COMMENT '关联扫描ID',
+    turn_id          BIGINT        COMMENT '关联轮次ID',
     message_id       VARCHAR(36)   NOT NULL COMMENT '消息ID',
     employee_id      VARCHAR(50)   NOT NULL COMMENT '工号',
     role             VARCHAR(20)   NOT NULL COMMENT '角色: user/assistant/tool',
@@ -115,6 +116,7 @@ CREATE TABLE IF NOT EXISTS dashboard_message (
     created_at       DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (session_id, message_id),
     INDEX idx_scan_id (scan_id),
+    INDEX idx_turn_id (turn_id),
     INDEX idx_employee_time (employee_id, message_timestamp),
     INDEX idx_time (message_timestamp),
     INDEX idx_role_time (role, message_timestamp)
