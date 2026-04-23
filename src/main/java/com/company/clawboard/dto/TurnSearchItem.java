@@ -10,7 +10,7 @@ public class TurnSearchItem {
     private String userName;
     private String userInput;
     private Integer durationMs;
-    private String resultStatus;
+    private Boolean resultStatus;  // 执行结果：true 成功 / false 失败
     private Integer qualityStatus;
     private TokenInfo tokens;
     private List<String> skills;

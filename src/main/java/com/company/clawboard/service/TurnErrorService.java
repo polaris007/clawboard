@@ -59,7 +59,8 @@ public class TurnErrorService {
             item.setUserName(turn.getEmployeeId());
             item.setUserInput(turn.getUserInput());
             item.setDurationMs(turn.getTotalDurationMs());
-            item.setResultStatus(turn.getStatus());
+            // 将 String 类型的 status 转换为 Boolean：complete=true, 其他=false
+            item.setResultStatus("complete".equals(turn.getStatus()));
             item.setQualityStatus(turn.getQualityStatus());
             
             var tokens = new TurnSearchItem.TokenInfo();

@@ -8,7 +8,7 @@ public class UserSummaryItem {
     private String userId;
     private String userName;
     private String orgCode;
-    private String status;
+    private Boolean status;  // 龙虾是否在线：true active / false inactive
     private Long lastHeartbeat;
     private TokenStats tokens;
     private TurnStats turns;

@@ -167,8 +167,8 @@ public class DashboardService {
                         item.setOrgCode("未知");
                     }
                     
-                    // 暂时设置为 active（实际应根据心跳时间判断）
-                    item.setStatus("active");
+                    // 暂时设置为 true（active），实际应根据心跳时间判断
+                    item.setStatus(true);
                     item.setLastHeartbeat(System.currentTimeMillis());
                     
                     // 计算 token 统计
