@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class DashboardMessage {
     private Long scanId;  // Added for tracking which scan this message belongs to
     private String sessionId;
+    private Long turnId;  // Added for turn association
     private String messageId;
     private String employeeId;
     private String role;
