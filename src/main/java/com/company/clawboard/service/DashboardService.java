@@ -27,12 +27,16 @@ public class DashboardService {
     public DashboardSummaryResponse getSummary(TimeRangeRequest request) {
         var response = new DashboardSummaryResponse();
         
+        // 标准化时间参数
+        String normalizedStartTime = normalizeStartTime(request.getStartTime());
+        String normalizedEndTime = normalizeEndTime(request.getEndTime());
+        
         // 从 hourly_stats 表查询数据，支持团队和姓名筛选
         List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(
             request.getTeamName(),
             request.getUserId(),
-            request.getStartTime(),
-            request.getEndTime()
+            normalizedStartTime,
+            normalizedEndTime
         );
         
         // 聚合计算
@@ -50,14 +54,14 @@ public class DashboardService {
         Integer totalNonSystemTurns = conversationTurnMapper.countNonSystemTurns(
             request.getTeamName(),
             request.getUserId(),
-            request.getStartTime(),
-            request.getEndTime()
+            normalizedStartTime,
+            normalizedEndTime
         );
         Integer noErrorCompleteTurns = conversationTurnMapper.countNoErrorCompleteTurns(
             request.getTeamName(),
             request.getUserId(),
-            request.getStartTime(),
-            request.getEndTime()
+            normalizedStartTime,
+            normalizedEndTime
         );
         
         int total = (totalNonSystemTurns != null) ? totalNonSystemTurns : 0;
@@ -96,14 +100,49 @@ public class DashboardService {
     // 北京时区
     private static final ZoneId BEIJING_ZONE = ZoneId.of("Asia/Shanghai");
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:00:00");
+    private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    /**
+     * 将 startTime 向下取整到下一个小时的开始
+     * 例如："2026-04-22 00:59:03" -> "2026-04-22 01:00:00"
+     *      "2026-04-22 00:00:00" -> "2026-04-22 00:00:00"（已经是整点）
+     */
+    private String normalizeStartTime(String startTime) {
+        if (startTime == null || startTime.isEmpty()) {
+            return startTime;
+        }
+        try {
+            LocalDateTime dt = LocalDateTime.parse(startTime, DATETIME_FORMATTER);
+            // 如果分钟或秒不为0，则向上取整到下一小时
+            if (dt.getMinute() > 0 || dt.getSecond() > 0) {
+                dt = dt.plusHours(1).withMinute(0).withSecond(0).withNano(0);
+            }
+            return dt.format(DATETIME_FORMATTER);
+        } catch (Exception e) {
+            // 解析失败，返回原值
+            return startTime;
+        }
+    }
+
+    /**
+     * 将 endTime 保持不变（因为查询条件是 <=，所以不需要调整）
+     * 但为了语义清晰，保留此方法以备将来扩展
+     */
+    private String normalizeEndTime(String endTime) {
+        return endTime;
+    }
 
     public List<TrendDataPoint> getTrend(TimeRangeRequest request) {
+        // 标准化时间参数
+        String normalizedStartTime = normalizeStartTime(request.getStartTime());
+        String normalizedEndTime = normalizeEndTime(request.getEndTime());
+        
         // 从 hourly_stats 表查询数据，支持团队和姓名筛选
         List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(
             request.getTeamName(),
             request.getUserId(),
-            request.getStartTime(),
-            request.getEndTime()
+            normalizedStartTime,
+            normalizedEndTime
         );
         
         // 按小时分组并转换为趋势数据点
@@ -138,12 +177,16 @@ public class DashboardService {
     }
 
     public PageResult<UserSummaryItem> getUserSummaries(TimeRangeRequest request) {
+        // 标准化时间参数
+        String normalizedStartTime = normalizeStartTime(request.getStartTime());
+        String normalizedEndTime = normalizeEndTime(request.getEndTime());
+        
         // 从 hourly_stats 表查询数据，支持团队和姓名筛选
         List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(
             request.getTeamName(),
             request.getUserId(),
-            request.getStartTime(),
-            request.getEndTime()
+            normalizedStartTime,
+            normalizedEndTime
         );
         
         // 按员工分组并转换为用户明细
