@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -30,7 +32,8 @@ public class TranscriptParser {
         List<MessageRecord> messages,
         List<TurnAssembler.AssembledTurn> turns,
         List<IssueDetector.DetectedIssue> issues,
-        List<SkillInvocation> skillInvocations
+        List<SkillInvocation> skillInvocations,
+        Map<String, Integer> messageIdToTurnIndex  // NEW: maps message ID to turn index (0-based)
     ) {}
 
     public record SkillInvocation(String skillName, String toolCallId, long invokedAt) {}
@@ -76,7 +79,7 @@ public class TranscriptParser {
             }
         } catch (IOException e) {
             log.error("Failed to read transcript file: {}", filePath, e);
-            return new ParsedTranscript(null, List.of(), List.of(), List.of(), List.of());
+            return new ParsedTranscript(null, List.of(), List.of(), List.of(), List.of(), Map.of());
         }
 
         if (sessionId == null) {
@@ -157,7 +160,10 @@ public class TranscriptParser {
 
         List<TurnAssembler.AssembledTurn> turns = assembleTurns(messages);
 
-        return new ParsedTranscript(sessionId, messages, turns, allIssues, skillInvocations);
+        // Build message-to-turn mapping
+        Map<String, Integer> messageIdToTurnIndex = buildMessageToTurnMapping(messages, turns);
+
+        return new ParsedTranscript(sessionId, messages, turns, allIssues, skillInvocations, messageIdToTurnIndex);
     }
 
     private String extractUserInput(List<MessageRecord> messages, MessageRecord currentMsg) {
@@ -318,5 +324,45 @@ public class TranscriptParser {
         }
 
         return turns;
+    }
+
+    /**
+     * Build a mapping from message IDs to their turn indices.
+     * Each turn contains a range of messages, and we map each message ID to its turn index.
+     *
+     * @param messages All messages in the session
+     * @param turns Assembled conversation turns
+     * @return Map from message ID to turn index (0-based)
+     */
+    private Map<String, Integer> buildMessageToTurnMapping(
+            List<MessageRecord> messages,
+            List<TurnAssembler.AssembledTurn> turns) {
+        
+        Map<String, Integer> mapping = new HashMap<>();
+        
+        // Create a map from message ID to its index in the messages list
+        Map<String, Integer> messageIdToIndex = new HashMap<>();
+        for (int i = 0; i < messages.size(); i++) {
+            messageIdToIndex.put(messages.get(i).id(), i);
+        }
+        
+        // For each turn, map all its messages to the turn index
+        for (int turnIndex = 0; turnIndex < turns.size(); turnIndex++) {
+            TurnAssembler.AssembledTurn turn = turns.get(turnIndex);
+            
+            // Find start and end message indices
+            Integer startIndex = messageIdToIndex.get(turn.startMessageId());
+            Integer endIndex = turn.endMessageId() != null ? 
+                messageIdToIndex.get(turn.endMessageId()) : startIndex;
+            
+            if (startIndex != null && endIndex != null) {
+                // Map all messages in this turn's range
+                for (int i = startIndex; i <= endIndex && i < messages.size(); i++) {
+                    mapping.put(messages.get(i).id(), turnIndex);
+                }
+            }
+        }
+        
+        return mapping;
     }
 }
