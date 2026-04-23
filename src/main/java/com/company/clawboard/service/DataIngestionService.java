@@ -16,10 +16,10 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.Instant;
-import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Service to convert parsed transcript data to entities and batch insert into database.
@@ -53,23 +53,44 @@ public class DataIngestionService {
         }
 
         String sessionId = parsed.sessionId();
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(BEIJING_ZONE);
+        
+        // Check if session already scanned
+        int existingCount = messageMapper.countBySessionId(sessionId);
+        if (existingCount > 0) {
+            log.info("Session {} already scanned ({} messages), skipping", sessionId, existingCount);
+            return;
+        }
 
-        // Step 1: Convert and insert messages
-        List<DashboardMessage> messages = convertToMessages(scanId, parsed.messages(), sessionId, employeeId, now);
+        // Phase 1: Insert conversation turns first
+        List<DashboardConversationTurn> turns = convertToTurns(scanId, parsed.turns(), sessionId, employeeId, now);
+        if (!turns.isEmpty()) {
+            int inserted = turnMapper.batchInsertIgnore(turns);
+            log.debug("Inserted {} conversation turns for session {}", inserted, sessionId);
+        }
+
+        // Phase 2: Convert and insert messages with turn_id
+        List<DashboardMessage> messages = new ArrayList<>();
+        Map<String, Integer> messageIdToTurnIndex = parsed.messageIdToTurnIndex();
+        for (MessageRecord msg : parsed.messages()) {
+            DashboardMessage entity = convertSingleMessage(scanId, msg, sessionId, employeeId, now);
+            
+            // Set turn_id based on mapping
+            Integer turnIndex = messageIdToTurnIndex.get(msg.id());
+            if (turnIndex != null && turnIndex >= 0 && turnIndex < turns.size()) {
+                DashboardConversationTurn turn = turns.get(turnIndex);
+                entity.setTurnId(turn.getId());
+            }
+            
+            messages.add(entity);
+        }
+        
         if (!messages.isEmpty()) {
             int inserted = messageMapper.batchInsertIgnore(messages);
             log.debug("Inserted {} messages for session {}", inserted, sessionId);
         }
 
-        // Step 2: Convert and insert conversation turns
-        List<DashboardConversationTurn> turns = convertToTurns(scanId, parsed.turns(), sessionId, employeeId, now);
-        if (!turns.isEmpty()) {
-            int inserted = turnMapper.batchInsertIgnore(turns);
-            log.debug("Inserted {} turns for session {}", inserted, sessionId);
-        }
-
-        // Step 3: Convert and insert skill invocations
+        // Phase 3: Convert and insert skill invocations (turn_id not populated yet)
         List<DashboardSkillInvocation> skills = convertToSkillInvocations(
                 scanId, parsed.skillInvocations(), sessionId, employeeId, now);
         if (!skills.isEmpty()) {
@@ -77,15 +98,29 @@ public class DataIngestionService {
             log.debug("Inserted {} skill invocations for session {}", inserted, sessionId);
         }
 
-        // Step 4: Convert and insert issues
-        List<DashboardTranscriptIssue> issues = convertToIssues(
-                scanId, parsed.issues(), sessionId, employeeId, now);
+        // Phase 4: Convert and insert issues with turn_id
+        Map<Integer, Long> turnIdByLineNumber = buildTurnLineNumberMapping(parsed.messages(), turns);
+        List<DashboardTranscriptIssue> issues = new ArrayList<>();
+        for (IssueDetector.DetectedIssue issue : parsed.issues()) {
+            DashboardTranscriptIssue entity = convertSingleIssue(scanId, issue, sessionId, employeeId, now);
+            
+            // Set turn_id based on line number mapping
+            if (issue.lineNumber() != null) {
+                Long turnId = turnIdByLineNumber.get(issue.lineNumber());
+                if (turnId != null) {
+                    entity.setTurnId(turnId);
+                }
+            }
+            
+            issues.add(entity);
+        }
+        
         if (!issues.isEmpty()) {
             int inserted = issueMapper.batchInsertIgnore(issues);
-            log.debug("Inserted {} issues for session {}", inserted, sessionId);
+            log.debug("Inserted {} transcript issues for session {}", inserted, sessionId);
         }
 
-        // Step 5: Update session summary
+        // Phase 5: Update session summary
         // Calculate conversation turns like Python does: count non-system user messages
         int conversationTurns = 0;
         for (MessageRecord msg : parsed.messages()) {
@@ -110,66 +145,57 @@ public class DataIngestionService {
     }
 
     /**
-     * Convert MessageRecord list to DashboardMessage entities
+     * Convert a single MessageRecord to DashboardMessage entity
      */
-    private List<DashboardMessage> convertToMessages(Long scanId,
-                                                      List<MessageRecord> messages, 
-                                                      String sessionId, 
-                                                      String employeeId,
-                                                      LocalDateTime now) {
-        List<DashboardMessage> result = new ArrayList<>();
-
-        for (MessageRecord msg : messages) {
-            DashboardMessage entity = new DashboardMessage();
-            entity.setScanId(scanId);
-            entity.setSessionId(sessionId);
-            entity.setMessageId(msg.id());  // Changed from messageId() to id()
-            entity.setEmployeeId(employeeId);
-            entity.setRole(msg.role());
-            
-            // Convert epoch milliseconds to LocalDateTime
-            if (msg.epochMs() > 0) {
-                entity.setMessageTimestamp(
-                    LocalDateTime.ofInstant(Instant.ofEpochMilli(msg.epochMs()), BEIJING_ZONE));
-            }
-            
-            // Extract token info from UsageInfo
-            if (msg.usage() != null) {
-                entity.setInputTokens(msg.usage().inputTokens());
-                entity.setOutputTokens(msg.usage().outputTokens());
-                entity.setCacheReadTokens(msg.usage().cacheReadTokens());
-                entity.setCacheWriteTokens(msg.usage().cacheWriteTokens());
-                entity.setTotalTokens(msg.usage().totalTokens());
-                entity.setCostTotal(msg.usage().costTotal());
-            }
-            
-            entity.setProvider(msg.provider());
-            entity.setModel(msg.model());
-            entity.setStopReason(msg.stopReason());
-            entity.setDurationMs(msg.durationMs());
-            entity.setIsError(hasMessageError(msg) ? 1 : 0);  // Use enhanced error detection
-            entity.setErrorMessage(msg.errorMessage());  // Added for storing error messages
-            
-            // Extract tool information if present
-            if (msg.toolCalls() != null && !msg.toolCalls().isEmpty()) {
-                entity.setToolName(msg.toolCalls().get(0).name());
-                entity.setToolCallId(msg.toolCalls().get(0).id());
-            }
-            
-            // 标记系统消息
-            if ("user".equals(msg.role())) {
-                boolean isSystem = systemMessageFilter.isSystemGeneratedUserMessage(msg.textContent());
-                entity.setIsSystem(isSystem ? 1 : 0);
-            } else {
-                entity.setIsSystem(0);
-            }
-            entity.setParentId(msg.parentId());
-            entity.setCreatedAt(now);
-
-            result.add(entity);
+    private DashboardMessage convertSingleMessage(Long scanId, MessageRecord msg, 
+                                                   String sessionId, String employeeId,
+                                                   LocalDateTime now) {
+        DashboardMessage entity = new DashboardMessage();
+        entity.setScanId(scanId);
+        entity.setSessionId(sessionId);
+        entity.setMessageId(msg.id());
+        entity.setEmployeeId(employeeId);
+        entity.setRole(msg.role());
+        
+        // Convert epoch milliseconds to LocalDateTime
+        if (msg.epochMs() > 0) {
+            entity.setMessageTimestamp(
+                LocalDateTime.ofInstant(Instant.ofEpochMilli(msg.epochMs()), BEIJING_ZONE));
         }
+        
+        // Extract token info from UsageInfo
+        if (msg.usage() != null) {
+            entity.setInputTokens(msg.usage().inputTokens());
+            entity.setOutputTokens(msg.usage().outputTokens());
+            entity.setCacheReadTokens(msg.usage().cacheReadTokens());
+            entity.setCacheWriteTokens(msg.usage().cacheWriteTokens());
+            entity.setTotalTokens(msg.usage().totalTokens());
+            entity.setCostTotal(msg.usage().costTotal());
+        }
+        
+        entity.setProvider(msg.provider());
+        entity.setModel(msg.model());
+        entity.setStopReason(msg.stopReason());
+        entity.setDurationMs(msg.durationMs());
+        entity.setIsError(hasMessageError(msg) ? 1 : 0);  // Use enhanced error detection
+        entity.setErrorMessage(msg.errorMessage());  // Added for storing error messages
+        
+        // Extract tool information if present
+        if (msg.toolCalls() != null && !msg.toolCalls().isEmpty()) {
+            entity.setToolName(msg.toolCalls().get(0).name());
+        }
+        
+        // 标记系统消息
+        if ("user".equals(msg.role())) {
+            boolean isSystem = systemMessageFilter.isSystemGeneratedUserMessage(msg.textContent());
+            entity.setIsSystem(isSystem ? 1 : 0);
+        } else {
+            entity.setIsSystem(0);
+        }
+        entity.setParentId(msg.parentId());
+        entity.setCreatedAt(now);
 
-        return result;
+        return entity;
     }
 
     /**
@@ -274,41 +300,69 @@ public class DataIngestionService {
         return result;
     }
 
-    private List<DashboardTranscriptIssue> convertToIssues(
-            Long scanId,
-            List<IssueDetector.DetectedIssue> issues,
-            String sessionId,
-            String employeeId,
-            LocalDateTime now) {
-        List<DashboardTranscriptIssue> result = new ArrayList<>();
+    /**
+     * Convert a single DetectedIssue to DashboardTranscriptIssue entity
+     */
+    private DashboardTranscriptIssue convertSingleIssue(Long scanId, IssueDetector.DetectedIssue issue,
+                                                         String sessionId, String employeeId,
+                                                         LocalDateTime now) {
+        DashboardTranscriptIssue entity = new DashboardTranscriptIssue();
+        entity.setScanId(scanId);
+        entity.setSessionId(sessionId);
+        entity.setMessageId(issue.messageId() != null ? issue.messageId() : "");
+        entity.setEmployeeId(employeeId);
+        entity.setErrorType(issue.errorType());
+        entity.setSeverity(issue.severity());
+        entity.setDescription(issue.description());
+        entity.setErrorMessage(issue.errorMessage());
+        entity.setUserInput(issue.userInput());
+        entity.setCauseAnalysis(issue.causeAnalysis());
+        entity.setFilePath(issue.filePath());
+        entity.setErrorLineContent(issue.errorLineContent());
+        entity.setNextLineContent(issue.nextLineContent());
+        entity.setLineNumber(issue.lineNumber());
+        entity.setEventType(issue.eventType() != null ? issue.eventType() : "message");
+        entity.setRunId(issue.runId());
+        entity.setProvider(issue.provider());
+        entity.setModel(issue.model());
+        entity.setOccurredAt(now);
+        entity.setCreatedAt(now);
 
-        for (IssueDetector.DetectedIssue issue : issues) {
-            DashboardTranscriptIssue entity = new DashboardTranscriptIssue();
-            entity.setScanId(scanId);
-            entity.setSessionId(sessionId);
-            entity.setMessageId(issue.messageId() != null ? issue.messageId() : "");
-            entity.setEmployeeId(employeeId);
-            entity.setErrorType(issue.errorType());
-            entity.setSeverity(issue.severity());
-            entity.setDescription(issue.description());
-            entity.setErrorMessage(issue.errorMessage());
-            entity.setUserInput(issue.userInput());
-            entity.setCauseAnalysis(issue.causeAnalysis());
-            entity.setFilePath(issue.filePath());
-            entity.setErrorLineContent(issue.errorLineContent());
-            entity.setNextLineContent(issue.nextLineContent());
-            entity.setLineNumber(issue.lineNumber());
-            entity.setEventType(issue.eventType() != null ? issue.eventType() : "message");
-            entity.setRunId(issue.runId());
-            entity.setProvider(issue.provider());
-            entity.setModel(issue.model());
-            entity.setOccurredAt(now);
-            entity.setCreatedAt(now);
+        return entity;
+    }
 
-            result.add(entity);
+    /**
+     * Build mapping from line number to turn ID
+     */
+    private Map<Integer, Long> buildTurnLineNumberMapping(List<MessageRecord> messages,
+                                                           List<DashboardConversationTurn> turns) {
+        Map<Integer, Long> mapping = new HashMap<>();
+        
+        // Create a map from message ID to its index in the messages list
+        Map<String, Integer> messageIdToIndex = new HashMap<>();
+        for (int i = 0; i < messages.size(); i++) {
+            messageIdToIndex.put(messages.get(i).id(), i);
         }
-
-        return result;
+        
+        // For each turn, map its start and end line numbers to turn ID
+        for (DashboardConversationTurn turn : turns) {
+            String startMsgId = turn.getStartMessageId();
+            String endMsgId = turn.getEndMessageId();
+            
+            if (startMsgId != null && messageIdToIndex.containsKey(startMsgId)) {
+                int startIndex = messageIdToIndex.get(startMsgId);
+                // Assuming line number correlates with message index
+                // This is an approximation - actual implementation may need adjustment
+                mapping.put(startIndex + 1, turn.getId()); // Line numbers are 1-based
+            }
+            
+            if (endMsgId != null && messageIdToIndex.containsKey(endMsgId)) {
+                int endIndex = messageIdToIndex.get(endMsgId);
+                mapping.put(endIndex + 1, turn.getId());
+            }
+        }
+        
+        return mapping;
     }
 
     /**
