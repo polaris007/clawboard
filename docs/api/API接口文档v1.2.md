@@ -289,9 +289,21 @@
 }
 ```
 
+// 模糊匹配示例
+```json
+{
+  "userIdLike": "181",
+  "startTime": "2026-04-21 00:00:00",
+  "endTime": "2026-04-21 23:59:59",
+  "page": 1,
+  "pageSize": 10
+}
+```
+
 | 字段 | 类型 | 必填 | 说明 |
 | :--- | :--- | :--- | :--- |
-| `userId` | String | 否 | **工号精确匹配**（对应 employee_id） |
+| `userId` | String | 否 | **工号精确匹配**（对应 employee_id），与 userIdLike 二选一 |
+| `userIdLike` | String | 否 | **工号模糊匹配**（对应 employee_id LIKE '%xxx%'），与 userId 二选一，userId 优先 |
 | `startTime` | String | 否 | **开始时间，格式 `YYYY-MM-DD HH:mm:ss`** |
 | `endTime` | String | 否 | **结束时间，格式 `YYYY-MM-DD HH:mm:ss`** |
 | `skillId` | String | 否 | 技能 ID 精确匹配，取值来自接口 1 |

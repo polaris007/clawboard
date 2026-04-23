@@ -111,9 +111,16 @@
     <select id="selectTurnsWithFilters" resultMap="BaseResultMap">
         SELECT * FROM dashboard_conversation_turn 
         WHERE (system_turn = 0 OR system_turn IS NULL)
-        <if test="userId != null and userId != ''">
-            AND employee_id = #{userId}
-        </if>
+        
+        <choose>
+            <when test="userId != null and userId != ''">
+                AND employee_id = #{userId}
+            </when>
+            <when test="userIdLike != null and userIdLike != ''">
+                AND employee_id LIKE CONCAT('%', #{userIdLike}, '%')
+            </when>
+        </choose>
+        
         <if test="startTime != null and startTime != ''">
             AND start_time &gt;= #{startTime}
         </if>

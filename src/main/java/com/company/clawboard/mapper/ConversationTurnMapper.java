@@ -23,12 +23,14 @@ public interface ConversationTurnMapper {
     /**
      * 根据条件查询非系统轮次（支持分页）
      * @param userId 工号（employee_id）精确匹配
+     * @param userIdLike 工号模糊匹配（employee_id LIKE '%xxx%'），userId 优先
      * @param startTime 开始时间，格式 YYYY-MM-DD HH:mm:ss
      * @param endTime 结束时间，格式 YYYY-MM-DD HH:mm:ss
      * @return 对话轮次列表
      */
     List<DashboardConversationTurn> selectTurnsWithFilters(
         @Param("userId") String userId,
+        @Param("userIdLike") String userIdLike,
         @Param("startTime") String startTime,
         @Param("endTime") String endTime
     );

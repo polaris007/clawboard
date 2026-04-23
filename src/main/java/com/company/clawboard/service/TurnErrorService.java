@@ -40,6 +40,7 @@ public class TurnErrorService {
         // 根据条件查询非系统轮次
         List<DashboardConversationTurn> turns = turnMapper.selectTurnsWithFilters(
             request.getUserId(),
+            request.getUserIdLike(),
             startTimeStr,
             endTimeStr
         );

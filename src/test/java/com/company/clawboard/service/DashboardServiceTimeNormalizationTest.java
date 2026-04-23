@@ -28,7 +28,8 @@ class DashboardServiceTimeNormalizationTest {
             null,  // hourlyStatsMapper
             null,  // employeeMapper
             null,  // skillInvocationMapper
-            null   // conversationTurnMapper
+            null,  // conversationTurnMapper
+            null   // vInstanceDetailMapper
         );
         Method method = DashboardService.class.getDeclaredMethod("normalizeStartTime", String.class);
         method.setAccessible(true);
@@ -43,7 +44,8 @@ class DashboardServiceTimeNormalizationTest {
             null,  // hourlyStatsMapper
             null,  // employeeMapper
             null,  // skillInvocationMapper
-            null   // conversationTurnMapper
+            null,  // conversationTurnMapper
+            null   // vInstanceDetailMapper
         );
         Method method = DashboardService.class.getDeclaredMethod("normalizeEndTime", String.class);
         method.setAccessible(true);
