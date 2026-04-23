@@ -37,4 +37,25 @@ ALTER TABLE openclaw_instances ADD INDEX idx_created_at (created_at);
 ALTER TABLE openclaw_instances ADD INDEX idx_deleted_at (deleted_at);
 ALTER TABLE openclaw_instances ADD UNIQUE KEY uk_instance_name_namespace (instance_name, namespace);
 
-
+-- view
+create or replace
+view `v_instance_detail` as
+select
+    `openclaw_instances`.`id` as `id`,
+    `openclaw_instances`.`uid` as `uid`,
+    `openclaw_instances`.`instance_name` as `instance_name`,
+    `openclaw_instances`.`namespace` as `namespace`,
+    `openclaw_instances`.`node_port` as `node_port`,
+    `openclaw_instances`.`access_url` as `access_url`,
+    `openclaw_instances`.`encrypted_token` as `encrypted_token`,
+    `openclaw_instances`.`status` as `status`,
+    `openclaw_instances`.`created_at` as `created_at`,
+    `openclaw_instances`.`updated_at` as `updated_at`,
+    JSON_UNQUOTE(JSON_EXTRACT(`openclaw_instances`.`user_config_json`, '$.userName')) as `user_config_name`,
+    JSON_UNQUOTE(JSON_EXTRACT(`openclaw_instances`.`user_config_json`, '$.orgCode')) as `user_config_org_code`,
+    JSON_UNQUOTE(JSON_EXTRACT(`openclaw_instances`.`user_config_json`, '$.kmBaseUrl')) as `user_config_km_base_url`,
+    JSON_UNQUOTE(JSON_EXTRACT(`openclaw_instances`.`deployment_json`, '$.spec.template.spec.containers[0].image')) as `image`,
+    JSON_UNQUOTE(JSON_EXTRACT(`openclaw_instances`.`deployment_json`, '$.spec.template.spec.containers[0].securityContext.runAsUser')) as `usernum`,
+    IFNULL(JSON_UNQUOTE(JSON_EXTRACT(`openclaw_instances`.`deployment_json`, replace(JSON_UNQUOTE(JSON_SEARCH(`openclaw_instances`.`deployment_json`, 'one', 'openclaw', null, '$.spec.template.spec.volumes[*].name')), '.name', '.hostPath.path'))), null) as `openclaw_hostpath_path`
+from
+    `openclaw_instances`;
