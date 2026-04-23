@@ -45,7 +45,7 @@ public class ReportGenerator {
 
             // Generate Markdown content
             String timeRangeLabel = "Scan ID: " + scanId;
-            String markdown = buildReportContent(issues, timeRangeLabel);
+            String markdown = buildReportContent(issues, timeRangeLabel, null);
 
             // Get reports directory from configuration
             String reportsDir = properties.getReports().getOutputDir();
@@ -77,7 +77,8 @@ public class ReportGenerator {
             if (turns == null || turns.isEmpty()) {
                 log.warn("No conversation turns found in time range [{}, {}]", startTime, endTime);
                 return buildReportContent(new ArrayList<>(), 
-                    startTime.format(DATETIME_FORMATTER) + " - " + endTime.format(DATETIME_FORMATTER));
+                    startTime.format(DATETIME_FORMATTER) + " - " + endTime.format(DATETIME_FORMATTER),
+                    0);  // total turns = 0
             }
 
             // Collect all issues from these turns
@@ -88,7 +89,8 @@ public class ReportGenerator {
             var issues = issueMapper.selectByTurnIds(turnIds);
             
             String timeRangeLabel = startTime.format(DATETIME_FORMATTER) + " - " + endTime.format(DATETIME_FORMATTER);
-            return buildReportContent(issues, timeRangeLabel);
+            int totalTurns = turns.size();  // Total conversation turns in this time range
+            return buildReportContent(issues, timeRangeLabel, totalTurns);
         } catch (Exception e) {
             log.error("Failed to generate report for time range [{}, {}]", startTime, endTime, e);
             throw new RuntimeException("Failed to generate report", e);
@@ -99,9 +101,10 @@ public class ReportGenerator {
      * 构建报告内容（可复用）
      * @param issues 问题列表
      * @param timeRangeLabel 时间范围标签（如 "Scan ID: 123" 或 "2026-04-20T00:00:00.000Z - 2026-04-23T23:59:59.000Z"）
+     * @param totalTurns 总对话轮数（用于时间范围报告，scan 报告传 null 表示从数据库查询）
      * @return Markdown 格式的报告内容
      */
-    private String buildReportContent(List<DashboardTranscriptIssue> issues, String timeRangeLabel) {
+    private String buildReportContent(List<DashboardTranscriptIssue> issues, String timeRangeLabel, Integer totalTurns) {
         StringBuilder sb = new StringBuilder();
         
         // Header
@@ -128,12 +131,18 @@ public class ReportGenerator {
             ));
         
         // Get total conversation turns and problematic turns from database
-        // For time range reports, we calculate from the issues list itself
-        int totalConversationTurns = issues.isEmpty() ? 0 : 
-            (int) issues.stream()
-                .map(DashboardTranscriptIssue::getSessionId)
-                .distinct()
-                .count();
+        int totalConversationTurns;
+        if (totalTurns != null) {
+            // For time range reports, use the provided total turns count
+            totalConversationTurns = totalTurns;
+        } else {
+            // For scan-based reports, calculate from issues list (count unique sessions)
+            totalConversationTurns = issues.isEmpty() ? 0 : 
+                (int) issues.stream()
+                    .map(DashboardTranscriptIssue::getSessionId)
+                    .distinct()
+                    .count();
+        }
         // Calculate problematic turns by counting unique lineNumber values (exactly like Python does)
         // Note: Python includes all issues, even those without line numbers
         // We need to handle null line numbers by using a combination of sessionId and errorType as fallback
