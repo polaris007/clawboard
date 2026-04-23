@@ -13,13 +13,12 @@
 - **实现时间范围统计逻辑**：基于 `dashboard_conversation_turn.start_time` 字段过滤对话轮次
 - **复用现有报告生成器**：调用 `ReportGenerator` 生成相同格式的 Markdown 报告
 - **报告存储**：生成的报告保存到 `reports/{yyyy-MM-dd}/` 目录，与扫描报告统一管理
-- **异步处理**：报告生成可能耗时较长，采用异步任务 + 轮询状态的方式
+- **异步处理**：报告生成可能耗时较长，采用极简异步（Fire-and-Forget）方式，后台执行完成后直接保存文件
 
 ## Capabilities
 
 ### New Capabilities
 - `time-range-report-generation`: 按时间范围生成对话统计报告的能力，包括 API 接口、统计逻辑、报告生成和存储
-- `async-report-task-management`: 异步报告任务管理能力，跟踪报告生成状态、进度和结果
 
 ### Modified Capabilities
 <!-- 无现有能力的需求变更 -->
@@ -35,13 +34,12 @@
 
 **API 影响**：
 - 新增 POST `/api/v1/reports/generate-by-time-range` 接口
-- 新增 GET `/api/v1/reports/tasks/{taskId}/status` 查询任务状态
 - 请求参数：`{ startTime: "yyyy-MM-dd HH:mm:ss", endTime: "yyyy-MM-dd HH:mm:ss" }`
-- 响应格式：`{ taskId, status, reportPath }`
+- 响应格式：立即返回确认消息，报告文件保存到 `reports/` 目录
 
 **性能影响**：
 - 时间范围查询依赖 `idx_employee_time` 和 `idx_time` 索引，预计 O(log n) 复杂度
-- 大数据量时报告生成可能需要 5-30 秒，采用异步处理避免阻塞
+- 大数据量时报告生成可能需要 10-30 秒，采用极简异步（@Async）避免阻塞 HTTP 线程
 - 报告文件存储在本地磁盘，需注意磁盘空间管理
 
 **数据兼容性**：

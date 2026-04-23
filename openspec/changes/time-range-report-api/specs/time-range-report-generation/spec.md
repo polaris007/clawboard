@@ -5,20 +5,12 @@ The system SHALL provide a REST endpoint that accepts `startTime` and `endTime` 
 
 #### Scenario: Valid time range request
 - **WHEN** client sends POST request to `/api/v1/reports/generate-by-time-range` with valid time range
-- **THEN** system returns HTTP 202 with `taskId` and `status: "PENDING"`
-- **AND** the async report generation task is queued
+- **THEN** system returns HTTP 200 immediately with confirmation message
+- **AND** the async report generation task starts in background
 
-#### Scenario: Invalid time format rejected
+#### Scenario: Time range format validation
 - **WHEN** client sends request with invalid date format (e.g., "2026/04/20")
 - **THEN** system returns HTTP 400 with error message "Invalid date format. Expected: yyyy-MM-dd HH:mm:ss"
-
-#### Scenario: End time before start time rejected
-- **WHEN** client sends request where `endTime < startTime`
-- **THEN** system returns HTTP 400 with error message "End time must be after start time"
-
-#### Scenario: Time range exceeds maximum limit
-- **WHEN** client requests time range greater than 90 days
-- **THEN** system returns HTTP 400 with error message "Time range cannot exceed 90 days"
 
 ### Requirement: System shall query conversation turns by time range
 The system SHALL query `dashboard_conversation_turn` table filtering by `start_time` within the specified range, utilizing existing database indexes for performance.
