@@ -9,6 +9,7 @@ import com.company.clawboard.dto.UserSummaryItem;
 import com.company.clawboard.mapper.EmployeeMapper;
 import com.company.clawboard.mapper.HourlyStatsMapper;
 import com.company.clawboard.mapper.SkillInvocationMapper;
+import com.company.clawboard.mapper.ConversationTurnMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,11 +40,14 @@ class DashboardServiceTest {
     @Mock
     private SkillInvocationMapper skillInvocationMapper;
 
+    @Mock
+    private ConversationTurnMapper conversationTurnMapper;
+
     private DashboardService dashboardService;
 
     @BeforeEach
     void setUp() {
-        dashboardService = new DashboardService(hourlyStatsMapper, employeeMapper, skillInvocationMapper);
+        dashboardService = new DashboardService(hourlyStatsMapper, employeeMapper, skillInvocationMapper, conversationTurnMapper);
     }
 
     @Test

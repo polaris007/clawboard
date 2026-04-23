@@ -93,8 +93,24 @@ public class DatabaseService {
         int executedCount = 0;
         for (String sql : sqlStatements) {
             try {
-                log.info("执行SQL: {}", sql.length() > 100 ? sql.substring(0, 100) + "..." : sql);
-                jdbcTemplate.execute(sql);
+                String trimmedSql = sql.trim();
+                log.info("执行SQL: {}", trimmedSql.length() > 100 ? trimmedSql.substring(0, 100) + "..." : trimmedSql);
+                
+                // 判断是否为SELECT查询
+                if (trimmedSql.toUpperCase().startsWith("SELECT")) {
+                    // 执行查询并打印结果
+                    List<Map<String, Object>> results = jdbcTemplate.queryForList(trimmedSql);
+                    log.info("查询返回 {} 条记录", results.size());
+                    
+                    // 打印查询结果到控制台
+                    if (!results.isEmpty()) {
+                        printQueryResults(results);
+                    }
+                } else {
+                    // 执行非查询SQL（INSERT, UPDATE, DELETE, DDL等）
+                    jdbcTemplate.execute(trimmedSql);
+                }
+                
                 executedCount++;
             } catch (Exception e) {
                 log.error("执行SQL失败: {}", sql, e);
@@ -122,5 +138,81 @@ public class DatabaseService {
         }
         
         return result;
+    }
+
+    /**
+     * 打印查询结果到控制台
+     * @param results 查询结果列表
+     */
+    private void printQueryResults(List<Map<String, Object>> results) {
+        if (results == null || results.isEmpty()) {
+            log.info("查询结果为空");
+            return;
+        }
+
+        // 获取列名
+        List<String> columnNames = new ArrayList<>(results.get(0).keySet());
+
+        // 计算每列的最大宽度
+        int[] columnWidths = new int[columnNames.size()];
+        for (int i = 0; i < columnNames.size(); i++) {
+            columnWidths[i] = columnNames.get(i).length();
+        }
+
+        // 遍历所有行，计算最大宽度
+        for (Map<String, Object> row : results) {
+            for (int i = 0; i < columnNames.size(); i++) {
+                String columnName = columnNames.get(i);
+                Object value = row.get(columnName);
+                String valueStr = value != null ? value.toString() : "NULL";
+                columnWidths[i] = Math.max(columnWidths[i], valueStr.length());
+            }
+        }
+
+        // 限制最大列宽，避免过宽
+        final int MAX_COLUMN_WIDTH = 50;
+        for (int i = 0; i < columnWidths.length; i++) {
+            columnWidths[i] = Math.min(columnWidths[i], MAX_COLUMN_WIDTH);
+        }
+
+        // 构建分隔线
+        StringBuilder separator = new StringBuilder("+");
+        for (int width : columnWidths) {
+            separator.append("-".repeat(width + 2)).append("+");
+        }
+
+        // 打印表头
+        log.info("\n{}", separator);
+        StringBuilder header = new StringBuilder("|");
+        for (int i = 0; i < columnNames.size(); i++) {
+            String colName = columnNames.get(i);
+            header.append(String.format(" %" + columnWidths[i] + "s |", colName));
+        }
+        log.info("{}", header);
+        log.info("{}", separator);
+
+        // 打印数据行（最多显示100行）
+        int maxRows = Math.min(results.size(), 100);
+        for (int rowNum = 0; rowNum < maxRows; rowNum++) {
+            Map<String, Object> row = results.get(rowNum);
+            StringBuilder rowStr = new StringBuilder("|");
+            for (int i = 0; i < columnNames.size(); i++) {
+                String columnName = columnNames.get(i);
+                Object value = row.get(columnName);
+                String valueStr = value != null ? value.toString() : "NULL";
+                if (valueStr.length() > MAX_COLUMN_WIDTH) {
+                    valueStr = valueStr.substring(0, MAX_COLUMN_WIDTH - 3) + "...";
+                }
+                rowStr.append(String.format(" %" + columnWidths[i] + "s |", valueStr));
+            }
+            log.info("{}", rowStr);
+        }
+        log.info("{}", separator);
+
+        if (results.size() > 100) {
+            log.info("... 还有 {} 条记录未显示", results.size() - 100);
+        }
+
+        log.info("共 {} 条记录", results.size());
     }
 }
