@@ -1,8 +1,10 @@
 package com.company.clawboard.service;
 
 import com.company.clawboard.config.ClawboardProperties;
+import com.company.clawboard.entity.DashboardConversationTurn;
 import com.company.clawboard.entity.DashboardEmployee;
 import com.company.clawboard.entity.DashboardTranscriptIssue;
+import com.company.clawboard.mapper.ConversationTurnMapper;
 import com.company.clawboard.mapper.EmployeeMapper;
 import com.company.clawboard.mapper.SessionSummaryMapper;
 import com.company.clawboard.mapper.TranscriptIssueMapper;
@@ -18,6 +20,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -27,6 +30,7 @@ public class ReportGenerator {
     private final TranscriptIssueMapper issueMapper;
     private final SessionSummaryMapper sessionSummaryMapper;
     private final EmployeeMapper employeeMapper;
+    private final ConversationTurnMapper conversationTurnMapper;
     private final ClawboardProperties properties;
     
     // 北京时区
@@ -40,7 +44,8 @@ public class ReportGenerator {
             var issues = issueMapper.selectByScanId(scanId);
 
             // Generate Markdown content
-            String markdown = buildMarkdownReport(issues, scanStartTime, scanId);
+            String timeRangeLabel = "Scan ID: " + scanId;
+            String markdown = buildReportContent(issues, timeRangeLabel);
 
             // Get reports directory from configuration
             String reportsDir = properties.getReports().getOutputDir();
@@ -59,11 +64,51 @@ public class ReportGenerator {
         }
     }
 
-    private String buildMarkdownReport(List<DashboardTranscriptIssue> issues, LocalDateTime scanStartTime, Long scanId) {
+    /**
+     * 根据时间范围生成报告内容
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return Markdown 格式的报告内容
+     */
+    public String generateReportByTimeRange(LocalDateTime startTime, LocalDateTime endTime) {
+        try {
+            var turns = conversationTurnMapper.selectTurnsByTimeRange(startTime, endTime);
+            
+            if (turns == null || turns.isEmpty()) {
+                log.warn("No conversation turns found in time range [{}, {}]", startTime, endTime);
+                return buildReportContent(new ArrayList<>(), 
+                    startTime.format(DATETIME_FORMATTER) + " - " + endTime.format(DATETIME_FORMATTER));
+            }
+
+            // Collect all issues from these turns
+            List<Long> turnIds = turns.stream()
+                .map(DashboardConversationTurn::getId)
+                .collect(Collectors.toList());
+            
+            var issues = issueMapper.selectByTurnIds(turnIds);
+            
+            String timeRangeLabel = startTime.format(DATETIME_FORMATTER) + " - " + endTime.format(DATETIME_FORMATTER);
+            return buildReportContent(issues, timeRangeLabel);
+        } catch (Exception e) {
+            log.error("Failed to generate report for time range [{}, {}]", startTime, endTime, e);
+            throw new RuntimeException("Failed to generate report", e);
+        }
+    }
+
+    /**
+     * 构建报告内容（可复用）
+     * @param issues 问题列表
+     * @param timeRangeLabel 时间范围标签（如 "Scan ID: 123" 或 "2026-04-20T00:00:00.000Z - 2026-04-23T23:59:59.000Z"）
+     * @return Markdown 格式的报告内容
+     */
+    private String buildReportContent(List<DashboardTranscriptIssue> issues, String timeRangeLabel) {
         StringBuilder sb = new StringBuilder();
         
         // Header
         sb.append("# OpenClaw Session Transcript 综合错误检测报告\n\n");
+        if (timeRangeLabel != null && !timeRangeLabel.isEmpty()) {
+            sb.append("**时间范围**: ").append(timeRangeLabel).append("\n\n");
+        }
         String nowStr = DATETIME_FORMATTER.format(LocalDateTime.now(BEIJING_ZONE));
         sb.append("**生成时间**: " + nowStr + "\n\n");
 
@@ -83,7 +128,12 @@ public class ReportGenerator {
             ));
         
         // Get total conversation turns and problematic turns from database
-        int totalConversationTurns = sessionSummaryMapper.selectTotalTurnsByScanId(scanId);
+        // For time range reports, we calculate from the issues list itself
+        int totalConversationTurns = issues.isEmpty() ? 0 : 
+            (int) issues.stream()
+                .map(DashboardTranscriptIssue::getSessionId)
+                .distinct()
+                .count();
         // Calculate problematic turns by counting unique lineNumber values (exactly like Python does)
         // Note: Python includes all issues, even those without line numbers
         // We need to handle null line numbers by using a combination of sessionId and errorType as fallback
