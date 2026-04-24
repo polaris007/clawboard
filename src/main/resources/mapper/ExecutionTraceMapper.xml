@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.clawboard.mapper.ExecutionTraceMapper">
+
+    <!-- 批量插入（忽略重复） -->
+    <insert id="batchInsertIgnore">
+        INSERT IGNORE INTO dashboard_execution_trace 
+        (scan_id, turn_id, node_index, node_type, tool_name, tool_call_id, 
+         content, timestamp_ms, duration_ms, success, error_message)
+        VALUES
+        <foreach collection="nodes" item="node" separator=",">
+            (#{node.scanId}, #{node.turnId}, #{node.nodeIndex}, #{node.nodeType},
+             #{node.toolName}, #{node.toolCallId}, #{node.content},
+             #{node.timestampMs}, #{node.durationMs}, #{node.success}, #{node.errorMessage})
+        </foreach>
+    </insert>
+
+    <!-- 根据 turnId 查询 -->
+    <select id="selectByTurnId" resultType="com.company.clawboard.entity.DashboardExecutionTrace">
+        SELECT * FROM dashboard_execution_trace
+        WHERE turn_id = #{turnId}
+        ORDER BY node_index ASC
+    </select>
+
+    <!-- 根据 scanId 删除 -->
+    <delete id="deleteByScanId">
+        DELETE FROM dashboard_execution_trace
+        WHERE scan_id = #{scanId}
+    </delete>
+
+</mapper>
