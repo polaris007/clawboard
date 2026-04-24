@@ -33,6 +33,7 @@ $tables = @(
     "dashboard_conversation_turn",
     "dashboard_message",
     "dashboard_session_summary",
+    "dashboard_execution_trace",
     "dashboard_scan_progress",
     "dashboard_scan_history",
     "dashboard_hourly_stats",
