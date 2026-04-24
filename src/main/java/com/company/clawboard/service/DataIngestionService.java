@@ -38,6 +38,8 @@ public class DataIngestionService {
     private final TranscriptIssueMapper issueMapper;
     private final SessionSummaryMapper sessionSummaryMapper;
     private final SystemMessageFilter systemMessageFilter;
+    private final ExecutionTraceMapper executionTraceMapper;  // NEW
+    private final TranscriptParser transcriptParser;  // NEW
 
     /**
      * Ingest parsed transcript data into database
@@ -70,6 +72,27 @@ public class DataIngestionService {
             
             // After insertion, load the generated IDs by querying back
             loadTurnIds(sessionId, turns);
+        }
+
+        // Phase 1.5: 解析并插入执行链路（新增）
+        for (int i = 0; i < turns.size(); i++) {
+            DashboardConversationTurn turn = turns.get(i);
+            
+            // 获取该轮次对应的消息列表
+            List<MessageRecord> turnMessages = getMessagesForTurn(parsed.messages(), parsed.messageIdToTurnIndex(), i);
+            
+            if (!turnMessages.isEmpty()) {
+                List<DashboardExecutionTrace> traces = transcriptParser.parseExecutionTrace(
+                    turnMessages, 
+                    turn.getId(), 
+                    scanId
+                );
+                
+                if (!traces.isEmpty()) {
+                    executionTraceMapper.batchInsertIgnore(traces);
+                    log.debug("Inserted {} trace nodes for turn {}", traces.size(), turn.getId());
+                }
+            }
         }
 
         // Phase 2: Convert and insert messages with turn_id
@@ -460,5 +483,23 @@ public class DataIngestionService {
         }
         
         return false;
+    }
+
+    /**
+     * 获取指定轮次的消息列表
+     */
+    private List<MessageRecord> getMessagesForTurn(
+        List<MessageRecord> allMessages,
+        Map<String, Integer> messageIdToTurnIndex,
+        int turnIndex
+    ) {
+        List<MessageRecord> turnMessages = new ArrayList<>();
+        for (MessageRecord msg : allMessages) {
+            Integer index = messageIdToTurnIndex.get(msg.id());
+            if (index != null && index == turnIndex) {
+                turnMessages.add(msg);
+            }
+        }
+        return turnMessages;
     }
 }
