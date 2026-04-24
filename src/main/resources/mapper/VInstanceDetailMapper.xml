@@ -39,4 +39,18 @@
         WHERE status != 'deleted'
     </select>
 
+    <!-- 统计 OpenClaw 实例总数量（排除 deleted） -->
+    <select id="countInstanceTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM v_instance_detail
+        WHERE status != 'deleted'
+    </select>
+
+    <!-- 统计 OpenClaw 异常实例数量（排除 deleted 和 running） -->
+    <select id="countInstanceAbnormal" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM v_instance_detail
+        WHERE status NOT IN ('deleted', 'running')
+    </select>
+
 </mapper>

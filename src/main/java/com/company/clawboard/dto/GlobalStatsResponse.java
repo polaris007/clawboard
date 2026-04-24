@@ -8,5 +8,7 @@ public class GlobalStatsResponse {
     private Integer totalTurns;
     private Integer totalSkillCalls;
     private Integer totalUsers;
-    private Integer registeredUsers;  // 新增字段：注册用户总数
+    private Integer registeredUsers;  // 注册用户总数
+    private Integer instanceTotalCount;  // OpenClaw实例总数量（排除deleted）
+    private Integer instanceAbnormalCount;  // OpenClaw异常实例数量（排除deleted和running）
 }

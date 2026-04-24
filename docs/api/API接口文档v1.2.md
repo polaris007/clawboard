@@ -114,7 +114,9 @@
     "totalTurns": 52000,
     "totalSkillCalls": 25000,
     "totalUsers": 872,
-    "registeredUsers": 900
+    "registeredUsers": 900,
+    "instanceTotalCount": 900,
+    "instanceAbnormalCount": 35
   }
 }
 ```
@@ -126,6 +128,8 @@
 | `totalSkillCalls` | Integer | 累计技能调用次数 |
 | `totalUsers` | Integer | 累计用户总数 |
 | `registeredUsers` | Integer | 注册用户数 |
+| `instanceTotalCount` | Integer | OpenClaw 实例总数量（排除 status = 'deleted'） |
+| `instanceAbnormalCount` | Integer | OpenClaw 异常实例数量（排除 status = 'deleted' 和 'running'） |
 
 ---
 

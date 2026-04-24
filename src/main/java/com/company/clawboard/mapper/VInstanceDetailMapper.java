@@ -34,4 +34,16 @@ public interface VInstanceDetailMapper {
      * @return 注册用户数
      */
     Integer countRegisteredUsers();
+    
+    /**
+     * 统计 OpenClaw 实例总数量（排除 status = 'deleted'）
+     * @return 实例总数量
+     */
+    Integer countInstanceTotal();
+    
+    /**
+     * 统计 OpenClaw 异常实例数量（排除 status = 'deleted' 和 'running'）
+     * @return 异常实例数量
+     */
+    Integer countInstanceAbnormal();
 }

@@ -100,6 +100,14 @@ public class DashboardService {
         Integer registeredUsers = vInstanceDetailMapper.countRegisteredUsers();
         response.setRegisteredUsers(registeredUsers != null ? registeredUsers : 0);
         
+        // 新增：统计 OpenClaw 实例总数量（排除 deleted）
+        Integer instanceTotalCount = vInstanceDetailMapper.countInstanceTotal();
+        response.setInstanceTotalCount(instanceTotalCount != null ? instanceTotalCount : 0);
+        
+        // 新增：统计 OpenClaw 异常实例数量（排除 deleted 和 running）
+        Integer instanceAbnormalCount = vInstanceDetailMapper.countInstanceAbnormal();
+        response.setInstanceAbnormalCount(instanceAbnormalCount != null ? instanceAbnormalCount : 0);
+        
         return response;
     }
 
