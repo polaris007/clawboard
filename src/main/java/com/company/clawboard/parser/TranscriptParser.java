@@ -368,4 +368,139 @@ public class TranscriptParser {
         
         return mapping;
     }
+
+    /**
+     * 解析单个轮次的执行链路
+     * @param messages 该轮次的消息列表
+     * @param turnId 轮次ID
+     * @param scanId 扫描ID
+     * @return 执行链路节点列表
+     */
+    public List<com.company.clawboard.entity.DashboardExecutionTrace> parseExecutionTrace(
+        List<MessageRecord> messages, 
+        Long turnId,
+        Long scanId
+    ) {
+        List<com.company.clawboard.entity.DashboardExecutionTrace> nodes = new ArrayList<>();
+        int nodeIndex = 0;
+        
+        for (MessageRecord msg : messages) {
+            com.company.clawboard.entity.DashboardExecutionTrace node = null;
+            
+            switch (msg.role()) {
+                case "user":
+                    // 用户输入节点
+                    String userInput = extractTextContent(msg);
+                    node = com.company.clawboard.entity.DashboardExecutionTrace.builder()
+                        .scanId(scanId)
+                        .turnId(turnId)
+                        .nodeIndex(nodeIndex++)
+                        .nodeType("user_input")
+                        .content(userInput)
+                        .timestampMs(msg.epochMs())
+                        .build();
+                    break;
+                    
+                case "assistant":
+                    if (isToolCall(msg)) {
+                        // 工具调用节点
+                        node = com.company.clawboard.entity.DashboardExecutionTrace.builder()
+                            .scanId(scanId)
+                            .turnId(turnId)
+                            .nodeIndex(nodeIndex++)
+                            .nodeType("tool_call")
+                            .toolName(msg.toolName())
+                            .toolCallId(msg.toolCallId())
+                            .timestampMs(msg.epochMs())
+                            .build();
+                    } else if (isTextReply(msg)) {
+                        // AI 回复节点
+                        String replyContent = extractTextContent(msg);
+                        node = com.company.clawboard.entity.DashboardExecutionTrace.builder()
+                            .scanId(scanId)
+                            .turnId(turnId)
+                            .nodeIndex(nodeIndex++)
+                            .nodeType("reply")
+                            .content(replyContent)
+                            .timestampMs(msg.epochMs())
+                            .build();
+                    }
+                    break;
+                    
+                case "toolResult":
+                    // 工具结果节点
+                    String resultContent = extractTextContent(msg);
+                    boolean success = !msg.isError();
+                    node = com.company.clawboard.entity.DashboardExecutionTrace.builder()
+                        .scanId(scanId)
+                        .turnId(turnId)
+                        .nodeIndex(nodeIndex++)
+                        .nodeType("tool_result")
+                        .toolName(msg.toolName())
+                        .toolCallId(msg.toolCallId())
+                        .content(resultContent)
+                        .timestampMs(msg.epochMs())
+                        .success(success)
+                        .errorMessage(success ? null : msg.errorMessage())
+                        .build();
+                    break;
+            }
+            
+            if (node != null) {
+                nodes.add(node);
+            }
+        }
+        
+        // 计算耗时（相邻节点时间差）
+        calculateDurations(nodes);
+        
+        return nodes;
+    }
+
+    /**
+     * 判断是否为工具调用消息
+     */
+    private boolean isToolCall(MessageRecord msg) {
+        return "assistant".equals(msg.role()) && msg.toolName() != null;
+    }
+
+    /**
+     * 判断是否为文本回复消息
+     */
+    private boolean isTextReply(MessageRecord msg) {
+        return "assistant".equals(msg.role()) && msg.toolName() == null && hasTextContent(msg);
+    }
+
+    /**
+     * 提取文本内容
+     */
+    private String extractTextContent(MessageRecord msg) {
+        // 从 MessageRecord 中提取 textContent
+        if (msg.textContent() == null) {
+            return "";
+        }
+        return msg.textContent();
+    }
+
+    /**
+     * 判断是否有文本内容
+     */
+    private boolean hasTextContent(MessageRecord msg) {
+        String content = extractTextContent(msg);
+        return content != null && !content.trim().isEmpty();
+    }
+
+    /**
+     * 计算节点耗时
+     */
+    private void calculateDurations(List<com.company.clawboard.entity.DashboardExecutionTrace> nodes) {
+        for (int i = 0; i < nodes.size() - 1; i++) {
+            com.company.clawboard.entity.DashboardExecutionTrace current = nodes.get(i);
+            com.company.clawboard.entity.DashboardExecutionTrace next = nodes.get(i + 1);
+            
+            long duration = next.getTimestampMs() - current.getTimestampMs();
+            current.setDurationMs((int) duration);
+        }
+        // 最后一个节点的 duration 为 null
+    }
 }
