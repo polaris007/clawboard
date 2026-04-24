@@ -13,6 +13,13 @@ spring:
     password: ${DB_PASS:}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+logging:
+  charset:
+    console: UTF-8
+    file: UTF-8
+  pattern:
+    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %5p %t --- [%15.15t] %-40.40logger{39} : %m%n"
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
