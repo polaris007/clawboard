@@ -113,7 +113,8 @@
     "totalTokens": 1250000,
     "totalTurns": 52000,
     "totalSkillCalls": 25000,
-    "totalUsers": 872
+    "totalUsers": 872,
+    "registeredUsers": 900
   }
 }
 ```
@@ -124,6 +125,7 @@
 | `totalTurns` | Integer | 累计对话轮次 |
 | `totalSkillCalls` | Integer | 累计技能调用次数 |
 | `totalUsers` | Integer | 累计用户总数 |
+| `registeredUsers` | Integer | 注册用户数 |
 
 ---
 

@@ -2,20 +2,20 @@
 
 **时间范围**: Scan ID: 1
 
-**生成时间**: 2026-04-24T08:16:34.572Z
+**生成时间**: 2026-04-24T10:25:36.001Z
 
 ## 📊 统计概览
 
-- **总错误数**: 464
-- **总对话轮数**: 581 （排除系统消息）
-- **有错误轮数**: 96 （存在任何类型错误的轮次）
-- **错误率**: 16.52% （有错误轮数 / 总对话轮数）
+- **总错误数**: 473
+- **总对话轮数**: 672 （排除系统消息）
+- **有错误轮数**: 105 （存在任何类型错误的轮次）
+- **错误率**: 15.63% （有错误轮数 / 总对话轮数）
 
 ### 错误类型分布
 
 | 错误类型 | 数量 | 说明 |
 |---------|------|------|
-| abnormal_stop | 393 | 异常停止 |
+| abnormal_stop | 402 | 异常停止 |
 | timeoutErrors | 30 | 超时错误 |
 | rateLimitErrors | 24 | 速率限制错误 |
 | modelErrors | 14 | 模型API错误 |
@@ -23,7 +23,7 @@
 
 ---
 
-## abnormal_stop - 异常停止 (393)
+## abnormal_stop - 异常停止 (402)
 
 ### 错误 #1
 
@@ -3215,6 +3215,34 @@ Connection error.
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
+- **工号**: 18100732
+- **姓名**: 牛伟峰
+- **部门**: 18100000
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "cli",
+  "id": "cli"
+}
+\`\`\`
+
+[Mon 2026-04-13 15:42 GMT+8] 使用imap-smtp-email技能，帮我查询邮箱中最新的10封邮件，帮我列出查询结果`
+- **错误信息**: 
+````
+400 'max_tokens' or 'max_completion_tokens' is too large: 16384. This model's maximum context length is 65536 tokens and your request has 54128 input tokens (16384 > 65536 - 54128). (parameter=max_tokens, value=16384)
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\068ac7a06a47c7fdc26656446b63d7e17dc09d94203abb2c92d6bcf41c33f56705d20342347e3b18cfae39e7a2940bae5fb6ca5293e374cbceee772548768613\agents\main\sessions\44b23a7e-471e-4d06-b7d3-9c354e67b2f9.jsonl.reset.2026-04-13T07-43-22.366Z`
+- **Session ID**: `44b23a7e-471e-4d06-b7d3-9c354e67b2f9`
+- **行号**: 104
+- **时间戳**: 2026-04-13T15:42:15.399
+
+---
+
+### 错误 #141
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
 - **工号**: 0000000001
 - **用户输入**: `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.
 When reading HEARTBEAT.md, us...`
@@ -3230,7 +3258,63 @@ Connection error.
 
 ---
 
-### 错误 #141
+### 错误 #142
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **工号**: 18100732
+- **姓名**: 牛伟峰
+- **部门**: 18100000
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "cli",
+  "id": "cli"
+}
+\`\`\`
+
+[Mon 2026-04-13 15:42 GMT+8] 使用imap-smtp-email技能，帮我查询邮箱中最新的10封邮件，帮我列出查询结果`
+- **错误信息**: 
+````
+400 'max_tokens' or 'max_completion_tokens' is too large: 16384. This model's maximum context length is 65536 tokens and your request has 54307 input tokens (16384 > 65536 - 54307). (parameter=max_tokens, value=16384)
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\068ac7a06a47c7fdc26656446b63d7e17dc09d94203abb2c92d6bcf41c33f56705d20342347e3b18cfae39e7a2940bae5fb6ca5293e374cbceee772548768613\agents\main\sessions\44b23a7e-471e-4d06-b7d3-9c354e67b2f9.jsonl.reset.2026-04-13T07-43-22.366Z`
+- **Session ID**: `44b23a7e-471e-4d06-b7d3-9c354e67b2f9`
+- **行号**: 107
+- **时间戳**: 2026-04-13T15:42:35.657
+
+---
+
+### 错误 #143
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **工号**: 18100732
+- **姓名**: 牛伟峰
+- **部门**: 18100000
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "cli",
+  "id": "cli"
+}
+\`\`\`
+
+[Mon 2026-04-13 15:46 GMT+8] 使用imap-smtp-email技能，帮我查询邮箱中最近的10封邮件`
+- **错误信息**: 
+````
+400 'max_tokens' or 'max_completion_tokens' is too large: 16384. This model's maximum context length is 65536 tokens and your request has 54129 input tokens (16384 > 65536 - 54129). (parameter=max_tokens, value=16384)
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\068ac7a06a47c7fdc26656446b63d7e17dc09d94203abb2c92d6bcf41c33f56705d20342347e3b18cfae39e7a2940bae5fb6ca5293e374cbceee772548768613\agents\main\sessions\7b971aed-e825-456c-a609-bdb2463e6ccc.jsonl.reset.2026-04-13T07-46-28.872Z`
+- **Session ID**: `7b971aed-e825-456c-a609-bdb2463e6ccc`
+- **行号**: 32
+- **时间戳**: 2026-04-13T15:46:19.487
+
+---
+
+### 错误 #144
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3253,7 +3337,7 @@ Connection error.
 
 ---
 
-### 错误 #142
+### 错误 #145
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3276,7 +3360,7 @@ Connection error.
 
 ---
 
-### 错误 #143
+### 错误 #146
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3299,7 +3383,7 @@ Connection error.
 
 ---
 
-### 错误 #144
+### 错误 #147
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3322,7 +3406,35 @@ Connection error.
 
 ---
 
-### 错误 #145
+### 错误 #148
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **工号**: 18100732
+- **姓名**: 牛伟峰
+- **部门**: 18100000
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "cli",
+  "id": "cli"
+}
+\`\`\`
+
+[Mon 2026-04-13 15:49 GMT+8] 使用imap-smtp-email技能，帮我查询收件箱中最近的10封邮件，列出查询到的邮件`
+- **错误信息**: 
+````
+400 'max_tokens' or 'max_completion_tokens' is too large: 16384. This model's maximum context length is 65536 tokens and your request has 57458 input tokens (16384 > 65536 - 57458). (parameter=max_tokens, value=16384)
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\068ac7a06a47c7fdc26656446b63d7e17dc09d94203abb2c92d6bcf41c33f56705d20342347e3b18cfae39e7a2940bae5fb6ca5293e374cbceee772548768613\agents\main\sessions\46ab4208-374c-4215-853c-5c7987c2e791.jsonl.reset.2026-04-13T07-49-48.941Z`
+- **Session ID**: `46ab4208-374c-4215-853c-5c7987c2e791`
+- **行号**: 26
+- **时间戳**: 2026-04-13T15:49:35.801
+
+---
+
+### 错误 #149
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3341,7 +3453,7 @@ Connection error.
 
 ---
 
-### 错误 #146
+### 错误 #150
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3360,7 +3472,7 @@ Connection error.
 
 ---
 
-### 错误 #147
+### 错误 #151
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3379,7 +3491,7 @@ Connection error.
 
 ---
 
-### 错误 #148
+### 错误 #152
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3398,7 +3510,7 @@ Connection error.
 
 ---
 
-### 错误 #149
+### 错误 #153
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
@@ -3428,7 +3540,7 @@ Request was aborted
 
 ---
 
-### 错误 #150
+### 错误 #154
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
@@ -3456,7 +3568,7 @@ Request was aborted
 
 ---
 
-### 错误 #151
+### 错误 #155
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3475,7 +3587,7 @@ Connection error.
 
 ---
 
-### 错误 #152
+### 错误 #156
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3494,7 +3606,7 @@ Connection error.
 
 ---
 
-### 错误 #153
+### 错误 #157
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3513,7 +3625,7 @@ Connection error.
 
 ---
 
-### 错误 #154
+### 错误 #158
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3532,7 +3644,7 @@ Connection error.
 
 ---
 
-### 错误 #155
+### 错误 #159
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3555,7 +3667,7 @@ Connection error.
 
 ---
 
-### 错误 #156
+### 错误 #160
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3578,7 +3690,7 @@ Connection error.
 
 ---
 
-### 错误 #157
+### 错误 #161
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3601,7 +3713,7 @@ Connection error.
 
 ---
 
-### 错误 #158
+### 错误 #162
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3624,7 +3736,7 @@ Connection error.
 
 ---
 
-### 错误 #159
+### 错误 #163
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3643,7 +3755,7 @@ Connection error.
 
 ---
 
-### 错误 #160
+### 错误 #164
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3662,7 +3774,7 @@ Connection error.
 
 ---
 
-### 错误 #161
+### 错误 #165
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3681,7 +3793,7 @@ Connection error.
 
 ---
 
-### 错误 #162
+### 错误 #166
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3700,7 +3812,7 @@ Connection error.
 
 ---
 
-### 错误 #163
+### 错误 #167
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3726,7 +3838,7 @@ Connection error.
 
 ---
 
-### 错误 #164
+### 错误 #168
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3752,7 +3864,7 @@ Connection error.
 
 ---
 
-### 错误 #165
+### 错误 #169
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3778,7 +3890,7 @@ Connection error.
 
 ---
 
-### 错误 #166
+### 错误 #170
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3804,7 +3916,7 @@ Connection error.
 
 ---
 
-### 错误 #167
+### 错误 #171
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3830,7 +3942,7 @@ Connection error.
 
 ---
 
-### 错误 #168
+### 错误 #172
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3856,7 +3968,7 @@ Connection error.
 
 ---
 
-### 错误 #169
+### 错误 #173
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3879,7 +3991,7 @@ terminated
 
 ---
 
-### 错误 #170
+### 错误 #174
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3902,7 +4014,7 @@ Connection error.
 
 ---
 
-### 错误 #171
+### 错误 #175
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3925,7 +4037,7 @@ Connection error.
 
 ---
 
-### 错误 #172
+### 错误 #176
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3948,7 +4060,7 @@ Connection error.
 
 ---
 
-### 错误 #173
+### 错误 #177
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3971,7 +4083,7 @@ Connection error.
 
 ---
 
-### 错误 #174
+### 错误 #178
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3994,7 +4106,7 @@ Connection error.
 
 ---
 
-### 错误 #175
+### 错误 #179
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4017,7 +4129,7 @@ Connection error.
 
 ---
 
-### 错误 #176
+### 错误 #180
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4040,7 +4152,7 @@ Connection error.
 
 ---
 
-### 错误 #177
+### 错误 #181
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4059,7 +4171,7 @@ Connection error.
 
 ---
 
-### 错误 #178
+### 错误 #182
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4078,7 +4190,7 @@ Connection error.
 
 ---
 
-### 错误 #179
+### 错误 #183
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4097,7 +4209,7 @@ Connection error.
 
 ---
 
-### 错误 #180
+### 错误 #184
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4116,7 +4228,7 @@ Connection error.
 
 ---
 
-### 错误 #181
+### 错误 #185
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4139,7 +4251,7 @@ Connection error.
 
 ---
 
-### 错误 #182
+### 错误 #186
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4162,7 +4274,7 @@ Connection error.
 
 ---
 
-### 错误 #183
+### 错误 #187
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4185,7 +4297,7 @@ Connection error.
 
 ---
 
-### 错误 #184
+### 错误 #188
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4208,7 +4320,7 @@ Connection error.
 
 ---
 
-### 错误 #185
+### 错误 #189
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4231,7 +4343,7 @@ Connection error.
 
 ---
 
-### 错误 #186
+### 错误 #190
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4254,7 +4366,7 @@ Connection error.
 
 ---
 
-### 错误 #187
+### 错误 #191
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4277,7 +4389,7 @@ Connection error.
 
 ---
 
-### 错误 #188
+### 错误 #192
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4300,7 +4412,7 @@ Connection error.
 
 ---
 
-### 错误 #189
+### 错误 #193
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4323,7 +4435,7 @@ Connection error.
 
 ---
 
-### 错误 #190
+### 错误 #194
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4346,7 +4458,7 @@ Connection error.
 
 ---
 
-### 错误 #191
+### 错误 #195
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4369,7 +4481,7 @@ Connection error.
 
 ---
 
-### 错误 #192
+### 错误 #196
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4392,7 +4504,7 @@ Connection error.
 
 ---
 
-### 错误 #193
+### 错误 #197
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4411,7 +4523,7 @@ Connection error.
 
 ---
 
-### 错误 #194
+### 错误 #198
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4430,7 +4542,7 @@ Connection error.
 
 ---
 
-### 错误 #195
+### 错误 #199
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4449,7 +4561,7 @@ Connection error.
 
 ---
 
-### 错误 #196
+### 错误 #200
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4468,7 +4580,7 @@ Connection error.
 
 ---
 
-### 错误 #197
+### 错误 #201
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4491,7 +4603,7 @@ Connection error.
 
 ---
 
-### 错误 #198
+### 错误 #202
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4514,7 +4626,7 @@ Connection error.
 
 ---
 
-### 错误 #199
+### 错误 #203
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4537,7 +4649,7 @@ Connection error.
 
 ---
 
-### 错误 #200
+### 错误 #204
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4560,7 +4672,7 @@ Connection error.
 
 ---
 
-### 错误 #201
+### 错误 #205
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4579,7 +4691,7 @@ Connection error.
 
 ---
 
-### 错误 #202
+### 错误 #206
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4598,7 +4710,7 @@ Connection error.
 
 ---
 
-### 错误 #203
+### 错误 #207
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4617,7 +4729,7 @@ Connection error.
 
 ---
 
-### 错误 #204
+### 错误 #208
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4636,7 +4748,7 @@ Connection error.
 
 ---
 
-### 错误 #205
+### 错误 #209
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4655,7 +4767,7 @@ Connection error.
 
 ---
 
-### 错误 #206
+### 错误 #210
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4674,7 +4786,7 @@ Connection error.
 
 ---
 
-### 错误 #207
+### 错误 #211
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4693,7 +4805,7 @@ Connection error.
 
 ---
 
-### 错误 #208
+### 错误 #212
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4712,7 +4824,7 @@ Connection error.
 
 ---
 
-### 错误 #209
+### 错误 #213
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4735,7 +4847,7 @@ Connection error.
 
 ---
 
-### 错误 #210
+### 错误 #214
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4758,7 +4870,7 @@ Connection error.
 
 ---
 
-### 错误 #211
+### 错误 #215
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4781,7 +4893,7 @@ Connection error.
 
 ---
 
-### 错误 #212
+### 错误 #216
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4804,7 +4916,7 @@ Connection error.
 
 ---
 
-### 错误 #213
+### 错误 #217
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4823,7 +4935,7 @@ Connection error.
 
 ---
 
-### 错误 #214
+### 错误 #218
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4842,7 +4954,7 @@ Connection error.
 
 ---
 
-### 错误 #215
+### 错误 #219
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4861,7 +4973,7 @@ Connection error.
 
 ---
 
-### 错误 #216
+### 错误 #220
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4880,7 +4992,7 @@ Connection error.
 
 ---
 
-### 错误 #217
+### 错误 #221
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4899,7 +5011,7 @@ Connection error.
 
 ---
 
-### 错误 #218
+### 错误 #222
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4918,7 +5030,7 @@ Connection error.
 
 ---
 
-### 错误 #219
+### 错误 #223
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4937,7 +5049,7 @@ Connection error.
 
 ---
 
-### 错误 #220
+### 错误 #224
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4956,7 +5068,7 @@ Connection error.
 
 ---
 
-### 错误 #221
+### 错误 #225
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4979,7 +5091,7 @@ Connection error.
 
 ---
 
-### 错误 #222
+### 错误 #226
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5002,7 +5114,7 @@ Connection error.
 
 ---
 
-### 错误 #223
+### 错误 #227
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5025,7 +5137,7 @@ Connection error.
 
 ---
 
-### 错误 #224
+### 错误 #228
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5048,7 +5160,7 @@ Connection error.
 
 ---
 
-### 错误 #225
+### 错误 #229
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5067,7 +5179,7 @@ Connection error.
 
 ---
 
-### 错误 #226
+### 错误 #230
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5086,7 +5198,7 @@ Connection error.
 
 ---
 
-### 错误 #227
+### 错误 #231
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5105,7 +5217,7 @@ Connection error.
 
 ---
 
-### 错误 #228
+### 错误 #232
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5124,7 +5236,7 @@ Connection error.
 
 ---
 
-### 错误 #229
+### 错误 #233
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5143,7 +5255,7 @@ Connection error.
 
 ---
 
-### 错误 #230
+### 错误 #234
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5162,7 +5274,7 @@ Connection error.
 
 ---
 
-### 错误 #231
+### 错误 #235
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5181,7 +5293,7 @@ Connection error.
 
 ---
 
-### 错误 #232
+### 错误 #236
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5200,7 +5312,7 @@ Connection error.
 
 ---
 
-### 错误 #233
+### 错误 #237
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5223,7 +5335,7 @@ Connection error.
 
 ---
 
-### 错误 #234
+### 错误 #238
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5246,7 +5358,7 @@ Connection error.
 
 ---
 
-### 错误 #235
+### 错误 #239
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5269,7 +5381,7 @@ Connection error.
 
 ---
 
-### 错误 #236
+### 错误 #240
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5292,7 +5404,7 @@ Connection error.
 
 ---
 
-### 错误 #237
+### 错误 #241
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5311,7 +5423,7 @@ Connection error.
 
 ---
 
-### 错误 #238
+### 错误 #242
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5330,7 +5442,7 @@ Connection error.
 
 ---
 
-### 错误 #239
+### 错误 #243
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5349,7 +5461,7 @@ Connection error.
 
 ---
 
-### 错误 #240
+### 错误 #244
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5368,7 +5480,7 @@ Connection error.
 
 ---
 
-### 错误 #241
+### 错误 #245
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5387,7 +5499,7 @@ Connection error.
 
 ---
 
-### 错误 #242
+### 错误 #246
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5406,7 +5518,7 @@ Connection error.
 
 ---
 
-### 错误 #243
+### 错误 #247
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5425,7 +5537,7 @@ Connection error.
 
 ---
 
-### 错误 #244
+### 错误 #248
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5444,7 +5556,7 @@ Connection error.
 
 ---
 
-### 错误 #245
+### 错误 #249
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5467,7 +5579,7 @@ Connection error.
 
 ---
 
-### 错误 #246
+### 错误 #250
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5490,7 +5602,7 @@ Connection error.
 
 ---
 
-### 错误 #247
+### 错误 #251
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5513,7 +5625,7 @@ Connection error.
 
 ---
 
-### 错误 #248
+### 错误 #252
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5536,7 +5648,7 @@ Connection error.
 
 ---
 
-### 错误 #249
+### 错误 #253
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5555,7 +5667,7 @@ Connection error.
 
 ---
 
-### 错误 #250
+### 错误 #254
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5574,7 +5686,7 @@ Connection error.
 
 ---
 
-### 错误 #251
+### 错误 #255
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5593,7 +5705,7 @@ Connection error.
 
 ---
 
-### 错误 #252
+### 错误 #256
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5612,7 +5724,7 @@ Connection error.
 
 ---
 
-### 错误 #253
+### 错误 #257
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5631,7 +5743,7 @@ Connection error.
 
 ---
 
-### 错误 #254
+### 错误 #258
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5650,7 +5762,7 @@ Connection error.
 
 ---
 
-### 错误 #255
+### 错误 #259
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5669,7 +5781,7 @@ Connection error.
 
 ---
 
-### 错误 #256
+### 错误 #260
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5688,7 +5800,7 @@ Connection error.
 
 ---
 
-### 错误 #257
+### 错误 #261
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5711,7 +5823,7 @@ Connection error.
 
 ---
 
-### 错误 #258
+### 错误 #262
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5734,7 +5846,7 @@ Connection error.
 
 ---
 
-### 错误 #259
+### 错误 #263
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5757,7 +5869,7 @@ Connection error.
 
 ---
 
-### 错误 #260
+### 错误 #264
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5780,7 +5892,7 @@ Connection error.
 
 ---
 
-### 错误 #261
+### 错误 #265
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5799,7 +5911,7 @@ Connection error.
 
 ---
 
-### 错误 #262
+### 错误 #266
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5818,7 +5930,7 @@ Connection error.
 
 ---
 
-### 错误 #263
+### 错误 #267
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5837,7 +5949,7 @@ Connection error.
 
 ---
 
-### 错误 #264
+### 错误 #268
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5856,7 +5968,7 @@ Connection error.
 
 ---
 
-### 错误 #265
+### 错误 #269
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5875,7 +5987,7 @@ Connection error.
 
 ---
 
-### 错误 #266
+### 错误 #270
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5894,7 +6006,7 @@ Connection error.
 
 ---
 
-### 错误 #267
+### 错误 #271
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5913,7 +6025,7 @@ Connection error.
 
 ---
 
-### 错误 #268
+### 错误 #272
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5932,7 +6044,7 @@ Connection error.
 
 ---
 
-### 错误 #269
+### 错误 #273
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5955,7 +6067,7 @@ Connection error.
 
 ---
 
-### 错误 #270
+### 错误 #274
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5978,7 +6090,7 @@ Connection error.
 
 ---
 
-### 错误 #271
+### 错误 #275
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6001,7 +6113,7 @@ Connection error.
 
 ---
 
-### 错误 #272
+### 错误 #276
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6024,7 +6136,7 @@ Connection error.
 
 ---
 
-### 错误 #273
+### 错误 #277
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6043,7 +6155,7 @@ Connection error.
 
 ---
 
-### 错误 #274
+### 错误 #278
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6062,7 +6174,7 @@ Connection error.
 
 ---
 
-### 错误 #275
+### 错误 #279
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6081,7 +6193,7 @@ Connection error.
 
 ---
 
-### 错误 #276
+### 错误 #280
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6100,7 +6212,7 @@ Connection error.
 
 ---
 
-### 错误 #277
+### 错误 #281
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6119,7 +6231,7 @@ Connection error.
 
 ---
 
-### 错误 #278
+### 错误 #282
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6138,7 +6250,7 @@ Connection error.
 
 ---
 
-### 错误 #279
+### 错误 #283
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6157,7 +6269,7 @@ Connection error.
 
 ---
 
-### 错误 #280
+### 错误 #284
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6176,7 +6288,7 @@ Connection error.
 
 ---
 
-### 错误 #281
+### 错误 #285
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6199,7 +6311,7 @@ Connection error.
 
 ---
 
-### 错误 #282
+### 错误 #286
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6222,7 +6334,7 @@ Connection error.
 
 ---
 
-### 错误 #283
+### 错误 #287
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6245,7 +6357,7 @@ Connection error.
 
 ---
 
-### 错误 #284
+### 错误 #288
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6268,7 +6380,7 @@ Connection error.
 
 ---
 
-### 错误 #285
+### 错误 #289
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6287,7 +6399,7 @@ Connection error.
 
 ---
 
-### 错误 #286
+### 错误 #290
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6306,7 +6418,7 @@ Connection error.
 
 ---
 
-### 错误 #287
+### 错误 #291
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6325,7 +6437,7 @@ Connection error.
 
 ---
 
-### 错误 #288
+### 错误 #292
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6344,7 +6456,7 @@ Connection error.
 
 ---
 
-### 错误 #289
+### 错误 #293
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6363,7 +6475,7 @@ Connection error.
 
 ---
 
-### 错误 #290
+### 错误 #294
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6382,7 +6494,7 @@ Connection error.
 
 ---
 
-### 错误 #291
+### 错误 #295
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6401,7 +6513,7 @@ Connection error.
 
 ---
 
-### 错误 #292
+### 错误 #296
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6420,7 +6532,7 @@ Connection error.
 
 ---
 
-### 错误 #293
+### 错误 #297
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6443,7 +6555,7 @@ Connection error.
 
 ---
 
-### 错误 #294
+### 错误 #298
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6466,7 +6578,7 @@ Connection error.
 
 ---
 
-### 错误 #295
+### 错误 #299
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6489,7 +6601,7 @@ Connection error.
 
 ---
 
-### 错误 #296
+### 错误 #300
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6512,7 +6624,7 @@ Connection error.
 
 ---
 
-### 错误 #297
+### 错误 #301
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6531,7 +6643,7 @@ Connection error.
 
 ---
 
-### 错误 #298
+### 错误 #302
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6550,7 +6662,7 @@ Connection error.
 
 ---
 
-### 错误 #299
+### 错误 #303
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6569,7 +6681,7 @@ Connection error.
 
 ---
 
-### 错误 #300
+### 错误 #304
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6588,7 +6700,7 @@ Connection error.
 
 ---
 
-### 错误 #301
+### 错误 #305
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6607,7 +6719,7 @@ Connection error.
 
 ---
 
-### 错误 #302
+### 错误 #306
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6626,7 +6738,7 @@ Connection error.
 
 ---
 
-### 错误 #303
+### 错误 #307
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6645,7 +6757,7 @@ Connection error.
 
 ---
 
-### 错误 #304
+### 错误 #308
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6664,7 +6776,7 @@ Connection error.
 
 ---
 
-### 错误 #305
+### 错误 #309
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6687,7 +6799,7 @@ Connection error.
 
 ---
 
-### 错误 #306
+### 错误 #310
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6710,7 +6822,7 @@ Connection error.
 
 ---
 
-### 错误 #307
+### 错误 #311
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6733,7 +6845,7 @@ Connection error.
 
 ---
 
-### 错误 #308
+### 错误 #312
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6756,7 +6868,7 @@ Connection error.
 
 ---
 
-### 错误 #309
+### 错误 #313
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6775,7 +6887,7 @@ Connection error.
 
 ---
 
-### 错误 #310
+### 错误 #314
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6794,7 +6906,7 @@ Connection error.
 
 ---
 
-### 错误 #311
+### 错误 #315
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6813,7 +6925,7 @@ Connection error.
 
 ---
 
-### 错误 #312
+### 错误 #316
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6832,7 +6944,7 @@ Connection error.
 
 ---
 
-### 错误 #313
+### 错误 #317
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6851,7 +6963,7 @@ Connection error.
 
 ---
 
-### 错误 #314
+### 错误 #318
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6870,7 +6982,7 @@ Connection error.
 
 ---
 
-### 错误 #315
+### 错误 #319
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6889,7 +7001,7 @@ Connection error.
 
 ---
 
-### 错误 #316
+### 错误 #320
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6908,7 +7020,7 @@ Connection error.
 
 ---
 
-### 错误 #317
+### 错误 #321
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6931,7 +7043,7 @@ Connection error.
 
 ---
 
-### 错误 #318
+### 错误 #322
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6954,7 +7066,7 @@ Connection error.
 
 ---
 
-### 错误 #319
+### 错误 #323
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6977,7 +7089,7 @@ Connection error.
 
 ---
 
-### 错误 #320
+### 错误 #324
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7000,7 +7112,7 @@ Connection error.
 
 ---
 
-### 错误 #321
+### 错误 #325
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7019,7 +7131,7 @@ Connection error.
 
 ---
 
-### 错误 #322
+### 错误 #326
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7038,7 +7150,7 @@ Connection error.
 
 ---
 
-### 错误 #323
+### 错误 #327
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7057,7 +7169,7 @@ Connection error.
 
 ---
 
-### 错误 #324
+### 错误 #328
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7076,7 +7188,7 @@ Connection error.
 
 ---
 
-### 错误 #325
+### 错误 #329
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7095,7 +7207,7 @@ Connection error.
 
 ---
 
-### 错误 #326
+### 错误 #330
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7114,7 +7226,7 @@ Connection error.
 
 ---
 
-### 错误 #327
+### 错误 #331
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7133,7 +7245,7 @@ Connection error.
 
 ---
 
-### 错误 #328
+### 错误 #332
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7152,7 +7264,7 @@ Connection error.
 
 ---
 
-### 错误 #329
+### 错误 #333
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7175,7 +7287,7 @@ Connection error.
 
 ---
 
-### 错误 #330
+### 错误 #334
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7198,7 +7310,7 @@ Connection error.
 
 ---
 
-### 错误 #331
+### 错误 #335
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7221,7 +7333,7 @@ Connection error.
 
 ---
 
-### 错误 #332
+### 错误 #336
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7244,7 +7356,7 @@ Connection error.
 
 ---
 
-### 错误 #333
+### 错误 #337
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7263,7 +7375,7 @@ Connection error.
 
 ---
 
-### 错误 #334
+### 错误 #338
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7282,7 +7394,7 @@ Connection error.
 
 ---
 
-### 错误 #335
+### 错误 #339
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7301,7 +7413,7 @@ Connection error.
 
 ---
 
-### 错误 #336
+### 错误 #340
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7320,7 +7432,7 @@ Connection error.
 
 ---
 
-### 错误 #337
+### 错误 #341
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7339,7 +7451,7 @@ Connection error.
 
 ---
 
-### 错误 #338
+### 错误 #342
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7358,7 +7470,7 @@ Connection error.
 
 ---
 
-### 错误 #339
+### 错误 #343
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7377,7 +7489,7 @@ Connection error.
 
 ---
 
-### 错误 #340
+### 错误 #344
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7396,7 +7508,7 @@ Connection error.
 
 ---
 
-### 错误 #341
+### 错误 #345
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7419,7 +7531,7 @@ Connection error.
 
 ---
 
-### 错误 #342
+### 错误 #346
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7442,7 +7554,7 @@ Connection error.
 
 ---
 
-### 错误 #343
+### 错误 #347
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7465,7 +7577,7 @@ Connection error.
 
 ---
 
-### 错误 #344
+### 错误 #348
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7488,7 +7600,7 @@ Connection error.
 
 ---
 
-### 错误 #345
+### 错误 #349
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7507,7 +7619,7 @@ Connection error.
 
 ---
 
-### 错误 #346
+### 错误 #350
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7526,7 +7638,7 @@ Connection error.
 
 ---
 
-### 错误 #347
+### 错误 #351
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7545,7 +7657,7 @@ Connection error.
 
 ---
 
-### 错误 #348
+### 错误 #352
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7564,7 +7676,7 @@ Connection error.
 
 ---
 
-### 错误 #349
+### 错误 #353
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7586,7 +7698,7 @@ Connection error.
 
 ---
 
-### 错误 #350
+### 错误 #354
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7608,7 +7720,7 @@ Connection error.
 
 ---
 
-### 错误 #351
+### 错误 #355
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7630,7 +7742,7 @@ Connection error.
 
 ---
 
-### 错误 #352
+### 错误 #356
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7658,7 +7770,7 @@ Connection error.
 
 ---
 
-### 错误 #353
+### 错误 #357
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7682,7 +7794,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #354
+### 错误 #358
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7706,7 +7818,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #355
+### 错误 #359
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7730,7 +7842,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #356
+### 错误 #360
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7754,7 +7866,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #357
+### 错误 #361
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7778,7 +7890,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #358
+### 错误 #362
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7802,7 +7914,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #359
+### 错误 #363
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7826,7 +7938,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #360
+### 错误 #364
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7850,7 +7962,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #361
+### 错误 #365
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7874,7 +7986,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #362
+### 错误 #366
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7898,7 +8010,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #363
+### 错误 #367
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7922,7 +8034,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #364
+### 错误 #368
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7946,7 +8058,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #365
+### 错误 #369
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7970,7 +8082,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #366
+### 错误 #370
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7994,7 +8106,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #367
+### 错误 #371
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8015,7 +8127,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #368
+### 错误 #372
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8036,7 +8148,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #369
+### 错误 #373
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8057,7 +8169,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #370
+### 错误 #374
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8078,7 +8190,91 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #371
+### 错误 #375
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **工号**: 18100732
+- **姓名**: 牛伟峰
+- **部门**: 18100000
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Tue 2026-04-14 21:43 GMT+8] 找到stopReason不是正常结果的记录`
+- **错误信息**: 
+````
+400 'max_tokens' or 'max_completion_tokens' is too large: 16384. This model's maximum context length is 65536 tokens and your request has 59325 input tokens (16384 > 65536 - 59325). (parameter=max_tokens, value=16384)
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\068ac7a06a47c7fdc26656446b63d7e17dc09d94203abb2c92d6bcf41c33f56705d20342347e3b18cfae39e7a2940bae5fb6ca5293e374cbceee772548768613\agents\main\sessions\eb05b9da-88b1-4e96-8e91-5bab2fdeb854.jsonl.reset.2026-04-14T13-43-54.534Z`
+- **Session ID**: `eb05b9da-88b1-4e96-8e91-5bab2fdeb854`
+- **行号**: 68
+- **时间戳**: 2026-04-14T21:43:37.793
+
+---
+
+### 错误 #376
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **工号**: 18100732
+- **姓名**: 牛伟峰
+- **部门**: 18100000
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Tue 2026-04-14 21:43 GMT+8] 你好`
+- **错误信息**: 
+````
+400 'max_tokens' or 'max_completion_tokens' is too large: 16384. This model's maximum context length is 65536 tokens and your request has 59431 input tokens (16384 > 65536 - 59431). (parameter=max_tokens, value=16384)
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\068ac7a06a47c7fdc26656446b63d7e17dc09d94203abb2c92d6bcf41c33f56705d20342347e3b18cfae39e7a2940bae5fb6ca5293e374cbceee772548768613\agents\main\sessions\eb05b9da-88b1-4e96-8e91-5bab2fdeb854.jsonl.reset.2026-04-14T13-43-54.534Z`
+- **Session ID**: `eb05b9da-88b1-4e96-8e91-5bab2fdeb854`
+- **行号**: 71
+- **时间戳**: 2026-04-14T21:43:49.812
+
+---
+
+### 错误 #377
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **工号**: 18100732
+- **姓名**: 牛伟峰
+- **部门**: 18100000
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "openclaw-control-ui",
+  "id": "openclaw-control-ui"
+}
+\`\`\`
+
+[Tue 2026-04-14 21:49 GMT+8] 搜索~/.openclaw/agents/main/sessions下面的所有文件，不止.jsonl`
+- **错误信息**: 
+````
+400 'max_tokens' or 'max_completion_tokens' is too large: 16384. This model's maximum context length is 65536 tokens and your request has 50183 input tokens (16384 > 65536 - 50183). (parameter=max_tokens, value=16384)
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\068ac7a06a47c7fdc26656446b63d7e17dc09d94203abb2c92d6bcf41c33f56705d20342347e3b18cfae39e7a2940bae5fb6ca5293e374cbceee772548768613\agents\main\sessions\c4803ea6-54cc-4d56-a500-bc98653190ca.jsonl.reset.2026-04-14T13-49-35.396Z`
+- **Session ID**: `c4803ea6-54cc-4d56-a500-bc98653190ca`
+- **行号**: 50
+- **时间戳**: 2026-04-14T21:49:25.684
+
+---
+
+### 错误 #378
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
@@ -8106,7 +8302,7 @@ Request was aborted
 
 ---
 
-### 错误 #372
+### 错误 #379
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8134,7 +8330,7 @@ Request was aborted
 
 ---
 
-### 错误 #373
+### 错误 #380
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8162,7 +8358,7 @@ Request was aborted
 
 ---
 
-### 错误 #374
+### 错误 #381
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8190,7 +8386,7 @@ Request was aborted
 
 ---
 
-### 错误 #375
+### 错误 #382
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8218,7 +8414,7 @@ Request was aborted
 
 ---
 
-### 错误 #376
+### 错误 #383
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8246,7 +8442,7 @@ Request was aborted
 
 ---
 
-### 错误 #377
+### 错误 #384
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8274,7 +8470,7 @@ Request was aborted
 
 ---
 
-### 错误 #378
+### 错误 #385
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8302,7 +8498,7 @@ Request was aborted
 
 ---
 
-### 错误 #379
+### 错误 #386
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8330,7 +8526,7 @@ Request was aborted
 
 ---
 
-### 错误 #380
+### 错误 #387
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8358,7 +8554,7 @@ Request was aborted
 
 ---
 
-### 错误 #381
+### 错误 #388
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8386,7 +8582,7 @@ Request was aborted
 
 ---
 
-### 错误 #382
+### 错误 #389
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8414,7 +8610,7 @@ Request was aborted
 
 ---
 
-### 错误 #383
+### 错误 #390
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8442,7 +8638,7 @@ Request was aborted
 
 ---
 
-### 错误 #384
+### 错误 #391
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8470,7 +8666,7 @@ Request was aborted
 
 ---
 
-### 错误 #385
+### 错误 #392
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8498,7 +8694,7 @@ Request was aborted
 
 ---
 
-### 错误 #386
+### 错误 #393
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8526,7 +8722,7 @@ Request was aborted
 
 ---
 
-### 错误 #387
+### 错误 #394
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8554,7 +8750,7 @@ Request was aborted
 
 ---
 
-### 错误 #388
+### 错误 #395
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8582,7 +8778,7 @@ Request was aborted
 
 ---
 
-### 错误 #389
+### 错误 #396
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8610,7 +8806,7 @@ Request was aborted
 
 ---
 
-### 错误 #390
+### 错误 #397
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8638,7 +8834,63 @@ Request was aborted
 
 ---
 
-### 错误 #391
+### 错误 #398
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **工号**: 18100732
+- **姓名**: 牛伟峰
+- **部门**: 18100000
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "cli",
+  "id": "cli"
+}
+\`\`\`
+
+[Thu 2026-04-16 11:31 GMT+8] 刚刚我把国寿人险发〔2023〕439号 关于印发《中国人寿保险股份有限公司风险应急管理办法（试行）》的通知.pdf,质量中心2026年1月-2026年4月代码效能与2026年3月版本效能...`
+- **错误信息**: 
+````
+400 This model's maximum context length is 65536 tokens. However, your request has 154708 input tokens. Please reduce the length of the input messages. (parameter=input_tokens, value=154708)
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\068ac7a06a47c7fdc26656446b63d7e17dc09d94203abb2c92d6bcf41c33f56705d20342347e3b18cfae39e7a2940bae5fb6ca5293e374cbceee772548768613\agents\main\sessions\e4d8b732-26fa-474d-ae18-a7c32a69cd7e.jsonl.reset.2026-04-23T07-55-44.446Z`
+- **Session ID**: `e4d8b732-26fa-474d-ae18-a7c32a69cd7e`
+- **行号**: 16
+- **时间戳**: 2026-04-16T11:31:51.085
+
+---
+
+### 错误 #399
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **工号**: 18100732
+- **姓名**: 牛伟峰
+- **部门**: 18100000
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "cli",
+  "id": "cli"
+}
+\`\`\`
+
+[Thu 2026-04-16 13:40 GMT+8] 刚刚我把国寿人险发〔2023〕439号 关于印发《中国人寿保险股份有限公司风险应急管理办法（试行）》的通知.pdf放到了./2026-04-16目录下。我的需求是： 帮我总结附件内功，生...`
+- **错误信息**: 
+````
+400 This model's maximum context length is 65536 tokens. However, your request has 154940 input tokens. Please reduce the length of the input messages. (parameter=input_tokens, value=154940)
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\068ac7a06a47c7fdc26656446b63d7e17dc09d94203abb2c92d6bcf41c33f56705d20342347e3b18cfae39e7a2940bae5fb6ca5293e374cbceee772548768613\agents\main\sessions\e4d8b732-26fa-474d-ae18-a7c32a69cd7e.jsonl.reset.2026-04-23T07-55-44.446Z`
+- **Session ID**: `e4d8b732-26fa-474d-ae18-a7c32a69cd7e`
+- **行号**: 19
+- **时间戳**: 2026-04-16T13:40:43.917
+
+---
+
+### 错误 #400
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8664,7 +8916,7 @@ list index out of range
 
 ---
 
-### 错误 #392
+### 错误 #401
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8690,7 +8942,7 @@ list index out of range
 
 ---
 
-### 错误 #393
+### 错误 #402
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8718,7 +8970,7 @@ list index out of range
 
 ## timeoutErrors - 超时错误 (30)
 
-### 错误 #394
+### 错误 #403
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -8736,12 +8988,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\13c13153a543ecba2ba0adb5b621795367f9130736913b4d3bbb5b8244184d6163cd24120cba49ff7f7a07a9b5bb27cc263a5db4d6fc3a9b80b2cf24df09952d\agents\main\sessions\0ee5ff89-79d5-41f8-a93f-49146d0f3722.jsonl`
 - **Session ID**: `0ee5ff89-79d5-41f8-a93f-49146d0f3722`
 - **行号**: 114
-- **时间戳**: 2026-04-24T08:16:29.460
+- **时间戳**: 2026-04-24T10:25:31.306
 - **Run ID**: `b8a86d98-7887-4263-90d8-d5e5c0153909`
 
 ---
 
-### 错误 #395
+### 错误 #404
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -8755,12 +9007,54 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\2205f579-0df8-4b92-ba65-e9210d5b1f37.jsonl.deleted.2026-04-13T00-53-49.390Z`
 - **Session ID**: `2205f579-0df8-4b92-ba65-e9210d5b1f37`
 - **行号**: 8
-- **时间戳**: 2026-04-24T08:16:29.808
+- **时间戳**: 2026-04-24T10:25:31.552
 - **Run ID**: `2205f579-0df8-4b92-ba65-e9210d5b1f37`
 
 ---
 
-### 错误 #396
+### 错误 #405
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **工号**: 0000000001
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请检查我的邮箱中最近10分钟内收到的邮件。找出其中有时间限制、特别紧急的邮件（如截止日期临近、会议即将开始、需要立即处理的事项等）。将这些紧急邮件的主题和关键信息整理成一封邮件，然后使用imap-smtp-email技能的smtp功能将这封邮件发送给我自己。邮件主题请包含'【紧急邮件...`
+- **错误信息**: 
+````
+{"timestamp":1775805595705,"runId":"34de3e79-209a-4386-a7b2-83181ad9924a","sessionId":"34de3e79-209a-4386-a7b2-83181ad9924a","provider":"custom-integrate-api-nvidia-com","model":"z-ai/glm5","api":"openai-completions","error":"LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model"}
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\34de3e79-209a-4386-a7b2-83181ad9924a.jsonl.deleted.2026-04-13T00-53-49.390Z`
+- **Session ID**: `34de3e79-209a-4386-a7b2-83181ad9924a`
+- **行号**: 8
+- **时间戳**: 2026-04-24T10:25:31.672
+- **Run ID**: `34de3e79-209a-4386-a7b2-83181ad9924a`
+
+---
+
+### 错误 #406
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **工号**: 18100988
+- **姓名**: 冯丽媛
+- **部门**: 18100000
+- **用户输入**: `[Wed 2026-04-15 15:29 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
+
+[Subagent Task]: 请读取并分析文件 /home/node/....`
+- **错误信息**: 
+````
+{"timestamp":1776238413231,"runId":"bb3c513f-d87e-448f-8014-614e40c21906","sessionId":"f1aced44-6c24-42f6-aa51-3909db1ff629","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\2839c2f17383d426e0f87c82614743eed21a2aa5a58d39da3b11de6dc56388a31ba9219c47d42da0009bc58633ad7c2f6003d505d1ffb40a96eac87034abf2bf\agents\main\sessions\f1aced44-6c24-42f6-aa51-3909db1ff629.jsonl`
+- **Session ID**: `f1aced44-6c24-42f6-aa51-3909db1ff629`
+- **行号**: 22
+- **时间戳**: 2026-04-24T10:25:31.682
+- **Run ID**: `bb3c513f-d87e-448f-8014-614e40c21906`
+
+---
+
+### 错误 #407
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -8780,54 +9074,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\13c13153a543ecba2ba0adb5b621795367f9130736913b4d3bbb5b8244184d6163cd24120cba49ff7f7a07a9b5bb27cc263a5db4d6fc3a9b80b2cf24df09952d\agents\main\sessions\c2dadcbe-f4b0-472d-aafe-122d0e670ede.jsonl`
 - **Session ID**: `c2dadcbe-f4b0-472d-aafe-122d0e670ede`
 - **行号**: 130
-- **时间戳**: 2026-04-24T08:16:29.910
+- **时间戳**: 2026-04-24T10:25:31.721
 - **Run ID**: `aba0cdf6-68d5-4842-a735-b4adad95ff4c`
 
 ---
 
-### 错误 #397
-
-- **事件类型**: `openclaw:prompt-error`
-- **描述**: 检测到超时错误事件
-- **工号**: 18100988
-- **姓名**: 冯丽媛
-- **部门**: 18100000
-- **用户输入**: `[Wed 2026-04-15 15:29 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
-
-[Subagent Task]: 请读取并分析文件 /home/node/....`
-- **错误信息**: 
-````
-{"timestamp":1776238413231,"runId":"bb3c513f-d87e-448f-8014-614e40c21906","sessionId":"f1aced44-6c24-42f6-aa51-3909db1ff629","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
-````
-- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\2839c2f17383d426e0f87c82614743eed21a2aa5a58d39da3b11de6dc56388a31ba9219c47d42da0009bc58633ad7c2f6003d505d1ffb40a96eac87034abf2bf\agents\main\sessions\f1aced44-6c24-42f6-aa51-3909db1ff629.jsonl`
-- **Session ID**: `f1aced44-6c24-42f6-aa51-3909db1ff629`
-- **行号**: 22
-- **时间戳**: 2026-04-24T08:16:29.953
-- **Run ID**: `bb3c513f-d87e-448f-8014-614e40c21906`
-
----
-
-### 错误 #398
-
-- **事件类型**: `openclaw:prompt-error`
-- **描述**: 检测到超时错误事件
-- **工号**: 0000000001
-- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请检查我的邮箱中最近10分钟内收到的邮件。找出其中有时间限制、特别紧急的邮件（如截止日期临近、会议即将开始、需要立即处理的事项等）。将这些紧急邮件的主题和关键信息整理成一封邮件，然后使用imap-smtp-email技能的smtp功能将这封邮件发送给我自己。邮件主题请包含'【紧急邮件...`
-- **错误信息**: 
-````
-{"timestamp":1775805595705,"runId":"34de3e79-209a-4386-a7b2-83181ad9924a","sessionId":"34de3e79-209a-4386-a7b2-83181ad9924a","provider":"custom-integrate-api-nvidia-com","model":"z-ai/glm5","api":"openai-completions","error":"LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model"}
-````
-- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\34de3e79-209a-4386-a7b2-83181ad9924a.jsonl.deleted.2026-04-13T00-53-49.390Z`
-- **Session ID**: `34de3e79-209a-4386-a7b2-83181ad9924a`
-- **行号**: 8
-- **时间戳**: 2026-04-24T08:16:29.998
-- **Run ID**: `34de3e79-209a-4386-a7b2-83181ad9924a`
-
----
-
-### 错误 #399
+### 错误 #408
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -8845,12 +9097,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\2839c2f17383d426e0f87c82614743eed21a2aa5a58d39da3b11de6dc56388a31ba9219c47d42da0009bc58633ad7c2f6003d505d1ffb40a96eac87034abf2bf\agents\main\sessions\fe368a91-4216-43d0-9bf1-dfa1cceed4bc.jsonl`
 - **Session ID**: `fe368a91-4216-43d0-9bf1-dfa1cceed4bc`
 - **行号**: 18
-- **时间戳**: 2026-04-24T08:16:30.106
+- **时间戳**: 2026-04-24T10:25:31.826
 - **Run ID**: `0da67fde-8212-48e1-aaec-2bf06e64800d`
 
 ---
 
-### 错误 #400
+### 错误 #409
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -8866,12 +9118,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\6fca9aa611cf469e15161f2b342062f7c621c962e44d14a57ee1d61d972f9135cd6f8797feb2302283695088f655118edd65a6768f2159207fd01f575a80e207\agents\main\sessions\39028978-7dfa-4c83-ac08-4a49ed087310.jsonl`
 - **Session ID**: `39028978-7dfa-4c83-ac08-4a49ed087310`
 - **行号**: 10
-- **时间戳**: 2026-04-24T08:16:30.351
+- **时间戳**: 2026-04-24T10:25:32.143
 - **Run ID**: `237cc3e6-bd84-4004-8086-704bedb2fe42`
 
 ---
 
-### 错误 #401
+### 错误 #410
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -8889,12 +9141,35 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\0b6f9e7d-6192-44d8-b925-2c94cc74d371.jsonl`
 - **Session ID**: `0b6f9e7d-6192-44d8-b925-2c94cc74d371`
 - **行号**: 33
-- **时间戳**: 2026-04-24T08:16:30.712
+- **时间戳**: 2026-04-24T10:25:32.920
 - **Run ID**: `bd352a63-b3a1-40de-ad85-384f60bb7a9a`
 
 ---
 
-### 错误 #402
+### 错误 #411
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **工号**: 18101138
+- **姓名**: 任健鑫
+- **部门**: 18100000
+- **用户输入**: `[Tue 2026-04-14 15:06 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
+
+[Subagent Task]: 请使用 docx 技能处理 /home/n...`
+- **错误信息**: 
+````
+{"timestamp":1776151087475,"runId":"010bceeb-4f2b-4b81-acf0-7a01daee7b26","sessionId":"9a0af35c-6303-4ae7-a932-54396b74e799","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\a793d94b6ad1c388bc785ea54e450926b729a9ed21fd7f5685e549542317b191889efa017a1d6c1cea1b952519ba7f227fe5499937e9452e032463addb26e3de\agents\main\sessions\9a0af35c-6303-4ae7-a932-54396b74e799.jsonl`
+- **Session ID**: `9a0af35c-6303-4ae7-a932-54396b74e799`
+- **行号**: 126
+- **时间戳**: 2026-04-24T10:25:32.963
+- **Run ID**: `010bceeb-4f2b-4b81-acf0-7a01daee7b26`
+
+---
+
+### 错误 #412
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -8918,12 +9193,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\0f678300-9756-4ea9-b283-9cf231eaba5f.jsonl`
 - **Session ID**: `0f678300-9756-4ea9-b283-9cf231eaba5f`
 - **行号**: 72
-- **时间戳**: 2026-04-24T08:16:30.840
+- **时间戳**: 2026-04-24T10:25:33.050
 - **Run ID**: `req_1776147850337_tyub0lfc0`
 
 ---
 
-### 错误 #403
+### 错误 #413
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -8947,35 +9222,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\0f678300-9756-4ea9-b283-9cf231eaba5f.jsonl`
 - **Session ID**: `0f678300-9756-4ea9-b283-9cf231eaba5f`
 - **行号**: 74
-- **时间戳**: 2026-04-24T08:16:30.840
+- **时间戳**: 2026-04-24T10:25:33.050
 - **Run ID**: `req_1776148910958_kbpe7zfuk`
 
 ---
 
-### 错误 #404
-
-- **事件类型**: `openclaw:prompt-error`
-- **描述**: 检测到超时错误事件
-- **工号**: 18101138
-- **姓名**: 任健鑫
-- **部门**: 18100000
-- **用户输入**: `[Tue 2026-04-14 15:06 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
-
-[Subagent Task]: 请使用 docx 技能处理 /home/n...`
-- **错误信息**: 
-````
-{"timestamp":1776151087475,"runId":"010bceeb-4f2b-4b81-acf0-7a01daee7b26","sessionId":"9a0af35c-6303-4ae7-a932-54396b74e799","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
-````
-- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\a793d94b6ad1c388bc785ea54e450926b729a9ed21fd7f5685e549542317b191889efa017a1d6c1cea1b952519ba7f227fe5499937e9452e032463addb26e3de\agents\main\sessions\9a0af35c-6303-4ae7-a932-54396b74e799.jsonl`
-- **Session ID**: `9a0af35c-6303-4ae7-a932-54396b74e799`
-- **行号**: 126
-- **时间戳**: 2026-04-24T08:16:30.931
-- **Run ID**: `010bceeb-4f2b-4b81-acf0-7a01daee7b26`
-
----
-
-### 错误 #405
+### 错误 #414
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -8993,12 +9245,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\3bf2a8e5-33de-4ef6-b677-a0ea9a3fbee3.jsonl`
 - **Session ID**: `3bf2a8e5-33de-4ef6-b677-a0ea9a3fbee3`
 - **行号**: 47
-- **时间戳**: 2026-04-24T08:16:31.200
+- **时间戳**: 2026-04-24T10:25:33.372
 - **Run ID**: `574deee7-91d2-4251-8ab6-348eb9cadac3`
 
 ---
 
-### 错误 #406
+### 错误 #415
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9016,12 +9268,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\495e09f3-443a-40ad-b26f-edc30ebcf118.jsonl`
 - **Session ID**: `495e09f3-443a-40ad-b26f-edc30ebcf118`
 - **行号**: 21
-- **时间戳**: 2026-04-24T08:16:31.271
+- **时间戳**: 2026-04-24T10:25:33.425
 - **Run ID**: `25f6a0f7-6100-45bf-a238-3c1bde61470d`
 
 ---
 
-### 错误 #407
+### 错误 #416
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9039,12 +9291,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\66a18763-dcc3-4f3f-8838-88ce893158a4.jsonl`
 - **Session ID**: `66a18763-dcc3-4f3f-8838-88ce893158a4`
 - **行号**: 25
-- **时间戳**: 2026-04-24T08:16:31.467
+- **时间戳**: 2026-04-24T10:25:33.561
 - **Run ID**: `a68d9714-a191-40b6-9d65-30d26303535a`
 
 ---
 
-### 错误 #408
+### 错误 #417
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9062,12 +9314,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\8011363c-3210-4c83-a4d6-13c03b465220.jsonl`
 - **Session ID**: `8011363c-3210-4c83-a4d6-13c03b465220`
 - **行号**: 22
-- **时间戳**: 2026-04-24T08:16:31.593
+- **时间戳**: 2026-04-24T10:25:33.663
 - **Run ID**: `421add1e-43ff-4965-894d-176cf2f736d0`
 
 ---
 
-### 错误 #409
+### 错误 #418
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9085,12 +9337,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\a5d510bb-1b47-4314-9446-1732cc207874.jsonl`
 - **Session ID**: `a5d510bb-1b47-4314-9446-1732cc207874`
 - **行号**: 29
-- **时间戳**: 2026-04-24T08:16:31.719
+- **时间戳**: 2026-04-24T10:25:33.774
 - **Run ID**: `27ca7b27-88b7-4ee2-8d53-d0c795bfe759`
 
 ---
 
-### 错误 #410
+### 错误 #419
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9108,12 +9360,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\acee90b3-b877-42fd-abeb-3700b4b5fd57.jsonl`
 - **Session ID**: `acee90b3-b877-42fd-abeb-3700b4b5fd57`
 - **行号**: 15
-- **时间戳**: 2026-04-24T08:16:31.761
+- **时间戳**: 2026-04-24T10:25:33.805
 - **Run ID**: `c4c8ea24-93a8-431a-aa6f-3f891ee544d9`
 
 ---
 
-### 错误 #411
+### 错误 #420
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9131,12 +9383,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\b622c006-2698-4967-9e4c-0a44c6c9457c.jsonl`
 - **Session ID**: `b622c006-2698-4967-9e4c-0a44c6c9457c`
 - **行号**: 30
-- **时间戳**: 2026-04-24T08:16:31.789
+- **时间戳**: 2026-04-24T10:25:33.826
 - **Run ID**: `f05dfe06-c8f8-4a25-b16e-01468e47c033`
 
 ---
 
-### 错误 #412
+### 错误 #421
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9154,127 +9406,12 @@ list index out of range
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\b7865994-0c4a-4761-ace1-c637f4fe4ab5.jsonl`
 - **Session ID**: `b7865994-0c4a-4761-ace1-c637f4fe4ab5`
 - **行号**: 8
-- **时间戳**: 2026-04-24T08:16:31.876
+- **时间戳**: 2026-04-24T10:25:33.892
 - **Run ID**: `bbae6408-de89-479f-90f0-235dd832faed`
 
 ---
 
-### 错误 #413
-
-- **事件类型**: `openclaw:prompt-error`
-- **描述**: 检测到超时错误事件
-- **工号**: 18100719
-- **姓名**: 黄怡然
-- **部门**: 18100000
-- **用户输入**: `[Tue 2026-04-14 17:04 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
-
-[Subagent Task]: 分析 cicd 项目的 ansible/ ...`
-- **错误信息**: 
-````
-{"timestamp":1776157545740,"runId":"4020997d-ba23-4765-be3d-419acf130ddc","sessionId":"d66da86c-8415-45d4-b226-3f67b20e6c72","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
-````
-- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\d66da86c-8415-45d4-b226-3f67b20e6c72.jsonl`
-- **Session ID**: `d66da86c-8415-45d4-b226-3f67b20e6c72`
-- **行号**: 23
-- **时间戳**: 2026-04-24T08:16:31.903
-- **Run ID**: `4020997d-ba23-4765-be3d-419acf130ddc`
-
----
-
-### 错误 #414
-
-- **事件类型**: `openclaw:prompt-error`
-- **描述**: 检测到超时错误事件
-- **工号**: 18100719
-- **姓名**: 黄怡然
-- **部门**: 18100000
-- **用户输入**: `[Tue 2026-04-14 17:31 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
-
-[Subagent Task]: 请分析 cicd 项目的 ansible/...`
-- **错误信息**: 
-````
-{"timestamp":1776159184696,"runId":"68d03430-23ec-4958-b0fa-9b1f2fe9325e","sessionId":"efe3c556-5c92-4323-b1dc-9d80cadd71fb","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
-````
-- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\efe3c556-5c92-4323-b1dc-9d80cadd71fb.jsonl`
-- **Session ID**: `efe3c556-5c92-4323-b1dc-9d80cadd71fb`
-- **行号**: 32
-- **时间戳**: 2026-04-24T08:16:32.069
-- **Run ID**: `68d03430-23ec-4958-b0fa-9b1f2fe9325e`
-
----
-
-### 错误 #415
-
-- **事件类型**: `openclaw:prompt-error`
-- **描述**: 检测到超时错误事件
-- **工号**: 18100719
-- **姓名**: 黄怡然
-- **部门**: 18100000
-- **用户输入**: `[Tue 2026-04-14 17:28 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
-
-[Subagent Task]: 请分析 cicd 项目的 steps/ 目...`
-- **错误信息**: 
-````
-{"timestamp":1776159017499,"runId":"a169213c-b705-4a42-8164-7f40fc703801","sessionId":"f21ffaa1-f08e-4c01-bf00-fc674c1ad6c6","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
-````
-- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\f21ffaa1-f08e-4c01-bf00-fc674c1ad6c6.jsonl`
-- **Session ID**: `f21ffaa1-f08e-4c01-bf00-fc674c1ad6c6`
-- **行号**: 42
-- **时间戳**: 2026-04-24T08:16:32.101
-- **Run ID**: `a169213c-b705-4a42-8164-7f40fc703801`
-
----
-
-### 错误 #416
-
-- **事件类型**: `openclaw:prompt-error`
-- **描述**: 检测到超时错误事件
-- **工号**: 18100719
-- **姓名**: 黄怡然
-- **部门**: 18100000
-- **用户输入**: `[Wed 2026-04-15 17:21 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
-
-[Subagent Task]: 根据 /home/node/.opencl...`
-- **错误信息**: 
-````
-{"timestamp":1776244938505,"runId":"766d9b83-aada-4e2e-9b95-75c228b3b61d","sessionId":"f2d7f49d-9571-4cc1-a3de-fb002d6fb441","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
-````
-- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\f2d7f49d-9571-4cc1-a3de-fb002d6fb441.jsonl`
-- **Session ID**: `f2d7f49d-9571-4cc1-a3de-fb002d6fb441`
-- **行号**: 8
-- **时间戳**: 2026-04-24T08:16:32.136
-- **Run ID**: `766d9b83-aada-4e2e-9b95-75c228b3b61d`
-
----
-
-### 错误 #417
-
-- **事件类型**: `openclaw:prompt-error`
-- **描述**: 检测到超时错误事件
-- **工号**: 18100719
-- **姓名**: 黄怡然
-- **部门**: 18100000
-- **用户输入**: `[Tue 2026-04-14 17:04 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
-
-[Subagent Task]: 分析 cicd 项目的 steps/ 目录...`
-- **错误信息**: 
-````
-{"timestamp":1776157570791,"runId":"62ca17d5-cbc7-45a4-a5ea-7d5faeeb11d0","sessionId":"fe866c45-f880-4daa-b46e-4db9ee164372","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
-````
-- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\fe866c45-f880-4daa-b46e-4db9ee164372.jsonl`
-- **Session ID**: `fe866c45-f880-4daa-b46e-4db9ee164372`
-- **行号**: 40
-- **时间戳**: 2026-04-24T08:16:32.158
-- **Run ID**: `62ca17d5-cbc7-45a4-a5ea-7d5faeeb11d0`
-
----
-
-### 错误 #418
+### 错误 #422
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9289,12 +9426,12 @@ When reading HEARTBEAT.md, us...`
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
 - **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
 - **行号**: 43
-- **时间戳**: 2026-04-24T08:16:32.235
+- **时间戳**: 2026-04-24T10:25:33.893
 - **Run ID**: `0a6c090b-ef52-43b5-8019-c0172f235561`
 
 ---
 
-### 错误 #419
+### 错误 #423
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9309,12 +9446,12 @@ Current time: Friday, April 10th, 2026 - 1:42 PM (Asia/Shanghai) / 2026...`
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
 - **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
 - **行号**: 90
-- **时间戳**: 2026-04-24T08:16:32.235
+- **时间戳**: 2026-04-24T10:25:33.893
 - **Run ID**: `cb0982d0-bac6-4322-8bab-4a49346b4d3d`
 
 ---
 
-### 错误 #420
+### 错误 #424
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9329,12 +9466,12 @@ When reading HEARTBEAT.md, us...`
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
 - **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
 - **行号**: 92
-- **时间戳**: 2026-04-24T08:16:32.235
+- **时间戳**: 2026-04-24T10:25:33.893
 - **Run ID**: `c62297c1-c778-4082-970d-c00a785b5e81`
 
 ---
 
-### 错误 #421
+### 错误 #425
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9349,12 +9486,12 @@ When reading HEARTBEAT.md, us...`
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
 - **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
 - **行号**: 96
-- **时间戳**: 2026-04-24T08:16:32.235
+- **时间戳**: 2026-04-24T10:25:33.893
 - **Run ID**: `fddbc810-8984-4f49-94fa-7b09013026a0`
 
 ---
 
-### 错误 #422
+### 错误 #426
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9376,12 +9513,12 @@ When reading HEARTBEAT.md, us...`
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
 - **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
 - **行号**: 101
-- **时间戳**: 2026-04-24T08:16:32.235
+- **时间戳**: 2026-04-24T10:25:33.893
 - **Run ID**: `6d14eb10-35a7-4012-a752-a0aa1b0fe78e`
 
 ---
 
-### 错误 #423
+### 错误 #427
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9403,14 +9540,129 @@ When reading HEARTBEAT.md, us...`
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
 - **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
 - **行号**: 103
-- **时间戳**: 2026-04-24T08:16:32.235
+- **时间戳**: 2026-04-24T10:25:33.893
 - **Run ID**: `1e08f9e2-911a-46ec-9f06-40cbec61799c`
+
+---
+
+### 错误 #428
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **工号**: 18100719
+- **姓名**: 黄怡然
+- **部门**: 18100000
+- **用户输入**: `[Tue 2026-04-14 17:04 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
+
+[Subagent Task]: 分析 cicd 项目的 ansible/ ...`
+- **错误信息**: 
+````
+{"timestamp":1776157545740,"runId":"4020997d-ba23-4765-be3d-419acf130ddc","sessionId":"d66da86c-8415-45d4-b226-3f67b20e6c72","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\d66da86c-8415-45d4-b226-3f67b20e6c72.jsonl`
+- **Session ID**: `d66da86c-8415-45d4-b226-3f67b20e6c72`
+- **行号**: 23
+- **时间戳**: 2026-04-24T10:25:33.910
+- **Run ID**: `4020997d-ba23-4765-be3d-419acf130ddc`
+
+---
+
+### 错误 #429
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **工号**: 18100719
+- **姓名**: 黄怡然
+- **部门**: 18100000
+- **用户输入**: `[Tue 2026-04-14 17:31 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
+
+[Subagent Task]: 请分析 cicd 项目的 ansible/...`
+- **错误信息**: 
+````
+{"timestamp":1776159184696,"runId":"68d03430-23ec-4958-b0fa-9b1f2fe9325e","sessionId":"efe3c556-5c92-4323-b1dc-9d80cadd71fb","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\efe3c556-5c92-4323-b1dc-9d80cadd71fb.jsonl`
+- **Session ID**: `efe3c556-5c92-4323-b1dc-9d80cadd71fb`
+- **行号**: 32
+- **时间戳**: 2026-04-24T10:25:34.052
+- **Run ID**: `68d03430-23ec-4958-b0fa-9b1f2fe9325e`
+
+---
+
+### 错误 #430
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **工号**: 18100719
+- **姓名**: 黄怡然
+- **部门**: 18100000
+- **用户输入**: `[Tue 2026-04-14 17:28 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
+
+[Subagent Task]: 请分析 cicd 项目的 steps/ 目...`
+- **错误信息**: 
+````
+{"timestamp":1776159017499,"runId":"a169213c-b705-4a42-8164-7f40fc703801","sessionId":"f21ffaa1-f08e-4c01-bf00-fc674c1ad6c6","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\f21ffaa1-f08e-4c01-bf00-fc674c1ad6c6.jsonl`
+- **Session ID**: `f21ffaa1-f08e-4c01-bf00-fc674c1ad6c6`
+- **行号**: 42
+- **时间戳**: 2026-04-24T10:25:34.077
+- **Run ID**: `a169213c-b705-4a42-8164-7f40fc703801`
+
+---
+
+### 错误 #431
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **工号**: 18100719
+- **姓名**: 黄怡然
+- **部门**: 18100000
+- **用户输入**: `[Wed 2026-04-15 17:21 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
+
+[Subagent Task]: 根据 /home/node/.opencl...`
+- **错误信息**: 
+````
+{"timestamp":1776244938505,"runId":"766d9b83-aada-4e2e-9b95-75c228b3b61d","sessionId":"f2d7f49d-9571-4cc1-a3de-fb002d6fb441","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\f2d7f49d-9571-4cc1-a3de-fb002d6fb441.jsonl`
+- **Session ID**: `f2d7f49d-9571-4cc1-a3de-fb002d6fb441`
+- **行号**: 8
+- **时间戳**: 2026-04-24T10:25:34.103
+- **Run ID**: `766d9b83-aada-4e2e-9b95-75c228b3b61d`
+
+---
+
+### 错误 #432
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **工号**: 18100719
+- **姓名**: 黄怡然
+- **部门**: 18100000
+- **用户输入**: `[Tue 2026-04-14 17:04 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
+
+[Subagent Task]: 分析 cicd 项目的 steps/ 目录...`
+- **错误信息**: 
+````
+{"timestamp":1776157570791,"runId":"62ca17d5-cbc7-45a4-a5ea-7d5faeeb11d0","sessionId":"fe866c45-f880-4daa-b46e-4db9ee164372","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\fe866c45-f880-4daa-b46e-4db9ee164372.jsonl`
+- **Session ID**: `fe866c45-f880-4daa-b46e-4db9ee164372`
+- **行号**: 40
+- **时间戳**: 2026-04-24T10:25:34.117
+- **Run ID**: `62ca17d5-cbc7-45a4-a5ea-7d5faeeb11d0`
 
 ---
 
 ## rateLimitErrors - 速率限制错误 (24)
 
-### 错误 #424
+### 错误 #433
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9436,7 +9688,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #425
+### 错误 #434
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9462,7 +9714,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #426
+### 错误 #435
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9488,7 +9740,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #427
+### 错误 #436
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9514,7 +9766,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #428
+### 错误 #437
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9540,7 +9792,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #429
+### 错误 #438
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9566,7 +9818,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #430
+### 错误 #439
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9592,7 +9844,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #431
+### 错误 #440
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9618,7 +9870,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #432
+### 错误 #441
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9644,7 +9896,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #433
+### 错误 #442
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9670,7 +9922,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #434
+### 错误 #443
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9696,7 +9948,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #435
+### 错误 #444
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9722,7 +9974,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #436
+### 错误 #445
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9748,7 +10000,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #437
+### 错误 #446
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9774,7 +10026,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #438
+### 错误 #447
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9800,7 +10052,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #439
+### 错误 #448
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9826,7 +10078,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #440
+### 错误 #449
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9852,7 +10104,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #441
+### 错误 #450
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9875,7 +10127,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #442
+### 错误 #451
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9898,7 +10150,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #443
+### 错误 #452
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9921,7 +10173,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #444
+### 错误 #453
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9944,7 +10196,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #445
+### 错误 #454
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9967,7 +10219,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #446
+### 错误 #455
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -9993,7 +10245,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #447
+### 错误 #456
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到速率限制错误
@@ -10021,7 +10273,7 @@ When reading HEARTBEAT.md, us...`
 
 ## modelErrors - 模型API错误 (14)
 
-### 错误 #448
+### 错误 #457
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
@@ -10049,7 +10301,7 @@ Request was aborted
 
 ---
 
-### 错误 #449
+### 错误 #458
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
@@ -10075,7 +10327,7 @@ Request was aborted.
 
 ---
 
-### 错误 #450
+### 错误 #459
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
@@ -10105,7 +10357,7 @@ Request was aborted
 
 ---
 
-### 错误 #451
+### 错误 #460
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
@@ -10133,7 +10385,7 @@ Request was aborted
 
 ---
 
-### 错误 #452
+### 错误 #461
 
 - **事件类型**: `message`
 - **描述**: 在message事件中检测到模型API错误
@@ -10161,7 +10413,7 @@ Request was aborted
 
 ---
 
-### 错误 #453
+### 错误 #462
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -10187,12 +10439,12 @@ Request was aborted
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\0f8907022d9c7513b586d400ab3c57fb25659eee8f8b5017dd1e9cc094f4ce3a7cc87cb548522993c391f86e956c13838fbfec56464aa0879ce3c468c4aedbdc\agents\main\sessions\2b9f7ba4-e50c-4f33-bf96-85367fa6cebf.jsonl`
 - **Session ID**: `2b9f7ba4-e50c-4f33-bf96-85367fa6cebf`
 - **行号**: 67
-- **时间戳**: 2026-04-24T08:16:29.457
+- **时间戳**: 2026-04-24T10:25:31.302
 - **Run ID**: `bc2b3f7b-2fae-4774-92b5-a36dc673385d`
 
 ---
 
-### 错误 #454
+### 错误 #463
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -10216,12 +10468,12 @@ Request was aborted
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\0f8907022d9c7513b586d400ab3c57fb25659eee8f8b5017dd1e9cc094f4ce3a7cc87cb548522993c391f86e956c13838fbfec56464aa0879ce3c468c4aedbdc\agents\main\sessions\2b9f7ba4-e50c-4f33-bf96-85367fa6cebf.jsonl`
 - **Session ID**: `2b9f7ba4-e50c-4f33-bf96-85367fa6cebf`
 - **行号**: 71
-- **时间戳**: 2026-04-24T08:16:29.457
+- **时间戳**: 2026-04-24T10:25:31.302
 - **Run ID**: `2e6ad39f-3981-4dfa-9e0e-8454d3961af2`
 
 ---
 
-### 错误 #455
+### 错误 #464
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -10237,12 +10489,12 @@ Request was aborted
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\37d31ad6132bab00315c7b7adabe5b839b918500995ce145a03763c66ecc2f612ca90d021c7098f060f5f0547433161ce6af7f6899f2fc1e6f39bab40e12e65a\agents\main\sessions\0af83cd4-10a3-4966-8f3c-2b581a53bf99.jsonl`
 - **Session ID**: `0af83cd4-10a3-4966-8f3c-2b581a53bf99`
 - **行号**: 130
-- **时间戳**: 2026-04-24T08:16:29.865
+- **时间戳**: 2026-04-24T10:25:31.705
 - **Run ID**: `req_1774868684378_4e84zalrb`
 
 ---
 
-### 错误 #456
+### 错误 #465
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -10266,12 +10518,12 @@ Request was aborted
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\619aa316b92e3dfc3ebb94deaebb6af6052bc3f8c9557530ddd4b1f4525e8cdcb3775f71c6fb0ac96b744c11e1c8b5accbc8b356f3d2f75bdd5b75efed4ce0c0\agents\main\sessions\4f250dc6-3ebe-4fff-90ba-3497bbb9fe07.jsonl`
 - **Session ID**: `4f250dc6-3ebe-4fff-90ba-3497bbb9fe07`
 - **行号**: 23
-- **时间戳**: 2026-04-24T08:16:30.132
+- **时间戳**: 2026-04-24T10:25:31.985
 - **Run ID**: `req_1776302087795_5cms510hh`
 
 ---
 
-### 错误 #457
+### 错误 #466
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -10295,12 +10547,12 @@ Request was aborted
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\a793d94b6ad1c388bc785ea54e450926b729a9ed21fd7f5685e549542317b191889efa017a1d6c1cea1b952519ba7f227fe5499937e9452e032463addb26e3de\agents\main\sessions\c124a8ac-1e3d-4b27-a6e6-e558938ce159.jsonl`
 - **Session ID**: `c124a8ac-1e3d-4b27-a6e6-e558938ce159`
 - **行号**: 93
-- **时间戳**: 2026-04-24T08:16:31.157
+- **时间戳**: 2026-04-24T10:25:33.193
 - **Run ID**: `req_1775197362262_n7z2xlxi6`
 
 ---
 
-### 错误 #458
+### 错误 #467
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -10324,12 +10576,12 @@ Request was aborted
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\f222336474c3c33b45b015cca3fdcf24fbfc8a597f351d79bc150829f53504e5d7819658cde4a8f7af659e260af6be27b33dcadf21b2b5928bbdc265681b3e6d\agents\main\sessions\8ef546cf-18a4-43a7-baec-ed0207c28996.jsonl`
 - **Session ID**: `8ef546cf-18a4-43a7-baec-ed0207c28996`
 - **行号**: 37
-- **时间戳**: 2026-04-24T08:16:31.360
+- **时间戳**: 2026-04-24T10:25:33.397
 - **Run ID**: `f73d774c-9773-48ae-a324-5d1e18eddad4`
 
 ---
 
-### 错误 #459
+### 错误 #468
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -10344,12 +10596,12 @@ Request was aborted
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\e82a63b4e5707d2608b9934c9266f851b29f2330a215009260a56daa48c47e575bedabfcc33ef2700b5c722e5e32f5f4d0060d4b0a8f13a677754aae776ce452\agents\main\sessions\54355af5-ac92-4baf-a0df-42f72ff7c497.jsonl`
 - **Session ID**: `d4678ca9-d333-45fc-b9d5-9197b9cf2cea`
 - **行号**: 5
-- **时间戳**: 2026-04-24T08:16:31.610
+- **时间戳**: 2026-04-24T10:25:33.512
 - **Run ID**: `req_1775197972491_55uwzwguf`
 
 ---
 
-### 错误 #460
+### 错误 #469
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -10364,12 +10616,12 @@ Request was aborted
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\e82a63b4e5707d2608b9934c9266f851b29f2330a215009260a56daa48c47e575bedabfcc33ef2700b5c722e5e32f5f4d0060d4b0a8f13a677754aae776ce452\agents\main\sessions\c5c862a7-da7a-4e74-ad62-5c3afec2c9e2.jsonl`
 - **Session ID**: `b5018140-32f9-4102-879a-7853821a47d1`
 - **行号**: 5
-- **时间戳**: 2026-04-24T08:16:32.039
+- **时间戳**: 2026-04-24T10:25:33.891
 - **Run ID**: `req_1775122020273_g1x9hzjom`
 
 ---
 
-### 错误 #461
+### 错误 #470
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到模型API错误事件
@@ -10391,14 +10643,14 @@ Request was aborted
 - **文件位置**: `D:\workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e4fedafb-43c1-43e2-8ecb-a00aca5bef29.jsonl.deleted.2026-04-13T00-53-49.391Z`
 - **Session ID**: `e4fedafb-43c1-43e2-8ecb-a00aca5bef29`
 - **行号**: 52
-- **时间戳**: 2026-04-24T08:16:32.642
+- **时间戳**: 2026-04-24T10:25:34.251
 - **Run ID**: `a9442ede-f1e1-438b-9a3f-1f7acd6be958`
 
 ---
 
 ## flow_integrity_missing_final_answer - 工具执行后无最终回复 (3)
 
-### 错误 #462
+### 错误 #471
 
 - **事件类型**: `message`
 - **描述**: 工具执行完成后没有Assistant的最终回复（文件在此结束）
@@ -10420,7 +10672,7 @@ Line: c09ae55a
 
 ---
 
-### 错误 #463
+### 错误 #472
 
 - **事件类型**: `message`
 - **描述**: 工具执行完成后没有Assistant的最终回复（文件在此结束）
@@ -10446,7 +10698,7 @@ Line: 3c30a774
 
 ---
 
-### 错误 #464
+### 错误 #473
 
 - **事件类型**: `message`
 - **描述**: 工具执行完成后没有Assistant的最终回复（文件在此结束）
