@@ -56,10 +56,10 @@ public class UserScanner {
             for (File hashDir : hashDirs) {
                 String dirName = hashDir.getName();
                 
-                // Check if this directory contains agents subdirectory
-                Path agentsPath = Path.of(hashDir.getAbsolutePath(), "agents");
+                // Check if this directory contains agents subdirectory (use configured openclawDir)
+                Path agentsPath = Path.of(hashDir.getAbsolutePath(), openclawDir);
                 if (!agentsPath.toFile().exists()) {
-                    continue;  // Skip directories without 'agents' subdirectory
+                    continue;  // Skip directories without configured subdirectory
                 }
                 
                 // Try to match hash to employee ID
@@ -69,8 +69,8 @@ public class UserScanner {
                     users.add(employeeId);
                     log.debug("Found user directory: {} -> employee {}", dirName, employeeId);
                 } else {
-                    // Use truncated hash as fallback identifier
-                    String fallbackId = dirName.length() > 16 ? dirName.substring(0, 16) : dirName;
+                    // Use truncated hash with "sha-" prefix as fallback identifier
+                    String fallbackId = "sha-" + (dirName.length() > 10 ? dirName.substring(0, 10) : dirName);
                     users.add(fallbackId);
                     log.debug("Found user directory with unknown hash: {} (using fallback ID: {})", dirName, fallbackId);
                 }

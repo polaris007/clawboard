@@ -267,15 +267,15 @@ public class ScanOrchestrator {
             String openclawDir = properties.getNas().getOpenclawDir();
             
             // Find the hash directory for this user
-            Path userHashDir = findUserHashDirectory(basePath, username);
+            Path userHashDir = findUserHashDirectory(basePath, username, openclawDir);
             
             if (userHashDir == null || !userHashDir.toFile().exists()) {
                 log.debug("User directory not found for: {}", username);
                 return new UserScanResult(0, 0, 0, 0, 0, 0, 0, 0);
             }
             
-            // Scan all agent directories under this hash directory
-            Path agentsDir = userHashDir.resolve("agents");
+            // Scan all agent directories under this hash directory (use configured openclawDir)
+            Path agentsDir = userHashDir.resolve(openclawDir);
             if (!agentsDir.toFile().exists() || !agentsDir.toFile().isDirectory()) {
                 log.debug("Agents directory not found: {}", agentsDir);
                 return new UserScanResult(0, 0, 0, 0, 0, 0, 0, 0);
@@ -405,9 +405,10 @@ public class ScanOrchestrator {
      * 
      * @param basePath Base path containing hash directories
      * @param username Employee ID or truncated hash
+     * @param openclawDir Configured openclaw directory name (e.g., "agents")
      * @return Path to the hash directory, or null if not found
      */
-    private Path findUserHashDirectory(String basePath, String username) {
+    private Path findUserHashDirectory(String basePath, String username, String openclawDir) {
         File baseDir = new File(basePath);
         if (!baseDir.exists() || !baseDir.isDirectory()) {
             return null;
@@ -427,8 +428,8 @@ public class ScanOrchestrator {
             for (File hashDir : hashDirs) {
                 String dirName = hashDir.getName();
                 
-                // Check if this is a valid hash directory (has 'agents' subdirectory)
-                Path agentsPath = hashDir.toPath().resolve("agents");
+                // Check if this is a valid hash directory (has configured openclawDir subdirectory)
+                Path agentsPath = hashDir.toPath().resolve(openclawDir);
                 if (!agentsPath.toFile().exists()) {
                     continue;
                 }
@@ -483,9 +484,9 @@ public class ScanOrchestrator {
             }
         }
         
-        // Fallback: use first 10 characters of hash as employee ID
+        // Fallback: use "sha-" prefix with first 10 characters of hash as employee ID
         if (username != null && username.length() >= 10) {
-            return username.substring(0, 10);
+            return "sha-" + username.substring(0, 10);
         }
         
         // If all else fails, use username as-is
