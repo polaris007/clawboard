@@ -38,12 +38,13 @@ public class TurnAssembler {
         long totalTokens,
         int toolCallsCount,
         int toolCallsSuccess,
-        int toolCallsError
+        int toolCallsError,
+        long totalDurationMs  // 轮次总耗时（毫秒）
     ) {}
 
     public AssembledTurn assembleTurn(List<MessageRecord> messages) {
         if (messages == null || messages.isEmpty()) {
-            return new AssembledTurn(null, List.of(), false, false, "incomplete", null, null, 0, 0, false, 0, 0, 0, 0, 0, 0);
+            return new AssembledTurn(null, List.of(), false, false, "incomplete", null, null, 0, 0, false, 0, 0, 0, 0, 0, 0, 0);
         }
 
         // Find user input (first user message)
@@ -136,12 +137,16 @@ public class TurnAssembler {
         // Get start and end times
         long startTime = messages.get(0).epochMs();
         long endTime = messages.get(messages.size() - 1).epochMs();
+        
+        // 计算轮次总耗时
+        long totalDurationMs = endTime - startTime;
 
         return new AssembledTurn(
             userInput, chainSteps, isComplete, hasError, status, 
             startMessageId, endMessageId, startTime, endTime, isSystemTurn,
             totalInputTokens, totalOutputTokens, totalTokens,
-            toolCallsCount, toolCallsSuccess, toolCallsError
+            toolCallsCount, toolCallsSuccess, toolCallsError,
+            totalDurationMs
         );
     }
 

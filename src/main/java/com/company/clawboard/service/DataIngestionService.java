@@ -279,7 +279,7 @@ public class DataIngestionService {
             entity.setSkillCallsCount(0);
             entity.setSkillCallsSuccess(0);
             entity.setSkillCallsError(0);
-            entity.setTotalDurationMs(0);
+            entity.setTotalDurationMs((int) turn.totalDurationMs());  // 轮次总耗时
             entity.setToolDurationMs(0);
             entity.setModelDurationMs(0);
             entity.setChainSummary("");

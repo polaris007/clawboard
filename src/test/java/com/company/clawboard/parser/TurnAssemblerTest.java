@@ -42,6 +42,14 @@ class TurnAssemblerTest {
         );
     }
     
+    private MessageRecord createAssistantMessage(String id, UsageInfo usage, List<MessageRecord.ToolCallInfo> toolCalls, String stopReason, long epochMs) {
+        return new MessageRecord(
+            id, null, "2026-04-22T10:00:01Z", "assistant", null,
+            null, toolCalls, null, null, false,
+            "custom-provider", "Qwen3.5", stopReason, usage, 100, epochMs, 2
+        );
+    }
+    
     private MessageRecord createToolResultMessage(String id, String toolCallId, String toolName, boolean isError, String errorMessage) {
         return new MessageRecord(
             id, null, "2026-04-22T10:00:02Z", "toolResult", null,
@@ -212,5 +220,26 @@ class TurnAssemblerTest {
         assertEquals(0, turn.totalInputTokens());
         assertEquals(0, turn.totalOutputTokens());
         assertEquals(0, turn.totalTokens());
+    }
+    
+    @Test
+    void testTotalDurationMsCalculation() {
+        // 准备：user → assistant(toolCall) → toolResult → assistant(reply)
+        MessageRecord.ToolCallInfo toolCall = new MessageRecord.ToolCallInfo(
+            "call-1", "exec", "{\"command\":\"date\"}"
+        );
+        
+        List<MessageRecord> messages = List.of(
+            createUserMessage("msg1", "执行命令"),  // epochMs: 1713780000000
+            createAssistantMessage("msg2", createUsage(50, 30, 80), List.of(toolCall), "toolUse", 1713780001000L),  // epochMs: 1713780001000
+            createToolResultMessage("msg3", "call-1", "exec", false, null),  // epochMs: 1713780002000
+            createAssistantMessage("msg4", createUsage(20, 40, 60), List.of(), null, 1713780003000L)  // epochMs: 1713780003000
+        );
+        
+        // 执行
+        TurnAssembler.AssembledTurn turn = turnAssembler.assembleTurn(messages);
+        
+        // 验证：总耗时 = 最后一条消息 - 第一条消息 = 1713780003000 - 1713780000000 = 3000ms
+        assertEquals(3000L, turn.totalDurationMs());
     }
 }
