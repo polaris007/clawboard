@@ -7,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -29,12 +31,19 @@ public class TurnAssembler {
         String endMessageId,
         long startTime,
         long endTime,
-        boolean isSystemTurn
+        boolean isSystemTurn,
+        // 新增统计字段
+        long totalInputTokens,
+        long totalOutputTokens,
+        long totalTokens,
+        int toolCallsCount,
+        int toolCallsSuccess,
+        int toolCallsError
     ) {}
 
     public AssembledTurn assembleTurn(List<MessageRecord> messages) {
         if (messages == null || messages.isEmpty()) {
-            return new AssembledTurn(null, List.of(), false, false, "incomplete", null, null, 0, 0, false);
+            return new AssembledTurn(null, List.of(), false, false, "incomplete", null, null, 0, 0, false, 0, 0, 0, 0, 0, 0);
         }
 
         // Find user input (first user message)
@@ -44,8 +53,66 @@ public class TurnAssembler {
             .findFirst()
             .orElse(null);
 
+        // 初始化统计变量
+        long totalInputTokens = 0;
+        long totalOutputTokens = 0;
+        long totalTokens = 0;
+        int toolCallsCount = 0;
+        int toolCallsError = 0;
+
+        // 构建 toolCall -> toolResult 映射
+        Map<String, MessageRecord> toolResultMap = new HashMap<>();
+        for (MessageRecord msg : messages) {
+            if ("toolResult".equals(msg.role()) && msg.toolCallId() != null) {
+                toolResultMap.put(msg.toolCallId(), msg);
+            }
+        }
+
         // Build chain steps
         List<ChainStep> chainSteps = buildChainSteps(messages);
+
+        // 统计 tokens 和 toolCalls
+        for (MessageRecord msg : messages) {
+            // 只统计 assistant message 的 usage
+            if ("assistant".equals(msg.role())) {
+                // 统计 tokens
+                if (msg.usage() != null) {
+                    totalInputTokens += msg.usage().inputTokens();
+                    totalOutputTokens += msg.usage().outputTokens();
+                    totalTokens += msg.usage().totalTokens();
+                }
+                
+                // 统计 toolCalls
+                if (msg.toolCalls() != null && !msg.toolCalls().isEmpty()) {
+                    for (MessageRecord.ToolCallInfo tc : msg.toolCalls()) {
+                        toolCallsCount++;
+                        
+                        boolean hasError = false;
+                        
+                        // 检查是否有对应的 toolResult
+                        MessageRecord toolResult = toolResultMap.get(tc.id());
+                        if (toolResult == null) {
+                            hasError = true;  // 缺少 toolResult
+                        } else if (toolResult.isError() || 
+                                   (toolResult.errorMessage() != null && !toolResult.errorMessage().isEmpty())) {
+                            hasError = true;  // toolResult 有错误
+                        }
+                        
+                        // 检查 stopReason
+                        String stopReason = msg.stopReason();
+                        if ("error".equals(stopReason) || "aborted".equals(stopReason)) {
+                            hasError = true;
+                        }
+                        
+                        if (hasError) {
+                            toolCallsError++;
+                        }
+                    }
+                }
+            }
+        }
+
+        int toolCallsSuccess = toolCallsCount - toolCallsError;
 
         // Determine completion and errors
         boolean hasError = messages.stream()
@@ -70,7 +137,12 @@ public class TurnAssembler {
         long startTime = messages.get(0).epochMs();
         long endTime = messages.get(messages.size() - 1).epochMs();
 
-        return new AssembledTurn(userInput, chainSteps, isComplete, hasError, status, startMessageId, endMessageId, startTime, endTime, isSystemTurn);
+        return new AssembledTurn(
+            userInput, chainSteps, isComplete, hasError, status, 
+            startMessageId, endMessageId, startTime, endTime, isSystemTurn,
+            totalInputTokens, totalOutputTokens, totalTokens,
+            toolCallsCount, toolCallsSuccess, toolCallsError
+        );
     }
 
     private List<ChainStep> buildChainSteps(List<MessageRecord> messages) {

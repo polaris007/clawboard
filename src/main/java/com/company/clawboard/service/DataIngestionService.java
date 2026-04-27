@@ -268,13 +268,14 @@ public class DataIngestionService {
             } else {
                 entity.setEndTime(now);
             }
-            entity.setTotalInputTokens(0);
-            entity.setTotalOutputTokens(0);
-            entity.setTotalTokens(0);
-            entity.setTotalCost(BigDecimal.ZERO);
-            entity.setToolCallsCount(0);
-            entity.setToolCallsSuccess(0);
-            entity.setToolCallsError(0);
+            // 从 AssembledTurn 获取统计值
+            entity.setTotalInputTokens((int) turn.totalInputTokens());
+            entity.setTotalOutputTokens((int) turn.totalOutputTokens());
+            entity.setTotalTokens((int) turn.totalTokens());
+            entity.setTotalCost(BigDecimal.ZERO);  // TODO: 后续从 usage.costTotal 计算
+            entity.setToolCallsCount(turn.toolCallsCount());
+            entity.setToolCallsSuccess(turn.toolCallsSuccess());
+            entity.setToolCallsError(turn.toolCallsError());
             entity.setSkillCallsCount(0);
             entity.setSkillCallsSuccess(0);
             entity.setSkillCallsError(0);
