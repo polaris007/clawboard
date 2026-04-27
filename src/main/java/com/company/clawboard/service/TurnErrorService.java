@@ -91,44 +91,7 @@ public class TurnErrorService {
             return item;
         }).collect(Collectors.toList());
         
-        return new PageResult<>(pageInfo.getTotal(), pageInfo.getPageNum(), pageInfo.getPageSize(), items);
-    }
-
-    public TraceResponse getTrace(Long turnId) {
-        // 从 conversation_turn 表查询
-        DashboardConversationTurn turn = turnMapper.selectById(turnId);
-        var response = new TraceResponse();
-        response.setTurnId(turnId);
-        
-        // 如果没有数据，返回空节点列表
-        if (turn == null) {
-            response.setNodes(List.of());
-            return response;
-        }
-        
-        // 构建简单的执行链路
-        var nodes = List.of(
-            createTraceNode(0, "user_input", "用户输入", true, turn.getStartTime()),
-            createTraceNode(1, "skill_call", "技能调用", true, turn.getStartTime()),
-            createTraceNode(2, "tool_call", "工具调用", true, turn.getStartTime()),
-            createTraceNode(3, "reply", "回复用户", "success".equals(turn.getStatus()), turn.getEndTime())
-        );
-        response.setNodes(nodes);
-        return response;
-    }
-
-    private TraceNode createTraceNode(int stepOrder, String nodeType, String nodeName, boolean status, java.time.LocalDateTime time) {
-        var node = new TraceNode();
-        node.setStepOrder(stepOrder);
-        node.setNodeType(nodeType);
-        node.setNodeName(nodeName);
-        node.setStatus(status);
-        if (time != null) {
-            node.setTimeStamp(time.toInstant(java.time.ZoneOffset.UTC).toEpochMilli());
-        } else {
-            node.setTimeStamp(0L);
-        }
-        return node;
+        return new PageResult<>(pageInfo.getTotal(), pageInfo.getPageNum(), request.getPageSizeOrDefault(), items);
     }
 
     public ErrorSummaryResponse getErrorSummary(TimeRangeRequest request) {
@@ -164,6 +127,6 @@ public class TurnErrorService {
             return item;
         }).collect(Collectors.toList());
         
-        return new PageResult<>(pageInfo.getTotal(), pageInfo.getPageNum(), pageInfo.getPageSize(), items);
+        return new PageResult<>(pageInfo.getTotal(), pageInfo.getPageNum(), request.getPageSizeOrDefault(), items);
     }
 }

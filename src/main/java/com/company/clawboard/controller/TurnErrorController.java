@@ -20,11 +20,6 @@ public class TurnErrorController {
         return ApiResponse.ok(turnErrorService.searchTurns(request));
     }
 
-    @GetMapping("/turns/{turnId}/trace")
-    public ApiResponse<?> getTrace(@PathVariable Long turnId) {
-        return ApiResponse.ok(turnErrorService.getTrace(turnId));
-    }
-
     @PostMapping("/errors/summary")
     public ApiResponse<?> getErrorSummary(@RequestBody TimeRangeRequest request) {
         return ApiResponse.ok(turnErrorService.getErrorSummary(request));

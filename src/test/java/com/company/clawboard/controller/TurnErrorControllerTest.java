@@ -51,19 +51,6 @@ class TurnErrorControllerTest {
     }
 
     @Test
-    @DisplayName("Should get trace by turn ID")
-    void testGetTrace() {
-        // When
-        ApiResponse<?> response = turnErrorController.getTrace(123L);
-
-        // Then
-        assertThat(response).isNotNull();
-        assertThat(response.getCode()).isEqualTo(200);
-        assertThat(response.getMessage()).isEqualTo("success");
-        verify(turnErrorService, times(1)).getTrace(123L);
-    }
-
-    @Test
     @DisplayName("Should return error summary from service")
     void testGetErrorSummary() {
         // When

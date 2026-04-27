@@ -50,6 +50,7 @@
 | `user_input` | 用户输入 |
 | `skill_call` | 技能调用 |
 | `tool_call` | 工具调用 |
+| `tool_result` | 工具调用结果 |
 | `reply` | 回复用户 |
 
 ---
@@ -384,32 +385,52 @@
     "turnId": "d6gte29d",
     "nodes": [
       {
-        "stepOrder": 0,
+        "messageId": "abc12345",
+        "nodeIndex": 0,
         "nodeType": "user_input",
-        "nodeName": "用户输入",
+        "content": "帮我写一份报告",
+        "timestamp": 1680000000000,
+        "durationMs": null,
+        "toolName": null,
+        "toolCallId": null,
         "status": true,
-        "timeStamp": 1680000000000
+        "errorMessage": null
       },
       {
-        "stepOrder": 1,
+        "messageId": "def67890",
+        "nodeIndex": 1,
         "nodeType": "skill_call",
-        "nodeName": "公文写作技能调用",
+        "content": "调用 official-doc-writer 技能",
+        "timestamp": 1680000000200,
+        "durationMs": 150,
+        "toolName": null,
+        "toolCallId": null,
         "status": true,
-        "timeStamp": 1680000000200
+        "errorMessage": null
       },
       {
-        "stepOrder": 2,
+        "messageId": "ghi11111",
+        "nodeIndex": 2,
         "nodeType": "tool_call",
-        "nodeName": "数据抽取工具调用",
+        "content": "执行数据抽取",
+        "timestamp": 1680000000400,
+        "durationMs": 300,
+        "toolName": "extract_data",
+        "toolCallId": "call_abc123",
         "status": true,
-        "timeStamp": 1680000000400
+        "errorMessage": null
       },
       {
-        "stepOrder": 3,
+        "messageId": "jkl22222",
+        "nodeIndex": 3,
         "nodeType": "reply",
-        "nodeName": "回复用户",
+        "content": "生成失败：模板不存在",
+        "timestamp": 1680000000800,
+        "durationMs": null,
+        "toolName": null,
+        "toolCallId": null,
         "status": false,
-        "timeStamp": 1680000000600
+        "errorMessage": "生成失败：模板不存在"
       }
     ]
   }
@@ -419,9 +440,80 @@
 | 字段 | 类型 | 说明 |
 | :--- | :--- | :--- |
 | `turnId` | String | 对话唯一 ID |
-| `nodes` | Array | 执行节点列表，按 `stepOrder` 升序排列 |
-| `nodes[].stepOrder` | Integer | 节点顺序，从 0 开始 |
-| `nodes[].nodeType` | String | 节点类型，见数据字典 |
-| `nodes[].nodeName` | String | 节点展示名称 |
+| `nodes` | Array | 执行节点列表，按 `nodeIndex` 升序排列 |
+| `nodes[].messageId` | String | 关联消息ID（来自 transcript 的 message.id） |
+| `nodes[].nodeIndex` | Integer | 节点顺序索引，从 0 开始 |
+| `nodes[].nodeType` | String | 节点类型，见数据字典（`user_input`, `skill_call`, `tool_call`, `tool_result`, `reply`） |
+| `nodes[].content` | String | 节点内容描述 |
+| `nodes[].timestamp` | Long | 节点执行时间戳（毫秒） |
+| `nodes[].durationMs` | Integer | 节点执行耗时（毫秒），仅部分节点有此值 |
+| `nodes[].toolName` | String | 工具名称，仅 `tool_call` 类型节点有值 |
+| `nodes[].toolCallId` | String | 工具调用 ID，仅 `tool_call` 类型节点有值 |
 | `nodes[].status` | Boolean | 节点执行结果：`true` 成功 / `false` 失败 |
-| `nodes[].timeStamp` | Long | 节点执行时间戳（毫秒），相邻节点时间差即为该步骤耗时 |
+| `nodes[].errorMessage` | String | 错误信息，仅在 `status=false` 时有值 |
+
+---
+
+## 模块四：OpenClaw 实例管理
+
+### 8. 获取机构列表
+
+获取所有 OpenClaw 实例的机构代码列表（去重，排除已删除的实例）。
+
+- **路径**: `GET /instances/orgs/list`
+- **请求参数**: 无
+
+**响应示例**:
+
+```json
+{
+  "code": 200,
+  "message": "success",
+  "data": [
+    { "orgCode": "18100000", "orgName": "18100000" },
+    { "orgCode": "18200000", "orgName": "18200000" }
+  ]
+}
+```
+
+| 字段 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `orgCode` | String | 机构代码 |
+| `orgName` | String | 机构名称（目前与 orgCode 相同） |
+
+---
+
+### 9. 搜索用户列表
+
+根据机构代码等条件搜索用户列表（排除已删除的实例）。
+
+- **路径**: `POST /instances/users/search`
+- **请求体**:
+
+```json
+{
+  "orgCodes": ["18100000", "18200000"]
+}
+```
+
+| 字段 | 类型 | 必填 | 说明 |
+| :--- | :--- | :--- | :--- |
+| `orgCodes` | String[] | 否 | 机构代码列表，支持传入多个 |
+
+**响应示例**:
+
+```json
+{
+  "code": 200,
+  "message": "success",
+  "data": [
+    { "userId": "18101142", "userName": "王颜" },
+    { "userId": "18101143", "userName": "张三" }
+  ]
+}
+```
+
+| 字段 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `userId` | String | 工号（uid） |
+| `userName` | String | 姓名（user_config_name） |

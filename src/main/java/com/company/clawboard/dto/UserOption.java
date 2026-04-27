@@ -5,16 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
- * 执行链路响应
+ * 用户选项 DTO
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExecutionTraceResponse {
-    private String turnId;
-    private List<TraceNodeVO> nodes;
+public class UserOption {
+    private String userId;      // 工号（uid）
+    private String userName;    // 姓名（user_config_name）
 }

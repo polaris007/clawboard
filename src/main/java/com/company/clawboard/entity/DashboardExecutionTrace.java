@@ -18,6 +18,7 @@ public class DashboardExecutionTrace {
     private Long id;
     private Long scanId;
     private Long turnId;
+    private String messageId;  // NEW: 关联消息ID
     private Integer nodeIndex;
     private String nodeType;
     private String toolName;

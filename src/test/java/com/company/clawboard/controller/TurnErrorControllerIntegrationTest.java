@@ -38,14 +38,4 @@ class TurnErrorControllerIntegrationTest {
             .andExpect(jsonPath("$.code").value(200))
             .andExpect(jsonPath("$.message").value("success"));
     }
-
-    @Test
-    @DisplayName("GET /api/turns/{turnId}/trace should return 200")
-    void testGetTrace() throws Exception {
-        mockMvc.perform(get("/api/turns/1/trace")
-                .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$.code").value(200));
-    }
 }

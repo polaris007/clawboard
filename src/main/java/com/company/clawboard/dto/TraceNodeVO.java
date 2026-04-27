@@ -13,13 +13,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TraceNodeVO {
+    private String messageId;      // NEW: 关联消息ID
     private Integer nodeIndex;
     private String nodeType;
     private String content;
-    private Long timestampMs;
+    private Long timestamp;        // 改回 timestamp
     private Integer durationMs;
     private String toolName;
     private String toolCallId;
-    private Boolean success;
+    private Boolean status;        // 改回 status
     private String errorMessage;
 }

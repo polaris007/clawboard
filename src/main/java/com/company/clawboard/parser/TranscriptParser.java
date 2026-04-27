@@ -394,54 +394,93 @@ public class TranscriptParser {
                     node = com.company.clawboard.entity.DashboardExecutionTrace.builder()
                         .scanId(scanId)
                         .turnId(turnId)
+                        .messageId(msg.id())  // NEW: 记录消息ID
                         .nodeIndex(nodeIndex++)
                         .nodeType("user_input")
                         .content(userInput)
                         .timestampMs(msg.epochMs())
+                        .success(true)  // 用户输入总是成功
                         .build();
                     break;
                     
                 case "assistant":
                     if (isToolCall(msg)) {
-                        // 工具调用节点
+                        // 工具调用节点 - 可能有多个工具调用
+                        List<MessageRecord.ToolCallInfo> toolCalls = msg.toolCalls();
+                        if (toolCalls != null && !toolCalls.isEmpty()) {
+                            // 为每个工具调用创建一个节点
+                            for (MessageRecord.ToolCallInfo toolCall : toolCalls) {
+                                node = com.company.clawboard.entity.DashboardExecutionTrace.builder()
+                                    .scanId(scanId)
+                                    .turnId(turnId)
+                                    .messageId(msg.id())  // NEW: 记录消息ID
+                                    .nodeIndex(nodeIndex++)
+                                    .nodeType("tool_call")
+                                    .toolName(toolCall.name())
+                                    .toolCallId(toolCall.id())
+                                    .timestampMs(msg.epochMs())
+                                    .build();
+                                nodes.add(node);
+                            }
+                        }
+                        // 注意：tool_call 节点已经在循环内添加，不需要再添加
+                        node = null;  // 防止后续重复添加
+                    } else if (hasErrorMessage(msg)) {
+                        // 错误消息节点（stopReason="error" 且有 errorMessage）
+                        String errorContent = msg.errorMessage() != null ? msg.errorMessage() : "Unknown error";
                         node = com.company.clawboard.entity.DashboardExecutionTrace.builder()
                             .scanId(scanId)
                             .turnId(turnId)
+                            .messageId(msg.id())  // NEW: 记录消息ID
                             .nodeIndex(nodeIndex++)
-                            .nodeType("tool_call")
-                            .toolName(msg.toolName())
-                            .toolCallId(msg.toolCallId())
+                            .nodeType("reply")
+                            .content(errorContent)
                             .timestampMs(msg.epochMs())
+                            .success(false)  // 明确标记为失败
+                            .errorMessage(errorContent)
                             .build();
+                        nodes.add(node);
+                        node = null;  // 防止后续重复添加
                     } else if (isTextReply(msg)) {
                         // AI 回复节点
                         String replyContent = extractTextContent(msg);
                         node = com.company.clawboard.entity.DashboardExecutionTrace.builder()
                             .scanId(scanId)
                             .turnId(turnId)
+                            .messageId(msg.id())  // NEW: 记录消息ID
                             .nodeIndex(nodeIndex++)
                             .nodeType("reply")
                             .content(replyContent)
                             .timestampMs(msg.epochMs())
+                            .success(true)  // 明确标记为成功
                             .build();
+                        // reply 节点需要在这里添加
+                        nodes.add(node);
+                        node = null;  // 防止后续重复添加
                     }
                     break;
                     
                 case "toolResult":
                     // 工具结果节点
-                    String resultContent = extractTextContent(msg);
-                    boolean success = !msg.isError();
+                    // TODO: 暂时将 content 设为空字符串，原有逻辑已注释
+                    String resultContent = "";
+                    // String resultContent = extractTextContent(msg);  // 原有逻辑：从 message.textContent 提取
+                    
+                    // 只有在明确是错误消息时才设为 false，其他情况都设为 true
+                    boolean isSuccess = !hasErrorMessage(msg);
+                    
                     node = com.company.clawboard.entity.DashboardExecutionTrace.builder()
                         .scanId(scanId)
                         .turnId(turnId)
+                        .messageId(msg.id())  // NEW: 记录消息ID
                         .nodeIndex(nodeIndex++)
                         .nodeType("tool_result")
                         .toolName(msg.toolName())
                         .toolCallId(msg.toolCallId())
                         .content(resultContent)
                         .timestampMs(msg.epochMs())
-                        .success(success)
-                        .errorMessage(success ? null : msg.errorMessage())
+                        .success(isSuccess)
+                        .errorMessage(isSuccess ? null : msg.errorMessage())
                         .build();
                     break;
             }
@@ -461,7 +500,9 @@ public class TranscriptParser {
      * 判断是否为工具调用消息
      */
     private boolean isToolCall(MessageRecord msg) {
-        return "assistant".equals(msg.role()) && msg.toolName() != null;
+        return "assistant".equals(msg.role()) && 
+               msg.toolCalls() != null && 
+               !msg.toolCalls().isEmpty();
     }
 
     /**
@@ -469,6 +510,15 @@ public class TranscriptParser {
      */
     private boolean isTextReply(MessageRecord msg) {
         return "assistant".equals(msg.role()) && msg.toolName() == null && hasTextContent(msg);
+    }
+
+    /**
+     * 判断是否有错误消息
+     */
+    private boolean hasErrorMessage(MessageRecord msg) {
+        return "assistant".equals(msg.role()) && 
+               msg.errorMessage() != null && 
+               !msg.errorMessage().trim().isEmpty();
     }
 
     /**

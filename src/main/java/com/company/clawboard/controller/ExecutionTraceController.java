@@ -24,7 +24,7 @@ public class ExecutionTraceController {
      * @return 执行链路响应
      */
     @GetMapping("/{turnId}/trace")
-    public ApiResponse<ExecutionTraceResponse> getTrace(@PathVariable Long turnId) {
+    public ApiResponse<ExecutionTraceResponse> getTrace(@PathVariable String turnId) {
         log.info("查询执行链路: turnId={}", turnId);
         ExecutionTraceResponse response = executionTraceService.getTraceByTurnId(turnId);
         return ApiResponse.ok(response);

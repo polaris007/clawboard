@@ -26,7 +26,7 @@ public class ExecutionTraceService {
      * @param turnId 轮次ID
      * @return 执行链路响应
      */
-    public ExecutionTraceResponse getTraceByTurnId(Long turnId) {
+    public ExecutionTraceResponse getTraceByTurnId(String turnId) {
         List<DashboardExecutionTrace> nodes = executionTraceMapper.selectByTurnId(turnId);
         
         if (nodes == null || nodes.isEmpty()) {
@@ -46,14 +46,15 @@ public class ExecutionTraceService {
      */
     private TraceNodeVO convertToNodeVO(DashboardExecutionTrace entity) {
         return TraceNodeVO.builder()
+            .messageId(entity.getMessageId())
             .nodeIndex(entity.getNodeIndex())
             .nodeType(entity.getNodeType())
             .content(entity.getContent())
-            .timestampMs(entity.getTimestampMs())
+            .timestamp(entity.getTimestampMs())
             .durationMs(entity.getDurationMs())
             .toolName(entity.getToolName())
             .toolCallId(entity.getToolCallId())
-            .success(entity.getSuccess())
+            .status(entity.getSuccess())
             .errorMessage(entity.getErrorMessage())
             .build();
     }

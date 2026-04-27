@@ -1,6 +1,36 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.clawboard.mapper.VInstanceDetailMapper">
+
+    <!-- ===== 新增接口 ===== -->
+    
+    <!-- 获取机构列表（去重，排除 deleted 状态） -->
+    <select id="selectDistinctOrgCodes" resultType="com.company.clawboard.dto.OrgOption">
+        SELECT DISTINCT
+            user_config_org_code AS orgCode,
+            user_config_org_code AS orgName
+        FROM v_instance_detail
+        WHERE status != 'deleted'
+          AND user_config_org_code IS NOT NULL
+        ORDER BY orgCode
+    </select>
+
+    <!-- 根据机构代码查询用户列表（排除 deleted 状态） -->
+    <select id="selectUsersByOrgCodes" resultType="com.company.clawboard.dto.UserOption">
+        SELECT DISTINCT
+            uid AS userId,
+            user_config_name AS userName
+        FROM v_instance_detail
+        WHERE status != 'deleted'
+          AND user_config_org_code IN
+        <foreach collection="orgCodes" item="orgCode" open="(" separator="," close=")">
+            #{orgCode}
+        </foreach>
+        ORDER BY userId
+    </select>
+
+    <!-- ===== 以下为原有方法，保留以兼容现有代码 ===== -->
 
     <!-- 查询所有运行中的实例 -->
     <select id="selectRunningInstances" resultType="java.util.Map">

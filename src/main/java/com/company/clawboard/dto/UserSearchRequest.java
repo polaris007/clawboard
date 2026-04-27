@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * 执行链路响应
+ * 用户搜索请求 DTO
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExecutionTraceResponse {
-    private String turnId;
-    private List<TraceNodeVO> nodes;
+public class UserSearchRequest {
+    private List<String> orgCodes;  // 机构代码列表（支持多个）
+    // TODO: 未来可扩展其他查询条件，如 userId, userName 等
 }

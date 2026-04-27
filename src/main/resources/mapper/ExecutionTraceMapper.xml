@@ -6,11 +6,11 @@
     <!-- 批量插入（忽略重复） -->
     <insert id="batchInsertIgnore">
         INSERT IGNORE INTO dashboard_execution_trace 
-        (scan_id, turn_id, node_index, node_type, tool_name, tool_call_id, 
+        (scan_id, turn_id, message_id, node_index, node_type, tool_name, tool_call_id, 
          content, timestamp_ms, duration_ms, success, error_message)
         VALUES
         <foreach collection="nodes" item="node" separator=",">
-            (#{node.scanId}, #{node.turnId}, #{node.nodeIndex}, #{node.nodeType},
+            (#{node.scanId}, #{node.turnId}, #{node.messageId}, #{node.nodeIndex}, #{node.nodeType},
              #{node.toolName}, #{node.toolCallId}, #{node.content},
              #{node.timestampMs}, #{node.durationMs}, #{node.success}, #{node.errorMessage})
         </foreach>

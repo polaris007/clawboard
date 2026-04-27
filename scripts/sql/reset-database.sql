@@ -15,6 +15,7 @@ TRUNCATE TABLE dashboard_scan_progress;
 TRUNCATE TABLE dashboard_scan_history;
 TRUNCATE TABLE dashboard_hourly_stats;
 TRUNCATE TABLE dashboard_employee;
+TRUNCATE TABLE dashboard_execution_trace;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -52,4 +53,6 @@ SELECT 'dashboard_skill_invocation', COUNT(*) FROM dashboard_skill_invocation
 UNION ALL
 SELECT 'dashboard_hourly_stats', COUNT(*) FROM dashboard_hourly_stats
 UNION ALL
-SELECT 'dashboard_employee', COUNT(*) FROM dashboard_employee;
+SELECT 'dashboard_employee', COUNT(*) FROM dashboard_employee
+UNION ALL
+SELECT 'dashboard_execution_trace', COUNT(*) FROM dashboard_execution_trace;

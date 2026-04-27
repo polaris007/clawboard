@@ -55,16 +55,6 @@ class TurnErrorServiceTest {
     }
 
     @Test
-    @DisplayName("Should return empty trace response")
-    void testGetTrace_EmptyResponse() {
-        // When
-        TraceResponse response = turnErrorService.getTrace(1L);
-
-        // Then
-        assertThat(response).isNotNull();
-    }
-
-    @Test
     @DisplayName("Should return empty error summary")
     void testGetErrorSummary_EmptyResponse() {
         // When

@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS dashboard_execution_trace (
     id              BIGINT        NOT NULL AUTO_INCREMENT COMMENT '链路节点ID',
     scan_id         BIGINT        COMMENT '关联扫描ID（可选，用于追溯数据来源）',
     turn_id         BIGINT        NOT NULL COMMENT '关联轮次ID（外键指向 dashboard_conversation_turn.id）',
+    message_id      VARCHAR(36)   COMMENT '关联消息ID（来自 transcript 的 message.id）',
     node_index      INT           NOT NULL COMMENT '节点序号（从0开始，表示在链路中的顺序）',
     node_type       VARCHAR(20)   NOT NULL COMMENT '节点类型：user_input/tool_call/tool_result/reply',
     tool_name       VARCHAR(100)  COMMENT '工具名称（仅 tool_call 和 tool_result 节点有值）',
@@ -18,5 +19,6 @@ CREATE TABLE IF NOT EXISTS dashboard_execution_trace (
     PRIMARY KEY (id),
     INDEX idx_turn_id (turn_id) COMMENT '按轮次查询索引',
     INDEX idx_scan_id (scan_id) COMMENT '按扫描ID查询索引',
-    INDEX idx_node_type (node_type) COMMENT '按节点类型统计索引'
+    INDEX idx_node_type (node_type) COMMENT '按节点类型统计索引',
+    INDEX idx_message_id (message_id) COMMENT '按消息ID查询索引'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='执行链路追踪表';

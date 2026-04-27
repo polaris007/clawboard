@@ -38,7 +38,8 @@ public class DatabaseService {
                 "dashboard_scan_progress",
                 "dashboard_scan_history",
                 "dashboard_hourly_stats",
-                "dashboard_employee"
+                "dashboard_employee",
+                "dashboard_execution_trace"
         };
 
         for (String table : tables) {

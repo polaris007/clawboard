@@ -24,7 +24,7 @@ public interface ExecutionTraceMapper {
      * @param turnId 轮次ID
      * @return 节点列表（按 node_index 排序）
      */
-    List<DashboardExecutionTrace> selectByTurnId(@Param("turnId") Long turnId);
+    List<DashboardExecutionTrace> selectByTurnId(@Param("turnId") String turnId);
     
     /**
      * 根据 scanId 删除执行链路（用于重置扫描）

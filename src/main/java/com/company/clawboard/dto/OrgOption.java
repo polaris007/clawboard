@@ -5,16 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
- * 执行链路响应
+ * 机构选项 DTO
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExecutionTraceResponse {
-    private String turnId;
-    private List<TraceNodeVO> nodes;
+public class OrgOption {
+    private String orgCode;   // 机构代码
+    private String orgName;   // 机构名称（目前与 orgCode 相同）
 }

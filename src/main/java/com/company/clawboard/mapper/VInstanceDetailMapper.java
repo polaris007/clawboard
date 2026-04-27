@@ -1,13 +1,33 @@
 package com.company.clawboard.mapper;
 
+import com.company.clawboard.dto.OrgOption;
+import com.company.clawboard.dto.UserOption;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
 
+/**
+ * OpenClaw 实例视图 Mapper
+ */
 @Mapper
 public interface VInstanceDetailMapper {
+    
+    /**
+     * 获取机构列表（去重，排除 deleted 状态）
+     * @return 机构选项列表
+     */
+    List<OrgOption> selectDistinctOrgCodes();
+    
+    /**
+     * 根据机构代码查询用户列表（排除 deleted 状态）
+     * @param orgCodes 机构代码列表
+     * @return 用户选项列表
+     */
+    List<UserOption> selectUsersByOrgCodes(@Param("orgCodes") List<String> orgCodes);
+    
+    // ===== 以下为原有方法，保留以兼容现有代码 =====
     
     /**
      * 查询所有运行中的实例
