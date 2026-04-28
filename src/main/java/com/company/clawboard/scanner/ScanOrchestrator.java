@@ -215,6 +215,14 @@ public class ScanOrchestrator {
             history.setNewIssues(totalIssues);
             history.setNewSkillCalls(totalSkills);
 
+            // ✅ 验证统计等式
+            int calculatedTotal = processedFiles + skippedFilesCount + errorFiles;
+            if (calculatedTotal != totalFiles) {
+                log.warn("Statistics mismatch: processed({}) + skipped({}) + error({}) = {} != total({})",
+                    processedFiles, skippedFilesCount, errorFiles, calculatedTotal, totalFiles);
+                // 不抛出异常，但记录警告以便调试
+            }
+
             finishScan(scanId, history, "completed", startTime, null);
 
             // Aggregate hourly stats from the scanned data
