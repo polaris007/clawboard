@@ -190,8 +190,22 @@ public class ScanOrchestrator {
                 }
             }
 
+            // ✅ 计算实际扫描的用户数（有 processed 或 skipped 文件的用户）
+            int actualUsersScanned = 0;
+            for (var entry : futures.entrySet()) {
+                try {
+                    UserScanResult result = entry.getValue().get(30, TimeUnit.MINUTES);
+                    if (result.filesProcessed() > 0 || result.filesSkipped() > 0 || result.filesError() > 0) {
+                        actualUsersScanned++;
+                    }
+                } catch (Exception e) {
+                    log.error("Failed to get result for user {}", entry.getKey(), e);
+                }
+            }
+
             // Update scan history with results
-            history.setDirsScanned(users.size());
+            history.setUsersScanned(actualUsersScanned);
+            history.setDirsScanned(actualUsersScanned);  // 每个用户对应一个目录
             history.setFilesTotal(totalFiles);
             history.setFilesProcessed(processedFiles);
             history.setFilesSkipped(skippedFilesCount);
