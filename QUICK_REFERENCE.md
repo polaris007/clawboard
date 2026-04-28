@@ -51,6 +51,10 @@ scripts\run-tests.ps1
 ```bash
 mvn clean package "-Dmaven.test.skip=true"
 ```
+### 运行
+```bash
+mvn spring-boot:run "-Dspring-boot.run.profiles=dev"
+```
 
 ## 📝 重要文件
 
