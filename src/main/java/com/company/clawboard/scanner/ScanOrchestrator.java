@@ -347,6 +347,9 @@ public class ScanOrchestrator {
             scannedEmployeeIds.add(resolvedEmployeeId);
             log.info("Scanning employee {} (resolved to: {})", employeeId, resolvedEmployeeId);
             
+            // ✅ basePathObj 用于计算相对路径（只在处理成功时使用）
+            Path basePathObj = Path.of(basePath);
+            
             // Scan all agent subdirectories (e.g., "main", or other names)
             File[] agentDirs = agentsDir.toFile().listFiles(File::isDirectory);
             if (agentDirs == null || agentDirs.length == 0) {
@@ -366,17 +369,6 @@ public class ScanOrchestrator {
                 List<Path> jsonlFiles = fileScanner.scanForJsonlFiles(sessionsDir);
                 totalFiles += jsonlFiles.size();
                 log.info("Agent {}: found {} transcript files", agentDir.getName(), jsonlFiles.size());
-                
-                // Collect file paths for comparison (relative to base path)
-                Path basePathObj = Path.of(basePath);
-                for (Path jsonlFile : jsonlFiles) {
-                    try {
-                        String relativePath = basePathObj.relativize(jsonlFile).toString();
-                        scannedFilePaths.add(relativePath);
-                    } catch (Exception e) {
-                        log.debug("Failed to compute relative path for: {}", jsonlFile, e);
-                    }
-                }
                 
                 // Process each file sequentially within this user's thread
                 for (Path jsonlFile : jsonlFiles) {
