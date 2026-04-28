@@ -398,7 +398,7 @@ public class ScanOrchestrator {
                         }
                         
                         // Batch insert into database
-                        dataIngestionService.ingestParsedTranscript(scanId, resolvedEmployeeId, parsed);
+                        var result = dataIngestionService.ingestParsedTranscript(scanId, resolvedEmployeeId, parsed);
                         
                         // ✅ 更新扫描进度
                         try {
@@ -439,19 +439,33 @@ public class ScanOrchestrator {
                             // 不抛出异常，避免影响主流程
                         }
                         
-                        int msgCount = parsed.messages().size();
-                        int turnCount = parsed.turns().size();
-                        int issueCount = parsed.issues().size();
-                        int skillCount = parsed.skillInvocations().size();
-                        
-                        totalMessages += msgCount;
-                        totalTurns += turnCount;
-                        totalIssues += issueCount;
-                        totalSkills += skillCount;
-                        processedFiles++;
-                        
-                        log.debug("Parsed file: {} messages, {} turns, {} issues, {} skills",
-                                msgCount, turnCount, issueCount, skillCount);
+                        if (result.status() == IngestionStatus.PROCESSED) {
+                            // ✅ 只有实际处理的文件才记录到 scannedFilePaths
+                            String relativePath = basePathObj.relativize(jsonlFile).toString();
+                            scannedFilePaths.add(relativePath);
+                            
+                            // 累加统计数据
+                            totalMessages += result.messageCount();
+                            totalTurns += result.turnCount();
+                            totalIssues += result.issueCount();
+                            totalSkills += result.skillCount();
+                            processedFiles++;
+                            
+                            log.debug("Parsed file: {} messages, {} turns, {} issues, {} skills",
+                                result.messageCount(), result.turnCount(), result.issueCount(), result.skillCount());
+                            
+                        } else if (result.status() == IngestionStatus.SKIPPED_MTIME) {
+                            // ✅ mtime 未变化（兜底检查触发）
+                            skippedFiles.put(jsonlFile.toString(), "File not modified (checked in ingestion service)");
+                            skippedFilesCount++;
+                            
+                        } else if (result.status() == IngestionStatus.FAILED) {
+                            // ✅ 处理失败
+                            String errorMsg = "Ingestion failed: " + result.errorMessage();
+                            skippedFiles.put(jsonlFile.toString(), errorMsg);
+                            errorFiles++;
+                            log.error("{}", errorMsg);
+                        }
                         
                     } catch (Exception e) {
                         String errorMsg = "Failed to process file: " + e.getMessage();
