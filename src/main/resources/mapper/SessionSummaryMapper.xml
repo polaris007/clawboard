@@ -82,5 +82,10 @@
     <select id="selectTotalTurnsByScanId" resultType="int">
         SELECT COALESCE(SUM(total_turns), 0) FROM dashboard_session_summary WHERE last_scan_id = #{scanId}
     </select>
+    
+    <!-- Delete session summary by session ID -->
+    <delete id="deleteBySessionId">
+        DELETE FROM dashboard_session_summary WHERE session_id = #{sessionId}
+    </delete>
 
 </mapper>

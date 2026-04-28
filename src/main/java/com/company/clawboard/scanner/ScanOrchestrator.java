@@ -2,6 +2,7 @@ package com.company.clawboard.scanner;
 
 import com.company.clawboard.config.ClawboardProperties;
 import com.company.clawboard.entity.DashboardScanHistory;
+import com.company.clawboard.entity.DashboardScanProgress;
 import com.company.clawboard.mapper.*;
 import com.company.clawboard.parser.TranscriptParser;
 import com.company.clawboard.service.DataIngestionService;
@@ -17,7 +18,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +35,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @RequiredArgsConstructor
 public class ScanOrchestrator {
 
+    private static final ZoneId BEIJING_ZONE = ZoneId.of("Asia/Shanghai");
+    
     private final ClawboardProperties properties;
     private final UserScanner userScanner;
     private final TranscriptFileScanner fileScanner;
@@ -199,12 +204,44 @@ public class ScanOrchestrator {
             // Aggregate hourly stats from the scanned data
             try {
                 if (!scannedEmployeeIds.isEmpty()) {
-                    hourlyStatsAggregator.aggregateForEmployees(new ArrayList<>(scannedEmployeeIds));
+                    // ✅ 获取从扫描中收集的小时
+                    Set<LocalDateTime> changedHours = dataIngestionService.getAndClearCurrentScanHours();
+                    log.info("Collected {} changed hours from this scan (employee count: {})", 
+                        changedHours.size(), scannedEmployeeIds.size());
+                    
+                    // 如果 changedHours 为空，记录警告
+                    if (changedHours.isEmpty()) {
+                        log.warn("No hours collected from scan. Possible reasons:");
+                        log.warn("  1. All sessions were already scanned (skipped)");
+                        log.warn("  2. Message/turn timestamps are invalid (epochMs = 0)");
+                        log.warn("  3. No files were processed successfully");
+                    }
+                    
+                    // ✅ 调用新的智能聚合方法
+                    hourlyStatsAggregator.aggregateForEmployeesWithStats(
+                        new ArrayList<>(scannedEmployeeIds),
+                        changedHours,
+                        scanId  // ✅ 传递 scanId 用于记录统计
+                    );
                 } else {
                     log.info("No employees scanned, skipping hourly stats aggregation");
                 }
             } catch (Exception e) {
                 log.error("Failed to aggregate hourly stats for scan {}", scanId, e);
+                
+                // ✅ 更新扫描历史的错误信息
+                try {
+                    DashboardScanHistory errorHistory = new DashboardScanHistory();
+                    errorHistory.setId(scanId);
+                    errorHistory.setStatus("agg_error");  // 缩短状态值，避免超过 VARCHAR(20)
+                    errorHistory.setErrorMessage("Aggregation failed: " + e.getMessage());
+                    scanHistoryMapper.updateStatusAndError(errorHistory);
+                } catch (Exception ex) {
+                    log.error("Failed to update scan error status", ex);
+                }
+                
+                // ✅ 抛出异常，让上层处理
+                throw e;
             }
 
             log.info("Scan {} completed in {}ms - Users: {}, Files: {}/{}, Messages: {}, Turns: {}, Issues: {}, Skills: {}",
@@ -336,6 +373,45 @@ public class ScanOrchestrator {
                         
                         // Batch insert into database
                         dataIngestionService.ingestParsedTranscript(scanId, employeeId, parsed);
+                        
+                        // ✅ 更新扫描进度
+                        try {
+                            DashboardScanProgress progress = new DashboardScanProgress();
+                            progress.setEmployeeId(employeeId);
+                            progress.setFilePath(jsonlFile.toString());
+                            
+                            // 获取文件信息
+                            if (Files.exists(jsonlFile)) {
+                                long fileSize = Files.size(jsonlFile);
+                                progress.setFileSize(fileSize);
+                                progress.setLastOffset(fileSize);  // ✅ 全量解析，offset 等于文件大小
+                                progress.setFileMtime(Files.getLastModifiedTime(jsonlFile).toMillis());
+                            } else {
+                                progress.setLastOffset(0L);  // ✅ 文件不存在时设为 0
+                            }
+                            
+                            // Session ID
+                            progress.setSessionId(parsed.sessionId());
+                            
+                            // 最后一条消息的信息
+                            if (!parsed.messages().isEmpty()) {
+                                var lastMsg = parsed.messages().get(parsed.messages().size() - 1);
+                                progress.setLastMessageId(lastMsg.id());
+                                if (lastMsg.epochMs() > 0) {
+                                    progress.setLastMessageTs(LocalDateTime.ofInstant(
+                                        Instant.ofEpochMilli(lastMsg.epochMs()),
+                                        BEIJING_ZONE
+                                    ));
+                                }
+                            }
+                            
+                            scanProgressService.updateProgress(progress);
+                            log.debug("Updated scan progress for file: {}", jsonlFile.getFileName());
+                        } catch (Exception e) {
+                            log.warn("Failed to update scan progress for file {}, but data ingestion succeeded", 
+                                jsonlFile.getFileName(), e);
+                            // 不抛出异常，避免影响主流程
+                        }
                         
                         int msgCount = parsed.messages().size();
                         int turnCount = parsed.turns().size();

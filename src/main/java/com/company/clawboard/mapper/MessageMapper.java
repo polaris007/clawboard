@@ -18,4 +18,9 @@ public interface MessageMapper {
      * 根据轮次 ID 查询消息列表
      */
     List<DashboardMessage> selectByTurnId(@Param("turnId") Long turnId);
+    
+    /**
+     * 删除指定 session 的所有消息
+     */
+    int deleteBySessionId(@Param("sessionId") String sessionId);
 }

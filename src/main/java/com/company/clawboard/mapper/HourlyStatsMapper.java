@@ -29,6 +29,17 @@ public interface HourlyStatsMapper {
 
     List<EmployeeHourKey> selectDistinctEmployeeHours();
     List<EmployeeHourKey> selectDistinctEmployeeHoursByEmployees(@Param("employeeIds") List<String> employeeIds);
+    
+    /**
+     * 根据员工ID列表和时间范围查询需要聚合的小时
+     * @param employeeIds 员工ID列表
+     * @param cutoffTime 时间窗口截止时间
+     * @return (employee_id, stat_hour) 组合列表
+     */
+    List<EmployeeHourKey> selectDistinctEmployeeHoursByEmployeesAndTimeRange(
+        @Param("employeeIds") List<String> employeeIds,
+        @Param("cutoffTime") LocalDateTime cutoffTime
+    );
 
     DashboardHourlyStats aggregateTokensByHour(@Param("employeeId") String employeeId, @Param("statHour") String statHour);
 

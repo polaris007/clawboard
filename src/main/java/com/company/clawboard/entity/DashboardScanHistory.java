@@ -21,6 +21,10 @@ public class DashboardScanHistory {
     private Integer newTurns;
     private Integer newIssues;
     private Integer newSkillCalls;
+    private Integer aggHoursFromFiles;      // 从文件提取的小时数
+    private Integer aggHoursFromWindow;     // 从时间窗口获取的小时数
+    private Integer aggHoursTotal;          // 聚合的总小时数（去重后）
+    private Long aggDurationMs;             // 聚合耗时(ms)
     private String errorMessage;
     private LocalDateTime createdAt;
 }

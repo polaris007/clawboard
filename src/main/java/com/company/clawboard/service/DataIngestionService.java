@@ -13,13 +13,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Service to convert parsed transcript data to entities and batch insert into database.
@@ -40,6 +45,11 @@ public class DataIngestionService {
     private final SystemMessageFilter systemMessageFilter;
     private final ExecutionTraceMapper executionTraceMapper;  // NEW
     private final TranscriptParser transcriptParser;  // NEW
+    private final ScanProgressMapper scanProgressMapper;  // ✅ 新增：用于检查文件修改时间
+    
+    // Thread-local 存储当前扫描收集的小时集合
+    private static final ThreadLocal<Set<LocalDateTime>> currentScanHours = 
+        ThreadLocal.withInitial(ConcurrentHashMap::newKeySet);
 
     /**
      * Ingest parsed transcript data into database
@@ -57,11 +67,36 @@ public class DataIngestionService {
         String sessionId = parsed.sessionId();
         LocalDateTime now = LocalDateTime.now(BEIJING_ZONE);
         
-        // Check if session already scanned
+        // ✅ 检查文件是否有变化（基于文件修改时间）
+        if (parsed.filePath() != null) {
+            try {
+                Path filePath = Path.of(parsed.filePath());
+                if (Files.exists(filePath)) {
+                    long fileMtime = Files.getLastModifiedTime(filePath).toMillis();
+                    
+                    // 查询上次扫描的文件修改时间
+                    var progress = scanProgressMapper.selectByEmployeeAndFile(employeeId, parsed.filePath());
+                    
+                    if (progress != null && fileMtime <= progress.getFileMtime()) {
+                        log.debug("File not modified (mtime: {}), skipping session {}", fileMtime, sessionId);
+                        return;
+                    }
+                    
+                    log.info("File modified (old mtime: {}, new mtime: {}), reprocessing session {}", 
+                        progress != null ? progress.getFileMtime() : 0, fileMtime, sessionId);
+                }
+            } catch (Exception e) {
+                log.warn("Failed to check file modification time for {}, proceeding with scan", parsed.filePath(), e);
+            }
+        }
+        
+        // Check if session already scanned (fallback check)
         int existingCount = messageMapper.countBySessionId(sessionId);
         if (existingCount > 0) {
-            log.info("Session {} already scanned ({} messages), skipping", sessionId, existingCount);
-            return;
+            log.info("Session {} already scanned ({} messages), deleting old data and reprocessing", 
+                sessionId, existingCount);
+            // ✅ 删除旧数据，然后重新处理
+            deleteExistingSessionData(sessionId);
         }
 
         // Phase 1: Insert conversation turns first
@@ -73,6 +108,9 @@ public class DataIngestionService {
             // After insertion, load the generated IDs by querying back
             loadTurnIds(sessionId, turns);
         }
+        
+        // ✅ 收集轮次的小时信息
+        collectHoursFromTurns(parsed.turns());
 
         // Phase 1.5: 解析并插入执行链路（新增）
         for (int i = 0; i < turns.size(); i++) {
@@ -115,6 +153,9 @@ public class DataIngestionService {
             int inserted = messageMapper.batchInsertIgnore(messages);
             log.debug("Inserted {} messages for session {}", inserted, sessionId);
         }
+        
+        // ✅ 收集消息的小时信息
+        collectHoursFromMessages(parsed.messages());
 
         // Phase 3: Convert and insert skill invocations (turn_id not populated yet)
         List<DashboardSkillInvocation> skills = convertToSkillInvocations(
@@ -165,7 +206,8 @@ public class DataIngestionService {
         }
 
         updateSessionSummary(scanId, sessionId, employeeId, 
-            messages.size(), conversationTurns, skills.size(), issues.size(), now);
+            messages.size(), conversationTurns, skills.size(), issues.size(), now,
+            parsed.messages());  // ✅ 传入消息列表，用于提取时间
 
         log.info("Ingested session {}: {} messages, {} turns, {} skills, {} issues",
                 sessionId, messages.size(), conversationTurns, skills.size(), issues.size());
@@ -422,17 +464,74 @@ public class DataIngestionService {
     }
 
     /**
+     * 删除已存在的 session 数据（用于重新处理）
+     */
+    private void deleteExistingSessionData(String sessionId) {
+        try {
+            // 按顺序删除，避免外键约束
+            // 1. 执行链路追踪（依赖 turn_id）
+            int traceCount = executionTraceMapper.deleteBySessionId(sessionId);
+            log.debug("Deleted {} execution traces for session {}", traceCount, sessionId);
+            
+            // 2. 问题记录
+            int issueCount = issueMapper.deleteBySessionId(sessionId);
+            log.debug("Deleted {} issues for session {}", issueCount, sessionId);
+            
+            // 3. Skill 调用记录
+            int skillCount = skillMapper.deleteBySessionId(sessionId);
+            log.debug("Deleted {} skill invocations for session {}", skillCount, sessionId);
+            
+            // 4. 对话轮次
+            int turnCount = turnMapper.deleteBySessionId(sessionId);
+            log.debug("Deleted {} turns for session {}", turnCount, sessionId);
+            
+            // 5. 消息
+            int messageCount = messageMapper.deleteBySessionId(sessionId);
+            log.debug("Deleted {} messages for session {}", messageCount, sessionId);
+            
+            // 6. Session 汇总
+            int summaryCount = sessionSummaryMapper.deleteBySessionId(sessionId);
+            log.debug("Deleted {} session summaries for session {}", summaryCount, sessionId);
+            
+            log.info("Deleted all data for session {}: {} messages, {} turns, {} skills, {} issues, {} traces, {} summaries",
+                sessionId, messageCount, turnCount, skillCount, issueCount, traceCount, summaryCount);
+        } catch (Exception e) {
+            log.error("Failed to delete existing data for session {}", sessionId, e);
+            throw e;  // 抛出异常，中断处理
+        }
+    }
+
+    /**
      * Update session summary with incremental data
      * Uses upsert to handle both new and existing sessions
      */
     private void updateSessionSummary(Long scanId, String sessionId, String employeeId,
                                       int messageCount, int turnCount, 
                                       int skillCount, int issueCount,
-                                      LocalDateTime now) {
+                                      LocalDateTime now,
+                                      List<MessageRecord> messages) {  // ✅ 新增参数：消息列表
         try {
-            // Find first and last message timestamps from the messages list
-            // For now, use current time as approximation
-            // TODO: Extract actual timestamps from parsed messages
+            // ✅ 从实际消息中提取 first_message_at 和 last_message_at
+            LocalDateTime firstMessageAt = null;
+            LocalDateTime lastMessageAt = null;
+            
+            for (MessageRecord msg : messages) {
+                if (msg.epochMs() > 0) {
+                    LocalDateTime msgTime = LocalDateTime.ofInstant(
+                        Instant.ofEpochMilli(msg.epochMs()), BEIJING_ZONE);
+                    
+                    if (firstMessageAt == null || msgTime.isBefore(firstMessageAt)) {
+                        firstMessageAt = msgTime;
+                    }
+                    if (lastMessageAt == null || msgTime.isAfter(lastMessageAt)) {
+                        lastMessageAt = msgTime;
+                    }
+                }
+            }
+            
+            // 如果没有有效的时间，使用当前时间作为后备
+            if (firstMessageAt == null) firstMessageAt = now;
+            if (lastMessageAt == null) lastMessageAt = now;
             
             DashboardSessionSummary summary = new DashboardSessionSummary();
             summary.setSessionId(sessionId);
@@ -442,14 +541,15 @@ public class DataIngestionService {
             summary.setTotalTurns(turnCount);
             summary.setTotalIssues(issueCount);
             summary.setTotalSkills(skillCount);
-            summary.setFirstMessageAt(now);
-            summary.setLastMessageAt(now);
+            summary.setFirstMessageAt(firstMessageAt);  // ✅ 使用实际的第一条消息时间
+            summary.setLastMessageAt(lastMessageAt);    // ✅ 使用实际的最后一条消息时间
             summary.setLastScanId(scanId);
             summary.setLastUpdatedAt(now);
             
             // Upsert will incrementally update counts
             sessionSummaryMapper.upsert(summary);
-            log.debug("Updated session summary for {}", sessionId);
+            log.debug("Updated session summary for {} (first: {}, last: {})", 
+                sessionId, firstMessageAt, lastMessageAt);
         } catch (Exception e) {
             log.error("Failed to update session summary for {}", sessionId, e);
             // Don't fail the ingestion if summary update fails
@@ -502,5 +602,67 @@ public class DataIngestionService {
             }
         }
         return turnMessages;
+    }
+    
+    /**
+     * 从消息中收集小时信息
+     */
+    private void collectHoursFromMessages(List<MessageRecord> messages) {
+        int collectedCount = 0;
+        for (MessageRecord msg : messages) {
+            if (msg.epochMs() > 0) {
+                LocalDateTime hour = truncateToHour(
+                    LocalDateTime.ofInstant(
+                        Instant.ofEpochMilli(msg.epochMs()), 
+                        BEIJING_ZONE
+                    )
+                );
+                currentScanHours.get().add(hour);
+                collectedCount++;
+            }
+        }
+        if (collectedCount > 0) {
+            log.debug("Collected {} hours from {} messages", collectedCount, messages.size());
+        }
+    }
+    
+    /**
+     * 从轮次中收集小时信息
+     */
+    private void collectHoursFromTurns(List<TurnAssembler.AssembledTurn> turns) {
+        int collectedCount = 0;
+        for (TurnAssembler.AssembledTurn turn : turns) {
+            if (turn.startTime() > 0) {
+                LocalDateTime hour = truncateToHour(
+                    LocalDateTime.ofInstant(
+                        Instant.ofEpochMilli(turn.startTime()), 
+                        BEIJING_ZONE
+                    )
+                );
+                currentScanHours.get().add(hour);
+                collectedCount++;
+            }
+        }
+        if (collectedCount > 0) {
+            log.debug("Collected {} hours from {} turns", collectedCount, turns.size());
+        }
+    }
+    
+    /**
+     * 将时间截断到小时
+     */
+    private LocalDateTime truncateToHour(LocalDateTime dt) {
+        return dt.withMinute(0).withSecond(0).withNano(0);
+    }
+    
+    /**
+     * 获取并清除当前扫描收集的小时集合
+     * @return 收集到的小时集合
+     */
+    public Set<LocalDateTime> getAndClearCurrentScanHours() {
+        Set<LocalDateTime> hours = new HashSet<>(currentScanHours.get());
+        currentScanHours.remove();
+        log.debug("Retrieved {} changed hours from current scan", hours.size());
+        return hours;
     }
 }

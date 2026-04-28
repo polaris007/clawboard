@@ -18,5 +18,10 @@
     <select id="selectDistinctSkills" resultType="java.lang.String">
         SELECT DISTINCT skill_name FROM dashboard_skill_invocation ORDER BY skill_name
     </select>
+    
+    <!-- Delete skill invocations by session ID -->
+    <delete id="deleteBySessionId">
+        DELETE FROM dashboard_skill_invocation WHERE session_id = #{sessionId}
+    </delete>
 
 </mapper>
