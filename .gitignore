@@ -32,5 +32,6 @@ replay_pid*
 .codex
 .qwen
 .qoder
+.agents
 
 target
