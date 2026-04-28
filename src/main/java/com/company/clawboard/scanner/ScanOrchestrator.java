@@ -2,12 +2,9 @@ package com.company.clawboard.scanner;
 
 import com.company.clawboard.config.ClawboardProperties;
 import com.company.clawboard.entity.DashboardScanHistory;
-import com.company.clawboard.entity.DashboardScanProgress;
 import com.company.clawboard.mapper.*;
 import com.company.clawboard.parser.TranscriptParser;
 import com.company.clawboard.service.DataIngestionService;
-import com.company.clawboard.service.IngestionResult;
-import com.company.clawboard.service.IngestionStatus;
 import com.company.clawboard.service.ReportGenerator;
 import com.company.clawboard.service.ScanProgressService;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -37,8 +32,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @RequiredArgsConstructor
 public class ScanOrchestrator {
 
-    private static final ZoneId BEIJING_ZONE = ZoneId.of("Asia/Shanghai");
-    
     private final ClawboardProperties properties;
     private final UserScanner userScanner;
     private final TranscriptFileScanner fileScanner;
@@ -152,12 +145,12 @@ public class ScanOrchestrator {
 
             // Step 3: Submit parallel scan tasks for each user
             var futures = new ConcurrentHashMap<String, CompletableFuture<UserScanResult>>();
-            for (String employeeId : users) {
+            for (String username : users) {
                 CompletableFuture<UserScanResult> future = CompletableFuture.supplyAsync(
-                    () -> scanUserDirectory(employeeId, scanId),
+                    () -> scanUserDirectory(username, scanId),
                     scanExecutor
                 );
-                futures.put(employeeId, future);
+                futures.put(username, future);
             }
 
             // Step 4: Collect results from all users
@@ -170,13 +163,9 @@ public class ScanOrchestrator {
             int totalIssues = 0;
             int totalSkills = 0;
 
-            // ✅ 在一次遍历中同时完成统计和用户计数
-            int actualUsersScanned = 0;
             for (var entry : futures.entrySet()) {
                 try {
                     UserScanResult result = entry.getValue().get(30, TimeUnit.MINUTES);
-                    
-                    // 累加统计数据
                     totalFiles += result.filesTotal();
                     processedFiles += result.filesProcessed();
                     skippedFilesCount += result.filesSkipped();
@@ -185,11 +174,6 @@ public class ScanOrchestrator {
                     totalTurns += result.totalTurns();
                     totalIssues += result.totalIssues();
                     totalSkills += result.totalSkills();
-                    
-                    // 计算实际用户数
-                    if (result.filesProcessed() > 0 || result.filesSkipped() > 0 || result.filesError() > 0) {
-                        actualUsersScanned++;
-                    }
                     
                     log.debug("User {} scan completed: {} files, {} messages, {} turns",
                         entry.getKey(), result.filesProcessed(), result.totalMessages(), result.totalTurns());
@@ -200,8 +184,7 @@ public class ScanOrchestrator {
             }
 
             // Update scan history with results
-            history.setUsersScanned(actualUsersScanned);
-            history.setDirsScanned(actualUsersScanned);  // 每个用户对应一个目录
+            history.setDirsScanned(users.size());
             history.setFilesTotal(totalFiles);
             history.setFilesProcessed(processedFiles);
             history.setFilesSkipped(skippedFilesCount);
@@ -211,57 +194,17 @@ public class ScanOrchestrator {
             history.setNewIssues(totalIssues);
             history.setNewSkillCalls(totalSkills);
 
-            // ✅ 验证统计等式
-            int calculatedTotal = processedFiles + skippedFilesCount + errorFiles;
-            if (calculatedTotal != totalFiles) {
-                log.warn("Statistics mismatch: processed({}) + skipped({}) + error({}) = {} != total({})",
-                    processedFiles, skippedFilesCount, errorFiles, calculatedTotal, totalFiles);
-                // 不抛出异常，但记录警告以便调试
-            }
-
             finishScan(scanId, history, "completed", startTime, null);
 
             // Aggregate hourly stats from the scanned data
             try {
                 if (!scannedEmployeeIds.isEmpty()) {
-                    // ✅ 获取从扫描中收集的小时
-                    Set<LocalDateTime> changedHours = dataIngestionService.getAndClearCurrentScanHours();
-                    log.info("Collected {} changed hours from this scan (employee count: {})", 
-                        changedHours.size(), scannedEmployeeIds.size());
-                    
-                    // 如果 changedHours 为空，记录警告
-                    if (changedHours.isEmpty()) {
-                        log.warn("No hours collected from scan. Possible reasons:");
-                        log.warn("  1. All sessions were already scanned (skipped)");
-                        log.warn("  2. Message/turn timestamps are invalid (epochMs = 0)");
-                        log.warn("  3. No files were processed successfully");
-                    }
-                    
-                    // ✅ 调用新的智能聚合方法
-                    hourlyStatsAggregator.aggregateForEmployeesWithStats(
-                        new ArrayList<>(scannedEmployeeIds),
-                        changedHours,
-                        scanId  // ✅ 传递 scanId 用于记录统计
-                    );
+                    hourlyStatsAggregator.aggregateForEmployees(new ArrayList<>(scannedEmployeeIds));
                 } else {
                     log.info("No employees scanned, skipping hourly stats aggregation");
                 }
             } catch (Exception e) {
                 log.error("Failed to aggregate hourly stats for scan {}", scanId, e);
-                
-                // ✅ 更新扫描历史的错误信息
-                try {
-                    DashboardScanHistory errorHistory = new DashboardScanHistory();
-                    errorHistory.setId(scanId);
-                    errorHistory.setStatus("agg_error");  // 缩短状态值，避免超过 VARCHAR(20)
-                    errorHistory.setErrorMessage("Aggregation failed: " + e.getMessage());
-                    scanHistoryMapper.updateStatusAndError(errorHistory);
-                } catch (Exception ex) {
-                    log.error("Failed to update scan error status", ex);
-                }
-                
-                // ✅ 抛出异常，让上层处理
-                throw e;
             }
 
             log.info("Scan {} completed in {}ms - Users: {}, Files: {}/{}, Messages: {}, Turns: {}, Issues: {}, Skills: {}",
@@ -305,11 +248,11 @@ public class ScanOrchestrator {
      * Scan a single user's directory (executed in parallel for different users)
      * 
      * Supports both standard and hash-based directory structures:
-     * - Standard: basePath/employeeId/openclawDir/agents/main/sessions
+     * - Standard: basePath/username/openclawDir/agents/main/sessions
      * - Hash-based: basePath/{sha512_hash}/agents/{agentName}/sessions
      * - Flat: basePath/*.jsonl (for testing)
      */
-    private UserScanResult scanUserDirectory(String employeeId, Long scanId) {
+    private UserScanResult scanUserDirectory(String username, Long scanId) {
         int totalFiles = 0;
         int processedFiles = 0;
         int skippedFilesCount = 0;
@@ -324,10 +267,10 @@ public class ScanOrchestrator {
             String openclawDir = properties.getNas().getOpenclawDir();
             
             // Find the hash directory for this user
-            Path userHashDir = findUserHashDirectory(basePath, employeeId, openclawDir);
+            Path userHashDir = findUserHashDirectory(basePath, username, openclawDir);
             
             if (userHashDir == null || !userHashDir.toFile().exists()) {
-                log.debug("User directory not found for: {}", employeeId);
+                log.debug("User directory not found for: {}", username);
                 return new UserScanResult(0, 0, 0, 0, 0, 0, 0, 0);
             }
             
@@ -338,13 +281,10 @@ public class ScanOrchestrator {
                 return new UserScanResult(0, 0, 0, 0, 0, 0, 0, 0);
             }
             
-            // Get employee info (may resolve sha-xxx fallback to real employee ID)
-            String resolvedEmployeeId = resolveEmployeeId(employeeId);
-            scannedEmployeeIds.add(resolvedEmployeeId);
-            log.info("Scanning employee {} (resolved to: {})", employeeId, resolvedEmployeeId);
-            
-            // ✅ basePathObj 用于计算相对路径（只在处理成功时使用）
-            Path basePathObj = Path.of(basePath);
+            // Get employee info
+            String employeeId = resolveEmployeeId(username);
+            scannedEmployeeIds.add(employeeId);
+            log.info("Scanning user {} (employee ID: {})", username, employeeId);
             
             // Scan all agent subdirectories (e.g., "main", or other names)
             File[] agentDirs = agentsDir.toFile().listFiles(File::isDirectory);
@@ -366,37 +306,24 @@ public class ScanOrchestrator {
                 totalFiles += jsonlFiles.size();
                 log.info("Agent {}: found {} transcript files", agentDir.getName(), jsonlFiles.size());
                 
+                // Collect file paths for comparison (relative to base path)
+                Path basePathObj = Path.of(basePath);
+                for (Path jsonlFile : jsonlFiles) {
+                    try {
+                        String relativePath = basePathObj.relativize(jsonlFile).toString();
+                        scannedFilePaths.add(relativePath);
+                    } catch (Exception e) {
+                        log.debug("Failed to compute relative path for: {}", jsonlFile, e);
+                    }
+                }
+                
                 // Process each file sequentially within this user's thread
                 for (Path jsonlFile : jsonlFiles) {
                     try {
-                        // ✅ 前置检查：文件 mtime
-                        boolean shouldSkip = false;
-                        String skipReason = null;
-                        
-                        try {
-                            long fileMtime = Files.getLastModifiedTime(jsonlFile).toMillis();
-                            var progress = scanProgressService.getProgress(resolvedEmployeeId, jsonlFile.toString());
-                            
-                            if (progress != null && fileMtime <= progress.getFileMtime()) {
-                                shouldSkip = true;
-                                skipReason = "File not modified (mtime: " + fileMtime + ")";
-                                log.debug("Skipping unmodified file: {}", jsonlFile.getFileName());
-                            }
-                        } catch (Exception e) {
-                            log.warn("Failed to check file mtime for {}, proceeding with parse", jsonlFile.getFileName(), e);
-                        }
-                        
-                        if (shouldSkip) {
-                            // ✅ 计入 skipped，不解析文件
-                            skippedFiles.put(jsonlFile.toString(), skipReason);
-                            skippedFilesCount++;
-                            continue;
-                        }
-                        
-                        log.debug("Processing file: {} (employee: {})", jsonlFile.getFileName(), resolvedEmployeeId);
+                        log.debug("Processing file: {} (employee: {})", jsonlFile.getFileName(), employeeId);
                         
                         // Parse transcript file
-                        var parsed = transcriptParser.parseFile(jsonlFile, resolvedEmployeeId);
+                        var parsed = transcriptParser.parseFile(jsonlFile, employeeId);
                         
                         // Defensive check: skip if sessionId is still null (should not happen after TranscriptParser fix)
                         if (parsed.sessionId() == null) {
@@ -408,74 +335,21 @@ public class ScanOrchestrator {
                         }
                         
                         // Batch insert into database
-                        var result = dataIngestionService.ingestParsedTranscript(scanId, resolvedEmployeeId, parsed);
+                        dataIngestionService.ingestParsedTranscript(scanId, employeeId, parsed);
                         
-                        // ✅ 更新扫描进度
-                        try {
-                            DashboardScanProgress progress = new DashboardScanProgress();
-                            progress.setEmployeeId(employeeId);
-                            progress.setFilePath(jsonlFile.toString());
-                            
-                            // 获取文件信息
-                            if (Files.exists(jsonlFile)) {
-                                long fileSize = Files.size(jsonlFile);
-                                progress.setFileSize(fileSize);
-                                progress.setLastOffset(fileSize);  // ✅ 全量解析，offset 等于文件大小
-                                progress.setFileMtime(Files.getLastModifiedTime(jsonlFile).toMillis());
-                            } else {
-                                progress.setLastOffset(0L);  // ✅ 文件不存在时设为 0
-                            }
-                            
-                            // Session ID
-                            progress.setSessionId(parsed.sessionId());
-                            
-                            // 最后一条消息的信息
-                            if (!parsed.messages().isEmpty()) {
-                                var lastMsg = parsed.messages().get(parsed.messages().size() - 1);
-                                progress.setLastMessageId(lastMsg.id());
-                                if (lastMsg.epochMs() > 0) {
-                                    progress.setLastMessageTs(LocalDateTime.ofInstant(
-                                        Instant.ofEpochMilli(lastMsg.epochMs()),
-                                        BEIJING_ZONE
-                                    ));
-                                }
-                            }
-                            
-                            scanProgressService.updateProgress(progress);
-                            log.debug("Updated scan progress for file: {}", jsonlFile.getFileName());
-                        } catch (Exception e) {
-                            log.warn("Failed to update scan progress for file {}, but data ingestion succeeded", 
-                                jsonlFile.getFileName(), e);
-                            // 不抛出异常，避免影响主流程
-                        }
+                        int msgCount = parsed.messages().size();
+                        int turnCount = parsed.turns().size();
+                        int issueCount = parsed.issues().size();
+                        int skillCount = parsed.skillInvocations().size();
                         
-                        if (result.status() == IngestionStatus.PROCESSED) {
-                            // ✅ 只有实际处理的文件才记录到 scannedFilePaths
-                            String relativePath = basePathObj.relativize(jsonlFile).toString();
-                            scannedFilePaths.add(relativePath);
-                            
-                            // 累加统计数据
-                            totalMessages += result.messageCount();
-                            totalTurns += result.turnCount();
-                            totalIssues += result.issueCount();
-                            totalSkills += result.skillCount();
-                            processedFiles++;
-                            
-                            log.debug("Parsed file: {} messages, {} turns, {} issues, {} skills",
-                                result.messageCount(), result.turnCount(), result.issueCount(), result.skillCount());
-                            
-                        } else if (result.status() == IngestionStatus.SKIPPED_MTIME) {
-                            // ✅ mtime 未变化（兜底检查触发）
-                            skippedFiles.put(jsonlFile.toString(), "File not modified (checked in ingestion service)");
-                            skippedFilesCount++;
-                            
-                        } else if (result.status() == IngestionStatus.FAILED) {
-                            // ✅ 处理失败
-                            String errorMsg = "Ingestion failed: " + result.errorMessage();
-                            skippedFiles.put(jsonlFile.toString(), errorMsg);
-                            errorFiles++;
-                            log.error("{}", errorMsg);
-                        }
+                        totalMessages += msgCount;
+                        totalTurns += turnCount;
+                        totalIssues += issueCount;
+                        totalSkills += skillCount;
+                        processedFiles++;
+                        
+                        log.debug("Parsed file: {} messages, {} turns, {} issues, {} skills",
+                                msgCount, turnCount, issueCount, skillCount);
                         
                     } catch (Exception e) {
                         String errorMsg = "Failed to process file: " + e.getMessage();
@@ -487,7 +361,7 @@ public class ScanOrchestrator {
             }
             
         } catch (Exception e) {
-            log.error("Failed to scan employee: {}", employeeId, e);
+            log.error("Failed to scan user: {}", username, e);
         }
         
         return new UserScanResult(totalFiles, processedFiles, skippedFilesCount, errorFiles,
@@ -530,19 +404,19 @@ public class ScanOrchestrator {
      * Find the hash-based directory for a user
      * 
      * @param basePath Base path containing hash directories
-     * @param employeeId Employee ID or truncated hash (may include "sha-" prefix)
+     * @param username Employee ID or truncated hash
      * @param openclawDir Configured openclaw directory name (e.g., "agents")
      * @return Path to the hash directory, or null if not found
      */
-    private Path findUserHashDirectory(String basePath, String employeeId, String openclawDir) {
+    private Path findUserHashDirectory(String basePath, String username, String openclawDir) {
         File baseDir = new File(basePath);
         if (!baseDir.exists() || !baseDir.isDirectory()) {
             return null;
         }
         
-        // If employeeId looks like a full SHA512 hash (128 hex chars), use it directly
-        if (employeeId.length() == 128 && employeeId.matches("[0-9a-f]+")) {
-            Path hashDir = Path.of(basePath, employeeId);
+        // If username looks like a full SHA512 hash (128 hex chars), use it directly
+        if (username.length() == 128 && username.matches("[0-9a-f]+")) {
+            Path hashDir = Path.of(basePath, username);
             if (hashDir.toFile().exists()) {
                 return hashDir;
             }
@@ -551,12 +425,6 @@ public class ScanOrchestrator {
         // Otherwise, search for matching hash directory
         File[] hashDirs = baseDir.listFiles(File::isDirectory);
         if (hashDirs != null) {
-            // ✅ 处理 "sha-" 前缀的 fallback ID
-            String actualHash = employeeId;
-            if (employeeId.startsWith("sha-")) {
-                actualHash = employeeId.substring(4);  // 去掉 "sha-" 前缀
-            }
-            
             for (File hashDir : hashDirs) {
                 String dirName = hashDir.getName();
                 
@@ -568,45 +436,48 @@ public class ScanOrchestrator {
                 
                 // Try to match by employee ID
                 AccountsCsvReader.EmployeeInfo employee = accountsReader.getEmployeeByHash(dirName);
-                if (employee != null && actualHash.equals(employee.getEmployeeId())) {
+                if (employee != null && username.equals(employee.getEmployeeId())) {
                     return hashDir.toPath();
                 }
                 
                 // Try prefix matching (for truncated hashes)
-                if (dirName.startsWith(actualHash) || actualHash.startsWith(dirName.substring(0, Math.min(16, dirName.length())))) {
-                    log.debug("Found matching hash directory: {} for employeeId: {}", dirName, employeeId);
+                // Handle "sha-" prefixed usernames from unknown hashes
+                String hashPart = username.startsWith("sha-") ? username.substring(4) : username;
+                if (dirName.startsWith(hashPart) || hashPart.startsWith(dirName.substring(0, Math.min(10, dirName.length())))) {
+                    log.debug("Found matching hash directory: {} for username: {}", dirName, username);
                     return hashDir.toPath();
                 }
             }
         }
         
-        log.warn("Could not find hash directory for employeeId: {}", employeeId);
+        log.warn("Could not find hash directory for username: {}", username);
         return null;
     }
     
     /**
-     * Resolve employee ID from input (which could be real employee ID or sha-xxx fallback)
+     * Resolve employee ID from username (which could be employee ID or truncated hash)
      * 
-     * @param employeeId Input identifier (real employee ID or "sha-xxx" fallback)
-     * @return Resolved employee ID (real ID if found, or unchanged fallback)
+     * @param username Username/identifier from UserScanner
+     * @return Employee ID or "unknown"
      */
-    private String resolveEmployeeId(String employeeId) {
-        // If employeeId is already a real employee ID (from accounts.csv), return it
+    private String resolveEmployeeId(String username) {
+        // If username is already an employee ID (from accounts.csv), return it
         var employees = accountsReader.getAllEmployees();
         for (var emp : employees) {
-            if (employeeId.equals(emp.getEmployeeId())) {
-                return employeeId;
+            if (username.equals(emp.getEmployeeId())) {
+                return username;
             }
         }
         
-        // If employeeId looks like a hash, try to find matching employee
-        if (employeeId.length() >= 16 && employeeId.matches("[0-9a-f]+")) {
+        // If username looks like a hash (with or without "sha-" prefix), try to find matching employee
+        String hashPart = username.startsWith("sha-") ? username.substring(4) : username;
+        if (hashPart.length() >= 10 && hashPart.matches("[0-9a-f]+")) {
             File baseDir = new File(properties.getNas().getBasePath());
             File[] hashDirs = baseDir.listFiles(File::isDirectory);
             if (hashDirs != null) {
                 for (File hashDir : hashDirs) {
                     String dirName = hashDir.getName();
-                    if (dirName.startsWith(employeeId) || employeeId.startsWith(dirName.substring(0, Math.min(16, dirName.length())))) {
+                    if (dirName.startsWith(hashPart) || hashPart.startsWith(dirName.substring(0, Math.min(10, dirName.length())))) {
                         AccountsCsvReader.EmployeeInfo employee = accountsReader.getEmployeeByHash(dirName);
                         if (employee != null) {
                             return employee.getEmployeeId();
@@ -616,9 +487,18 @@ public class ScanOrchestrator {
             }
         }
         
-        // ✅ Fallback: employeeId is already a marked identifier (e.g., "sha-xxx")
-        // No need to add prefix again - UserScanner already marked it
-        return employeeId;
+        // Fallback: use "sha-" prefix with first 10 characters of hash as employee ID
+        if (username != null && username.length() >= 10) {
+            // If username already has "sha-" prefix, return it as-is
+            if (username.startsWith("sha-")) {
+                return username;
+            }
+            // Otherwise, add the prefix
+            return "sha-" + username.substring(0, 10);
+        }
+        
+        // If all else fails, use username as-is
+        return username;
     }
     
     /**

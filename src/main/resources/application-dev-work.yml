@@ -62,3 +62,12 @@ clawboard:
     name-mapping:
       official-doc-writer: 公文写作
       pptx: ppt生成
+  aggregation:
+    # 是否启用智能混合聚合策略
+    enable-smart-aggregation: true
+    # 时间窗口大小（小时），默认 24 小时
+    time-window-hours: 24
+    # 是否启用基于文件的增量聚合
+    enable-file-based-incremental: true
+    # 是否启用时间窗口兜底
+    enable-time-window: true

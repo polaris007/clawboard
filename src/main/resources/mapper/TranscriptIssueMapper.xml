@@ -68,10 +68,5 @@
         WHERE occurred_at &gt;= #{startTime} AND occurred_at &lt;= #{endTime}
         ORDER BY occurred_at ASC
     </select>
-    
-    <!-- Delete transcript issues by session ID -->
-    <delete id="deleteBySessionId">
-        DELETE FROM dashboard_transcript_issue WHERE session_id = #{sessionId}
-    </delete>
 
 </mapper>
