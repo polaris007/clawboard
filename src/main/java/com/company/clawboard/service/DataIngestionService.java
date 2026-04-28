@@ -56,12 +56,13 @@ public class DataIngestionService {
      * @param scanId Current scan ID
      * @param employeeId Employee ID extracted from file path
      * @param parsed Parsed transcript data
+     * @return IngestionResult with processing status and statistics
      */
     @Transactional
-    public void ingestParsedTranscript(Long scanId, String employeeId, TranscriptParser.ParsedTranscript parsed) {
+    public IngestionResult ingestParsedTranscript(Long scanId, String employeeId, TranscriptParser.ParsedTranscript parsed) {
         if (parsed == null || parsed.sessionId() == null) {
             log.warn("Cannot ingest null or invalid parsed transcript");
-            return;
+            return IngestionResult.skipped(IngestionStatus.SKIPPED_EMPTY, "Invalid parsed transcript");
         }
 
         String sessionId = parsed.sessionId();
@@ -79,7 +80,7 @@ public class DataIngestionService {
                     
                     if (progress != null && fileMtime <= progress.getFileMtime()) {
                         log.debug("File not modified (mtime: {}), skipping session {}", fileMtime, sessionId);
-                        return;
+                        return IngestionResult.skipped(IngestionStatus.SKIPPED_MTIME, null);
                     }
                     
                     log.info("File modified (old mtime: {}, new mtime: {}), reprocessing session {}", 
@@ -98,6 +99,8 @@ public class DataIngestionService {
             // ✅ 删除旧数据，然后重新处理
             deleteExistingSessionData(sessionId);
         }
+
+        try {
 
         // Phase 1: Insert conversation turns first
         List<DashboardConversationTurn> turns = convertToTurns(scanId, parsed.turns(), sessionId, employeeId, now, parsed.filePath());
@@ -153,9 +156,6 @@ public class DataIngestionService {
             int inserted = messageMapper.batchInsertIgnore(messages);
             log.debug("Inserted {} messages for session {}", inserted, sessionId);
         }
-        
-        // ✅ 收集消息的小时信息
-        collectHoursFromMessages(parsed.messages());
 
         // Phase 3: Convert and insert skill invocations (turn_id not populated yet)
         List<DashboardSkillInvocation> skills = convertToSkillInvocations(
@@ -209,8 +209,21 @@ public class DataIngestionService {
             messages.size(), conversationTurns, skills.size(), issues.size(), now,
             parsed.messages());  // ✅ 传入消息列表，用于提取时间
 
-        log.info("Ingested session {}: {} messages, {} turns, {} skills, {} issues",
-                sessionId, messages.size(), conversationTurns, skills.size(), issues.size());
+        // ✅ 收集本次扫描的小时信息（用于增量聚合）
+        collectHoursFromMessages(parsed.messages());
+
+        // ✅ 返回成功结果
+        return IngestionResult.success(
+            parsed.messages().size(),
+            parsed.turns().size(),
+            parsed.issues().size(),
+            parsed.skillInvocations().size()
+        );
+        
+        } catch (Exception e) {
+            log.error("Failed to ingest transcript for session {}", sessionId, e);
+            return IngestionResult.failed(e.getMessage());
+        }
     }
 
     /**
