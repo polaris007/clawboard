@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -40,28 +42,56 @@ public class DataIngestionService {
     private final SystemMessageFilter systemMessageFilter;
     private final ExecutionTraceMapper executionTraceMapper;  // NEW
     private final TranscriptParser transcriptParser;  // NEW
+    private final ScanProgressMapper scanProgressMapper;  // For mtime check
+    private final ScanProgressService scanProgressService;  // For updating progress
 
     /**
      * Ingest parsed transcript data into database
      * @param scanId Current scan ID
      * @param employeeId Employee ID extracted from file path
      * @param parsed Parsed transcript data
+     * @return IngestionResult with processing status and statistics
      */
     @Transactional
-    public void ingestParsedTranscript(Long scanId, String employeeId, TranscriptParser.ParsedTranscript parsed) {
+    public IngestionResult ingestParsedTranscript(Long scanId, String employeeId, TranscriptParser.ParsedTranscript parsed) {
         if (parsed == null || parsed.sessionId() == null) {
             log.warn("Cannot ingest null or invalid parsed transcript");
-            return;
+            return IngestionResult.skipped(IngestionStatus.SKIPPED_EMPTY, "Invalid parsed transcript");
         }
 
         String sessionId = parsed.sessionId();
         LocalDateTime now = LocalDateTime.now(BEIJING_ZONE);
         
-        // Check if session already scanned
+        // ✅ 检查文件是否有变化（基于文件修改时间）- 作为兜底检查
+        if (parsed.filePath() != null) {
+            try {
+                Path filePath = Path.of(parsed.filePath());
+                if (Files.exists(filePath)) {
+                    long fileMtime = Files.getLastModifiedTime(filePath).toMillis();
+                    
+                    // 查询上次扫描的文件修改时间
+                    var progress = scanProgressMapper.selectByEmployeeAndFile(employeeId, parsed.filePath());
+                    
+                    if (progress != null && fileMtime <= progress.getFileMtime()) {
+                        log.debug("File not modified (mtime: {}), skipping session {}", fileMtime, sessionId);
+                        return IngestionResult.skipped(IngestionStatus.SKIPPED_MTIME, null);
+                    }
+                    
+                    log.info("File modified (old mtime: {}, new mtime: {}), reprocessing session {}", 
+                        progress != null ? progress.getFileMtime() : 0, fileMtime, sessionId);
+                }
+            } catch (Exception e) {
+                log.warn("Failed to check file modification time for {}, proceeding with scan", parsed.filePath(), e);
+            }
+        }
+        
+        // Check if session already scanned (fallback check)
         int existingCount = messageMapper.countBySessionId(sessionId);
         if (existingCount > 0) {
-            log.info("Session {} already scanned ({} messages), skipping", sessionId, existingCount);
-            return;
+            log.info("Session {} already scanned ({} messages), deleting old data and reprocessing", 
+                sessionId, existingCount);
+            // ✅ 删除旧数据，然后重新处理
+            deleteExistingSessionData(sessionId);
         }
 
         // Phase 1: Insert conversation turns first
@@ -165,10 +195,57 @@ public class DataIngestionService {
         }
 
         updateSessionSummary(scanId, sessionId, employeeId, 
-            messages.size(), conversationTurns, skills.size(), issues.size(), now);
+            parsed.messages(), conversationTurns, skills.size(), issues.size(), now);
+
+        // ✅ 更新扫描进度
+        if (parsed.filePath() != null) {
+            try {
+                java.nio.file.Path filePath = java.nio.file.Path.of(parsed.filePath());
+                if (java.nio.file.Files.exists(filePath)) {
+                    long fileMtime = java.nio.file.Files.getLastModifiedTime(filePath).toMillis();
+                    long fileSize = java.nio.file.Files.size(filePath);
+                    
+                    // 获取最后一条消息的 ID 和时间戳
+                    String lastMessageId = null;
+                    LocalDateTime lastMessageTs = null;
+                    if (!parsed.messages().isEmpty()) {
+                        MessageRecord lastMsg = parsed.messages().get(parsed.messages().size() - 1);
+                        lastMessageId = lastMsg.id();
+                        if (lastMsg.epochMs() > 0) {
+                            lastMessageTs = LocalDateTime.ofInstant(
+                                java.time.Instant.ofEpochMilli(lastMsg.epochMs()), BEIJING_ZONE);
+                        }
+                    }
+                    
+                    DashboardScanProgress progress = new DashboardScanProgress();
+                    progress.setEmployeeId(employeeId);
+                    progress.setFilePath(parsed.filePath());
+                    progress.setLastOffset(0L);  // 初始偏移量为 0
+                    progress.setFileMtime(fileMtime);
+                    progress.setFileSize(fileSize);
+                    progress.setSessionId(sessionId);
+                    progress.setLastMessageId(lastMessageId);
+                    progress.setLastMessageTs(lastMessageTs);
+                    progress.setUpdatedAt(now);
+                    
+                    scanProgressService.updateProgress(progress);
+                    log.debug("Updated scan progress for session {}", sessionId);
+                }
+            } catch (Exception e) {
+                log.warn("Failed to update scan progress for session {}", sessionId, e);
+            }
+        }
 
         log.info("Ingested session {}: {} messages, {} turns, {} skills, {} issues",
                 sessionId, messages.size(), conversationTurns, skills.size(), issues.size());
+        
+        // ✅ 返回成功结果
+        return IngestionResult.success(
+            parsed.messages().size(),
+            parsed.turns().size(),
+            parsed.issues().size(),
+            parsed.skillInvocations().size()
+        );
     }
 
     /**
@@ -422,37 +499,98 @@ public class DataIngestionService {
     }
 
     /**
+     * 删除指定 session 的所有相关详细数据
+     * 按照依赖关系逆序删除，避免外键约束问题
+     * 
+     * @param sessionId Session ID
+     */
+    private void deleteExistingSessionData(String sessionId) {
+        log.info("Deleting existing detail data for session: {}", sessionId);
+        
+        // 1. 删除执行追踪（依赖 turn_id）
+        int traceCount = executionTraceMapper.deleteBySessionId(sessionId);
+        log.debug("Deleted {} execution traces", traceCount);
+        
+        // 2. 删除问题记录（依赖 turn_id）
+        int issueCount = issueMapper.deleteBySessionId(sessionId);
+        log.debug("Deleted {} transcript issues", issueCount);
+        
+        // 3. 删除技能调用（依赖 session_id）
+        int skillCount = skillMapper.deleteBySessionId(sessionId);
+        log.debug("Deleted {} skill invocations", skillCount);
+        
+        // 4. 删除消息（依赖 turn_id, session_id）
+        int messageCount = messageMapper.deleteBySessionId(sessionId);
+        log.debug("Deleted {} messages", messageCount);
+        
+        // 5. 删除对话轮次（核心表，被其他表依赖）
+        int turnCount = turnMapper.deleteBySessionId(sessionId);
+        log.debug("Deleted {} conversation turns", turnCount);
+        
+        // ❌ 不删除 session_summary，让 upsert 自动更新
+        
+        log.info("Successfully deleted detail data for session {}: " +
+                 "traces={}, issues={}, skills={}, messages={}, turns={}",
+                 sessionId, traceCount, issueCount, skillCount, 
+                 messageCount, turnCount);
+    }
+
+    /**
      * Update session summary with incremental data
      * Uses upsert to handle both new and existing sessions
      */
     private void updateSessionSummary(Long scanId, String sessionId, String employeeId,
-                                      int messageCount, int turnCount, 
+                                      List<MessageRecord> messages, int turnCount, 
                                       int skillCount, int issueCount,
                                       LocalDateTime now) {
         try {
-            // Find first and last message timestamps from the messages list
-            // For now, use current time as approximation
-            // TODO: Extract actual timestamps from parsed messages
+            // ✅ 从解析的消息中提取真实的时间戳范围
+            LocalDateTime firstMessageAt = null;
+            LocalDateTime lastMessageAt = null;
+            
+            if (messages != null && !messages.isEmpty()) {
+                long minEpochMs = Long.MAX_VALUE;
+                long maxEpochMs = Long.MIN_VALUE;
+                
+                for (MessageRecord msg : messages) {
+                    if (msg.epochMs() > 0) {
+                        minEpochMs = Math.min(minEpochMs, msg.epochMs());
+                        maxEpochMs = Math.max(maxEpochMs, msg.epochMs());
+                    }
+                }
+                
+                if (minEpochMs != Long.MAX_VALUE) {
+                    firstMessageAt = LocalDateTime.ofInstant(
+                        java.time.Instant.ofEpochMilli(minEpochMs), BEIJING_ZONE);
+                }
+                if (maxEpochMs != Long.MIN_VALUE) {
+                    lastMessageAt = LocalDateTime.ofInstant(
+                        java.time.Instant.ofEpochMilli(maxEpochMs), BEIJING_ZONE);
+                }
+            }
+            
+            // 如果没有有效的时间戳，使用当前时间作为后备
+            if (firstMessageAt == null) firstMessageAt = now;
+            if (lastMessageAt == null) lastMessageAt = now;
             
             DashboardSessionSummary summary = new DashboardSessionSummary();
             summary.setSessionId(sessionId);
             summary.setEmployeeId(employeeId);
-            summary.setAgentName("main"); // Default agent name, can be extracted from path
-            summary.setTotalMessages(messageCount);
+            summary.setAgentName("main");
+            summary.setTotalMessages(messages != null ? messages.size() : 0);
             summary.setTotalTurns(turnCount);
             summary.setTotalIssues(issueCount);
             summary.setTotalSkills(skillCount);
-            summary.setFirstMessageAt(now);
-            summary.setLastMessageAt(now);
+            summary.setFirstMessageAt(firstMessageAt);   // ✅ 使用真实时间戳
+            summary.setLastMessageAt(lastMessageAt);     // ✅ 使用真实时间戳
             summary.setLastScanId(scanId);
             summary.setLastUpdatedAt(now);
             
-            // Upsert will incrementally update counts
             sessionSummaryMapper.upsert(summary);
-            log.debug("Updated session summary for {}", sessionId);
+            log.debug("Updated session summary for {} (first: {}, last: {})", 
+                sessionId, firstMessageAt, lastMessageAt);
         } catch (Exception e) {
             log.error("Failed to update session summary for {}", sessionId, e);
-            // Don't fail the ingestion if summary update fails
         }
     }
 

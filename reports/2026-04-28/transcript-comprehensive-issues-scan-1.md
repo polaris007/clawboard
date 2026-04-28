@@ -2,14 +2,14 @@
 
 **时间范围**: Scan ID: 1
 
-**生成时间**: 2026-04-28T19:43:39.435Z
+**生成时间**: 2026-04-28T22:28:45.227Z
 
 ## 📊 统计概览
 
 - **总错误数**: 474
-- **总对话轮数**: 649 （排除系统消息）
+- **总对话轮数**: 648 （排除系统消息）
 - **有错误轮数**: 105 （存在任何类型错误的轮次）
-- **错误率**: 16.18% （有错误轮数 / 总对话轮数）
+- **错误率**: 16.20% （有错误轮数 / 总对话轮数）
 
 ### 错误类型分布
 
@@ -19,7 +19,8 @@
 | timeoutErrors | 30 | 超时错误 |
 | rateLimitErrors | 24 | 速率限制错误 |
 | modelErrors | 14 | 模型API错误 |
-| flow_integrity_missing_final_answer | 4 | 工具执行后无最终回复 |
+| flow_integrity_missing_final_answer | 3 | 工具执行后无最终回复 |
+| flow_integrity_no_reply | 1 | 用户提问后无回复 |
 
 ---
 
@@ -3273,34 +3274,6 @@ Connection error.
 }
 \`\`\`
 
-[Mon 2026-04-13 15:42 GMT+8] 使用imap-smtp-email技能，帮我查询邮箱中最新的10封邮件，帮我列出查询结果`
-- **错误信息**: 
-````
-400 'max_tokens' or 'max_completion_tokens' is too large: 16384. This model's maximum context length is 65536 tokens and your request has 54307 input tokens (16384 > 65536 - 54307). (parameter=max_tokens, value=16384)
-````
-- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
-- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\068ac7a06a47c7fdc26656446b63d7e17dc09d94203abb2c92d6bcf41c33f56705d20342347e3b18cfae39e7a2940bae5fb6ca5293e374cbceee772548768613\agents\main\sessions\44b23a7e-471e-4d06-b7d3-9c354e67b2f9.jsonl.reset.2026-04-13T07-43-22.366Z`
-- **Session ID**: `44b23a7e-471e-4d06-b7d3-9c354e67b2f9`
-- **行号**: 107
-- **时间戳**: 2026-04-13T15:42:35.657
-
----
-
-### 错误 #143
-
-- **事件类型**: `message`
-- **描述**: 检测到异常停止原因: error
-- **工号**: 18100732
-- **姓名**: 牛伟峰
-- **部门**: 18100000
-- **用户输入**: `Sender (untrusted metadata):
-\`\`\`json
-{
-  "label": "cli",
-  "id": "cli"
-}
-\`\`\`
-
 [Mon 2026-04-13 15:46 GMT+8] 使用imap-smtp-email技能，帮我查询邮箱中最近的10封邮件`
 - **错误信息**: 
 ````
@@ -3314,7 +3287,7 @@ Connection error.
 
 ---
 
-### 错误 #144
+### 错误 #143
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3337,7 +3310,7 @@ Connection error.
 
 ---
 
-### 错误 #145
+### 错误 #144
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3360,7 +3333,7 @@ Connection error.
 
 ---
 
-### 错误 #146
+### 错误 #145
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3383,7 +3356,7 @@ Connection error.
 
 ---
 
-### 错误 #147
+### 错误 #146
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3406,7 +3379,7 @@ Connection error.
 
 ---
 
-### 错误 #148
+### 错误 #147
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3434,7 +3407,7 @@ Connection error.
 
 ---
 
-### 错误 #149
+### 错误 #148
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3453,7 +3426,7 @@ Connection error.
 
 ---
 
-### 错误 #150
+### 错误 #149
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3472,7 +3445,7 @@ Connection error.
 
 ---
 
-### 错误 #151
+### 错误 #150
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3491,7 +3464,7 @@ Connection error.
 
 ---
 
-### 错误 #152
+### 错误 #151
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3510,7 +3483,7 @@ Connection error.
 
 ---
 
-### 错误 #153
+### 错误 #152
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
@@ -3540,7 +3513,7 @@ Request was aborted
 
 ---
 
-### 错误 #154
+### 错误 #153
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
@@ -3568,7 +3541,7 @@ Request was aborted
 
 ---
 
-### 错误 #155
+### 错误 #154
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3587,7 +3560,7 @@ Connection error.
 
 ---
 
-### 错误 #156
+### 错误 #155
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3606,7 +3579,7 @@ Connection error.
 
 ---
 
-### 错误 #157
+### 错误 #156
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3625,7 +3598,7 @@ Connection error.
 
 ---
 
-### 错误 #158
+### 错误 #157
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3644,7 +3617,7 @@ Connection error.
 
 ---
 
-### 错误 #159
+### 错误 #158
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3667,7 +3640,7 @@ Connection error.
 
 ---
 
-### 错误 #160
+### 错误 #159
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3690,7 +3663,7 @@ Connection error.
 
 ---
 
-### 错误 #161
+### 错误 #160
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3713,7 +3686,7 @@ Connection error.
 
 ---
 
-### 错误 #162
+### 错误 #161
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3736,7 +3709,7 @@ Connection error.
 
 ---
 
-### 错误 #163
+### 错误 #162
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3755,7 +3728,7 @@ Connection error.
 
 ---
 
-### 错误 #164
+### 错误 #163
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3774,7 +3747,7 @@ Connection error.
 
 ---
 
-### 错误 #165
+### 错误 #164
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3793,7 +3766,7 @@ Connection error.
 
 ---
 
-### 错误 #166
+### 错误 #165
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3812,7 +3785,7 @@ Connection error.
 
 ---
 
-### 错误 #167
+### 错误 #166
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3838,7 +3811,7 @@ Connection error.
 
 ---
 
-### 错误 #168
+### 错误 #167
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3864,7 +3837,7 @@ Connection error.
 
 ---
 
-### 错误 #169
+### 错误 #168
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3890,7 +3863,7 @@ Connection error.
 
 ---
 
-### 错误 #170
+### 错误 #169
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3916,7 +3889,7 @@ Connection error.
 
 ---
 
-### 错误 #171
+### 错误 #170
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3942,7 +3915,7 @@ Connection error.
 
 ---
 
-### 错误 #172
+### 错误 #171
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3968,7 +3941,7 @@ Connection error.
 
 ---
 
-### 错误 #173
+### 错误 #172
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -3991,7 +3964,7 @@ terminated
 
 ---
 
-### 错误 #174
+### 错误 #173
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4014,7 +3987,7 @@ Connection error.
 
 ---
 
-### 错误 #175
+### 错误 #174
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4037,7 +4010,7 @@ Connection error.
 
 ---
 
-### 错误 #176
+### 错误 #175
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4060,7 +4033,7 @@ Connection error.
 
 ---
 
-### 错误 #177
+### 错误 #176
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4083,7 +4056,7 @@ Connection error.
 
 ---
 
-### 错误 #178
+### 错误 #177
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4106,7 +4079,7 @@ Connection error.
 
 ---
 
-### 错误 #179
+### 错误 #178
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4129,7 +4102,7 @@ Connection error.
 
 ---
 
-### 错误 #180
+### 错误 #179
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4152,7 +4125,7 @@ Connection error.
 
 ---
 
-### 错误 #181
+### 错误 #180
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4171,7 +4144,7 @@ Connection error.
 
 ---
 
-### 错误 #182
+### 错误 #181
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4190,7 +4163,7 @@ Connection error.
 
 ---
 
-### 错误 #183
+### 错误 #182
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4209,7 +4182,7 @@ Connection error.
 
 ---
 
-### 错误 #184
+### 错误 #183
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4228,7 +4201,7 @@ Connection error.
 
 ---
 
-### 错误 #185
+### 错误 #184
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4251,7 +4224,7 @@ Connection error.
 
 ---
 
-### 错误 #186
+### 错误 #185
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4274,7 +4247,7 @@ Connection error.
 
 ---
 
-### 错误 #187
+### 错误 #186
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4297,7 +4270,7 @@ Connection error.
 
 ---
 
-### 错误 #188
+### 错误 #187
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4320,7 +4293,7 @@ Connection error.
 
 ---
 
-### 错误 #189
+### 错误 #188
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4343,7 +4316,7 @@ Connection error.
 
 ---
 
-### 错误 #190
+### 错误 #189
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4366,7 +4339,7 @@ Connection error.
 
 ---
 
-### 错误 #191
+### 错误 #190
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4389,7 +4362,7 @@ Connection error.
 
 ---
 
-### 错误 #192
+### 错误 #191
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4412,7 +4385,7 @@ Connection error.
 
 ---
 
-### 错误 #193
+### 错误 #192
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4435,7 +4408,7 @@ Connection error.
 
 ---
 
-### 错误 #194
+### 错误 #193
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4458,7 +4431,7 @@ Connection error.
 
 ---
 
-### 错误 #195
+### 错误 #194
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4481,7 +4454,7 @@ Connection error.
 
 ---
 
-### 错误 #196
+### 错误 #195
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4504,7 +4477,7 @@ Connection error.
 
 ---
 
-### 错误 #197
+### 错误 #196
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4523,7 +4496,7 @@ Connection error.
 
 ---
 
-### 错误 #198
+### 错误 #197
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4542,7 +4515,7 @@ Connection error.
 
 ---
 
-### 错误 #199
+### 错误 #198
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4561,7 +4534,7 @@ Connection error.
 
 ---
 
-### 错误 #200
+### 错误 #199
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4580,7 +4553,7 @@ Connection error.
 
 ---
 
-### 错误 #201
+### 错误 #200
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4603,7 +4576,7 @@ Connection error.
 
 ---
 
-### 错误 #202
+### 错误 #201
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4626,7 +4599,7 @@ Connection error.
 
 ---
 
-### 错误 #203
+### 错误 #202
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4649,7 +4622,7 @@ Connection error.
 
 ---
 
-### 错误 #204
+### 错误 #203
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4672,7 +4645,7 @@ Connection error.
 
 ---
 
-### 错误 #205
+### 错误 #204
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4691,7 +4664,7 @@ Connection error.
 
 ---
 
-### 错误 #206
+### 错误 #205
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4710,7 +4683,7 @@ Connection error.
 
 ---
 
-### 错误 #207
+### 错误 #206
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4729,7 +4702,7 @@ Connection error.
 
 ---
 
-### 错误 #208
+### 错误 #207
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4748,7 +4721,7 @@ Connection error.
 
 ---
 
-### 错误 #209
+### 错误 #208
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4767,7 +4740,7 @@ Connection error.
 
 ---
 
-### 错误 #210
+### 错误 #209
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4786,7 +4759,7 @@ Connection error.
 
 ---
 
-### 错误 #211
+### 错误 #210
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4805,7 +4778,7 @@ Connection error.
 
 ---
 
-### 错误 #212
+### 错误 #211
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4824,7 +4797,7 @@ Connection error.
 
 ---
 
-### 错误 #213
+### 错误 #212
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4847,7 +4820,7 @@ Connection error.
 
 ---
 
-### 错误 #214
+### 错误 #213
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4870,7 +4843,7 @@ Connection error.
 
 ---
 
-### 错误 #215
+### 错误 #214
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4893,7 +4866,7 @@ Connection error.
 
 ---
 
-### 错误 #216
+### 错误 #215
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4916,7 +4889,7 @@ Connection error.
 
 ---
 
-### 错误 #217
+### 错误 #216
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4935,7 +4908,7 @@ Connection error.
 
 ---
 
-### 错误 #218
+### 错误 #217
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4954,7 +4927,7 @@ Connection error.
 
 ---
 
-### 错误 #219
+### 错误 #218
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4973,7 +4946,7 @@ Connection error.
 
 ---
 
-### 错误 #220
+### 错误 #219
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -4992,7 +4965,7 @@ Connection error.
 
 ---
 
-### 错误 #221
+### 错误 #220
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5011,7 +4984,7 @@ Connection error.
 
 ---
 
-### 错误 #222
+### 错误 #221
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5030,7 +5003,7 @@ Connection error.
 
 ---
 
-### 错误 #223
+### 错误 #222
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5049,7 +5022,7 @@ Connection error.
 
 ---
 
-### 错误 #224
+### 错误 #223
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5068,7 +5041,7 @@ Connection error.
 
 ---
 
-### 错误 #225
+### 错误 #224
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5091,7 +5064,7 @@ Connection error.
 
 ---
 
-### 错误 #226
+### 错误 #225
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5114,7 +5087,7 @@ Connection error.
 
 ---
 
-### 错误 #227
+### 错误 #226
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5137,7 +5110,7 @@ Connection error.
 
 ---
 
-### 错误 #228
+### 错误 #227
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5160,7 +5133,7 @@ Connection error.
 
 ---
 
-### 错误 #229
+### 错误 #228
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5179,7 +5152,7 @@ Connection error.
 
 ---
 
-### 错误 #230
+### 错误 #229
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5198,7 +5171,7 @@ Connection error.
 
 ---
 
-### 错误 #231
+### 错误 #230
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5217,7 +5190,7 @@ Connection error.
 
 ---
 
-### 错误 #232
+### 错误 #231
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5236,7 +5209,7 @@ Connection error.
 
 ---
 
-### 错误 #233
+### 错误 #232
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5255,7 +5228,7 @@ Connection error.
 
 ---
 
-### 错误 #234
+### 错误 #233
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5274,7 +5247,7 @@ Connection error.
 
 ---
 
-### 错误 #235
+### 错误 #234
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5293,7 +5266,7 @@ Connection error.
 
 ---
 
-### 错误 #236
+### 错误 #235
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5312,7 +5285,7 @@ Connection error.
 
 ---
 
-### 错误 #237
+### 错误 #236
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5335,7 +5308,7 @@ Connection error.
 
 ---
 
-### 错误 #238
+### 错误 #237
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5358,7 +5331,7 @@ Connection error.
 
 ---
 
-### 错误 #239
+### 错误 #238
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5381,7 +5354,7 @@ Connection error.
 
 ---
 
-### 错误 #240
+### 错误 #239
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5404,7 +5377,7 @@ Connection error.
 
 ---
 
-### 错误 #241
+### 错误 #240
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5423,7 +5396,7 @@ Connection error.
 
 ---
 
-### 错误 #242
+### 错误 #241
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5442,7 +5415,7 @@ Connection error.
 
 ---
 
-### 错误 #243
+### 错误 #242
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5461,7 +5434,7 @@ Connection error.
 
 ---
 
-### 错误 #244
+### 错误 #243
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5480,7 +5453,7 @@ Connection error.
 
 ---
 
-### 错误 #245
+### 错误 #244
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5499,7 +5472,7 @@ Connection error.
 
 ---
 
-### 错误 #246
+### 错误 #245
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5518,7 +5491,7 @@ Connection error.
 
 ---
 
-### 错误 #247
+### 错误 #246
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5537,7 +5510,7 @@ Connection error.
 
 ---
 
-### 错误 #248
+### 错误 #247
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5556,7 +5529,7 @@ Connection error.
 
 ---
 
-### 错误 #249
+### 错误 #248
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5579,7 +5552,7 @@ Connection error.
 
 ---
 
-### 错误 #250
+### 错误 #249
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5602,7 +5575,7 @@ Connection error.
 
 ---
 
-### 错误 #251
+### 错误 #250
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5625,7 +5598,7 @@ Connection error.
 
 ---
 
-### 错误 #252
+### 错误 #251
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5648,7 +5621,7 @@ Connection error.
 
 ---
 
-### 错误 #253
+### 错误 #252
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5667,7 +5640,7 @@ Connection error.
 
 ---
 
-### 错误 #254
+### 错误 #253
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5686,7 +5659,7 @@ Connection error.
 
 ---
 
-### 错误 #255
+### 错误 #254
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5705,7 +5678,7 @@ Connection error.
 
 ---
 
-### 错误 #256
+### 错误 #255
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5724,7 +5697,7 @@ Connection error.
 
 ---
 
-### 错误 #257
+### 错误 #256
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5743,7 +5716,7 @@ Connection error.
 
 ---
 
-### 错误 #258
+### 错误 #257
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5762,7 +5735,7 @@ Connection error.
 
 ---
 
-### 错误 #259
+### 错误 #258
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5781,7 +5754,7 @@ Connection error.
 
 ---
 
-### 错误 #260
+### 错误 #259
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5800,7 +5773,7 @@ Connection error.
 
 ---
 
-### 错误 #261
+### 错误 #260
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5823,7 +5796,7 @@ Connection error.
 
 ---
 
-### 错误 #262
+### 错误 #261
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5846,7 +5819,7 @@ Connection error.
 
 ---
 
-### 错误 #263
+### 错误 #262
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5869,7 +5842,7 @@ Connection error.
 
 ---
 
-### 错误 #264
+### 错误 #263
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5892,7 +5865,7 @@ Connection error.
 
 ---
 
-### 错误 #265
+### 错误 #264
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5911,7 +5884,7 @@ Connection error.
 
 ---
 
-### 错误 #266
+### 错误 #265
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5930,7 +5903,7 @@ Connection error.
 
 ---
 
-### 错误 #267
+### 错误 #266
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5949,7 +5922,7 @@ Connection error.
 
 ---
 
-### 错误 #268
+### 错误 #267
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5968,7 +5941,7 @@ Connection error.
 
 ---
 
-### 错误 #269
+### 错误 #268
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -5987,7 +5960,7 @@ Connection error.
 
 ---
 
-### 错误 #270
+### 错误 #269
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6006,7 +5979,7 @@ Connection error.
 
 ---
 
-### 错误 #271
+### 错误 #270
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6025,7 +5998,7 @@ Connection error.
 
 ---
 
-### 错误 #272
+### 错误 #271
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6044,7 +6017,7 @@ Connection error.
 
 ---
 
-### 错误 #273
+### 错误 #272
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6067,7 +6040,7 @@ Connection error.
 
 ---
 
-### 错误 #274
+### 错误 #273
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6090,7 +6063,7 @@ Connection error.
 
 ---
 
-### 错误 #275
+### 错误 #274
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6113,7 +6086,7 @@ Connection error.
 
 ---
 
-### 错误 #276
+### 错误 #275
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6136,7 +6109,7 @@ Connection error.
 
 ---
 
-### 错误 #277
+### 错误 #276
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6155,7 +6128,7 @@ Connection error.
 
 ---
 
-### 错误 #278
+### 错误 #277
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6174,7 +6147,7 @@ Connection error.
 
 ---
 
-### 错误 #279
+### 错误 #278
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6193,7 +6166,7 @@ Connection error.
 
 ---
 
-### 错误 #280
+### 错误 #279
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6212,7 +6185,7 @@ Connection error.
 
 ---
 
-### 错误 #281
+### 错误 #280
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6231,7 +6204,7 @@ Connection error.
 
 ---
 
-### 错误 #282
+### 错误 #281
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6250,7 +6223,7 @@ Connection error.
 
 ---
 
-### 错误 #283
+### 错误 #282
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6269,7 +6242,7 @@ Connection error.
 
 ---
 
-### 错误 #284
+### 错误 #283
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6288,7 +6261,7 @@ Connection error.
 
 ---
 
-### 错误 #285
+### 错误 #284
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6311,7 +6284,7 @@ Connection error.
 
 ---
 
-### 错误 #286
+### 错误 #285
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6334,7 +6307,7 @@ Connection error.
 
 ---
 
-### 错误 #287
+### 错误 #286
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6357,7 +6330,7 @@ Connection error.
 
 ---
 
-### 错误 #288
+### 错误 #287
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6380,7 +6353,7 @@ Connection error.
 
 ---
 
-### 错误 #289
+### 错误 #288
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6399,7 +6372,7 @@ Connection error.
 
 ---
 
-### 错误 #290
+### 错误 #289
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6418,7 +6391,7 @@ Connection error.
 
 ---
 
-### 错误 #291
+### 错误 #290
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6437,7 +6410,7 @@ Connection error.
 
 ---
 
-### 错误 #292
+### 错误 #291
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6456,7 +6429,7 @@ Connection error.
 
 ---
 
-### 错误 #293
+### 错误 #292
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6475,7 +6448,7 @@ Connection error.
 
 ---
 
-### 错误 #294
+### 错误 #293
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6494,7 +6467,7 @@ Connection error.
 
 ---
 
-### 错误 #295
+### 错误 #294
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6513,7 +6486,7 @@ Connection error.
 
 ---
 
-### 错误 #296
+### 错误 #295
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6532,7 +6505,7 @@ Connection error.
 
 ---
 
-### 错误 #297
+### 错误 #296
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6555,7 +6528,7 @@ Connection error.
 
 ---
 
-### 错误 #298
+### 错误 #297
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6578,7 +6551,7 @@ Connection error.
 
 ---
 
-### 错误 #299
+### 错误 #298
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6601,7 +6574,7 @@ Connection error.
 
 ---
 
-### 错误 #300
+### 错误 #299
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6624,7 +6597,7 @@ Connection error.
 
 ---
 
-### 错误 #301
+### 错误 #300
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6643,7 +6616,7 @@ Connection error.
 
 ---
 
-### 错误 #302
+### 错误 #301
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6662,7 +6635,7 @@ Connection error.
 
 ---
 
-### 错误 #303
+### 错误 #302
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6681,7 +6654,7 @@ Connection error.
 
 ---
 
-### 错误 #304
+### 错误 #303
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6700,7 +6673,7 @@ Connection error.
 
 ---
 
-### 错误 #305
+### 错误 #304
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6719,7 +6692,7 @@ Connection error.
 
 ---
 
-### 错误 #306
+### 错误 #305
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6738,7 +6711,7 @@ Connection error.
 
 ---
 
-### 错误 #307
+### 错误 #306
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6757,7 +6730,7 @@ Connection error.
 
 ---
 
-### 错误 #308
+### 错误 #307
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6776,7 +6749,7 @@ Connection error.
 
 ---
 
-### 错误 #309
+### 错误 #308
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6799,7 +6772,7 @@ Connection error.
 
 ---
 
-### 错误 #310
+### 错误 #309
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6822,7 +6795,7 @@ Connection error.
 
 ---
 
-### 错误 #311
+### 错误 #310
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6845,7 +6818,7 @@ Connection error.
 
 ---
 
-### 错误 #312
+### 错误 #311
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6868,7 +6841,7 @@ Connection error.
 
 ---
 
-### 错误 #313
+### 错误 #312
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6887,7 +6860,7 @@ Connection error.
 
 ---
 
-### 错误 #314
+### 错误 #313
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6906,7 +6879,7 @@ Connection error.
 
 ---
 
-### 错误 #315
+### 错误 #314
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6925,7 +6898,7 @@ Connection error.
 
 ---
 
-### 错误 #316
+### 错误 #315
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6944,7 +6917,7 @@ Connection error.
 
 ---
 
-### 错误 #317
+### 错误 #316
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6963,7 +6936,7 @@ Connection error.
 
 ---
 
-### 错误 #318
+### 错误 #317
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -6982,7 +6955,7 @@ Connection error.
 
 ---
 
-### 错误 #319
+### 错误 #318
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7001,7 +6974,7 @@ Connection error.
 
 ---
 
-### 错误 #320
+### 错误 #319
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7020,7 +6993,7 @@ Connection error.
 
 ---
 
-### 错误 #321
+### 错误 #320
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7043,7 +7016,7 @@ Connection error.
 
 ---
 
-### 错误 #322
+### 错误 #321
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7066,7 +7039,7 @@ Connection error.
 
 ---
 
-### 错误 #323
+### 错误 #322
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7089,7 +7062,7 @@ Connection error.
 
 ---
 
-### 错误 #324
+### 错误 #323
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7112,7 +7085,7 @@ Connection error.
 
 ---
 
-### 错误 #325
+### 错误 #324
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7131,7 +7104,7 @@ Connection error.
 
 ---
 
-### 错误 #326
+### 错误 #325
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7150,7 +7123,7 @@ Connection error.
 
 ---
 
-### 错误 #327
+### 错误 #326
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7169,7 +7142,7 @@ Connection error.
 
 ---
 
-### 错误 #328
+### 错误 #327
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7188,7 +7161,7 @@ Connection error.
 
 ---
 
-### 错误 #329
+### 错误 #328
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7207,7 +7180,7 @@ Connection error.
 
 ---
 
-### 错误 #330
+### 错误 #329
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7226,7 +7199,7 @@ Connection error.
 
 ---
 
-### 错误 #331
+### 错误 #330
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7245,7 +7218,7 @@ Connection error.
 
 ---
 
-### 错误 #332
+### 错误 #331
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7264,7 +7237,7 @@ Connection error.
 
 ---
 
-### 错误 #333
+### 错误 #332
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7287,7 +7260,7 @@ Connection error.
 
 ---
 
-### 错误 #334
+### 错误 #333
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7310,7 +7283,7 @@ Connection error.
 
 ---
 
-### 错误 #335
+### 错误 #334
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7333,7 +7306,7 @@ Connection error.
 
 ---
 
-### 错误 #336
+### 错误 #335
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7356,7 +7329,7 @@ Connection error.
 
 ---
 
-### 错误 #337
+### 错误 #336
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7375,7 +7348,7 @@ Connection error.
 
 ---
 
-### 错误 #338
+### 错误 #337
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7394,7 +7367,7 @@ Connection error.
 
 ---
 
-### 错误 #339
+### 错误 #338
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7413,7 +7386,7 @@ Connection error.
 
 ---
 
-### 错误 #340
+### 错误 #339
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7432,7 +7405,7 @@ Connection error.
 
 ---
 
-### 错误 #341
+### 错误 #340
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7451,7 +7424,7 @@ Connection error.
 
 ---
 
-### 错误 #342
+### 错误 #341
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7470,7 +7443,7 @@ Connection error.
 
 ---
 
-### 错误 #343
+### 错误 #342
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7489,7 +7462,7 @@ Connection error.
 
 ---
 
-### 错误 #344
+### 错误 #343
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7508,7 +7481,7 @@ Connection error.
 
 ---
 
-### 错误 #345
+### 错误 #344
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7531,7 +7504,7 @@ Connection error.
 
 ---
 
-### 错误 #346
+### 错误 #345
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7554,7 +7527,7 @@ Connection error.
 
 ---
 
-### 错误 #347
+### 错误 #346
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7577,7 +7550,7 @@ Connection error.
 
 ---
 
-### 错误 #348
+### 错误 #347
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7600,7 +7573,7 @@ Connection error.
 
 ---
 
-### 错误 #349
+### 错误 #348
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7619,7 +7592,7 @@ Connection error.
 
 ---
 
-### 错误 #350
+### 错误 #349
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7638,7 +7611,7 @@ Connection error.
 
 ---
 
-### 错误 #351
+### 错误 #350
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7657,7 +7630,7 @@ Connection error.
 
 ---
 
-### 错误 #352
+### 错误 #351
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7676,7 +7649,7 @@ Connection error.
 
 ---
 
-### 错误 #353
+### 错误 #352
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7698,7 +7671,7 @@ Connection error.
 
 ---
 
-### 错误 #354
+### 错误 #353
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7720,7 +7693,7 @@ Connection error.
 
 ---
 
-### 错误 #355
+### 错误 #354
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7742,7 +7715,7 @@ Connection error.
 
 ---
 
-### 错误 #356
+### 错误 #355
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7770,7 +7743,7 @@ Connection error.
 
 ---
 
-### 错误 #357
+### 错误 #356
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7794,7 +7767,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #358
+### 错误 #357
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7818,7 +7791,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #359
+### 错误 #358
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7842,7 +7815,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #360
+### 错误 #359
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7866,7 +7839,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #361
+### 错误 #360
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7890,7 +7863,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #362
+### 错误 #361
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7914,7 +7887,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #363
+### 错误 #362
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7938,7 +7911,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #364
+### 错误 #363
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7962,7 +7935,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #365
+### 错误 #364
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -7986,7 +7959,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #366
+### 错误 #365
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8010,7 +7983,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #367
+### 错误 #366
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8034,7 +8007,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #368
+### 错误 #367
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8058,7 +8031,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #369
+### 错误 #368
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8082,7 +8055,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #370
+### 错误 #369
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8106,7 +8079,7 @@ This context is runtime-generated, not user-authored. Keep internal details priv
 
 ---
 
-### 错误 #371
+### 错误 #370
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8127,7 +8100,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #372
+### 错误 #371
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8148,7 +8121,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #373
+### 错误 #372
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8169,7 +8142,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #374
+### 错误 #373
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8190,7 +8163,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #375
+### 错误 #374
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8218,7 +8191,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #376
+### 错误 #375
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8246,7 +8219,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #377
+### 错误 #376
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8274,7 +8247,7 @@ When reading HEARTBEAT.md, us...`
 
 ---
 
-### 错误 #378
+### 错误 #377
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: aborted
@@ -8302,7 +8275,7 @@ Request was aborted
 
 ---
 
-### 错误 #379
+### 错误 #378
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8330,7 +8303,7 @@ Request was aborted
 
 ---
 
-### 错误 #380
+### 错误 #379
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8358,7 +8331,7 @@ Request was aborted
 
 ---
 
-### 错误 #381
+### 错误 #380
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8386,7 +8359,7 @@ Request was aborted
 
 ---
 
-### 错误 #382
+### 错误 #381
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8414,7 +8387,7 @@ Request was aborted
 
 ---
 
-### 错误 #383
+### 错误 #382
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8442,7 +8415,7 @@ Request was aborted
 
 ---
 
-### 错误 #384
+### 错误 #383
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8470,7 +8443,7 @@ Request was aborted
 
 ---
 
-### 错误 #385
+### 错误 #384
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8498,7 +8471,7 @@ Request was aborted
 
 ---
 
-### 错误 #386
+### 错误 #385
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8526,7 +8499,7 @@ Request was aborted
 
 ---
 
-### 错误 #387
+### 错误 #386
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8554,7 +8527,7 @@ Request was aborted
 
 ---
 
-### 错误 #388
+### 错误 #387
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8582,7 +8555,7 @@ Request was aborted
 
 ---
 
-### 错误 #389
+### 错误 #388
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8610,7 +8583,7 @@ Request was aborted
 
 ---
 
-### 错误 #390
+### 错误 #389
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8638,7 +8611,7 @@ Request was aborted
 
 ---
 
-### 错误 #391
+### 错误 #390
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8666,7 +8639,7 @@ Request was aborted
 
 ---
 
-### 错误 #392
+### 错误 #391
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8694,7 +8667,7 @@ Request was aborted
 
 ---
 
-### 错误 #393
+### 错误 #392
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8722,7 +8695,7 @@ Request was aborted
 
 ---
 
-### 错误 #394
+### 错误 #393
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8750,7 +8723,7 @@ Request was aborted
 
 ---
 
-### 错误 #395
+### 错误 #394
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8778,7 +8751,7 @@ Request was aborted
 
 ---
 
-### 错误 #396
+### 错误 #395
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8806,7 +8779,7 @@ Request was aborted
 
 ---
 
-### 错误 #397
+### 错误 #396
 
 - **事件类型**: `message`
 - **描述**: 检测到异常停止原因: error
@@ -8831,6 +8804,34 @@ Request was aborted
 - **Session ID**: `b57d8f72-a5ec-4f01-b83b-4c1f823cc564`
 - **行号**: 117
 - **时间戳**: 2026-04-16T09:12:51.493
+
+---
+
+### 错误 #397
+
+- **事件类型**: `message`
+- **描述**: 检测到异常停止原因: error
+- **工号**: 18100732
+- **姓名**: 牛伟峰
+- **部门**: 18100000
+- **用户输入**: `Sender (untrusted metadata):
+\`\`\`json
+{
+  "label": "cli",
+  "id": "cli"
+}
+\`\`\`
+
+[Thu 2026-04-16 11:17 GMT+8] 刚刚我把国寿人险发〔2023〕439号 关于印发《中国人寿保险股份有限公司风险应急管理办法（试行）》的通知.pdf,质量中心2026年1月-2026年4月代码效能与2026年3月版本效能...`
+- **错误信息**: 
+````
+400 This model's maximum context length is 65536 tokens. However, your request has 155181 input tokens. Please reduce the length of the input messages. (parameter=input_tokens, value=155181)
+````
+- **原因分析**: 上下文长度超限，可能原因：1) 会话历史过长；2) 单次输入内容过多；3) 未正确配置max_tokens参数；4) 缺少Compaction机制导致上下文累积
+- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\068ac7a06a47c7fdc26656446b63d7e17dc09d94203abb2c92d6bcf41c33f56705d20342347e3b18cfae39e7a2940bae5fb6ca5293e374cbceee772548768613\agents\main\sessions\837503ae-5e31-4723-ac29-12e02f7b233a.jsonl.reset.2026-04-16T03-31-16.010Z`
+- **Session ID**: `837503ae-5e31-4723-ac29-12e02f7b233a`
+- **行号**: 25
+- **时间戳**: 2026-04-16T11:17:18.799
 
 ---
 
@@ -8988,12 +8989,31 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\13c13153a543ecba2ba0adb5b621795367f9130736913b4d3bbb5b8244184d6163cd24120cba49ff7f7a07a9b5bb27cc263a5db4d6fc3a9b80b2cf24df09952d\agents\main\sessions\0ee5ff89-79d5-41f8-a93f-49146d0f3722.jsonl`
 - **Session ID**: `0ee5ff89-79d5-41f8-a93f-49146d0f3722`
 - **行号**: 114
-- **时间戳**: 2026-04-28T19:43:18.358
+- **时间戳**: 2026-04-28T22:28:23.821
 - **Run ID**: `b8a86d98-7887-4263-90d8-d5e5c0153909`
 
 ---
 
 ### 错误 #404
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **工号**: sha-0000000001
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用imap-smtp-email技能的imap功能检查我的邮箱中最近10分钟内收到的邮件。找出其中有时间限制、特别紧急的邮件（如截止日期临近、会议即将开始、需要立即处理的事项等）。将这些紧急邮件的主题和关键信息整理成一封邮件，然后使用imap-smtp-email技能的smtp功...`
+- **错误信息**: 
+````
+{"timestamp":1775805849403,"runId":"2205f579-0df8-4b92-ba65-e9210d5b1f37","sessionId":"2205f579-0df8-4b92-ba65-e9210d5b1f37","provider":"custom-integrate-api-nvidia-com","model":"z-ai/glm5","api":"openai-completions","error":"LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model"}
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\2205f579-0df8-4b92-ba65-e9210d5b1f37.jsonl.deleted.2026-04-13T00-53-49.390Z`
+- **Session ID**: `2205f579-0df8-4b92-ba65-e9210d5b1f37`
+- **行号**: 8
+- **时间戳**: 2026-04-28T22:28:25.430
+- **Run ID**: `2205f579-0df8-4b92-ba65-e9210d5b1f37`
+
+---
+
+### 错误 #405
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9011,31 +9031,75 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\2839c2f17383d426e0f87c82614743eed21a2aa5a58d39da3b11de6dc56388a31ba9219c47d42da0009bc58633ad7c2f6003d505d1ffb40a96eac87034abf2bf\agents\main\sessions\f1aced44-6c24-42f6-aa51-3909db1ff629.jsonl`
 - **Session ID**: `f1aced44-6c24-42f6-aa51-3909db1ff629`
 - **行号**: 22
-- **时间戳**: 2026-04-28T19:43:19.959
+- **时间戳**: 2026-04-28T22:28:25.670
 - **Run ID**: `bb3c513f-d87e-448f-8014-614e40c21906`
 
 ---
 
-### 错误 #405
+### 错误 #406
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **工号**: 18101142
+- **用户输入**: `[Mon 2026-04-13 16:13 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
+
+[Subagent Task]: 请调用 official-doc-writ...`
+- **错误信息**: 
+````
+{"timestamp":1776068086326,"runId":"237cc3e6-bd84-4004-8086-704bedb2fe42","sessionId":"39028978-7dfa-4c83-ac08-4a49ed087310","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\6fca9aa611cf469e15161f2b342062f7c621c962e44d14a57ee1d61d972f9135cd6f8797feb2302283695088f655118edd65a6768f2159207fd01f575a80e207\agents\main\sessions\39028978-7dfa-4c83-ac08-4a49ed087310.jsonl`
+- **Session ID**: `39028978-7dfa-4c83-ac08-4a49ed087310`
+- **行号**: 10
+- **时间戳**: 2026-04-28T22:28:26.738
+- **Run ID**: `237cc3e6-bd84-4004-8086-704bedb2fe42`
+
+---
+
+### 错误 #407
+
+- **事件类型**: `openclaw:prompt-error`
+- **描述**: 检测到超时错误事件
+- **工号**: 18100988
+- **姓名**: 冯丽媛
+- **部门**: 18100000
+- **用户输入**: `[Wed 2026-04-15 13:10 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
+
+[Subagent Task]: 请分析文件 /home/node/.ope...`
+- **错误信息**: 
+````
+{"timestamp":1776229930967,"runId":"0da67fde-8212-48e1-aaec-2bf06e64800d","sessionId":"fe368a91-4216-43d0-9bf1-dfa1cceed4bc","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
+````
+- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
+- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\2839c2f17383d426e0f87c82614743eed21a2aa5a58d39da3b11de6dc56388a31ba9219c47d42da0009bc58633ad7c2f6003d505d1ffb40a96eac87034abf2bf\agents\main\sessions\fe368a91-4216-43d0-9bf1-dfa1cceed4bc.jsonl`
+- **Session ID**: `fe368a91-4216-43d0-9bf1-dfa1cceed4bc`
+- **行号**: 18
+- **时间戳**: 2026-04-28T22:28:27.020
+- **Run ID**: `0da67fde-8212-48e1-aaec-2bf06e64800d`
+
+---
+
+### 错误 #408
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
 - **工号**: sha-0000000001
-- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请使用imap-smtp-email技能的imap功能检查我的邮箱中最近10分钟内收到的邮件。找出其中有时间限制、特别紧急的邮件（如截止日期临近、会议即将开始、需要立即处理的事项等）。将这些紧急邮件的主题和关键信息整理成一封邮件，然后使用imap-smtp-email技能的smtp功...`
+- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请检查我的邮箱中最近10分钟内收到的邮件。找出其中有时间限制、特别紧急的邮件（如截止日期临近、会议即将开始、需要立即处理的事项等）。将这些紧急邮件的主题和关键信息整理成一封邮件，然后使用imap-smtp-email技能的smtp功能将这封邮件发送给我自己。邮件主题请包含'【紧急邮件...`
 - **错误信息**: 
 ````
-{"timestamp":1775805849403,"runId":"2205f579-0df8-4b92-ba65-e9210d5b1f37","sessionId":"2205f579-0df8-4b92-ba65-e9210d5b1f37","provider":"custom-integrate-api-nvidia-com","model":"z-ai/glm5","api":"openai-completions","error":"LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model"}
+{"timestamp":1775805595705,"runId":"34de3e79-209a-4386-a7b2-83181ad9924a","sessionId":"34de3e79-209a-4386-a7b2-83181ad9924a","provider":"custom-integrate-api-nvidia-com","model":"z-ai/glm5","api":"openai-completions","error":"LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model"}
 ````
 - **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\2205f579-0df8-4b92-ba65-e9210d5b1f37.jsonl.deleted.2026-04-13T00-53-49.390Z`
-- **Session ID**: `2205f579-0df8-4b92-ba65-e9210d5b1f37`
+- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\34de3e79-209a-4386-a7b2-83181ad9924a.jsonl.deleted.2026-04-13T00-53-49.390Z`
+- **Session ID**: `34de3e79-209a-4386-a7b2-83181ad9924a`
 - **行号**: 8
-- **时间戳**: 2026-04-28T19:43:20.012
-- **Run ID**: `2205f579-0df8-4b92-ba65-e9210d5b1f37`
+- **时间戳**: 2026-04-28T22:28:27.084
+- **Run ID**: `34de3e79-209a-4386-a7b2-83181ad9924a`
 
 ---
 
-### 错误 #406
+### 错误 #409
 
 - **事件类型**: `openclaw:prompt-error`
 - **描述**: 检测到超时错误事件
@@ -9055,71 +9119,8 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\13c13153a543ecba2ba0adb5b621795367f9130736913b4d3bbb5b8244184d6163cd24120cba49ff7f7a07a9b5bb27cc263a5db4d6fc3a9b80b2cf24df09952d\agents\main\sessions\c2dadcbe-f4b0-472d-aafe-122d0e670ede.jsonl`
 - **Session ID**: `c2dadcbe-f4b0-472d-aafe-122d0e670ede`
 - **行号**: 130
-- **时间戳**: 2026-04-28T19:43:21.327
+- **时间戳**: 2026-04-28T22:28:27.090
 - **Run ID**: `aba0cdf6-68d5-4842-a735-b4adad95ff4c`
-
----
-
-### 错误 #407
-
-- **事件类型**: `openclaw:prompt-error`
-- **描述**: 检测到超时错误事件
-- **工号**: sha-0000000001
-- **用户输入**: `[cron:8b7b52e4-3cb5-4ac7-8d95-4493b5cce81e 检查紧急邮件并发送邮件通知] 请检查我的邮箱中最近10分钟内收到的邮件。找出其中有时间限制、特别紧急的邮件（如截止日期临近、会议即将开始、需要立即处理的事项等）。将这些紧急邮件的主题和关键信息整理成一封邮件，然后使用imap-smtp-email技能的smtp功能将这封邮件发送给我自己。邮件主题请包含'【紧急邮件...`
-- **错误信息**: 
-````
-{"timestamp":1775805595705,"runId":"34de3e79-209a-4386-a7b2-83181ad9924a","sessionId":"34de3e79-209a-4386-a7b2-83181ad9924a","provider":"custom-integrate-api-nvidia-com","model":"z-ai/glm5","api":"openai-completions","error":"LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model"}
-````
-- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\34de3e79-209a-4386-a7b2-83181ad9924a.jsonl.deleted.2026-04-13T00-53-49.390Z`
-- **Session ID**: `34de3e79-209a-4386-a7b2-83181ad9924a`
-- **行号**: 8
-- **时间戳**: 2026-04-28T19:43:21.569
-- **Run ID**: `34de3e79-209a-4386-a7b2-83181ad9924a`
-
----
-
-### 错误 #408
-
-- **事件类型**: `openclaw:prompt-error`
-- **描述**: 检测到超时错误事件
-- **工号**: 18100988
-- **姓名**: 冯丽媛
-- **部门**: 18100000
-- **用户输入**: `[Wed 2026-04-15 13:10 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
-
-[Subagent Task]: 请分析文件 /home/node/.ope...`
-- **错误信息**: 
-````
-{"timestamp":1776229930967,"runId":"0da67fde-8212-48e1-aaec-2bf06e64800d","sessionId":"fe368a91-4216-43d0-9bf1-dfa1cceed4bc","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
-````
-- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\2839c2f17383d426e0f87c82614743eed21a2aa5a58d39da3b11de6dc56388a31ba9219c47d42da0009bc58633ad7c2f6003d505d1ffb40a96eac87034abf2bf\agents\main\sessions\fe368a91-4216-43d0-9bf1-dfa1cceed4bc.jsonl`
-- **Session ID**: `fe368a91-4216-43d0-9bf1-dfa1cceed4bc`
-- **行号**: 18
-- **时间戳**: 2026-04-28T19:43:21.652
-- **Run ID**: `0da67fde-8212-48e1-aaec-2bf06e64800d`
-
----
-
-### 错误 #409
-
-- **事件类型**: `openclaw:prompt-error`
-- **描述**: 检测到超时错误事件
-- **工号**: 18101142
-- **用户输入**: `[Mon 2026-04-13 16:13 GMT+8] [Subagent Context] You are running as a subagent (depth 1/1). Results auto-announce to your requester; do not busy-poll for status.
-
-[Subagent Task]: 请调用 official-doc-writ...`
-- **错误信息**: 
-````
-{"timestamp":1776068086326,"runId":"237cc3e6-bd84-4004-8086-704bedb2fe42","sessionId":"39028978-7dfa-4c83-ac08-4a49ed087310","provider":"my-qwen-provider","model":"AIAPLLM-vision-nothink","api":"openai-completions","error":"LLM idle timeout (60s): no response from model"}
-````
-- **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\6fca9aa611cf469e15161f2b342062f7c621c962e44d14a57ee1d61d972f9135cd6f8797feb2302283695088f655118edd65a6768f2159207fd01f575a80e207\agents\main\sessions\39028978-7dfa-4c83-ac08-4a49ed087310.jsonl`
-- **Session ID**: `39028978-7dfa-4c83-ac08-4a49ed087310`
-- **行号**: 10
-- **时间戳**: 2026-04-28T19:43:21.793
-- **Run ID**: `237cc3e6-bd84-4004-8086-704bedb2fe42`
 
 ---
 
@@ -9141,7 +9142,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\0b6f9e7d-6192-44d8-b925-2c94cc74d371.jsonl`
 - **Session ID**: `0b6f9e7d-6192-44d8-b925-2c94cc74d371`
 - **行号**: 33
-- **时间戳**: 2026-04-28T19:43:22.420
+- **时间戳**: 2026-04-28T22:28:27.963
 - **Run ID**: `bd352a63-b3a1-40de-ad85-384f60bb7a9a`
 
 ---
@@ -9170,7 +9171,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\0f678300-9756-4ea9-b283-9cf231eaba5f.jsonl`
 - **Session ID**: `0f678300-9756-4ea9-b283-9cf231eaba5f`
 - **行号**: 72
-- **时间戳**: 2026-04-28T19:43:22.809
+- **时间戳**: 2026-04-28T22:28:28.164
 - **Run ID**: `req_1776147850337_tyub0lfc0`
 
 ---
@@ -9199,7 +9200,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\0f678300-9756-4ea9-b283-9cf231eaba5f.jsonl`
 - **Session ID**: `0f678300-9756-4ea9-b283-9cf231eaba5f`
 - **行号**: 74
-- **时间戳**: 2026-04-28T19:43:22.809
+- **时间戳**: 2026-04-28T22:28:28.164
 - **Run ID**: `req_1776148910958_kbpe7zfuk`
 
 ---
@@ -9222,7 +9223,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\a793d94b6ad1c388bc785ea54e450926b729a9ed21fd7f5685e549542317b191889efa017a1d6c1cea1b952519ba7f227fe5499937e9452e032463addb26e3de\agents\main\sessions\9a0af35c-6303-4ae7-a932-54396b74e799.jsonl`
 - **Session ID**: `9a0af35c-6303-4ae7-a932-54396b74e799`
 - **行号**: 126
-- **时间戳**: 2026-04-28T19:43:23.465
+- **时间戳**: 2026-04-28T22:28:28.571
 - **Run ID**: `010bceeb-4f2b-4b81-acf0-7a01daee7b26`
 
 ---
@@ -9245,7 +9246,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\3bf2a8e5-33de-4ef6-b677-a0ea9a3fbee3.jsonl`
 - **Session ID**: `3bf2a8e5-33de-4ef6-b677-a0ea9a3fbee3`
 - **行号**: 47
-- **时间戳**: 2026-04-28T19:43:23.530
+- **时间戳**: 2026-04-28T22:28:28.614
 - **Run ID**: `574deee7-91d2-4251-8ab6-348eb9cadac3`
 
 ---
@@ -9268,7 +9269,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\495e09f3-443a-40ad-b26f-edc30ebcf118.jsonl`
 - **Session ID**: `495e09f3-443a-40ad-b26f-edc30ebcf118`
 - **行号**: 21
-- **时间戳**: 2026-04-28T19:43:23.607
+- **时间戳**: 2026-04-28T22:28:28.691
 - **Run ID**: `25f6a0f7-6100-45bf-a238-3c1bde61470d`
 
 ---
@@ -9291,7 +9292,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\66a18763-dcc3-4f3f-8838-88ce893158a4.jsonl`
 - **Session ID**: `66a18763-dcc3-4f3f-8838-88ce893158a4`
 - **行号**: 25
-- **时间戳**: 2026-04-28T19:43:24.126
+- **时间戳**: 2026-04-28T22:28:29.154
 - **Run ID**: `a68d9714-a191-40b6-9d65-30d26303535a`
 
 ---
@@ -9314,7 +9315,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\8011363c-3210-4c83-a4d6-13c03b465220.jsonl`
 - **Session ID**: `8011363c-3210-4c83-a4d6-13c03b465220`
 - **行号**: 22
-- **时间戳**: 2026-04-28T19:43:24.679
+- **时间戳**: 2026-04-28T22:28:29.454
 - **Run ID**: `421add1e-43ff-4965-894d-176cf2f736d0`
 
 ---
@@ -9337,7 +9338,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\a5d510bb-1b47-4314-9446-1732cc207874.jsonl`
 - **Session ID**: `a5d510bb-1b47-4314-9446-1732cc207874`
 - **行号**: 29
-- **时间戳**: 2026-04-28T19:43:24.834
+- **时间戳**: 2026-04-28T22:28:29.674
 - **Run ID**: `27ca7b27-88b7-4ee2-8d53-d0c795bfe759`
 
 ---
@@ -9360,7 +9361,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\acee90b3-b877-42fd-abeb-3700b4b5fd57.jsonl`
 - **Session ID**: `acee90b3-b877-42fd-abeb-3700b4b5fd57`
 - **行号**: 15
-- **时间戳**: 2026-04-28T19:43:24.912
+- **时间戳**: 2026-04-28T22:28:29.820
 - **Run ID**: `c4c8ea24-93a8-431a-aa6f-3f891ee544d9`
 
 ---
@@ -9383,7 +9384,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\b622c006-2698-4967-9e4c-0a44c6c9457c.jsonl`
 - **Session ID**: `b622c006-2698-4967-9e4c-0a44c6c9457c`
 - **行号**: 30
-- **时间戳**: 2026-04-28T19:43:25.012
+- **时间戳**: 2026-04-28T22:28:29.889
 - **Run ID**: `f05dfe06-c8f8-4a25-b16e-01468e47c033`
 
 ---
@@ -9406,7 +9407,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\b7865994-0c4a-4761-ace1-c637f4fe4ab5.jsonl`
 - **Session ID**: `b7865994-0c4a-4761-ace1-c637f4fe4ab5`
 - **行号**: 8
-- **时间戳**: 2026-04-28T19:43:25.220
+- **时间戳**: 2026-04-28T22:28:29.990
 - **Run ID**: `bbae6408-de89-479f-90f0-235dd832faed`
 
 ---
@@ -9429,7 +9430,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\d66da86c-8415-45d4-b226-3f67b20e6c72.jsonl`
 - **Session ID**: `d66da86c-8415-45d4-b226-3f67b20e6c72`
 - **行号**: 23
-- **时间戳**: 2026-04-28T19:43:25.307
+- **时间戳**: 2026-04-28T22:28:30.364
 - **Run ID**: `4020997d-ba23-4765-be3d-419acf130ddc`
 
 ---
@@ -9452,7 +9453,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\efe3c556-5c92-4323-b1dc-9d80cadd71fb.jsonl`
 - **Session ID**: `efe3c556-5c92-4323-b1dc-9d80cadd71fb`
 - **行号**: 32
-- **时间戳**: 2026-04-28T19:43:25.630
+- **时间戳**: 2026-04-28T22:28:30.819
 - **Run ID**: `68d03430-23ec-4958-b0fa-9b1f2fe9325e`
 
 ---
@@ -9475,7 +9476,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\f21ffaa1-f08e-4c01-bf00-fc674c1ad6c6.jsonl`
 - **Session ID**: `f21ffaa1-f08e-4c01-bf00-fc674c1ad6c6`
 - **行号**: 42
-- **时间戳**: 2026-04-28T19:43:25.687
+- **时间戳**: 2026-04-28T22:28:30.887
 - **Run ID**: `a169213c-b705-4a42-8164-7f40fc703801`
 
 ---
@@ -9498,7 +9499,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\f2d7f49d-9571-4cc1-a3de-fb002d6fb441.jsonl`
 - **Session ID**: `f2d7f49d-9571-4cc1-a3de-fb002d6fb441`
 - **行号**: 8
-- **时间戳**: 2026-04-28T19:43:25.731
+- **时间戳**: 2026-04-28T22:28:31.033
 - **Run ID**: `766d9b83-aada-4e2e-9b95-75c228b3b61d`
 
 ---
@@ -9521,7 +9522,7 @@ list index out of range
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\b487297d6f8f74a2f1bced0cfbb32195bbbe3294ebeb0cdfbff67144cf38d843240dd65c30cbd9cab73ae5800a5a6c75aaea3f1e23a6cfee9dbc6cc71c352753\agents\main\sessions\fe866c45-f880-4daa-b46e-4db9ee164372.jsonl`
 - **Session ID**: `fe866c45-f880-4daa-b46e-4db9ee164372`
 - **行号**: 40
-- **时间戳**: 2026-04-28T19:43:25.784
+- **时间戳**: 2026-04-28T22:28:31.131
 - **Run ID**: `62ca17d5-cbc7-45a4-a5ea-7d5faeeb11d0`
 
 ---
@@ -9538,10 +9539,10 @@ When reading HEARTBEAT.md, us...`
 {"timestamp":1775791859885,"runId":"0a6c090b-ef52-43b5-8019-c0172f235561","sessionId":"986cc4b2-4eae-4661-b353-f1b5a10b4da7","provider":"custom-integrate-api-nvidia-com","model":"z-ai/glm5","api":"openai-completions","error":"LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model"}
 ````
 - **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
 - **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
 - **行号**: 43
-- **时间戳**: 2026-04-28T19:43:26.916
+- **时间戳**: 2026-04-28T22:28:32.734
 - **Run ID**: `0a6c090b-ef52-43b5-8019-c0172f235561`
 
 ---
@@ -9558,10 +9559,10 @@ Current time: Friday, April 10th, 2026 - 1:42 PM (Asia/Shanghai) / 2026...`
 {"timestamp":1775800756425,"runId":"cb0982d0-bac6-4322-8bab-4a49346b4d3d","sessionId":"986cc4b2-4eae-4661-b353-f1b5a10b4da7","provider":"custom-integrate-api-nvidia-com","model":"z-ai/glm5","api":"openai-completions","error":"LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model"}
 ````
 - **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
 - **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
 - **行号**: 90
-- **时间戳**: 2026-04-28T19:43:26.916
+- **时间戳**: 2026-04-28T22:28:32.734
 - **Run ID**: `cb0982d0-bac6-4322-8bab-4a49346b4d3d`
 
 ---
@@ -9578,10 +9579,10 @@ When reading HEARTBEAT.md, us...`
 {"timestamp":1775802586971,"runId":"c62297c1-c778-4082-970d-c00a785b5e81","sessionId":"986cc4b2-4eae-4661-b353-f1b5a10b4da7","provider":"custom-integrate-api-nvidia-com","model":"z-ai/glm5","api":"openai-completions","error":"LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model"}
 ````
 - **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
 - **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
 - **行号**: 92
-- **时间戳**: 2026-04-28T19:43:26.916
+- **时间戳**: 2026-04-28T22:28:32.734
 - **Run ID**: `c62297c1-c778-4082-970d-c00a785b5e81`
 
 ---
@@ -9598,10 +9599,10 @@ When reading HEARTBEAT.md, us...`
 {"timestamp":1775804518654,"runId":"fddbc810-8984-4f49-94fa-7b09013026a0","sessionId":"986cc4b2-4eae-4661-b353-f1b5a10b4da7","provider":"custom-integrate-api-nvidia-com","model":"z-ai/glm5","api":"openai-completions","error":"LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model"}
 ````
 - **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
 - **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
 - **行号**: 96
-- **时间戳**: 2026-04-28T19:43:26.916
+- **时间戳**: 2026-04-28T22:28:32.734
 - **Run ID**: `fddbc810-8984-4f49-94fa-7b09013026a0`
 
 ---
@@ -9625,10 +9626,10 @@ When reading HEARTBEAT.md, us...`
 {"timestamp":1775805894835,"runId":"6d14eb10-35a7-4012-a752-a0aa1b0fe78e","sessionId":"986cc4b2-4eae-4661-b353-f1b5a10b4da7","provider":"custom-integrate-api-nvidia-com","model":"z-ai/glm5","api":"openai-completions","error":"LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model"}
 ````
 - **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
 - **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
 - **行号**: 101
-- **时间戳**: 2026-04-28T19:43:26.916
+- **时间戳**: 2026-04-28T22:28:32.734
 - **Run ID**: `6d14eb10-35a7-4012-a752-a0aa1b0fe78e`
 
 ---
@@ -9652,10 +9653,10 @@ When reading HEARTBEAT.md, us...`
 {"timestamp":1775806360895,"runId":"1e08f9e2-911a-46ec-9f06-40cbec61799c","sessionId":"986cc4b2-4eae-4661-b353-f1b5a10b4da7","provider":"custom-integrate-api-nvidia-com","model":"z-ai/glm5","api":"openai-completions","error":"LLM idle timeout (60s): no response from model | LLM idle timeout (60s): no response from model"}
 ````
 - **原因分析**: 空闲超时，可能原因：1) 用户长时间未输入；2) 工具执行时间过长；3) 网络中断导致连接保持但无数据传输
-- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.checkpoint.d14585ef-4140-401f-9688-8df5d7559103.jsonl`
+- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\986cc4b2-4eae-4661-b353-f1b5a10b4da7.jsonl`
 - **Session ID**: `986cc4b2-4eae-4661-b353-f1b5a10b4da7`
 - **行号**: 103
-- **时间戳**: 2026-04-28T19:43:26.916
+- **时间戳**: 2026-04-28T22:28:32.734
 - **Run ID**: `1e08f9e2-911a-46ec-9f06-40cbec61799c`
 
 ---
@@ -10439,7 +10440,7 @@ Request was aborted
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\0f8907022d9c7513b586d400ab3c57fb25659eee8f8b5017dd1e9cc094f4ce3a7cc87cb548522993c391f86e956c13838fbfec56464aa0879ce3c468c4aedbdc\agents\main\sessions\2b9f7ba4-e50c-4f33-bf96-85367fa6cebf.jsonl`
 - **Session ID**: `2b9f7ba4-e50c-4f33-bf96-85367fa6cebf`
 - **行号**: 67
-- **时间戳**: 2026-04-28T19:43:18.356
+- **时间戳**: 2026-04-28T22:28:23.812
 - **Run ID**: `bc2b3f7b-2fae-4774-92b5-a36dc673385d`
 
 ---
@@ -10468,7 +10469,7 @@ Request was aborted
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\0f8907022d9c7513b586d400ab3c57fb25659eee8f8b5017dd1e9cc094f4ce3a7cc87cb548522993c391f86e956c13838fbfec56464aa0879ce3c468c4aedbdc\agents\main\sessions\2b9f7ba4-e50c-4f33-bf96-85367fa6cebf.jsonl`
 - **Session ID**: `2b9f7ba4-e50c-4f33-bf96-85367fa6cebf`
 - **行号**: 71
-- **时间戳**: 2026-04-28T19:43:18.356
+- **时间戳**: 2026-04-28T22:28:23.812
 - **Run ID**: `2e6ad39f-3981-4dfa-9e0e-8454d3961af2`
 
 ---
@@ -10489,7 +10490,7 @@ Request was aborted
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\37d31ad6132bab00315c7b7adabe5b839b918500995ce145a03763c66ecc2f612ca90d021c7098f060f5f0547433161ce6af7f6899f2fc1e6f39bab40e12e65a\agents\main\sessions\0af83cd4-10a3-4966-8f3c-2b581a53bf99.jsonl`
 - **Session ID**: `0af83cd4-10a3-4966-8f3c-2b581a53bf99`
 - **行号**: 130
-- **时间戳**: 2026-04-28T19:43:18.828
+- **时间戳**: 2026-04-28T22:28:24.348
 - **Run ID**: `req_1774868684378_4e84zalrb`
 
 ---
@@ -10518,7 +10519,7 @@ Request was aborted
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\619aa316b92e3dfc3ebb94deaebb6af6052bc3f8c9557530ddd4b1f4525e8cdcb3775f71c6fb0ac96b744c11e1c8b5accbc8b356f3d2f75bdd5b75efed4ce0c0\agents\main\sessions\4f250dc6-3ebe-4fff-90ba-3497bbb9fe07.jsonl`
 - **Session ID**: `4f250dc6-3ebe-4fff-90ba-3497bbb9fe07`
 - **行号**: 23
-- **时间戳**: 2026-04-28T19:43:20.338
+- **时间戳**: 2026-04-28T22:28:25.572
 - **Run ID**: `req_1776302087795_5cms510hh`
 
 ---
@@ -10547,7 +10548,7 @@ Request was aborted
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\a793d94b6ad1c388bc785ea54e450926b729a9ed21fd7f5685e549542317b191889efa017a1d6c1cea1b952519ba7f227fe5499937e9452e032463addb26e3de\agents\main\sessions\c124a8ac-1e3d-4b27-a6e6-e558938ce159.jsonl`
 - **Session ID**: `c124a8ac-1e3d-4b27-a6e6-e558938ce159`
 - **行号**: 93
-- **时间戳**: 2026-04-28T19:43:23.614
+- **时间戳**: 2026-04-28T22:28:28.716
 - **Run ID**: `req_1775197362262_n7z2xlxi6`
 
 ---
@@ -10576,7 +10577,7 @@ Request was aborted
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\f222336474c3c33b45b015cca3fdcf24fbfc8a597f351d79bc150829f53504e5d7819658cde4a8f7af659e260af6be27b33dcadf21b2b5928bbdc265681b3e6d\agents\main\sessions\8ef546cf-18a4-43a7-baec-ed0207c28996.jsonl`
 - **Session ID**: `8ef546cf-18a4-43a7-baec-ed0207c28996`
 - **行号**: 37
-- **时间戳**: 2026-04-28T19:43:23.865
+- **时间戳**: 2026-04-28T22:28:28.922
 - **Run ID**: `f73d774c-9773-48ae-a324-5d1e18eddad4`
 
 ---
@@ -10596,7 +10597,7 @@ Request was aborted
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\e82a63b4e5707d2608b9934c9266f851b29f2330a215009260a56daa48c47e575bedabfcc33ef2700b5c722e5e32f5f4d0060d4b0a8f13a677754aae776ce452\agents\main\sessions\54355af5-ac92-4baf-a0df-42f72ff7c497.jsonl`
 - **Session ID**: `d4678ca9-d333-45fc-b9d5-9197b9cf2cea`
 - **行号**: 5
-- **时间戳**: 2026-04-28T19:43:24.877
+- **时间戳**: 2026-04-28T22:28:29.847
 - **Run ID**: `req_1775197972491_55uwzwguf`
 
 ---
@@ -10616,7 +10617,7 @@ Request was aborted
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\e82a63b4e5707d2608b9934c9266f851b29f2330a215009260a56daa48c47e575bedabfcc33ef2700b5c722e5e32f5f4d0060d4b0a8f13a677754aae776ce452\agents\main\sessions\c5c862a7-da7a-4e74-ad62-5c3afec2c9e2.jsonl`
 - **Session ID**: `b5018140-32f9-4102-879a-7853821a47d1`
 - **行号**: 5
-- **时间戳**: 2026-04-28T19:43:26.217
+- **时间戳**: 2026-04-28T22:28:31.320
 - **Run ID**: `req_1775122020273_g1x9hzjom`
 
 ---
@@ -10643,12 +10644,12 @@ Request was aborted
 - **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\e4fedafb-43c1-43e2-8ecb-a00aca5bef29.jsonl.deleted.2026-04-13T00-53-49.391Z`
 - **Session ID**: `e4fedafb-43c1-43e2-8ecb-a00aca5bef29`
 - **行号**: 52
-- **时间戳**: 2026-04-28T19:43:27.832
+- **时间戳**: 2026-04-28T22:28:33.280
 - **Run ID**: `a9442ede-f1e1-438b-9a3f-1f7acd6be958`
 
 ---
 
-## flow_integrity_missing_final_answer - 工具执行后无最终回复 (4)
+## flow_integrity_missing_final_answer - 工具执行后无最终回复 (3)
 
 ### 错误 #471
 
@@ -10680,32 +10681,6 @@ Line: c09ae55a
 - **错误信息**: 
 ````
 Expected assistant message after toolResult, but reached end of file
-Line: 3c30a774
-````
-- **原因分析**: 可能的原因：1) 工具执行后会话被中断；2) 系统在处理结果时崩溃；3) 达到最大token限制
-- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\00000000016b55d6312cc47a9a702040b34c6880b1b60e13a0588c9761b49d80bd9b17344cd159e792946e08bdfc9f1ae188b56f924fb6876e694c5759ef7285\agents\main\sessions\6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5.jsonl.bak-292-1775810216210`
-- **Session ID**: `6bc1ee54-e320-4144-b77a-bcc1f9e7a5d5`
-- **行号**: 33
-- **时间戳**: 2026-04-10T15:58:19.893
-- **错误行内容**: 
-````
-{"type":"message","id":"3c30a774","parentId":"7b9cfcc1","timestamp":"2026-04-10T07:58:19.907Z","message":{"role":"toolResult","toolCallId":"call_f70c27fbfe3a488e9e2d99f7","toolName":"exec","content":[{"type":"text","text":"[\n  {\n    \"uid\": 23,\n    \"from\": \"nwftool@sina.com\",\n    \"to\": \"nwftool@sina.com\",\n    \"subject\": \"SMTP Connection Test\",\n    \"date\": \"2026-04-10T03:10:07.000Z\",\n    \"text\": \"This is a test email from the IMAP/SMTP email skill.\",\n    \"html\": \"<p>This is a <strong>test email</strong> from the IMAP/SMTP email skill.</p>\",\n    \"snippet\": \"This is a test email from the IMAP/SMTP email skill.\",\n    \"attachments\": [],\n    \"flags\": []\n  },\n  {\n    \"uid\": 21,\n    \"from\": \"MAILER-DAEMON@smtp-250-24.mail.sina.com.cn\",\n    \"to\": \"nwftool@sina.com\",\n    \"subject\": \"系统退信\",\n    \"date\": \"2026-04-10T03:08:19.000Z\",\n    \"text\": \"尊敬的用户，\\n\\n我们很遗憾的通知您，您发的邮件中有一个或多个接收人没有投递成功。\\n\\n退回的邮件在附件中，请查看附件了解详情。\\n\\n被退回邮件信息：\\n\\n服务器：\\n\\n退信原因：I couldn't find a mail exchanger or IP address. (#5.4.4)\\n\\n收件人：recipient@example.com\\n\\n退信原因查询：http://help.sina.com.cn/i/90/152_2.html\\n\\n\",\n    \"html\": false,\n    \"snippet\": \"尊敬的用户，\\n\\n我们很遗憾的通知您，您发的邮件中有一个或多个接收人没有投递成功。\\n\\n退回的邮件在附件中，请查看附件了解详情。\\n\\n被退回邮件信息：\\n\\n服务器：\\n\\n退信原因：I couldn't find a mail exchanger or IP address. (#5.4.4)\\n\\n收件人：recipient@example.com\\n\\n退信原因查询：http://help.sina.com.cn\",\n    \"attachments\": [\n      {\n        \"filename\": \"mail.eml\",\n        \"contentType\": \"message/rfc822\",\n        \"size\": 816\n      }\n    ],\n    \"flags\": [\n      \"\\\\Seen\"\n    ]\n  },\n  {\n    \"uid\": 19,\n    \"from\": \"nwftool@sina.com\",\n    \"to\": \"nwftool@sina.com\",\n    \"subject\": \"SMTP Connection Test\",\n    \"date\": \"2026-04-10T03:06:25.000Z\",\n    \"text\": \"This is a test email from the IMAP/SMTP email skill.\",\n    \"html\": \"<p>This is a <strong>test email</strong> from the IMAP/SMTP email skill.</p>\",\n    \"snippet\": \"This is a test email from the IMAP/SMTP email skill.\",\n    \"attachments\": [],\n    \"flags\": []\n  },\n  {\n    \"uid\": 17,\n    \"from\": \"\\\"GitHub\\\" <noreply@github.com>\",\n    \"to\": \"\\\"polarist1\\\" <nwftool@sina.com>\",\n    \"subject\": \"[GitHub] Please review this sign in\",\n    \"date\": \"2026-03-30T13:29:40.000Z\",\n    \"text\": \"Hey polarist1!\\n\\nYour GitHub account was successfully signed in to but we did not recognize the location of the sign in. You can review this sign in attempt by visiting https://github.com/settings/sessions/authentications/5268708872\\n\\nIf you recently signed in to your account, you do not need to take any further action.\\n\\nIf you did not sign in to your account, your password may be compromised. Visit https://github.com/settings/security to create a new, strong password for your GitHub account.\\n\\nFor more information, see https://docs.github.com/articles/keeping-your-account-and-data-secure/ in the GitHub Docs.\\n\\nTo see this and other security events for your account, visit https://github.com/settings/security-log\\n\\nIf you run into problems, please contact support by visiting https://github.com/contact\\n\\nThanks,\\nThe GitHub Team\\n\\n\",\n    \"html\": false,\n    \"snippet\": \"Hey polarist1!\\n\\nYour GitHub account was successfully signed in to but we did not recognize the location of the sign in. You can review this sign in attempt by visiting https://github.com/settings/sess\",\n    \"attachments\": [],\n    \"flags\": []\n  },\n  {\n    \"uid\": 9,\n    \"from\": \"\\\"OpenRouter\\\" <notifications@openrouter.ai>\",\n    \"to\": \"nwftool@sina.com\",\n    \"subject\": \"Your sign up link\",\n    \"date\": \"2026-03-16T00:53:36.000Z\",\n    \"text\": \"Use the following link to sign up to OpenRouter: https://clerk.openrouter.ai/v1/verify?_clerk_js_version=5.125.4&amp;token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM2MjMwMTUsImlpZCI6Imluc18yUGlRcWt2UlFlZXB3R3ZrVjFZRDhBb3Q1elIiLCJydXJsIjoiaHR0cHM6Ly9vcGVucm91dGVyLmFpL3NpZ24tdXAjL3ZlcmlmeT9zaWduX3VwX2ZvcmNlX3JlZGlyZWN0X3VybD1odHRwcyUzQSUyRiUyRm9wZW5yb3V0ZXIuYWklMkYlM0ZcdTAwMjZzaWduX2luX2ZvcmNlX3JlZGlyZWN0X3VybD1odHRwcyUzQSUyRiUyRm9wZW5yb3V0ZXIuYWklMkYlM0YiLCJzaWQiOiJzdWFfM0IwT0ZDSmxMbTVWSTlKZnR1QWRvRW80MXdyIiwic3QiOiJzaWduX3VwX2F0dGVtcHQiLCJ2aWQiOiJ2ZXJfM0IwT0ZKTnJ5V0RROGVZaXlST0VpVWN3MjdwIn0.Iu_AZaTX5MOZg_IoygdtxAzgldsa44PW9a-aS6b2NlHAy-Xx-9r1do5JKttir1gPFbyt9WCysXVJCsmwo_EtAOS4MoeNeg2pbJzqndMj7TJC6GurvdvDzgzT5nPsStoIebrgxgXbb_cJaYHe05QqWgrB0RmBj5j6JYjyZ9Ea4jg_WBxTSoKEHfJj9bSdF_0x_IkBlw3cRlJMBzBXbkwMle3ukRYy25_k-Fc4-yq0aU8gIOViQbfZvUiEAuHAiluFZGiG25iFmXIDiyeWE8QGiALpZLGBbnTKj_BAvCWrdKHcUzTSG8ql_UhJ2UqIn6z-hvPfk_0WL9ZnKrNqWNUNXA\\n\\nThis link will expire in 10 minutes.\\n\\nIt was requested at 16 March 2026, 00:53 UTC. If you did not request this, please ignore this email.\\n\",\n    \"html\": \"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Transitional//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\\">\\n<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n    <head>\\n        <meta http-equiv=\\\"Content-Type\\\" content=\\\"text/html; charset=utf-8\\\" />\\n        <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\" />\\n        <title>Sign up to OpenRouter</title>\\n        <style type=\\\"text/css\\\">\\n            #outlook a {\\n                padding: 0\\n            }\\n\\n            .ExternalClass {\\n                width: 100%\\n            }\\n\\n            .ExternalClass,\\n            .ExternalClass p,\\n            .ExternalClass span,\\n            .ExternalClass font,\\n            .ExternalClass td,\\n            .ExternalClass div {\\n                line-height: 100%\\n            }\\n\\n            body,\\n            table,\\n            td,\\n            a {\\n                -webkit-text-size-adjust: 100%;\\n                -ms-text-size-adjust: 100%\\n            }\\n\\n            table,\\n            td {\\n                mso-table-lspace: 0;\\n                mso-table-rspace: 0\\n            }\\n\\n            img {\\n                -ms-interpolation-mode: bicubic\\n            }\\n\\n            img {\\n                border: 0;\\n                outline: none;\\n                text-decoration: none\\n            }\\n\\n            a img {\\n                border: none\\n            }\\n\\n            td img {\\n                vertical-align: top\\n            }\\n\\n            table,\\n            table td {\\n                border-collapse: collapse\\n            }\\n\\n            body {\\n                margin: 0;\\n                padding: 0;\\n                width: 100% !important\\n            }\\n\\n            .mobile-spacer {\\n                width: 0;\\n                display: none\\n            }\\n\\n            @media all and (max-width:639px) {\\n                .container {\\n                    width: 100% !important;\\n                    max-width: 600px !important\\n                }\\n\\n                .mobile {\\n                    width: auto !important;\\n                    max-width: 100% !important;\\n                    display: block !important\\n                }\\n\\n                .mobile-center {\\n                    text-align: center !important\\n                }\\n\\n                .mobile-right {\\n                    text-align: right !important\\n                }\\n\\n                .mobile-left {\\n                    text-align: left !important;\\n                }\\n\\n                .mobile-hidden {\\n                    max-height: 0;\\n                    display: none !important;\\n                    mso-hide: all;\\n                    overflow: hidden\\n                }\\n\\n                .mobile-spacer {\\n                    width: auto !important;\\n                    display: table !important\\n                }\\n\\n                .mobile-image,\\n                .mobile-image img {\\n                    height: auto !important;\\n                    max-width: 600px !important;\\n                    width: 100% !important\\n                }\\n            }\\n\\n            .cl-card {\\n                border: 1px solid #EEEEF0;\\n                border-radius: 10px;\\n                border-collapse: separate !important;\\n                width: 100%\\n            }\\n\\n            .cl-label {\\n                background-color: #FAFAFB;\\n                color: #9ca3af;\\n                font-size: 14px;\\n                font-weight: normal;\\n                white-space: nowrap;\\n                padding: 6px 16px 6px 20px;\\n                vertical-align: top;\\n                line-height: 20px\\n            }\\n\\n            .cl-value {\\n                background-color: #FAFAFB;\\n                color: #111827;\\n                font-size: 14px;\\n                font-weight: 600;\\n                padding: 6px 20px 6px 0;\\n                vertical-align: top;\\n                line-height: 20px\\n            }\\n\\n            .cl-list {\\n                width: 100%;\\n                border-collapse: collapse\\n            }\\n\\n            .cl-list-item {\\n                padding: 10px 0;\\n                border-bottom: 1px dashed #B7B8C2;\\n                vertical-align: top\\n            }\\n\\n            .cl-list-link {\\n                color: #111827;\\n                font-size: 14px;\\n                font-weight: 600;\\n                line-height: 20px;\\n                text-decoration: underline;\\n                font-family: Helvetica, Arial, sans-serif\\n            }\\n\\n            .cl-list-meta {\\n                color: #9ca3af;\\n                font-size: 13px;\\n                font-weight: normal;\\n                line-height: 18px;\\n                font-family: Helvetica, Arial, sans-serif\\n            }\\n        </style>\\n        <!--[if mso]><style type=\\\"text/css\\\">body, table, td, a { font-family: Arial, Helvetica, sans-serif !important; }</style><![endif]-->\\n    </head>\\n\\n    <body style=\\\"font-family: Helvetica, Arial, sans-serif; margin: 0px; padding: 0px; background-color: #ffffff;\\\">\\n      <div>\\n        <span style=\\\"color: transparent; display: none; height: 0px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; visibility: hidden; width: 0px;\\\">Sign up to OpenRouter</span>\\n      </div>\\n        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" width=\\\"100%\\\" class=\\\"body\\\" style=\\\"width: 100%;\\\">\\n            <tbody>\\n                <tr>\\n                    <td align=\\\"center\\\" valign=\\\"top\\\" style=\\\"vertical-align: top; line-height: 1; padding: 48px 32px;\\\">\\n                        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" width=\\\"600\\\" class=\\\"header container\\\" style=\\\"width: 600px;\\\">\\n                            <tbody>\\n                                <tr>\\n                                    <td align=\\\"left\\\" valign=\\\"top\\\" style=\\\"vertical-align: top; line-height: 1; padding: 16px 32px 8px 32px;\\\">\\n                                        <p style=\\\"padding: 0px; margin: 0px; font-family: Helvetica, Arial, sans-serif; color: #111827; font-size: 18px; line-height: 26px; font-weight: 700;\\\">\\n                                          OpenRouter\\n                                        </p>\\n                                    </td>\\n                                </tr>\\n                            </tbody>\\n                        </table>\\n                        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" width=\\\"600\\\" class=\\\"main container\\\" style=\\\"width: 600px; border-collapse: separate;\\\">\\n                            <tbody>\\n                                <tr>\\n                                    <td align=\\\"left\\\" valign=\\\"top\\\" bgcolor=\\\"#fff\\\" style=\\\"vertical-align: top; line-height: 1; background-color: #ffffff; border-radius: 0px;\\\">\\n                                        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" width=\\\"100%\\\" class=\\\"block\\\" style=\\\"width: 100%; border-collapse: separate;\\\">\\n                                            <tbody>\\n                                                <tr>\\n                                                    <td align=\\\"left\\\" valign=\\\"top\\\" bgcolor=\\\"#ffffff\\\" style=\\\"vertical-align: top; line-height: 1; padding: 32px 32px 48px; background-color: #ffffff; border-radius: 0px;\\\">\\n                                                      <h1 class=\\\"h1\\\" align=\\\"left\\\" style=\\\"padding: 0px; margin: 0px; font-style: normal; font-family: Helvetica, Arial, sans-serif; font-size: 24px; line-height: 32px; color: #111827; font-weight: 700;\\\">Sign up to OpenRouter</h1>\\n                                                      <p align=\\\"left\\\" style=\\\"padding: 0px; margin: 16px 0px 0px; font-family: Helvetica, Arial, sans-serif; color: #000000; font-size: 14px; line-height: 21px;\\\">Click the button below to sign up to OpenRouter. This link will expire in 10 minutes.</p>\\n                                                        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" style=\\\"border-collapse: separate; margin: 32px 0px 0px 0px;\\\">\\n                                                            <tbody>\\n                                                                <tr>\\n                                                                    <td align=\\\"center\\\" valign=\\\"middle\\\" bgcolor=\\\"#131316\\\" style=\\\"border-radius: 6px; padding: 0;\\\">\\n                                                                        <a class=\\\"cl-branded-button\\\" target=\\\"_blank\\\" href=\\\"https://clerk.openrouter.ai/v1/verify?_clerk_js_version=5.125.4&amp;token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM2MjMwMTUsImlpZCI6Imluc18yUGlRcWt2UlFlZXB3R3ZrVjFZRDhBb3Q1elIiLCJydXJsIjoiaHR0cHM6Ly9vcGVucm91dGVyLmFpL3NpZ24tdXAjL3ZlcmlmeT9zaWduX3VwX2ZvcmNlX3JlZGlyZWN0X3VybD1odHRwcyUzQSUyRiUyRm9wZW5yb3V0ZXIuYWklMkYlM0ZcdTAwMjZzaWduX2luX2ZvcmNlX3JlZGlyZWN0X3VybD1odHRwcyUzQSUyRiUyRm9wZW5yb3V0ZXIuYWklMkYlM0YiLCJzaWQiOiJzdWFfM0IwT0ZDSmxMbTVWSTlKZnR1QWRvRW80MXdyIiwic3QiOiJzaWduX3VwX2F0dGVtcHQiLCJ2aWQiOiJ2ZXJfM0IwT0ZKTnJ5V0RROGVZaXlST0VpVWN3MjdwIn0.Iu_AZaTX5MOZg_IoygdtxAzgldsa44PW9a-aS6b2NlHAy-Xx-9r1do5JKttir1gPFbyt9WCysXVJCsmwo_EtAOS4MoeNeg2pbJzqndMj7TJC6GurvdvDzgzT5nPsStoIebrgxgXbb_cJaYHe05QqWgrB0RmBj5j6JYjyZ9Ea4jg_WBxTSoKEHfJj9bSdF_0x_IkBlw3cRlJMBzBXbkwMle3ukRYy25_k-Fc4-yq0aU8gIOViQbfZvUiEAuHAiluFZGiG25iFmXIDiyeWE8QGiALpZLGBbnTKj_BAvCWrdKHcUzTSG8ql_UhJ2UqIn6z-hvPfk_0WL9ZnKrNqWNUNXA\\\" style=\\\"display: inline-block; cursor: pointer; text-decoration: none; font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 500; color: #ffffff; border-radius: 6px; height: 30px; line-height: 30px; padding: 0 10px; white-space: nowrap; background: linear-gradient(180deg, rgba(255,255,255,0.10) 45%, rgba(255,255,255,0.00) 55%), #131316; box-shadow: 0 2px 3px 0 rgba(0,0,0,0.20), 0 0 0 0.5px #131316, inset 0 1px 0 0 rgba(255,255,255,0.15);\\\">Sign up to OpenRouter</a>\\n                                                                    </td>\\n                                                                </tr>\\n                                                            </tbody>\\n                                                        </table>\\n                                                        <p style=\\\"padding: 0px; margin: 16px 0px 64px; font-family: Helvetica, Arial, sans-serif; color: #000000; font-size: 14px; line-height: 21px;\\\">If you're having trouble with the above button, <a href=\\\"https://clerk.openrouter.ai/v1/verify?_clerk_js_version=5.125.4&amp;token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM2MjMwMTUsImlpZCI6Imluc18yUGlRcWt2UlFlZXB3R3ZrVjFZRDhBb3Q1elIiLCJydXJsIjoiaHR0cHM6Ly9vcGVucm91dGVyLmFpL3NpZ24tdXAjL3ZlcmlmeT9zaWduX3VwX2ZvcmNlX3JlZGlyZWN0X3VybD1odHRwcyUzQSUyRiUyRm9wZW5yb3V0ZXIuYWklMkYlM0ZcdTAwMjZzaWduX2luX2ZvcmNlX3JlZGlyZWN0X3VybD1odHRwcyUzQSUyRiUyRm9wZW5yb3V0ZXIuYWklMkYlM0YiLCJzaWQiOiJzdWFfM0IwT0ZDSmxMbTVWSTlKZnR1QWRvRW80MXdyIiwic3QiOiJzaWduX3VwX2F0dGVtcHQiLCJ2aWQiOiJ2ZXJfM0IwT0ZKTnJ5V0RROGVZaXlST0VpVWN3MjdwIn0.Iu_AZaTX5MOZg_IoygdtxAzgldsa44PW9a-aS6b2NlHAy-Xx-9r1do5JKttir1gPFbyt9WCysXVJCsmwo_EtAOS4MoeNeg2pbJzqndMj7TJC6GurvdvDzgzT5nPsStoIebrgxgXbb_cJaYHe05QqWgrB0RmBj5j6JYjyZ9Ea4jg_WBxTSoKEHfJj9bSdF_0x_IkBlw3cRlJMBzBXbkwMle3ukRYy25_k-Fc4-yq0aU8gIOViQbfZvUiEAuHAiluFZGiG25iFmXIDiyeWE8QGiALpZLGBbnTKj_BAvCWrdKHcUzTSG8ql_UhJ2UqIn6z-hvPfk_0WL9ZnKrNqWNUNXA\\\" class=\\\"cl-branded-link\\\" style=\\\"font-size: 14px; color: #131316; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 1.5; text-decoration: underline;\\\" target=\\\"_blank\\\">click here</a>.</p>\\n                                                        <p style=\\\"padding: 0px; margin: 4px 0px 0px; font-family: Helvetica, Arial, sans-serif; color: #000000; font-size: 14px; line-height: 21px;\\\"> This email link was requested from <b>174.139.20.199, Redondo Beach, US</b> at <b>16 March 2026, 00:53 UTC</b>. If you didn't make this request, you can safely ignore this email. </p>\\n                                                    </td>\\n                                                </tr>\\n                                            </tbody>\\n                                        </table>\\n                                    </td>\\n                                </tr>\\n                            </tbody>\\n                        </table>\\n                        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" width=\\\"600\\\" class=\\\"container\\\" style=\\\"width: 600px;\\\">\\n                            <tbody>\\n                                <tr>\\n                                    <td style=\\\"padding: 24px 32px 0;\\\">\\n                                        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" width=\\\"100%\\\">\\n                                            <tbody>\\n                                                <tr>\\n                                                    <td style=\\\"border-top: 1px dashed #B7B8C2; font-size: 0; line-height: 0;\\\">&nbsp;</td>\\n                                                </tr>\\n                                            </tbody>\\n                                        </table>\\n                                    </td>\\n                                </tr>\\n                                <tr>\\n                                    <td style=\\\"padding: 16px 32px 48px; font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #747686;\\\">\\n                                        &copy; 2026 OpenRouter\\n                                    </td>\\n                                </tr>\\n                            </tbody>\\n                        </table>                    </td>\\n                </tr>\\n            </tbody>\\n        </table>\\n    </body>\\n</html>\\n\",\n    \"snippet\": \"Use the following link to sign up to OpenRouter: https://clerk.openrouter.ai/v1/verify?_clerk_js_version=5.125.4&amp;token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM2MjMwMTUsImlpZCI6Imluc18y\",\n    \"attachments\": [],\n    \"flags\": [\n      \"\\\\Seen\"\n    ]\n  }\n]"}],"details":{"status":"completed","exitCode":0,"durationMs":3686,"aggregated":"[\n  {\n    \"uid\": 23,\n    \"from\": \"nwftool@sina.com\",\n    \"to\": \"nwftool@sina.com\",\n    \"subject\": \"SMTP Connection Test\",\n    \"date\": \"2026-04-10T03:10:07.000Z\",\n    \"text\": \"This is a test email from the IMAP/SMTP email skill.\",\n    \"html\": \"<p>This is a <strong>test email</strong> from the IMAP/SMTP email skill.</p>\",\n    \"snippet\": \"This is a test email from the IMAP/SMTP email skill.\",\n    \"attachments\": [],\n    \"flags\": []\n  },\n  {\n    \"uid\": 21,\n    \"from\": \"MAILER-DAEMON@smtp-250-24.mail.sina.com.cn\",\n    \"to\": \"nwftool@sina.com\",\n    \"subject\": \"系统退信\",\n    \"date\": \"2026-04-10T03:08:19.000Z\",\n    \"text\": \"尊敬的用户，\\n\\n我们很遗憾的通知您，您发的邮件中有一个或多个接收人没有投递成功。\\n\\n退回的邮件在附件中，请查看附件了解详情。\\n\\n被退回邮件信息：\\n\\n服务器：\\n\\n退信原因：I couldn't find a mail exchanger or IP address. (#5.4.4)\\n\\n收件人：recipient@example.com\\n\\n退信原因查询：http://help.sina.com.cn/i/90/152_2.html\\n\\n\",\n    \"html\": false,\n    \"snippet\": \"尊敬的用户，\\n\\n我们很遗憾的通知您，您发的邮件中有一个或多个接收人没有投递成功。\\n\\n退回的邮件在附件中，请查看附件了解详情。\\n\\n被退回邮件信息：\\n\\n服务器：\\n\\n退信原因：I couldn't find a mail exchanger or IP address. (#5.4.4)\\n\\n收件人：recipient@example.com\\n\\n退信原因查询：http://help.sina.com.cn\",\n    \"attachments\": [\n      {\n        \"filename\": \"mail.eml\",\n        \"contentType\": \"message/rfc822\",\n        \"size\": 816\n      }\n    ],\n    \"flags\": [\n      \"\\\\Seen\"\n    ]\n  },\n  {\n    \"uid\": 19,\n    \"from\": \"nwftool@sina.com\",\n    \"to\": \"nwftool@sina.com\",\n    \"subject\": \"SMTP Connection Test\",\n    \"date\": \"2026-04-10T03:06:25.000Z\",\n    \"text\": \"This is a test email from the IMAP/SMTP email skill.\",\n    \"html\": \"<p>This is a <strong>test email</strong> from the IMAP/SMTP email skill.</p>\",\n    \"snippet\": \"This is a test email from the IMAP/SMTP email skill.\",\n    \"attachments\": [],\n    \"flags\": []\n  },\n  {\n    \"uid\": 17,\n    \"from\": \"\\\"GitHub\\\" <noreply@github.com>\",\n    \"to\": \"\\\"polarist1\\\" <nwftool@sina.com>\",\n    \"subject\": \"[GitHub] Please review this sign in\",\n    \"date\": \"2026-03-30T13:29:40.000Z\",\n    \"text\": \"Hey polarist1!\\n\\nYour GitHub account was successfully signed in to but we did not recognize the location of the sign in. You can review this sign in attempt by visiting https://github.com/settings/sessions/authentications/5268708872\\n\\nIf you recently signed in to your account, you do not need to take any further action.\\n\\nIf you did not sign in to your account, your password may be compromised. Visit https://github.com/settings/security to create a new, strong password for your GitHub account.\\n\\nFor more information, see https://docs.github.com/articles/keeping-your-account-and-data-secure/ in the GitHub Docs.\\n\\nTo see this and other security events for your account, visit https://github.com/settings/security-log\\n\\nIf you run into problems, please contact support by visiting https://github.com/contact\\n\\nThanks,\\nThe GitHub Team\\n\\n\",\n    \"html\": false,\n    \"snippet\": \"Hey polarist1!\\n\\nYour GitHub account was successfully signed in to but we did not recognize the location of the sign in. You can review this sign in attempt by visiting https://github.com/settings/sess\",\n    \"attachments\": [],\n    \"flags\": []\n  },\n  {\n    \"uid\": 9,\n    \"from\": \"\\\"OpenRouter\\\" <notifications@openrouter.ai>\",\n    \"to\": \"nwftool@sina.com\",\n    \"subject\": \"Your sign up link\",\n    \"date\": \"2026-03-16T00:53:36.000Z\",\n    \"text\": \"Use the following link to sign up to OpenRouter: https://clerk.openrouter.ai/v1/verify?_clerk_js_version=5.125.4&amp;token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM2MjMwMTUsImlpZCI6Imluc18yUGlRcWt2UlFlZXB3R3ZrVjFZRDhBb3Q1elIiLCJydXJsIjoiaHR0cHM6Ly9vcGVucm91dGVyLmFpL3NpZ24tdXAjL3ZlcmlmeT9zaWduX3VwX2ZvcmNlX3JlZGlyZWN0X3VybD1odHRwcyUzQSUyRiUyRm9wZW5yb3V0ZXIuYWklMkYlM0ZcdTAwMjZzaWduX2luX2ZvcmNlX3JlZGlyZWN0X3VybD1odHRwcyUzQSUyRiUyRm9wZW5yb3V0ZXIuYWklMkYlM0YiLCJzaWQiOiJzdWFfM0IwT0ZDSmxMbTVWSTlKZnR1QWRvRW80MXdyIiwic3QiOiJzaWduX3VwX2F0dGVtcHQiLCJ2aWQiOiJ2ZXJfM0IwT0ZKTnJ5V0RROGVZaXlST0VpVWN3MjdwIn0.Iu_AZaTX5MOZg_IoygdtxAzgldsa44PW9a-aS6b2NlHAy-Xx-9r1do5JKttir1gPFbyt9WCysXVJCsmwo_EtAOS4MoeNeg2pbJzqndMj7TJC6GurvdvDzgzT5nPsStoIebrgxgXbb_cJaYHe05QqWgrB0RmBj5j6JYjyZ9Ea4jg_WBxTSoKEHfJj9bSdF_0x_IkBlw3cRlJMBzBXbkwMle3ukRYy25_k-Fc4-yq0aU8gIOViQbfZvUiEAuHAiluFZGiG25iFmXIDiyeWE8QGiALpZLGBbnTKj_BAvCWrdKHcUzTSG8ql_UhJ2UqIn6z-hvPfk_0WL9ZnKrNqWNUNXA\\n\\nThis link will expire in 10 minutes.\\n\\nIt was requested at 16 March 2026, 00:53 UTC. If you did not request this, please ignore this email.\\n\",\n    \"html\": \"<!DOCTYPE html PUBLIC \\\"-//W3C//DTD XHTML 1.0 Transitional//EN\\\" \\\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\\">\\n<html xmlns=\\\"http://www.w3.org/1999/xhtml\\\">\\n    <head>\\n        <meta http-equiv=\\\"Content-Type\\\" content=\\\"text/html; charset=utf-8\\\" />\\n        <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\" />\\n        <title>Sign up to OpenRouter</title>\\n        <style type=\\\"text/css\\\">\\n            #outlook a {\\n                padding: 0\\n            }\\n\\n            .ExternalClass {\\n                width: 100%\\n            }\\n\\n            .ExternalClass,\\n            .ExternalClass p,\\n            .ExternalClass span,\\n            .ExternalClass font,\\n            .ExternalClass td,\\n            .ExternalClass div {\\n                line-height: 100%\\n            }\\n\\n            body,\\n            table,\\n            td,\\n            a {\\n                -webkit-text-size-adjust: 100%;\\n                -ms-text-size-adjust: 100%\\n            }\\n\\n            table,\\n            td {\\n                mso-table-lspace: 0;\\n                mso-table-rspace: 0\\n            }\\n\\n            img {\\n                -ms-interpolation-mode: bicubic\\n            }\\n\\n            img {\\n                border: 0;\\n                outline: none;\\n                text-decoration: none\\n            }\\n\\n            a img {\\n                border: none\\n            }\\n\\n            td img {\\n                vertical-align: top\\n            }\\n\\n            table,\\n            table td {\\n                border-collapse: collapse\\n            }\\n\\n            body {\\n                margin: 0;\\n                padding: 0;\\n                width: 100% !important\\n            }\\n\\n            .mobile-spacer {\\n                width: 0;\\n                display: none\\n            }\\n\\n            @media all and (max-width:639px) {\\n                .container {\\n                    width: 100% !important;\\n                    max-width: 600px !important\\n                }\\n\\n                .mobile {\\n                    width: auto !important;\\n                    max-width: 100% !important;\\n                    display: block !important\\n                }\\n\\n                .mobile-center {\\n                    text-align: center !important\\n                }\\n\\n                .mobile-right {\\n                    text-align: right !important\\n                }\\n\\n                .mobile-left {\\n                    text-align: left !important;\\n                }\\n\\n                .mobile-hidden {\\n                    max-height: 0;\\n                    display: none !important;\\n                    mso-hide: all;\\n                    overflow: hidden\\n                }\\n\\n                .mobile-spacer {\\n                    width: auto !important;\\n                    display: table !important\\n                }\\n\\n                .mobile-image,\\n                .mobile-image img {\\n                    height: auto !important;\\n                    max-width: 600px !important;\\n                    width: 100% !important\\n                }\\n            }\\n\\n            .cl-card {\\n                border: 1px solid #EEEEF0;\\n                border-radius: 10px;\\n                border-collapse: separate !important;\\n                width: 100%\\n            }\\n\\n            .cl-label {\\n                background-color: #FAFAFB;\\n                color: #9ca3af;\\n                font-size: 14px;\\n                font-weight: normal;\\n                white-space: nowrap;\\n                padding: 6px 16px 6px 20px;\\n                vertical-align: top;\\n                line-height: 20px\\n            }\\n\\n            .cl-value {\\n                background-color: #FAFAFB;\\n                color: #111827;\\n                font-size: 14px;\\n                font-weight: 600;\\n                padding: 6px 20px 6px 0;\\n                vertical-align: top;\\n                line-height: 20px\\n            }\\n\\n            .cl-list {\\n                width: 100%;\\n                border-collapse: collapse\\n            }\\n\\n            .cl-list-item {\\n                padding: 10px 0;\\n                border-bottom: 1px dashed #B7B8C2;\\n                vertical-align: top\\n            }\\n\\n            .cl-list-link {\\n                color: #111827;\\n                font-size: 14px;\\n                font-weight: 600;\\n                line-height: 20px;\\n                text-decoration: underline;\\n                font-family: Helvetica, Arial, sans-serif\\n            }\\n\\n            .cl-list-meta {\\n                color: #9ca3af;\\n                font-size: 13px;\\n                font-weight: normal;\\n                line-height: 18px;\\n                font-family: Helvetica, Arial, sans-serif\\n            }\\n        </style>\\n        <!--[if mso]><style type=\\\"text/css\\\">body, table, td, a { font-family: Arial, Helvetica, sans-serif !important; }</style><![endif]-->\\n    </head>\\n\\n    <body style=\\\"font-family: Helvetica, Arial, sans-serif; margin: 0px; padding: 0px; background-color: #ffffff;\\\">\\n      <div>\\n        <span style=\\\"color: transparent; display: none; height: 0px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; visibility: hidden; width: 0px;\\\">Sign up to OpenRouter</span>\\n      </div>\\n        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" width=\\\"100%\\\" class=\\\"body\\\" style=\\\"width: 100%;\\\">\\n            <tbody>\\n                <tr>\\n                    <td align=\\\"center\\\" valign=\\\"top\\\" style=\\\"vertical-align: top; line-height: 1; padding: 48px 32px;\\\">\\n                        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" width=\\\"600\\\" class=\\\"header container\\\" style=\\\"width: 600px;\\\">\\n                            <tbody>\\n                                <tr>\\n                                    <td align=\\\"left\\\" valign=\\\"top\\\" style=\\\"vertical-align: top; line-height: 1; padding: 16px 32px 8px 32px;\\\">\\n                                        <p style=\\\"padding: 0px; margin: 0px; font-family: Helvetica, Arial, sans-serif; color: #111827; font-size: 18px; line-height: 26px; font-weight: 700;\\\">\\n                                          OpenRouter\\n                                        </p>\\n                                    </td>\\n                                </tr>\\n                            </tbody>\\n                        </table>\\n                        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" width=\\\"600\\\" class=\\\"main container\\\" style=\\\"width: 600px; border-collapse: separate;\\\">\\n                            <tbody>\\n                                <tr>\\n                                    <td align=\\\"left\\\" valign=\\\"top\\\" bgcolor=\\\"#fff\\\" style=\\\"vertical-align: top; line-height: 1; background-color: #ffffff; border-radius: 0px;\\\">\\n                                        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" width=\\\"100%\\\" class=\\\"block\\\" style=\\\"width: 100%; border-collapse: separate;\\\">\\n                                            <tbody>\\n                                                <tr>\\n                                                    <td align=\\\"left\\\" valign=\\\"top\\\" bgcolor=\\\"#ffffff\\\" style=\\\"vertical-align: top; line-height: 1; padding: 32px 32px 48px; background-color: #ffffff; border-radius: 0px;\\\">\\n                                                      <h1 class=\\\"h1\\\" align=\\\"left\\\" style=\\\"padding: 0px; margin: 0px; font-style: normal; font-family: Helvetica, Arial, sans-serif; font-size: 24px; line-height: 32px; color: #111827; font-weight: 700;\\\">Sign up to OpenRouter</h1>\\n                                                      <p align=\\\"left\\\" style=\\\"padding: 0px; margin: 16px 0px 0px; font-family: Helvetica, Arial, sans-serif; color: #000000; font-size: 14px; line-height: 21px;\\\">Click the button below to sign up to OpenRouter. This link will expire in 10 minutes.</p>\\n                                                        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" style=\\\"border-collapse: separate; margin: 32px 0px 0px 0px;\\\">\\n                                                            <tbody>\\n                                                                <tr>\\n                                                                    <td align=\\\"center\\\" valign=\\\"middle\\\" bgcolor=\\\"#131316\\\" style=\\\"border-radius: 6px; padding: 0;\\\">\\n                                                                        <a class=\\\"cl-branded-button\\\" target=\\\"_blank\\\" href=\\\"https://clerk.openrouter.ai/v1/verify?_clerk_js_version=5.125.4&amp;token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM2MjMwMTUsImlpZCI6Imluc18yUGlRcWt2UlFlZXB3R3ZrVjFZRDhBb3Q1elIiLCJydXJsIjoiaHR0cHM6Ly9vcGVucm91dGVyLmFpL3NpZ24tdXAjL3ZlcmlmeT9zaWduX3VwX2ZvcmNlX3JlZGlyZWN0X3VybD1odHRwcyUzQSUyRiUyRm9wZW5yb3V0ZXIuYWklMkYlM0ZcdTAwMjZzaWduX2luX2ZvcmNlX3JlZGlyZWN0X3VybD1odHRwcyUzQSUyRiUyRm9wZW5yb3V0ZXIuYWklMkYlM0YiLCJzaWQiOiJzdWFfM0IwT0ZDSmxMbTVWSTlKZnR1QWRvRW80MXdyIiwic3QiOiJzaWduX3VwX2F0dGVtcHQiLCJ2aWQiOiJ2ZXJfM0IwT0ZKTnJ5V0RROGVZaXlST0VpVWN3MjdwIn0.Iu_AZaTX5MOZg_IoygdtxAzgldsa44PW9a-aS6b2NlHAy-Xx-9r1do5JKttir1gPFbyt9WCysXVJCsmwo_EtAOS4MoeNeg2pbJzqndMj7TJC6GurvdvDzgzT5nPsStoIebrgxgXbb_cJaYHe05QqWgrB0RmBj5j6JYjyZ9Ea4jg_WBxTSoKEHfJj9bSdF_0x_IkBlw3cRlJMBzBXbkwMle3ukRYy25_k-Fc4-yq0aU8gIOViQbfZvUiEAuHAiluFZGiG25iFmXIDiyeWE8QGiALpZLGBbnTKj_BAvCWrdKHcUzTSG8ql_UhJ2UqIn6z-hvPfk_0WL9ZnKrNqWNUNXA\\\" style=\\\"display: inline-block; cursor: pointer; text-decoration: none; font-family: Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 500; color: #ffffff; border-radius: 6px; height: 30px; line-height: 30px; padding: 0 10px; white-space: nowrap; background: linear-gradient(180deg, rgba(255,255,255,0.10) 45%, rgba(255,255,255,0.00) 55%), #131316; box-shadow: 0 2px 3px 0 rgba(0,0,0,0.20), 0 0 0 0.5px #131316, inset 0 1px 0 0 rgba(255,255,255,0.15);\\\">Sign up to OpenRouter</a>\\n                                                                    </td>\\n                                                                </tr>\\n                                                            </tbody>\\n                                                        </table>\\n                                                        <p style=\\\"padding: 0px; margin: 16px 0px 64px; font-family: Helvetica, Arial, sans-serif; color: #000000; font-size: 14px; line-height: 21px;\\\">If you're having trouble with the above button, <a href=\\\"https://clerk.openrouter.ai/v1/verify?_clerk_js_version=5.125.4&amp;token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM2MjMwMTUsImlpZCI6Imluc18yUGlRcWt2UlFlZXB3R3ZrVjFZRDhBb3Q1elIiLCJydXJsIjoiaHR0cHM6Ly9vcGVucm91dGVyLmFpL3NpZ24tdXAjL3ZlcmlmeT9zaWduX3VwX2ZvcmNlX3JlZGlyZWN0X3VybD1odHRwcyUzQSUyRiUyRm9wZW5yb3V0ZXIuYWklMkYlM0ZcdTAwMjZzaWduX2luX2ZvcmNlX3JlZGlyZWN0X3VybD1odHRwcyUzQSUyRiUyRm9wZW5yb3V0ZXIuYWklMkYlM0YiLCJzaWQiOiJzdWFfM0IwT0ZDSmxMbTVWSTlKZnR1QWRvRW80MXdyIiwic3QiOiJzaWduX3VwX2F0dGVtcHQiLCJ2aWQiOiJ2ZXJfM0IwT0ZKTnJ5V0RROGVZaXlST0VpVWN3MjdwIn0.Iu_AZaTX5MOZg_IoygdtxAzgldsa44PW9a-aS6b2NlHAy-Xx-9r1do5JKttir1gPFbyt9WCysXVJCsmwo_EtAOS4MoeNeg2pbJzqndMj7TJC6GurvdvDzgzT5nPsStoIebrgxgXbb_cJaYHe05QqWgrB0RmBj5j6JYjyZ9Ea4jg_WBxTSoKEHfJj9bSdF_0x_IkBlw3cRlJMBzBXbkwMle3ukRYy25_k-Fc4-yq0aU8gIOViQbfZvUiEAuHAiluFZGiG25iFmXIDiyeWE8QGiALpZLGBbnTKj_BAvCWrdKHcUzTSG8ql_UhJ2UqIn6z-hvPfk_0WL9ZnKrNqWNUNXA\\\" class=\\\"cl-branded-link\\\" style=\\\"font-size: 14px; color: #131316; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 1.5; text-decoration: underline;\\\" target=\\\"_blank\\\">click here</a>.</p>\\n                                                        <p style=\\\"padding: 0px; margin: 4px 0px 0px; font-family: Helvetica, Arial, sans-serif; color: #000000; font-size: 14px; line-height: 21px;\\\"> This email link was requested from <b>174.139.20.199, Redondo Beach, US</b> at <b>16 March 2026, 00:53 UTC</b>. If you didn't make this request, you can safely ignore this email. </p>\\n                                                    </td>\\n                                                </tr>\\n                                            </tbody>\\n                                        </table>\\n                                    </td>\\n                                </tr>\\n                            </tbody>\\n                        </table>\\n                        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" width=\\\"600\\\" class=\\\"container\\\" style=\\\"width: 600px;\\\">\\n                            <tbody>\\n                                <tr>\\n                                    <td style=\\\"padding: 24px 32px 0;\\\">\\n                                        <table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" border=\\\"0\\\" width=\\\"100%\\\">\\n                                            <tbody>\\n                                                <tr>\\n                                                    <td style=\\\"border-top: 1px dashed #B7B8C2; font-size: 0; line-height: 0;\\\">&nbsp;</td>\\n                                                </tr>\\n                                            </tbody>\\n                                        </table>\\n                                    </td>\\n                                </tr>\\n                                <tr>\\n                                    <td style=\\\"padding: 16px 32px 48px; font-family: Helvetica, Arial, sans-serif; font-size: 13px; color: #747686;\\\">\\n                                        &copy; 2026 OpenRouter\\n                                    </td>\\n                                </tr>\\n                            </tbody>\\n                        </table>                    </td>\\n                </tr>\\n            </tbody>\\n        </table>\\n    </body>\\n</html>\\n\",\n    \"snippet\": \"Use the following link to sign up to OpenRouter: https://clerk.openrouter.ai/v1/verify?_clerk_js_version=5.125.4&amp;token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM2MjMwMTUsImlpZCI6Imluc18y\",\n    \"attachments\": [],\n    \"flags\": [\n      \"\\\\Seen\"\n    ]\n  }\n]","cwd":"/home/chinalife/.openclaw/workspace"},"isError":false,"timestamp":1775807899893}}
-````
-- **下一行内容**: 
-````
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-````
-
----
-
-### 错误 #473
-
-- **事件类型**: `message`
-- **描述**: 工具执行完成后没有Assistant的最终回复（文件在此结束）
-- **工号**: sha-0000000001
-- **错误信息**: 
-````
-Expected assistant message after toolResult, but reached end of file
 Line: 4873b33f
 ````
 - **原因分析**: 可能的原因：1) 工具执行后会话被中断；2) 系统在处理结果时崩溃；3) 达到最大token限制
@@ -10720,7 +10695,7 @@ Line: 4873b33f
 
 ---
 
-### 错误 #474
+### 错误 #473
 
 - **事件类型**: `message`
 - **描述**: 工具执行完成后没有Assistant的最终回复（文件在此结束）
@@ -10740,6 +10715,32 @@ Line: c6c2bb47
 - **错误行内容**: 
 ````
 {"type":"message","id":"c6c2bb47","parentId":"5d381d8b","timestamp":"2026-04-13T07:51:30.151Z","message":{"role":"toolResult","toolCallId":"call_a88506d57037464eb19116ff","toolName":"memory_search","content":[{"type":"text","text":"{\n  \"results\": [],\n  \"provider\": \"auto\",\n  \"citations\": \"auto\",\n  \"mode\": \"hybrid\"\n}"}],"details":{"results":[],"provider":"auto","citations":"auto","mode":"hybrid"},"isError":false,"timestamp":1776066690014}}
+````
+
+---
+
+## flow_integrity_no_reply - 用户提问后无回复 (1)
+
+### 错误 #474
+
+- **事件类型**: `message`
+- **描述**: 用户提问后没有任何回复（文件在此结束）
+- **工号**: 18100732
+- **姓名**: 牛伟峰
+- **部门**: 18100000
+- **错误信息**: 
+````
+Expected assistant message after user message, but reached end of file
+Line: aa0ff353, Timestamp: 1776066155650
+````
+- **原因分析**: 可能的原因：1) 会话被意外中断；2) 系统崩溃导致回复丢失；3) 网络断开；4) 用户主动终止会话但未记录
+- **文件位置**: `G:\Workplace\github\clawboard\test\session-transcript\068ac7a06a47c7fdc26656446b63d7e17dc09d94203abb2c92d6bcf41c33f56705d20342347e3b18cfae39e7a2940bae5fb6ca5293e374cbceee772548768613\agents\main\sessions\44b23a7e-471e-4d06-b7d3-9c354e67b2f9.jsonl.reset.2026-04-13T07-43-22.366Z`
+- **Session ID**: `44b23a7e-471e-4d06-b7d3-9c354e67b2f9`
+- **行号**: 106
+- **时间戳**: 2026-04-13T15:42:35.650
+- **错误行内容**: 
+````
+{"type":"message","id":"aa0ff353","parentId":"6ee781df","timestamp":"2026-04-13T07:42:35.659Z","message":{"role":"user","content":[{"type":"text","text":"Sender (untrusted metadata):\n```json\n{\n  \"label\": \"cli\",\n  \"id\": \"cli\"\n}\n```\n\n[Mon 2026-04-13 15:42 GMT+8] 使用imap-smtp-email技能，帮我查询邮箱中最新的10封邮件，帮我列出查询结果"}],"timestamp":1776066155650}}
 ````
 
 ---

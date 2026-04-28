@@ -202,5 +202,10 @@
           AND has_error = 1
           AND (system_turn = 0 OR system_turn IS NULL)
     </select>
+    
+    <!-- Delete conversation turns by session ID -->
+    <delete id="deleteBySessionId">
+        DELETE FROM dashboard_conversation_turn WHERE session_id = #{sessionId}
+    </delete>
 
 </mapper>

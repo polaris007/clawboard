@@ -5,6 +5,7 @@ import com.company.clawboard.entity.DashboardScanHistory;
 import com.company.clawboard.mapper.*;
 import com.company.clawboard.parser.TranscriptParser;
 import com.company.clawboard.service.DataIngestionService;
+import com.company.clawboard.service.IngestionStatus;
 import com.company.clawboard.service.ReportGenerator;
 import com.company.clawboard.service.ScanProgressService;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +49,7 @@ public class ScanOrchestrator {
     private final SkillInvocationMapper skillMapper;
     private final TranscriptIssueMapper issueMapper;
     private final ScanHistoryMapper scanHistoryMapper;
+    private final ScanProgressMapper scanProgressMapper;  // For mtime check
     
     @Qualifier("scanExecutor")
     private final Executor scanExecutor;
@@ -183,8 +185,30 @@ public class ScanOrchestrator {
                 }
             }
 
+            // ✅ 计算实际扫描的用户数（有 processed 或 skipped 文件的用户）
+            int actualUsersScanned = 0;
+            for (var entry : futures.entrySet()) {
+                try {
+                    UserScanResult result = entry.getValue().get(30, TimeUnit.MINUTES);
+                    if (result.filesProcessed() > 0 || result.filesSkipped() > 0 || result.filesError() > 0) {
+                        actualUsersScanned++;
+                    }
+                } catch (Exception e) {
+                    log.error("Failed to get result for user {}", entry.getKey(), e);
+                }
+            }
+
+            // ✅ 验证统计等式
+            int calculatedTotal = processedFiles + skippedFilesCount + errorFiles;
+            if (calculatedTotal != totalFiles) {
+                log.warn("Statistics mismatch: processed({}) + skipped({}) + error({}) = {} != total({})",
+                    processedFiles, skippedFilesCount, errorFiles, calculatedTotal, totalFiles);
+                // 不抛出异常，但记录警告以便调试
+            }
+
             // Update scan history with results
-            history.setDirsScanned(users.size());
+            history.setUsersScanned(actualUsersScanned);
+            history.setDirsScanned(actualUsersScanned);  // 每个用户对应一个目录
             history.setFilesTotal(totalFiles);
             history.setFilesProcessed(processedFiles);
             history.setFilesSkipped(skippedFilesCount);
@@ -294,6 +318,7 @@ public class ScanOrchestrator {
             }
             
             // Process each agent directory
+            Path basePathObj = Path.of(basePath);
             for (File agentDir : agentDirs) {
                 Path sessionsDir = agentDir.toPath().resolve("sessions");
                 if (!sessionsDir.toFile().exists()) {
@@ -306,20 +331,33 @@ public class ScanOrchestrator {
                 totalFiles += jsonlFiles.size();
                 log.info("Agent {}: found {} transcript files", agentDir.getName(), jsonlFiles.size());
                 
-                // Collect file paths for comparison (relative to base path)
-                Path basePathObj = Path.of(basePath);
-                for (Path jsonlFile : jsonlFiles) {
-                    try {
-                        String relativePath = basePathObj.relativize(jsonlFile).toString();
-                        scannedFilePaths.add(relativePath);
-                    } catch (Exception e) {
-                        log.debug("Failed to compute relative path for: {}", jsonlFile, e);
-                    }
-                }
-                
                 // Process each file sequentially within this user's thread
                 for (Path jsonlFile : jsonlFiles) {
                     try {
+                        // ✅ 前置检查：文件 mtime
+                        boolean shouldSkip = false;
+                        String skipReason = null;
+                        
+                        try {
+                            long fileMtime = Files.getLastModifiedTime(jsonlFile).toMillis();
+                            var progress = scanProgressMapper.selectByEmployeeAndFile(employeeId, jsonlFile.toString());
+                            
+                            if (progress != null && fileMtime <= progress.getFileMtime()) {
+                                shouldSkip = true;
+                                skipReason = "File not modified (mtime: " + fileMtime + ")";
+                                log.debug("Skipping unmodified file: {}", jsonlFile.getFileName());
+                            }
+                        } catch (Exception e) {
+                            log.warn("Failed to check file mtime for {}, proceeding with parse", jsonlFile.getFileName(), e);
+                        }
+                        
+                        if (shouldSkip) {
+                            // ✅ 计入 skipped，不解析文件
+                            skippedFiles.put(jsonlFile.toString(), skipReason);
+                            skippedFilesCount++;
+                            continue;
+                        }
+                        
                         log.debug("Processing file: {} (employee: {})", jsonlFile.getFileName(), employeeId);
                         
                         // Parse transcript file
@@ -334,22 +372,36 @@ public class ScanOrchestrator {
                             continue;
                         }
                         
-                        // Batch insert into database
-                        dataIngestionService.ingestParsedTranscript(scanId, employeeId, parsed);
+                        // ✅ 入库并获取结果
+                        var result = dataIngestionService.ingestParsedTranscript(scanId, employeeId, parsed);
                         
-                        int msgCount = parsed.messages().size();
-                        int turnCount = parsed.turns().size();
-                        int issueCount = parsed.issues().size();
-                        int skillCount = parsed.skillInvocations().size();
-                        
-                        totalMessages += msgCount;
-                        totalTurns += turnCount;
-                        totalIssues += issueCount;
-                        totalSkills += skillCount;
-                        processedFiles++;
-                        
-                        log.debug("Parsed file: {} messages, {} turns, {} issues, {} skills",
-                                msgCount, turnCount, issueCount, skillCount);
+                        if (result.status() == IngestionStatus.PROCESSED) {
+                            // ✅ 只有实际处理的文件才记录到 scannedFilePaths
+                            String relativePath = basePathObj.relativize(jsonlFile).toString();
+                            scannedFilePaths.add(relativePath);
+                            
+                            // 累加统计数据
+                            totalMessages += result.messageCount();
+                            totalTurns += result.turnCount();
+                            totalIssues += result.issueCount();
+                            totalSkills += result.skillCount();
+                            processedFiles++;
+                            
+                            log.debug("Parsed file: {} messages, {} turns, {} issues, {} skills",
+                                result.messageCount(), result.turnCount(), result.issueCount(), result.skillCount());
+                            
+                        } else if (result.status() == IngestionStatus.SKIPPED_MTIME) {
+                            // ✅ mtime 未变化（兜底检查触发）
+                            skippedFiles.put(jsonlFile.toString(), "File not modified (checked in ingestion service)");
+                            skippedFilesCount++;
+                            
+                        } else if (result.status() == IngestionStatus.FAILED) {
+                            // ✅ 处理失败
+                            String errorMsg = "Ingestion failed: " + result.errorMessage();
+                            skippedFiles.put(jsonlFile.toString(), errorMsg);
+                            errorFiles++;
+                            log.error("{}", errorMsg);
+                        }
                         
                     } catch (Exception e) {
                         String errorMsg = "Failed to process file: " + e.getMessage();
@@ -505,11 +557,6 @@ public class ScanOrchestrator {
      * Save scanned files list to a text file for comparison with Python
      */
     private void saveScannedFilesList(Long scanId) throws IOException {
-        if (scannedFilePaths == null || scannedFilePaths.isEmpty()) {
-            log.warn("No scanned files to save");
-            return;
-        }
-        
         // Get reports directory from configuration
         String reportsDir = properties.getReports().getOutputDir();
         
@@ -518,9 +565,12 @@ public class ScanOrchestrator {
         Path reportPath = Path.of(reportsDir, dateStr);
         Files.createDirectories(reportPath);
         
-        // Save file list with scanId in filename
+        // Save file list with scanId in filename (even if empty)
         Path filePath = reportPath.resolve("java-scanned-files-scan-" + scanId + ".txt");
-        List<String> sortedPaths = scannedFilePaths.stream().sorted().toList();
+        List<String> sortedPaths = new java.util.ArrayList<>();
+        if (scannedFilePaths != null && !scannedFilePaths.isEmpty()) {
+            sortedPaths = scannedFilePaths.stream().sorted().toList();
+        }
         Files.write(filePath, sortedPaths);
         
         log.info("Java scanned files list saved to: {} ({} files)", filePath.toAbsolutePath(), sortedPaths.size());
@@ -530,11 +580,6 @@ public class ScanOrchestrator {
      * Save skipped files list to a text file with error messages
      */
     private void saveSkippedFilesList(Long scanId) throws IOException {
-        if (skippedFiles == null || skippedFiles.isEmpty()) {
-            log.warn("No skipped files to save");
-            return;
-        }
-        
         // Get reports directory from configuration
         String reportsDir = properties.getReports().getOutputDir();
         
@@ -543,15 +588,17 @@ public class ScanOrchestrator {
         Path reportPath = Path.of(reportsDir, dateStr);
         Files.createDirectories(reportPath);
         
-        // Save skipped files list with scanId in filename
+        // Save skipped files list with scanId in filename (even if empty)
         Path filePath = reportPath.resolve("java-skipped-files-scan-" + scanId + ".txt");
         List<String> skippedLines = new java.util.ArrayList<>();
-        skippedFiles.forEach((file, error) -> {
-            skippedLines.add(file + " | " + error);
-        });
+        if (skippedFiles != null && !skippedFiles.isEmpty()) {
+            skippedFiles.forEach((file, error) -> {
+                skippedLines.add(file + " | " + error);
+            });
+        }
         Files.write(filePath, skippedLines);
         
-        log.info("Java skipped files list saved to: {} ({} files)", filePath.toAbsolutePath(), skippedFiles.size());
+        log.info("Java skipped files list saved to: {} ({} files)", filePath.toAbsolutePath(), skippedLines.size());
     }
     
     /**

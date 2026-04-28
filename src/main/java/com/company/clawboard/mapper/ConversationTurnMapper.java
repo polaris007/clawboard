@@ -99,4 +99,11 @@ public interface ConversationTurnMapper {
     Integer countProblematicTurnsByTimeRange(
         @Param("startTime") LocalDateTime startTime,
         @Param("endTime") LocalDateTime endTime);
+    
+    /**
+     * 删除指定 session 的所有对话轮次
+     * @param sessionId Session ID
+     * @return 删除的记录数
+     */
+    int deleteBySessionId(@Param("sessionId") String sessionId);
 }

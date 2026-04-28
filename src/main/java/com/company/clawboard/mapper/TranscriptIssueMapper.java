@@ -48,4 +48,11 @@ public interface TranscriptIssueMapper {
     List<DashboardTranscriptIssue> selectByTimeRange(
         @Param("startTime") java.time.LocalDateTime startTime,
         @Param("endTime") java.time.LocalDateTime endTime);
+    
+    /**
+     * 删除指定 session 的所有问题记录
+     * @param sessionId Session ID
+     * @return 删除的记录数
+     */
+    int deleteBySessionId(@Param("sessionId") String sessionId);
 }
