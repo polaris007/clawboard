@@ -19,6 +19,10 @@
         <result column="new_turns" property="newTurns"/>
         <result column="new_issues" property="newIssues"/>
         <result column="new_skill_calls" property="newSkillCalls"/>
+        <result column="agg_hours_from_files" property="aggHoursFromFiles"/>
+        <result column="agg_hours_from_window" property="aggHoursFromWindow"/>
+        <result column="agg_hours_total" property="aggHoursTotal"/>
+        <result column="agg_duration_ms" property="aggDurationMs"/>
         <result column="error_message" property="errorMessage"/>
         <result column="created_at" property="createdAt"/>
     </resultMap>
@@ -87,5 +91,21 @@
     <select id="selectLatest" resultMap="BaseResultMap">
         SELECT * FROM dashboard_scan_history ORDER BY started_at DESC LIMIT 1
     </select>
+
+    <update id="updateAggregationStats">
+        UPDATE dashboard_scan_history
+        SET agg_hours_from_files = #{aggHoursFromFiles},
+            agg_hours_from_window = #{aggHoursFromWindow},
+            agg_hours_total = #{aggHoursTotal},
+            agg_duration_ms = #{aggDurationMs}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStatusAndError">
+        UPDATE dashboard_scan_history
+        SET status = #{status},
+            error_message = #{errorMessage}
+        WHERE id = #{id}
+    </update>
 
 </mapper>

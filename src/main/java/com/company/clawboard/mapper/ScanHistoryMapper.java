@@ -14,4 +14,14 @@ public interface ScanHistoryMapper {
     DashboardScanHistory selectById(Long id);
     List<DashboardScanHistory> selectRecent(int limit);
     DashboardScanHistory selectLatest();
+    
+    /**
+     * 更新扫描历史中的聚合统计信息
+     */
+    void updateAggregationStats(DashboardScanHistory history);
+    
+    /**
+     * 更新扫描状态和错误信息
+     */
+    void updateStatusAndError(DashboardScanHistory history);
 }

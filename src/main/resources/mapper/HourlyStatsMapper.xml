@@ -114,6 +114,43 @@
         WHERE stat_hour IS NOT NULL
     </select>
 
+    <select id="selectDistinctEmployeeHoursByEmployeesAndTimeRange" resultType="com.company.clawboard.mapper.HourlyStatsMapper$EmployeeHourKey">
+        SELECT DISTINCT employee_id AS employeeId,
+               DATE_FORMAT(stat_hour, '%Y-%m-%d %H:00:00') AS statHour
+        FROM (
+            SELECT employee_id, message_timestamp AS stat_hour
+            FROM dashboard_message 
+            WHERE message_timestamp IS NOT NULL 
+              AND is_system = 0 
+              AND message_timestamp &gt;= #{cutoffTime}
+              AND employee_id IN
+            <foreach collection="employeeIds" item="employeeId" open="(" separator="," close=")">
+                #{employeeId}
+            </foreach>
+            UNION ALL
+            SELECT employee_id, COALESCE(start_time, created_at) AS stat_hour
+            FROM dashboard_conversation_turn 
+            WHERE (start_time IS NOT NULL OR created_at IS NOT NULL) 
+              AND system_turn = 0 
+              AND COALESCE(start_time, created_at) &gt;= #{cutoffTime}
+              AND employee_id IN
+            <foreach collection="employeeIds" item="employeeId" open="(" separator="," close=")">
+                #{employeeId}
+            </foreach>
+            UNION ALL
+            SELECT employee_id, COALESCE(occurred_at, created_at) AS stat_hour
+            FROM dashboard_transcript_issue 
+            WHERE (occurred_at IS NOT NULL OR created_at IS NOT NULL) 
+              AND COALESCE(occurred_at, created_at) &gt;= #{cutoffTime}
+              AND employee_id IN
+            <foreach collection="employeeIds" item="employeeId" open="(" separator="," close=")">
+                #{employeeId}
+            </foreach>
+              AND turn_id IN (SELECT id FROM dashboard_conversation_turn WHERE system_turn = 0)
+        ) AS all_hours
+        WHERE stat_hour IS NOT NULL
+    </select>
+
     <select id="aggregateTokensByHour" resultType="com.company.clawboard.entity.DashboardHourlyStats">
         SELECT
             m.employee_id AS employeeId,

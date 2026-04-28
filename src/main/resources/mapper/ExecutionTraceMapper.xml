@@ -28,5 +28,12 @@
         DELETE FROM dashboard_execution_trace
         WHERE scan_id = #{scanId}
     </delete>
+    
+    <!-- 根据 sessionId 删除（通过 turn_id 关联） -->
+    <delete id="deleteBySessionId">
+        DELETE et FROM dashboard_execution_trace et
+        INNER JOIN dashboard_conversation_turn ct ON et.turn_id = ct.id
+        WHERE ct.session_id = #{sessionId}
+    </delete>
 
 </mapper>

@@ -33,5 +33,10 @@
         WHERE turn_id = #{turnId}
         ORDER BY message_timestamp ASC
     </select>
+    
+    <!-- Delete messages by session ID -->
+    <delete id="deleteBySessionId">
+        DELETE FROM dashboard_message WHERE session_id = #{sessionId}
+    </delete>
 
 </mapper>

@@ -31,4 +31,9 @@ public interface SessionSummaryMapper {
      * Get total conversation turns for specific scan
      */
     int selectTotalTurnsByScanId(@Param("scanId") Long scanId);
+    
+    /**
+     * 删除指定 session 的汇总记录
+     */
+    int deleteBySessionId(@Param("sessionId") String sessionId);
 }
