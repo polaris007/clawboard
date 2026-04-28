@@ -375,7 +375,7 @@ public class ScanOrchestrator {
                         
                         try {
                             long fileMtime = Files.getLastModifiedTime(jsonlFile).toMillis();
-                            var progress = scanProgressMapper.selectByEmployeeAndFile(resolvedEmployeeId, jsonlFile.toString());
+                            var progress = scanProgressService.getProgress(resolvedEmployeeId, jsonlFile.toString());
                             
                             if (progress != null && fileMtime <= progress.getFileMtime()) {
                                 shouldSkip = true;
