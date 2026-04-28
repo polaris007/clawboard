@@ -6,6 +6,8 @@ import com.company.clawboard.entity.DashboardScanProgress;
 import com.company.clawboard.mapper.*;
 import com.company.clawboard.parser.TranscriptParser;
 import com.company.clawboard.service.DataIngestionService;
+import com.company.clawboard.service.IngestionResult;
+import com.company.clawboard.service.IngestionStatus;
 import com.company.clawboard.service.ReportGenerator;
 import com.company.clawboard.service.ScanProgressService;
 import lombok.RequiredArgsConstructor;
@@ -357,6 +359,30 @@ public class ScanOrchestrator {
                 // Process each file sequentially within this user's thread
                 for (Path jsonlFile : jsonlFiles) {
                     try {
+                        // ✅ 前置检查：文件 mtime
+                        boolean shouldSkip = false;
+                        String skipReason = null;
+                        
+                        try {
+                            long fileMtime = Files.getLastModifiedTime(jsonlFile).toMillis();
+                            var progress = scanProgressMapper.selectByEmployeeAndFile(resolvedEmployeeId, jsonlFile.toString());
+                            
+                            if (progress != null && fileMtime <= progress.getFileMtime()) {
+                                shouldSkip = true;
+                                skipReason = "File not modified (mtime: " + fileMtime + ")";
+                                log.debug("Skipping unmodified file: {}", jsonlFile.getFileName());
+                            }
+                        } catch (Exception e) {
+                            log.warn("Failed to check file mtime for {}, proceeding with parse", jsonlFile.getFileName(), e);
+                        }
+                        
+                        if (shouldSkip) {
+                            // ✅ 计入 skipped，不解析文件
+                            skippedFiles.put(jsonlFile.toString(), skipReason);
+                            skippedFilesCount++;
+                            continue;
+                        }
+                        
                         log.debug("Processing file: {} (employee: {})", jsonlFile.getFileName(), resolvedEmployeeId);
                         
                         // Parse transcript file
