@@ -170,9 +170,13 @@ public class ScanOrchestrator {
             int totalIssues = 0;
             int totalSkills = 0;
 
+            // ✅ 在一次遍历中同时完成统计和用户计数
+            int actualUsersScanned = 0;
             for (var entry : futures.entrySet()) {
                 try {
                     UserScanResult result = entry.getValue().get(30, TimeUnit.MINUTES);
+                    
+                    // 累加统计数据
                     totalFiles += result.filesTotal();
                     processedFiles += result.filesProcessed();
                     skippedFilesCount += result.filesSkipped();
@@ -182,24 +186,16 @@ public class ScanOrchestrator {
                     totalIssues += result.totalIssues();
                     totalSkills += result.totalSkills();
                     
+                    // 计算实际用户数
+                    if (result.filesProcessed() > 0 || result.filesSkipped() > 0 || result.filesError() > 0) {
+                        actualUsersScanned++;
+                    }
+                    
                     log.debug("User {} scan completed: {} files, {} messages, {} turns",
                         entry.getKey(), result.filesProcessed(), result.totalMessages(), result.totalTurns());
                 } catch (Exception e) {
                     log.error("Scan failed for user {}", entry.getKey(), e);
                     errorFiles++;
-                }
-            }
-
-            // ✅ 计算实际扫描的用户数（有 processed 或 skipped 文件的用户）
-            int actualUsersScanned = 0;
-            for (var entry : futures.entrySet()) {
-                try {
-                    UserScanResult result = entry.getValue().get(30, TimeUnit.MINUTES);
-                    if (result.filesProcessed() > 0 || result.filesSkipped() > 0 || result.filesError() > 0) {
-                        actualUsersScanned++;
-                    }
-                } catch (Exception e) {
-                    log.error("Failed to get result for user {}", entry.getKey(), e);
                 }
             }
 
