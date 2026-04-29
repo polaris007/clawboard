@@ -104,9 +104,8 @@ public class HourlyStatsAggregator {
         log.info("Total (employee, hour) combinations to aggregate: {} (files={}, window={}, unique_hours={})", 
             totalCombinations, hoursFromFiles, hoursFromWindow, uniqueHours);
         
-        // 4. 转换为列表并执行聚合（不再重新生成笛卡尔积）
-        List<HourlyStatsMapper.EmployeeHourKey> employeeHours = new ArrayList<>(employeeHoursSet);
-        processEmployeeHours(employeeHours, start);
+        // ✅ 4. 按员工批量聚合（新优化方案）
+        processEmployeeHoursBatch(employeeIds, employeeHoursSet, start);
         
         // 5. 记录聚合统计到 scan_history
         long duration = System.currentTimeMillis() - start;
@@ -144,6 +143,155 @@ public class HourlyStatsAggregator {
             log.error("Failed to update aggregation stats for scan {}", scanId, e);
             // 不抛出异常，避免影响主流程
         }
+    }
+    
+    /**
+     * ✅ 按员工批量聚合（新优化方案）
+     * 对每个员工执行 3 条 SQL，一次性获取该员工指定小时的数据
+     */
+    private void processEmployeeHoursBatch(
+        List<String> employeeIds,
+        Set<HourlyStatsMapper.EmployeeHourKey> employeeHoursSet,
+        long start
+    ) {
+        log.info("Processing {} employees with batch aggregation...", employeeIds.size());
+        
+        // 按员工分组，找出每个员工需要聚合的小时
+        Map<String, Set<LocalDateTime>> hoursByEmployee = employeeHoursSet.stream()
+            .collect(Collectors.groupingBy(
+                HourlyStatsMapper.EmployeeHourKey::employeeId,
+                Collectors.mapping(HourlyStatsMapper.EmployeeHourKey::statHour, Collectors.toSet())
+            ));
+        
+        int successCount = 0;
+        int errorCount = 0;
+        
+        for (String employeeId : employeeIds) {
+            try {
+                Set<LocalDateTime> hours = hoursByEmployee.getOrDefault(employeeId, Collections.emptySet());
+                if (hours.isEmpty()) {
+                    log.debug("No hours to aggregate for employee {}", employeeId);
+                    continue;
+                }
+                
+                // 找出该员工的最小和最大小时，用于范围查询
+                LocalDateTime minHour = hours.stream().min(LocalDateTime::compareTo).orElse(null);
+                LocalDateTime maxHour = hours.stream().max(LocalDateTime::compareTo).orElse(null);
+                
+                if (minHour == null || maxHour == null) {
+                    continue;
+                }
+                
+                // 批量聚合：查询该员工在 [minHour, maxHour+1h) 范围内的所有数据
+                LocalDateTime rangeStart = minHour;
+                LocalDateTime rangeEnd = maxHour.plusHours(1);
+                
+                // 1. 批量聚合 token 数据
+                List<DashboardHourlyStats> tokenList = hourlyStatsMapper.batchAggregateTokensByEmployee(
+                    employeeId, rangeStart, rangeEnd);
+                
+                // 2. 批量聚合 turn 数据
+                List<DashboardHourlyStats> turnList = hourlyStatsMapper.batchAggregateTurnsByEmployee(
+                    employeeId, rangeStart, rangeEnd);
+                
+                // 3. 批量聚合 issue 数据
+                List<HourlyStatsMapper.IssueCount> issueList = hourlyStatsMapper.batchAggregateIssuesByEmployee(
+                    employeeId, rangeStart, rangeEnd);
+                
+                // 4. 合并数据并 upsert（只处理在 hours 集合中的小时）
+                mergeAndUpsertBatch(employeeId, tokenList, turnList, issueList, hours);
+                
+                successCount++;
+            } catch (Exception e) {
+                log.error("Failed to aggregate stats for employee {}", employeeId, e);
+                errorCount++;
+            }
+        }
+        
+        long duration = System.currentTimeMillis() - start;
+        log.info("Batch aggregation completed in {}ms: {} employees success, {} errors", 
+            duration, successCount, errorCount);
+    }
+    
+    /**
+     * 合并批量聚合的数据并执行 upsert
+     * @param hours 需要聚合的小时集合（用于过滤）
+     */
+    private void mergeAndUpsertBatch(
+        String employeeId,
+        List<DashboardHourlyStats> tokenList,
+        List<DashboardHourlyStats> turnList,
+        List<HourlyStatsMapper.IssueCount> issueList,
+        Set<LocalDateTime> hours
+    ) {
+        // 将 turn 和 issue 数据转为 Map，方便查找
+        Map<LocalDateTime, DashboardHourlyStats> turnMap = new HashMap<>();
+        if (turnList != null) {
+            for (DashboardHourlyStats turn : turnList) {
+                turnMap.put(turn.getStatHour(), turn);
+            }
+        }
+        
+        Map<LocalDateTime, Integer> issueMap = new HashMap<>();
+        if (issueList != null) {
+            for (HourlyStatsMapper.IssueCount issue : issueList) {
+                issueMap.put(issue.statHour(), issue.issueCount());
+            }
+        }
+        
+        // 遍历 token 数据（作为主数据源），合并其他数据并 upsert
+        if (tokenList != null) {
+            for (DashboardHourlyStats tokenStats : tokenList) {
+                LocalDateTime statHour = tokenStats.getStatHour();
+                
+                // ✅ 只处理在 hours 集合中的小时
+                if (!hours.contains(statHour)) {
+                    continue;
+                }
+                
+                DashboardHourlyStats stats = new DashboardHourlyStats();
+                stats.setEmployeeId(employeeId);
+                stats.setStatHour(statHour);
+                
+                // Token 数据
+                stats.setTotalTokens(tokenStats.getTotalTokens() != null ? tokenStats.getTotalTokens() : 0L);
+                stats.setInputTokens(tokenStats.getInputTokens() != null ? tokenStats.getInputTokens() : 0L);
+                stats.setOutputTokens(tokenStats.getOutputTokens() != null ? tokenStats.getOutputTokens() : 0L);
+                stats.setTotalCost(tokenStats.getTotalCost() != null ? tokenStats.getTotalCost() : BigDecimal.ZERO);
+                stats.setCacheReadTokens(tokenStats.getCacheReadTokens() != null ? tokenStats.getCacheReadTokens() : 0L);
+                stats.setCacheWriteTokens(tokenStats.getCacheWriteTokens() != null ? tokenStats.getCacheWriteTokens() : 0L);
+                
+                // Turn 数据
+                DashboardHourlyStats turnStats = turnMap.get(statHour);
+                if (turnStats != null) {
+                    stats.setConversationTurns(turnStats.getConversationTurns());
+                    stats.setCompleteTurns(turnStats.getCompleteTurns());
+                    stats.setErrorTurns(turnStats.getErrorTurns());
+                    stats.setToolCalls(turnStats.getToolCalls());
+                    stats.setToolErrors(turnStats.getToolErrors());
+                    stats.setSkillInvocations(turnStats.getSkillInvocations());
+                    stats.setSkillErrors(turnStats.getSkillErrors());
+                } else {
+                    stats.setConversationTurns(0);
+                    stats.setCompleteTurns(0);
+                    stats.setErrorTurns(0);
+                    stats.setToolCalls(0);
+                    stats.setToolErrors(0);
+                    stats.setSkillInvocations(0);
+                    stats.setSkillErrors(0);
+                }
+                
+                // Issue 数据
+                stats.setErrorCount(issueMap.getOrDefault(statHour, 0));
+                stats.setUpdatedAt(LocalDateTime.now());
+                
+                // Upsert
+                hourlyStatsMapper.upsertStats(stats);
+            }
+        }
+        
+        log.debug("Merged and upserted {} hours for employee {}", 
+            tokenList != null ? tokenList.size() : 0, employeeId);
     }
     
     /**

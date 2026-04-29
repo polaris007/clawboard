@@ -26,6 +26,9 @@ public interface HourlyStatsMapper {
     );
 
     record EmployeeHourKey(String employeeId, LocalDateTime statHour) {}
+    
+    // ✅ 用于批量聚合 issue 计数
+    record IssueCount(String employeeId, LocalDateTime statHour, int issueCount) {}
 
     List<EmployeeHourKey> selectDistinctEmployeeHours();
     List<EmployeeHourKey> selectDistinctEmployeeHoursByEmployees(@Param("employeeIds") List<String> employeeIds);
@@ -46,6 +49,25 @@ public interface HourlyStatsMapper {
     DashboardHourlyStats aggregateTurnsByHour(@Param("employeeId") String employeeId, @Param("statHour") String statHour);
 
     int aggregateIssuesByHour(@Param("employeeId") String employeeId, @Param("statHour") String statHour);
+    
+    // ✅ 批量聚合方法：一次性获取某员工指定时间范围内的所有小时数据
+    List<DashboardHourlyStats> batchAggregateTokensByEmployee(
+        @Param("employeeId") String employeeId,
+        @Param("rangeStart") LocalDateTime rangeStart,
+        @Param("rangeEnd") LocalDateTime rangeEnd
+    );
+    
+    List<DashboardHourlyStats> batchAggregateTurnsByEmployee(
+        @Param("employeeId") String employeeId,
+        @Param("rangeStart") LocalDateTime rangeStart,
+        @Param("rangeEnd") LocalDateTime rangeEnd
+    );
+    
+    List<IssueCount> batchAggregateIssuesByEmployee(
+        @Param("employeeId") String employeeId,
+        @Param("rangeStart") LocalDateTime rangeStart,
+        @Param("rangeEnd") LocalDateTime rangeEnd
+    );
 
     /**
      * 查询指定员工和小时的统计数据

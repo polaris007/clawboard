@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS dashboard_scan_progress (
     last_offset      BIGINT        NOT NULL DEFAULT 0 ,
     file_size        BIGINT        NOT NULL DEFAULT 0 ,
     file_mtime       BIGINT        NOT NULL DEFAULT 0 ,
-    session_id       VARCHAR(36)   ,
+    session_id       VARCHAR(100)   ,
     last_message_id  VARCHAR(36)   ,
     last_message_ts  DATETIME(3)   ,
     updated_at       DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS dashboard_scan_progress (
 
 -- 3.2 dashboard_message - Message details
 CREATE TABLE IF NOT EXISTS dashboard_message (
-    session_id       VARCHAR(36)   NOT NULL ,
+    session_id       VARCHAR(100)   NOT NULL ,
     message_id       VARCHAR(36)   NOT NULL ,
     employee_id      VARCHAR(50)   NOT NULL ,
     role             VARCHAR(20)   NOT NULL ,
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS dashboard_message (
 -- 3.3 dashboard_conversation_turn - Conversation turns
 CREATE TABLE IF NOT EXISTS dashboard_conversation_turn (
     id                  BIGINT        NOT NULL AUTO_INCREMENT,
-    session_id          VARCHAR(36)   NOT NULL ,
+    session_id          VARCHAR(100)   NOT NULL ,
     employee_id         VARCHAR(50)   NOT NULL ,
     turn_index          INT           ,
     start_message_id    VARCHAR(36)   NOT NULL ,
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS dashboard_conversation_turn (
 -- 3.4 dashboard_skill_invocation - Skill invocations
 CREATE TABLE IF NOT EXISTS dashboard_skill_invocation (
     id                BIGINT        NOT NULL AUTO_INCREMENT,
-    session_id        VARCHAR(36)   NOT NULL,
+    session_id        VARCHAR(100)   NOT NULL,
     employee_id       VARCHAR(50)   NOT NULL,
     turn_id           BIGINT        ,
     skill_name        VARCHAR(100)  NOT NULL ,
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS dashboard_skill_invocation (
 -- 3.5 dashboard_transcript_issue - Error/issue records
 CREATE TABLE IF NOT EXISTS dashboard_transcript_issue (
     id                BIGINT        NOT NULL AUTO_INCREMENT,
-    session_id        VARCHAR(36)   NOT NULL,
+    session_id        VARCHAR(100)   NOT NULL,
     message_id        VARCHAR(36)   NOT NULL DEFAULT '' ,
     employee_id       VARCHAR(50)   NOT NULL,
     error_type        VARCHAR(50)   NOT NULL ,

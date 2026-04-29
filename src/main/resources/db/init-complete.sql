@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS dashboard_scan_progress (
     last_offset     BIGINT(20)   NOT NULL DEFAULT 0 COMMENT '最后读取位置',
     file_size       BIGINT(20)   NOT NULL DEFAULT 0 COMMENT '文件大小',
     file_mtime      BIGINT(20)   NOT NULL DEFAULT 0 COMMENT '文件修改时间',
-    session_id      VARCHAR(36)   COMMENT '当前Session UUID',
+    session_id      VARCHAR(100)  COMMENT '当前Session UUID',
     last_message_id VARCHAR(36)   COMMENT '最后处理的消息ID',
     last_message_ts DATETIME(3)   COMMENT '最后消息时间戳',
     updated_at      DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS dashboard_scan_progress (
 -- 4. dashboard_session_summary - Session level summary
 -- ============================================
 CREATE TABLE IF NOT EXISTS dashboard_session_summary (
-    session_id       VARCHAR(36)   NOT NULL COMMENT 'Session UUID',
+    session_id       VARCHAR(100)  NOT NULL COMMENT 'Session UUID/ID',
     employee_id      VARCHAR(50)   NOT NULL COMMENT '工号',
     agent_name       VARCHAR(100)  COMMENT 'Agent名称',
     total_messages   INT           NOT NULL DEFAULT 0 COMMENT '总消息数',
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS dashboard_session_summary (
 -- 5. dashboard_message - Message details
 -- ============================================
 CREATE TABLE IF NOT EXISTS dashboard_message (
-    session_id       VARCHAR(36)   NOT NULL COMMENT 'Session UUID',
+    session_id       VARCHAR(100)  NOT NULL COMMENT 'Session UUID/ID',
     scan_id          BIGINT        COMMENT '关联扫描ID',
     turn_id          BIGINT        COMMENT '关联轮次ID',
     message_id       VARCHAR(36)   NOT NULL COMMENT '消息ID',
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS dashboard_message (
 CREATE TABLE IF NOT EXISTS dashboard_conversation_turn (
     id                    BIGINT        NOT NULL AUTO_INCREMENT COMMENT '对话轮次ID',
     scan_id               BIGINT        COMMENT '关联扫描ID',
-    session_id            VARCHAR(36)   NOT NULL COMMENT 'Session UUID',
+    session_id            VARCHAR(100)  NOT NULL COMMENT 'Session UUID/ID',
     employee_id           VARCHAR(50)   NOT NULL COMMENT '工号',
     turn_index            INT           COMMENT '轮次序号',
     start_message_id      VARCHAR(36)   NOT NULL COMMENT '起始消息ID',
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS dashboard_conversation_turn (
 -- ============================================
 CREATE TABLE IF NOT EXISTS dashboard_skill_invocation (
     id                  BIGINT        NOT NULL AUTO_INCREMENT COMMENT '技能调用ID',
-    session_id          VARCHAR(36)   NOT NULL COMMENT 'Session UUID',
+    session_id          VARCHAR(100)  NOT NULL COMMENT 'Session UUID/ID',
     scan_id             BIGINT        COMMENT '关联扫描ID',
     employee_id         VARCHAR(50)   NOT NULL COMMENT '工号',
     turn_id             BIGINT        COMMENT '关联轮次ID',
@@ -200,7 +200,7 @@ CREATE TABLE IF NOT EXISTS dashboard_skill_invocation (
 -- ============================================
 CREATE TABLE IF NOT EXISTS dashboard_transcript_issue (
     id                  BIGINT        NOT NULL AUTO_INCREMENT COMMENT '问题ID',
-    session_id          VARCHAR(36)   NOT NULL COMMENT 'Session UUID',
+    session_id          VARCHAR(100)  NOT NULL COMMENT 'Session UUID/ID',
     scan_id             BIGINT        COMMENT '关联扫描ID',
     message_id          VARCHAR(36)   NOT NULL DEFAULT '' COMMENT '关联消息ID',
     employee_id         VARCHAR(50)   NOT NULL COMMENT '工号',
