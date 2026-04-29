@@ -224,4 +224,26 @@ public class HourlyStatsAggregator {
                 employeeId, statHourStr, stats.getTotalTokens(), stats.getConversationTurns(),
                 stats.getCompleteTurns(), stats.getErrorCount());
     }
+
+    /**
+     * 检查所有统计字段是否都为 0
+     * @param stats 统计数据
+     * @return true 如果所有字段都为 0
+     */
+    private boolean isAllFieldsZero(DashboardHourlyStats stats) {
+        return stats.getTotalTokens() == 0L
+            && stats.getInputTokens() == 0L
+            && stats.getOutputTokens() == 0L
+            && stats.getTotalCost().compareTo(BigDecimal.ZERO) == 0
+            && stats.getCacheReadTokens() == 0L
+            && stats.getCacheWriteTokens() == 0L
+            && stats.getConversationTurns() == 0
+            && stats.getCompleteTurns() == 0
+            && stats.getErrorTurns() == 0
+            && stats.getSkillInvocations() == 0
+            && stats.getSkillErrors() == 0
+            && stats.getToolCalls() == 0
+            && stats.getToolErrors() == 0
+            && stats.getErrorCount() == 0;
+    }
 }
