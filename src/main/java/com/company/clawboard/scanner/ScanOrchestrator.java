@@ -20,8 +20,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
@@ -223,7 +226,23 @@ public class ScanOrchestrator {
             // Aggregate hourly stats from the scanned data
             try {
                 if (!scannedEmployeeIds.isEmpty()) {
-                    hourlyStatsAggregator.aggregateForEmployees(new ArrayList<>(scannedEmployeeIds));
+                    // ✅ 获取从扫描中收集的小时信息
+                    Map<String, Set<LocalDateTime>> hoursByEmployee = dataIngestionService.getAndClearScannedHours();
+                    
+                    // ✅ 合并所有员工的小时（去重）
+                    Set<LocalDateTime> allChangedHours = hoursByEmployee.values().stream()
+                        .flatMap(Set::stream)
+                        .collect(java.util.stream.Collectors.toSet());
+                    
+                    log.info("Collected {} distinct hours from {} employees", 
+                        allChangedHours.size(), hoursByEmployee.size());
+                    
+                    // ✅ 传递小时信息给聚合器
+                    hourlyStatsAggregator.aggregateForEmployeesWithStats(
+                        new ArrayList<>(scannedEmployeeIds),
+                        allChangedHours,
+                        scanId
+                    );
                 } else {
                     log.info("No employees scanned, skipping hourly stats aggregation");
                 }
