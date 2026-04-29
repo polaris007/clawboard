@@ -197,4 +197,10 @@
           AND DATE_FORMAT(COALESCE(occurred_at, created_at), '%Y-%m-%d %H:00:00') = #{statHour}
     </select>
 
+    <select id="selectByEmployeeAndHour" resultMap="BaseResultMap">
+        SELECT * FROM dashboard_hourly_stats
+        WHERE employee_id = #{employeeId}
+          AND stat_hour = #{statHour}
+    </select>
+
 </mapper>
