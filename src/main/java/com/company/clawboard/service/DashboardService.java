@@ -146,6 +146,13 @@ public class DashboardService {
         return endTime;
     }
 
+    /**
+     * 解析小时字符串为 LocalDateTime
+     */
+    private LocalDateTime parseHour(String hourStr) {
+        return LocalDateTime.parse(hourStr, DATETIME_FORMATTER);
+    }
+
     public List<TrendDataPoint> getTrend(TimeRangeRequest request) {
         // 标准化时间参数
         String normalizedStartTime = normalizeStartTime(request.getStartTime());
