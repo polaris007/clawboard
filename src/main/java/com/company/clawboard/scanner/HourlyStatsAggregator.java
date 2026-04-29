@@ -48,18 +48,25 @@ public class HourlyStatsAggregator {
             return;
         }
         
-        Set<LocalDateTime> hoursToAggregate = new HashSet<>();
+        // ✅ 收集实际的 (employee_id, hour) 组合
+        Set<HourlyStatsMapper.EmployeeHourKey> employeeHoursSet = new HashSet<>();
         int hoursFromFiles = 0;
         int hoursFromWindow = 0;
         
-        // 1. 添加从扫描文件中提取的小时
+        // 1. 从扫描文件提取的小时（与所有员工组合）
         if (config.isEnableFileBasedIncremental() && changedHoursFromScan != null && !changedHoursFromScan.isEmpty()) {
-            hoursToAggregate.addAll(changedHoursFromScan);
+            // 为每个小时与每个员工生成组合
+            for (LocalDateTime hour : changedHoursFromScan) {
+                for (String empId : employeeIds) {
+                    employeeHoursSet.add(new HourlyStatsMapper.EmployeeHourKey(empId, hour));
+                }
+            }
             hoursFromFiles = changedHoursFromScan.size();
-            log.info("Added {} hours from scanned files", hoursFromFiles);
+            log.info("Added {} hours from scanned files ({} employee-hour combinations)", 
+                hoursFromFiles, changedHoursFromScan.size() * employeeIds.size());
         }
         
-        // 2. 添加时间窗口内的小时（兜底）
+        // 2. 从时间窗口获取的组合（直接使用完整组合，不再生成笛卡尔积）
         if (config.isEnableTimeWindow()) {
             int windowHours = config.getTimeWindowHours();
             LocalDateTime cutoffTime = LocalDateTime.now().minusHours(windowHours);
@@ -68,14 +75,17 @@ public class HourlyStatsAggregator {
                 hourlyStatsMapper.selectDistinctEmployeeHoursByEmployeesAndTimeRange(
                     employeeIds, cutoffTime);
             
-            recentHours.forEach(eh -> hoursToAggregate.add(eh.statHour()));
-            hoursFromWindow = recentHours.size();
+            employeeHoursSet.addAll(recentHours);  // ← 直接添加完整组合
+            hoursFromWindow = (int) recentHours.stream()
+                .map(HourlyStatsMapper.EmployeeHourKey::statHour)
+                .distinct()
+                .count();
             log.info("Added {} hours from time window (last {} hours)", 
                 hoursFromWindow, windowHours);
         }
         
-        // 3. 如果没有收集到任何小时，回退到全量聚合
-        if (hoursToAggregate.isEmpty()) {
+        // 3. 如果没有收集到任何组合，回退到全量聚合
+        if (employeeHoursSet.isEmpty()) {
             log.warn("No hours collected from files or window, falling back to full aggregation for {} employees", 
                 employeeIds.size());
             aggregateForEmployeesLegacy(employeeIds);
@@ -86,27 +96,23 @@ public class HourlyStatsAggregator {
             return;
         }
         
-        int totalHours = hoursToAggregate.size();
-        log.info("Total hours to aggregate: {} (files={}, window={}, overlap={})", 
-            totalHours, hoursFromFiles, hoursFromWindow, 
-            (hoursFromFiles + hoursFromWindow - totalHours));
+        int totalCombinations = employeeHoursSet.size();
+        int uniqueHours = (int) employeeHoursSet.stream()
+            .map(HourlyStatsMapper.EmployeeHourKey::statHour)
+            .distinct()
+            .count();
+        log.info("Total (employee, hour) combinations to aggregate: {} (files={}, window={}, unique_hours={})", 
+            totalCombinations, hoursFromFiles, hoursFromWindow, uniqueHours);
         
-        // 4. 转换为 EmployeeHourKey 列表
-        List<HourlyStatsMapper.EmployeeHourKey> employeeHours = 
-            hoursToAggregate.stream()
-                .flatMap(hour -> employeeIds.stream()
-                    .map(empId -> new HourlyStatsMapper.EmployeeHourKey(empId, hour)))
-                .distinct()
-                .collect(Collectors.toList());
-        
-        // 5. 执行聚合
+        // 4. 转换为列表并执行聚合（不再重新生成笛卡尔积）
+        List<HourlyStatsMapper.EmployeeHourKey> employeeHours = new ArrayList<>(employeeHoursSet);
         processEmployeeHours(employeeHours, start);
         
-        // 6. 记录聚合统计到 scan_history
+        // 5. 记录聚合统计到 scan_history
         long duration = System.currentTimeMillis() - start;
-        updateScanHistoryWithAggStats(scanId, hoursFromFiles, hoursFromWindow, totalHours, duration);
+        updateScanHistoryWithAggStats(scanId, hoursFromFiles, hoursFromWindow, uniqueHours, duration);
         
-        log.info("Smart aggregation completed in {}ms: total={} hours", duration, totalHours);
+        log.info("Smart aggregation completed in {}ms: total={} combinations", duration, totalCombinations);
     }
     
     /**
