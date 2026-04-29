@@ -151,7 +151,7 @@ public class DashboardService {
         String normalizedStartTime = normalizeStartTime(request.getStartTime());
         String normalizedEndTime = normalizeEndTime(request.getEndTime());
         
-        // 从 hourly_stats 表查询数据，支持团队和姓名筛选
+        // 从 hourly_stats 表查询数据
         List<DashboardHourlyStats> stats = hourlyStatsMapper.selectByTimeRange(
             request.getTeamName(),
             request.getUserId(),
@@ -159,35 +159,46 @@ public class DashboardService {
             normalizedEndTime
         );
         
-        // 按小时分组并转换为趋势数据点
-        // API文档要求：后端始终以小时为最小粒度返回，不做聚合
-        // 从startTime所在的小时开始，到endTime所在的小时结束
-        List<TrendDataPoint> trendPoints = new java.util.ArrayList<>();
-        
-        // 如果查询结果为空，直接返回空列表
         if (stats == null || stats.isEmpty()) {
-            return trendPoints;
+            return Collections.emptyList();
         }
         
-        // 按小时分组，每个小时一个数据点
-        return stats.stream()
-                .collect(Collectors.groupingBy(DashboardHourlyStats::getStatHour))
-                .entrySet().stream()
-                .map(entry -> {
-                    LocalDateTime hour = entry.getKey();
-                    List<DashboardHourlyStats> hourStats = entry.getValue();
-                    
-                    var point = new TrendDataPoint();
-                    // 格式化为 YYYY-MM-DD HH:00:00（北京时区）
-                    point.setTimeLabel(hour.format(TIME_FORMATTER));
-                    point.setTokens(hourStats.stream().mapToLong(DashboardHourlyStats::getTotalTokens).sum());
-                    point.setTurns(hourStats.stream().mapToInt(DashboardHourlyStats::getConversationTurns).sum());
-                    point.setSkills(hourStats.stream().mapToInt(DashboardHourlyStats::getSkillInvocations).sum());
-                    
-                    return point;
-                })
-                .limit(720)  // 最多返回720条（30天）
-                .collect(Collectors.toList());
+        // 按小时分组
+        Map<LocalDateTime, List<DashboardHourlyStats>> statsByHour = stats.stream()
+            .collect(Collectors.groupingBy(DashboardHourlyStats::getStatHour));
+        
+        // ✅ 生成完整时间序列
+        LocalDateTime startHour = parseHour(normalizedStartTime);
+        LocalDateTime endHour = parseHour(normalizedEndTime);
+        
+        List<TrendDataPoint> trendPoints = new ArrayList<>();
+        LocalDateTime currentHour = startHour;
+        
+        while (!currentHour.isAfter(endHour)) {
+            TrendDataPoint point = new TrendDataPoint();
+            point.setTimeLabel(currentHour.format(TIME_FORMATTER));
+            
+            List<DashboardHourlyStats> hourStats = statsByHour.getOrDefault(currentHour, Collections.emptyList());
+            
+            if (hourStats.isEmpty()) {
+                // 缺失的小时 → 填充 0
+                point.setTokens(0L);
+                point.setTurns(0);
+                point.setSkills(0);
+            } else {
+                // 有数据 → 聚合
+                point.setTokens(hourStats.stream().mapToLong(DashboardHourlyStats::getTotalTokens).sum());
+                point.setTurns(hourStats.stream().mapToInt(DashboardHourlyStats::getConversationTurns).sum());
+                point.setSkills(hourStats.stream().mapToInt(DashboardHourlyStats::getSkillInvocations).sum());
+            }
+            
+            trendPoints.add(point);
+            currentHour = currentHour.plusHours(1);
+        }
+        
+        return trendPoints.stream()
+            .limit(720)  // 最多返回720条（30天）
+            .collect(Collectors.toList());
     }
 
     public PageResult<UserSummaryItem> getUserSummaries(TimeRangeRequest request) {
