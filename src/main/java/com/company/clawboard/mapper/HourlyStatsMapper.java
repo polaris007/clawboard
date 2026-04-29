@@ -46,4 +46,15 @@ public interface HourlyStatsMapper {
     DashboardHourlyStats aggregateTurnsByHour(@Param("employeeId") String employeeId, @Param("statHour") String statHour);
 
     int aggregateIssuesByHour(@Param("employeeId") String employeeId, @Param("statHour") String statHour);
+
+    /**
+     * 查询指定员工和小时的统计数据
+     * @param employeeId 员工ID
+     * @param statHour 统计小时
+     * @return 统计数据，如果不存在返回 null
+     */
+    DashboardHourlyStats selectByEmployeeAndHour(
+        @Param("employeeId") String employeeId, 
+        @Param("statHour") LocalDateTime statHour
+    );
 }
