@@ -19,9 +19,13 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Service to convert parsed transcript data to entities and batch insert into database.
@@ -44,6 +48,9 @@ public class DataIngestionService {
     private final TranscriptParser transcriptParser;  // NEW
     private final ScanProgressMapper scanProgressMapper;  // For mtime check
     private final ScanProgressService scanProgressService;  // For updating progress
+
+    // ✅ 线程安全的小时收集器：employeeId -> Set<hour>
+    private final ConcurrentHashMap<String, Set<LocalDateTime>> scannedHoursByEmployee = new ConcurrentHashMap<>();
 
     /**
      * Ingest parsed transcript data into database
@@ -640,5 +647,41 @@ public class DataIngestionService {
             }
         }
         return turnMessages;
+    }
+
+    /**
+     * 从消息中提取小时信息并收集到 scannedHoursByEmployee
+     * @param employeeId 员工ID
+     * @param messages 消息列表
+     */
+    private void collectHoursFromMessages(String employeeId, List<DashboardMessage> messages) {
+        if (messages == null || messages.isEmpty()) {
+            return;
+        }
+        
+        // 获取或创建该员工的小时集合
+        Set<LocalDateTime> hours = scannedHoursByEmployee.computeIfAbsent(
+            employeeId, k -> Collections.synchronizedSet(new HashSet<>()));
+        
+        // 提取每条消息的小时（截断到整点）
+        for (DashboardMessage msg : messages) {
+            if (msg.getMessageTimestamp() != null) {
+                LocalDateTime hour = msg.getMessageTimestamp()
+                    .withMinute(0)
+                    .withSecond(0)
+                    .withNano(0);
+                hours.add(hour);
+            }
+        }
+    }
+    
+    /**
+     * 获取并清除收集的小时信息
+     * @return Map<employeeId, Set<hour>>
+     */
+    public Map<String, Set<LocalDateTime>> getAndClearScannedHours() {
+        Map<String, Set<LocalDateTime>> result = new HashMap<>(scannedHoursByEmployee);
+        scannedHoursByEmployee.clear();
+        return result;
     }
 }
