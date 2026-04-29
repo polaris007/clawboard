@@ -245,6 +245,9 @@ public class DataIngestionService {
 
         log.info("Ingested session {}: {} messages, {} turns, {} skills, {} issues",
                 sessionId, messages.size(), conversationTurns, skills.size(), issues.size());
+
+        // ✅ 收集本次扫描的小时信息（用于增量聚合）
+        collectHoursFromMessages(employeeId, messages);
         
         // ✅ 返回成功结果
         return IngestionResult.success(
