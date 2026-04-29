@@ -1,7 +1,9 @@
 package com.company.clawboard.controller;
 
 import com.company.clawboard.dto.ApiResponse;
+import com.company.clawboard.dto.ScanConflictResponse;
 import com.company.clawboard.scanner.ScanOrchestrator;
+import com.company.clawboard.service.ScanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,26 +12,24 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ScanController {
 
-    private final ScanOrchestrator scanOrchestrator;
+    private final ScanService scanService;
+    private final ScanOrchestrator scanOrchestrator; // 保留用于其他接口
 
     @PostMapping("/trigger")
     public ApiResponse<?> triggerScan() {
-        Long scanId = scanOrchestrator.executeScan("manual");
-        return ApiResponse.ok(new java.util.HashMap<>() {{
-            put("scanId", scanId);
-            put("triggerType", "manual");
-            put("startedAt", System.currentTimeMillis());
-        }});
+        Object result = scanService.checkAndTriggerScan("manual");
+        
+        // 判断是成功还是冲突
+        if (result instanceof ScanConflictResponse) {
+            return ApiResponse.error(409, "A scan is already running", result);
+        } else {
+            return ApiResponse.ok(result);
+        }
     }
 
     @GetMapping("/status")
     public ApiResponse<?> getStatus() {
-        return ApiResponse.ok(new java.util.HashMap<>() {{
-            put("scanning", false);
-            put("nextScheduledAt", null);
-            put("currentScan", null);
-            put("lastCompletedScan", null);
-        }});
+        return ApiResponse.ok(scanService.getScanStatus());
     }
 
     @GetMapping("/history")

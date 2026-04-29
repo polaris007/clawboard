@@ -11,6 +11,7 @@ import com.company.clawboard.service.ScanProgressService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -57,6 +58,34 @@ public class ScanOrchestrator {
     @Qualifier("scanExecutor")
     private final Executor scanExecutor;
     
+    /**
+     * 创建扫描记录（同步）
+     * 返回 scanId
+     */
+    public Long createScanRecord(String triggerType) {
+        DashboardScanHistory history = new DashboardScanHistory();
+        history.setTriggerType(triggerType);
+        history.setStatus("running");
+        history.setStartedAt(LocalDateTime.now());
+        
+        // 初始化其他字段为 0
+        history.setUsersScanned(0);
+        history.setDirsScanned(0);
+        history.setFilesTotal(0);
+        history.setFilesProcessed(0);
+        history.setFilesSkipped(0);
+        history.setFilesError(0);
+        history.setNewMessages(0);
+        history.setNewTurns(0);
+        history.setNewIssues(0);
+        history.setNewSkillCalls(0);
+        
+        scanHistoryMapper.insertAndGetId(history);
+        
+        log.info("Created scan record: scanId={}, triggerType={}", history.getId(), triggerType);
+        return history.getId();
+    }
+    
     // Concurrency control
     private final AtomicBoolean scanning = new AtomicBoolean(false);
     private volatile Long currentScanId = null;
@@ -79,40 +108,33 @@ public class ScanOrchestrator {
             log.info("Scanning is disabled");
             return;
         }
-        executeScan("scheduled");
-    }
-
-    public Long executeScan(String triggerType) {
-        // Concurrency control: prevent overlapping scans
-        if (!scanning.compareAndSet(false, true)) {
-            log.warn("Scan skipped: previous scan still running (scanId={})", currentScanId);
-            return null;
+        // 检查是否有 running 状态的记录
+        DashboardScanHistory running = scanHistoryMapper.selectByStatus("running");
+        if (running != null) {
+            log.warn("Scheduled scan skipped: previous scan still running (scanId={})", running.getId());
+            return;
         }
         
-        log.info("Starting {} scan", triggerType);
+        Long scanId = createScanRecord("scheduled");
+        executeScanAsync(scanId, "scheduled");
+    }
+
+    /**
+     * 异步执行扫描
+     */
+    @Async("scanExecutor")
+    public void executeScanAsync(Long scanId, String triggerType) {
+        log.info("Starting async scan {} (triggerType={})", scanId, triggerType);
         long startTime = System.currentTimeMillis();
-
-        DashboardScanHistory history = new DashboardScanHistory();
-        history.setTriggerType(triggerType);
-        history.setStatus("running");
-        history.setStartedAt(LocalDateTime.now());
-        history.setUsersScanned(0);
-        history.setDirsScanned(0);
-        history.setFilesTotal(0);
-        history.setFilesProcessed(0);
-        history.setFilesSkipped(0);
-        history.setFilesError(0);
-        history.setNewMessages(0);
-        history.setNewTurns(0);
-        history.setNewIssues(0);
-        history.setNewSkillCalls(0);
-
-        scanHistoryMapper.insertAndGetId(history);
-        Long scanId = history.getId();
-        currentScanId = scanId;
-        log.info("Created scan record with ID: {}", scanId);
-
+        
         try {
+            // 查询扫描记录
+            DashboardScanHistory history = scanHistoryMapper.selectById(scanId);
+            if (history == null) {
+                log.error("Scan history not found for scanId={}", scanId);
+                return;
+            }
+
             // Step 1: Load accounts mapping from database
             // This replaces the old CSV-based approach
             accountsReader.loadFromDatabase();
@@ -145,7 +167,7 @@ public class ScanOrchestrator {
             if (users.isEmpty()) {
                 log.info("No users found to scan");
                 finishScan(scanId, history, "completed", startTime, null);
-                return scanId;
+                return;
             }
 
             // Step 3: Submit parallel scan tasks for each user
@@ -221,8 +243,6 @@ public class ScanOrchestrator {
             history.setNewIssues(totalIssues);
             history.setNewSkillCalls(totalSkills);
 
-            finishScan(scanId, history, "completed", startTime, null);
-
             // Aggregate hourly stats from the scanned data
             try {
                 if (!scannedEmployeeIds.isEmpty()) {
@@ -250,12 +270,6 @@ public class ScanOrchestrator {
                 log.error("Failed to aggregate hourly stats for scan {}", scanId, e);
             }
 
-            log.info("Scan {} completed in {}ms - Users: {}, Files: {}/{}, Messages: {}, Turns: {}, Issues: {}, Skills: {}",
-                    scanId, history.getDurationMs(),
-                    history.getUsersScanned(),
-                    processedFiles, totalFiles,
-                    totalMessages, totalTurns, totalIssues, totalSkills);
-
             // Generate report after successful scan
             try {
                 LocalDateTime scanStartTime = LocalDateTime.ofInstant(
@@ -275,15 +289,23 @@ public class ScanOrchestrator {
                 log.error("Failed to save files lists", e);
             }
 
-            return scanId;
+            // ✅ 更新扫描状态为 completed（包括计算 duration_ms）
+            finishScan(scanId, history, "completed", startTime, null);
+
+            // ✅ 明确输出扫描完成信息（所有工作已完成）
+            log.info("========== SCAN {} COMPLETED ==========", scanId);
+            log.info("Scan {} summary: triggerType={}, status=completed, duration={}ms", 
+                scanId, triggerType, history.getDurationMs());
+            log.info("  - Users scanned: {}", history.getUsersScanned());
+            log.info("  - Files: {}/{} (processed/total)", processedFiles, totalFiles);
+            log.info("  - Messages: {}, Turns: {}, Issues: {}, Skills: {}", 
+                totalMessages, totalTurns, totalIssues, totalSkills);
+            log.info("=========================================");
 
         } catch (Exception e) {
-            log.error("Scan failed", e);
-            finishScan(scanId, history, "failed", startTime, e.getMessage());
-            throw e;
-        } finally {
-            currentScanId = null;
-            scanning.set(false);
+            log.error("Scan {} failed", scanId, e);
+            finishScan(scanId, null, "failed", startTime, e.getMessage());
+            log.error("========== SCAN {} FAILED ==========", scanId);
         }
     }
     

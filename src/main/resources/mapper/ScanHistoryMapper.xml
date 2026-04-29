@@ -108,4 +108,18 @@
         WHERE id = #{id}
     </update>
 
+    <select id="selectByStatus" resultMap="BaseResultMap">
+        SELECT * FROM dashboard_scan_history
+        WHERE status = #{status}
+        ORDER BY started_at DESC
+        LIMIT 1
+    </select>
+
+    <select id="selectLatestCompleted" resultMap="BaseResultMap">
+        SELECT * FROM dashboard_scan_history
+        WHERE status IN ('completed', 'failed')
+        ORDER BY finished_at DESC
+        LIMIT 1
+    </select>
+
 </mapper>

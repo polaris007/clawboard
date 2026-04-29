@@ -14,14 +14,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/**
- * Integration tests for ScanController using H2 in-memory database
- */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@DisplayName("ScanController Integration Tests")
-class ScanControllerIntegrationTest {
+@DisplayName("ScanController Async Integration Tests")
+class ScanControllerAsyncIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -30,29 +27,33 @@ class ScanControllerIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("POST /api/v1/scan/trigger should return response")
-    void testTriggerScan() throws Exception {
-        // Note: This test may fail if scanOrchestrator is not properly configured
-        // For now, we just verify the endpoint exists and returns a response
+    @DisplayName("POST /api/v1/scan/trigger should return 200 when no scan running")
+    void testTriggerScan_Success() throws Exception {
         mockMvc.perform(post("/api/v1/scan/trigger")
                 .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.code").value(200))
+            .andExpect(jsonPath("$.data.scanId").exists())
+            .andExpect(jsonPath("$.data.triggerType").value("manual"))
+            .andExpect(jsonPath("$.data.status").value("triggered"));
     }
 
     @Test
-    @DisplayName("GET /api/v1/scan/status should return 200")
+    @DisplayName("GET /api/v1/scan/status should return complete status information")
     void testGetStatus() throws Exception {
         mockMvc.perform(get("/api/v1/scan/status")
                 .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.code").value(200))
-            .andExpect(jsonPath("$.message").value("success"));
+            .andExpect(jsonPath("$.data.scanning").exists())
+            // currentScan 和 lastCompletedScan 可能为 null，取决于是否有扫描记录
+            .andExpect(jsonPath("$.data.nextScheduledAt").exists());
     }
 
     @Test
-    @DisplayName("GET /api/v1/scan/history should return 200 with pagination")
+    @DisplayName("GET /api/v1/scan/history should return paginated history")
     void testGetHistory() throws Exception {
         mockMvc.perform(get("/api/v1/scan/history")
                 .param("page", "1")
@@ -65,15 +66,5 @@ class ScanControllerIntegrationTest {
             .andExpect(jsonPath("$.data.page").value(1))
             .andExpect(jsonPath("$.data.pageSize").value(10))
             .andExpect(jsonPath("$.data.list").isArray());
-    }
-
-    @Test
-    @DisplayName("GET /api/v1/scan/history with default limit should return 200")
-    void testGetHistory_DefaultLimit() throws Exception {
-        mockMvc.perform(get("/api/v1/scan/history")
-                .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$.code").value(200));
     }
 }

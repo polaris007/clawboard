@@ -2,6 +2,7 @@ package com.company.clawboard.mapper;
 
 import com.company.clawboard.entity.DashboardScanHistory;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 @Mapper
@@ -24,4 +25,14 @@ public interface ScanHistoryMapper {
      * 更新扫描状态和错误信息
      */
     void updateStatusAndError(DashboardScanHistory history);
+    
+    /**
+     * 查询指定状态的扫描记录（最新的）
+     */
+    DashboardScanHistory selectByStatus(@Param("status") String status);
+    
+    /**
+     * 查询最近一次完成的扫描记录（completed 或 failed）
+     */
+    DashboardScanHistory selectLatestCompleted();
 }
