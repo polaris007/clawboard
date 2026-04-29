@@ -41,10 +41,10 @@ clawboard:
     
     accounts-csv-path: G:/Workplace/github/clawboard/scripts/accounts.csv  # Employee ID mapping file
   reports:
-    output-dir: reports  # Configurable reports directory
+    output-dir: ${REPORT_OUTPUT_PATH:reports}  # Configurable reports directory
   scan:
     cron: "0 0 */6 * * *"
-    thread-pool-size: 8
+    thread-pool-size: ${SCAN_THREAD_POOL_SIZE:8}
     batch-size: 100
     enabled: true
   parser:
@@ -67,7 +67,7 @@ clawboard:
     # 是否启用智能混合聚合策略
     enable-smart-aggregation: true
     # 时间窗口大小（小时），默认 24 小时
-    time-window-hours: 24
+    time-window-hours: ${TIME_WINDOWS_HOURS:24}
     # 是否启用基于文件的增量聚合
     enable-file-based-incremental: true
     # 是否启用时间窗口兜底
