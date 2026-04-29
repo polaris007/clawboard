@@ -1,0 +1,12 @@
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE dashboard_transcript_issue;
+TRUNCATE TABLE dashboard_skill_invocation;
+TRUNCATE TABLE dashboard_conversation_turn;
+TRUNCATE TABLE dashboard_message;
+TRUNCATE TABLE dashboard_session_summary;
+TRUNCATE TABLE dashboard_scan_progress;
+TRUNCATE TABLE dashboard_scan_history;
+TRUNCATE TABLE dashboard_hourly_stats;
+TRUNCATE TABLE dashboard_employee;
+TRUNCATE TABLE dashboard_execution_trace;
+SET FOREIGN_KEY_CHECKS = 1;
