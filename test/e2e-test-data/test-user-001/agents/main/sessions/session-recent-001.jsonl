@@ -1,0 +1,4 @@
+{"type":"session","version":3,"id":"session-recent-001","timestamp":"2026-04-29T09:00:00Z","cwd":"/home/node/.openclaw/workspace"}
+{"type":"message","id":"msg-recent-001","parentId":null,"role":"user","timestamp":"2026-04-29T09:05:00Z","content":"Test message","tokens":{"input":5}}
+{"type":"message","id":"msg-recent-002","parentId":"msg-recent-001","role":"assistant","timestamp":"2026-04-29T09:05:30Z","content":"Test response","usage":{"inputTokens":5,"outputTokens":8,"totalTokens":13,"costTotal":0.0005}}
+{"type":"turn","id":"turn-recent-001","status":"complete","startTime":"2026-04-29T09:05:00Z","endTime":"2026-04-29T09:05:30Z","startMessageId":"msg-recent-001","endMessageId":"msg-recent-002"}

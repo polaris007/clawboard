@@ -1,0 +1,4 @@
+{"type":"session","version":3,"id":"session-b-001","timestamp":"2026-04-29T10:00:00Z","cwd":"/home/node/.openclaw/workspace"}
+{"type":"message","id":"msg-b-001","parentId":null,"role":"user","timestamp":"2026-04-29T10:20:00Z","content":"Question B - What time is it?","tokens":{"input":7}}
+{"type":"message","id":"msg-b-002","parentId":"msg-b-001","role":"assistant","timestamp":"2026-04-29T10:20:30Z","content":"It's currently 10:20 AM.","usage":{"inputTokens":200,"outputTokens":100,"totalTokens":300,"costTotal":0.01}}
+{"type":"turn","id":"turn-b-001","status":"complete","startTime":"2026-04-29T10:20:00Z","endTime":"2026-04-29T10:20:30Z","startMessageId":"msg-b-001","endMessageId":"msg-b-002"}

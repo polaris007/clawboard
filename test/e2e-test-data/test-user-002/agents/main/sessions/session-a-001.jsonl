@@ -1,0 +1,4 @@
+{"type":"session","version":3,"id":"session-a-001","timestamp":"2026-04-29T10:00:00Z","cwd":"/home/node/.openclaw/workspace"}
+{"type":"message","id":"msg-a-001","parentId":null,"role":"user","timestamp":"2026-04-29T10:10:00Z","content":"Question A - What is the weather?","tokens":{"input":8}}
+{"type":"message","id":"msg-a-002","parentId":"msg-a-001","role":"assistant","timestamp":"2026-04-29T10:10:30Z","content":"The weather is sunny today with a temperature of 25°C.","usage":{"inputTokens":100,"outputTokens":50,"totalTokens":150,"costTotal":0.005}}
+{"type":"turn","id":"turn-a-001","status":"complete","startTime":"2026-04-29T10:10:00Z","endTime":"2026-04-29T10:10:30Z","startMessageId":"msg-a-001","endMessageId":"msg-a-002"}

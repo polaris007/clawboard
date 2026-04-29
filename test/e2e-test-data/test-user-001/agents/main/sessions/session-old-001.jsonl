@@ -1,0 +1,4 @@
+{"type":"session","version":3,"id":"session-old-001","timestamp":"2026-04-22T08:00:00Z","cwd":"/home/node/.openclaw/workspace"}
+{"type":"message","id":"msg-old-001","parentId":null,"role":"user","timestamp":"2026-04-22T08:05:00Z","content":"Hello, can you help me with a task?","tokens":{"input":10}}
+{"type":"message","id":"msg-old-002","parentId":"msg-old-001","role":"assistant","timestamp":"2026-04-22T08:05:30Z","content":"Hi there! I'd be happy to help. What do you need assistance with?","usage":{"inputTokens":10,"outputTokens":15,"totalTokens":25,"costTotal":0.001}}
+{"type":"turn","id":"turn-old-001","status":"complete","startTime":"2026-04-22T08:05:00Z","endTime":"2026-04-22T08:05:30Z","startMessageId":"msg-old-001","endMessageId":"msg-old-002"}
