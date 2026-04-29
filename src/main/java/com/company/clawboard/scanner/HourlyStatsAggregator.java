@@ -219,6 +219,26 @@ public class HourlyStatsAggregator {
         stats.setErrorCount(errorCount);
         stats.setUpdatedAt(LocalDateTime.now());
 
+        // ✅ 优化：检查是否全 0
+        if (isAllFieldsZero(stats)) {
+            // 只有全 0 时才查询是否存在记录
+            DashboardHourlyStats existing = hourlyStatsMapper.selectByEmployeeAndHour(employeeId, statHour);
+            
+            if (existing == null) {
+                // 首次聚合且全 0 → 跳过
+                log.debug("Skipping initial upsert for all-zero stats: employee={}, hour={}", 
+                    employeeId, statHourStr);
+                return;
+            } else {
+                // 已有记录但重新聚合为全 0 → 执行 upsert（可能意味着数据被删除）
+                log.info("Updating existing record to all-zero (data may have been deleted): employee={}, hour={}", 
+                    employeeId, statHourStr);
+                hourlyStatsMapper.upsertStats(stats);
+                return;
+            }
+        }
+
+        // 非全 0 数据 → 正常 upsert
         hourlyStatsMapper.upsertStats(stats);
         log.debug("Upserted hourly stats for employee {} hour {}: tokens={}, turns={}, complete={}, errors={}",
                 employeeId, statHourStr, stats.getTotalTokens(), stats.getConversationTurns(),
