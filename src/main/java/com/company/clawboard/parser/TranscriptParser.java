@@ -419,6 +419,8 @@ public class TranscriptParser {
                                     .toolName(toolCall.name())
                                     .toolCallId(toolCall.id())
                                     .timestampMs(msg.epochMs())
+                                    .success(!MessageErrorChecker.hasError(msg))  // ✅ 与 dashboard_message.is_error 一致
+                                    .errorMessage(MessageErrorChecker.getErrorMessage(msg))  // ✅ 与 dashboard_message.error_message 一致
                                     .build();
                                 nodes.add(node);
                             }

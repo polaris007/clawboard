@@ -4,6 +4,7 @@ import com.company.clawboard.entity.*;
 import com.company.clawboard.mapper.*;
 import com.company.clawboard.parser.IssueDetector;
 import com.company.clawboard.parser.TranscriptParser;
+import com.company.clawboard.parser.MessageErrorChecker;
 import com.company.clawboard.parser.TurnAssembler;
 import com.company.clawboard.parser.SystemMessageFilter;
 import com.company.clawboard.parser.model.MessageRecord;
@@ -291,12 +292,18 @@ public class DataIngestionService {
         entity.setModel(msg.model());
         entity.setStopReason(msg.stopReason());
         entity.setDurationMs(msg.durationMs());
-        entity.setIsError(hasMessageError(msg) ? 1 : 0);  // Use enhanced error detection
-        entity.setErrorMessage(msg.errorMessage());  // Added for storing error messages
+        entity.setIsError(MessageErrorChecker.hasError(msg) ? 1 : 0);  // Use shared error checker
+        entity.setErrorMessage(MessageErrorChecker.getErrorMessage(msg));  // Use shared error checker
         
         // Extract tool information if present
         if (msg.toolCalls() != null && !msg.toolCalls().isEmpty()) {
+            // Assistant 消息包含 toolCall
             entity.setToolName(msg.toolCalls().get(0).name());
+            entity.setToolCallId(msg.toolCalls().get(0).id());  // ✅ 与 dashboard_execution_trace 保持一致
+        } else if ("toolResult".equals(msg.role())) {
+            // ToolResult 消息直接使用 toolCallId 字段
+            entity.setToolCallId(msg.toolCallId());
+            entity.setToolName(msg.toolName());
         }
         
         // 标记系统消息
@@ -602,36 +609,6 @@ public class DataIngestionService {
         } catch (Exception e) {
             log.error("Failed to update session summary for {}", sessionId, e);
         }
-    }
-
-    /**
-     * Determine if a message has any type of error by checking multiple indicators.
-     *
-     * @param msg The message record to check
-     * @return true if any error indicator is present
-     */
-    private boolean hasMessageError(MessageRecord msg) {
-        // 1. Direct error flag
-        if (msg.isError()) {
-            return true;
-        }
-        
-        // 2. Error message content
-        if (msg.errorMessage() != null && !msg.errorMessage().isEmpty()) {
-            return true;
-        }
-        
-        // 3. Stop reason indicates error
-        if (msg.stopReason() != null) {
-            String reason = msg.stopReason().toLowerCase();
-            if (reason.contains("error") || 
-                reason.contains("timeout") ||
-                reason.contains("failure")) {
-                return true;
-            }
-        }
-        
-        return false;
     }
 
     /**
