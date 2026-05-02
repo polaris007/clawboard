@@ -113,7 +113,7 @@ public class DataIngestionService {
             loadTurnIds(sessionId, turns);
             
             // Update skill statistics for each turn
-            updateSkillStatsForTurns(turns, parsed.skillInvocations());
+            updateSkillStatsForTurns(turns, parsed.skillInvocations(), parsed.messageIdToTurnIndex());
         }
 
         // Phase 1.5: 解析并插入执行链路（新增）
@@ -158,9 +158,15 @@ public class DataIngestionService {
             log.debug("Inserted {} messages for session {}", inserted, sessionId);
         }
 
-        // Phase 3: Convert and insert skill invocations (turn_id not populated yet)
+        // Phase 3: Convert and insert skill invocations with correct turn_id mapping
+        // Build turn index to turn ID mapping
+        Map<Integer, Long> turnIndexToId = new HashMap<>();
+        for (DashboardConversationTurn turn : turns) {
+            turnIndexToId.put(turn.getTurnIndex(), turn.getId());
+        }
+        
         List<DashboardSkillInvocation> skills = convertToSkillInvocations(
-                scanId, parsed.skillInvocations(), sessionId, employeeId, now);
+                scanId, parsed.skillInvocations(), sessionId, employeeId, now, turnIndexToId);
         if (!skills.isEmpty()) {
             int inserted = skillMapper.batchInsertIgnore(skills);
             log.debug("Inserted {} skill invocations for session {}", inserted, sessionId);
@@ -314,6 +320,9 @@ public class DataIngestionService {
         if ("user".equals(msg.role())) {
             boolean isSystem = systemMessageFilter.isSystemGeneratedUserMessage(msg.textContent());
             entity.setIsSystem(isSystem ? 1 : 0);
+        } else if ("custom".equals(msg.role())) {
+            // Custom type message always marked as system (metadata events, not conversation)
+            entity.setIsSystem(1);
         } else {
             entity.setIsSystem(0);
         }
@@ -343,8 +352,12 @@ public class DataIngestionService {
             entity.setEmployeeId(employeeId);
             entity.setTurnIndex(i + 1); // 1-based index
             
-            // Extract user input
-            entity.setUserInput(turn.userInput());
+            // Extract user input (truncate to 200 chars to fit database column)
+            String userInput = turn.userInput();
+            if (userInput != null && userInput.length() > 200) {
+                userInput = userInput.substring(0, 200);
+            }
+            entity.setUserInput(userInput);
             
             // Set status
             entity.setStatus(turn.status());
@@ -406,7 +419,8 @@ public class DataIngestionService {
             List<TranscriptParser.SkillInvocation> skills,
             String sessionId,
             String employeeId,
-            LocalDateTime now) {
+            LocalDateTime now,
+            Map<Integer, Long> turnIndexToId) {
         List<DashboardSkillInvocation> result = new ArrayList<>();
 
         for (TranscriptParser.SkillInvocation skill : skills) {
@@ -414,7 +428,15 @@ public class DataIngestionService {
             entity.setScanId(scanId);
             entity.setSessionId(sessionId);
             entity.setEmployeeId(employeeId);
-            entity.setTurnId(skill.turnId());  // ✅ 现在可以填充了
+            
+            // Map turn index to actual turn ID
+            Long actualTurnId = null;
+            if (skill.turnId() != null) {
+                // skill.turnId() is the turn index (0-based), convert to int for map lookup
+                int turnIndex = skill.turnId().intValue();
+                actualTurnId = turnIndexToId.get(turnIndex);
+            }
+            entity.setTurnId(actualTurnId);
             entity.setSkillName(skill.skillName());
             entity.setInvokedAt(LocalDateTime.ofInstant(Instant.ofEpochMilli(skill.invokedAt()), BEIJING_ZONE));
             entity.setReadMessageId(skill.readMessageId());  // ✅ 不再为 null
@@ -494,28 +516,32 @@ public class DataIngestionService {
      */
     private void updateSkillStatsForTurns(
         List<DashboardConversationTurn> turns,
-        List<TranscriptParser.SkillInvocation> skillInvocations
+        List<TranscriptParser.SkillInvocation> skillInvocations,
+        Map<String, Integer> messageIdToTurnIndex
     ) {
         if (skillInvocations == null || skillInvocations.isEmpty()) {
             return;
         }
         
-        // Group skills by turn_id
-        Map<Long, List<TranscriptParser.SkillInvocation>> skillsByTurn = new HashMap<>();
+        // Group skills by turn index using readMessageId to find the correct turn
+        Map<Integer, List<TranscriptParser.SkillInvocation>> skillsByTurnIndex = new HashMap<>();
         for (TranscriptParser.SkillInvocation skill : skillInvocations) {
-            if (skill.turnId() != null) {
-                skillsByTurn.computeIfAbsent(skill.turnId(), k -> new ArrayList<>()).add(skill);
+            if (skill.readMessageId() != null && !skill.readMessageId().isEmpty()) {
+                Integer turnIndex = messageIdToTurnIndex.get(skill.readMessageId());
+                if (turnIndex != null && turnIndex >= 0) {
+                    skillsByTurnIndex.computeIfAbsent(turnIndex, k -> new ArrayList<>()).add(skill);
+                }
             }
         }
         
         // Update each turn's skill statistics
         for (DashboardConversationTurn turn : turns) {
-            Long turnId = turn.getId();
-            if (turnId == null) {
+            Integer turnIndex = turn.getTurnIndex();
+            if (turnIndex == null) {
                 continue;
             }
             
-            List<TranscriptParser.SkillInvocation> turnSkills = skillsByTurn.get(turnId);
+            List<TranscriptParser.SkillInvocation> turnSkills = skillsByTurnIndex.get(turnIndex);
             if (turnSkills == null || turnSkills.isEmpty()) {
                 continue;
             }
@@ -533,8 +559,8 @@ public class DataIngestionService {
             turn.setSkillCallsSuccess(successCount);
             turn.setSkillCallsError(errorCount);
             
-            log.debug("Updated turn {} skill stats: total={}, success={}, error={}",
-                turnId, totalCount, successCount, errorCount);
+            log.debug("Updated turn {} (index {}) skill stats: total={}, success={}, error={}",
+                turn.getId(), turnIndex, totalCount, successCount, errorCount);
         }
         
         // Batch update turns with skill statistics

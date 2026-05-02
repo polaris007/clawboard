@@ -85,6 +85,34 @@ public class TranscriptParser {
                     // Store custom record with its line number
                     customRecords.add(new CustomRecordWithLineNumber(custom, lineNumber));
                     allEvents.add(custom);
+                    
+                    // Also convert to MessageRecord for database storage (role="custom", marked as system)
+                    long epochMs = parseTimestampToEpoch(custom.timestamp());
+                    String textContent = custom.data() != null ? custom.data().toString() : null;
+                    String provider = extractFieldFromData(custom.data(), "provider");
+                    String model = extractFieldFromData(custom.data(), "modelId");
+                    
+                    MessageRecord customMsg = new MessageRecord(
+                        custom.id(),                          // messageId
+                        null,                                 // parentId (CustomRecord doesn't have this field)
+                        custom.timestamp(),                   // timestamp
+                        "custom",                             // role
+                        textContent,                          // textContent
+                        null,                                 // errorMessage
+                        List.of(),                            // toolCalls
+                        null,                                 // toolCallId
+                        null,                                 // toolName
+                        false,                                // isError
+                        provider,                             // provider
+                        model,                                // model
+                        null,                                 // stopReason
+                        null,                                 // usage
+                        0,                                    // durationMs
+                        epochMs,                              // epochMs
+                        lineNumber                            // lineNumber
+                    );
+                    messages.add(customMsg);  // Add to messages for DB storage
+                    // Note: custom messages will be skipped by TurnAssembler (only processes user/assistant/toolResult)
                 }
             }
         } catch (IOException e) {
@@ -558,5 +586,26 @@ public class TranscriptParser {
             current.setDurationMs((int) duration);
         }
         // 最后一个节点的 duration 为 null
+    }
+    
+    /**
+     * Parse ISO timestamp string to epoch milliseconds
+     */
+    private long parseTimestampToEpoch(String timestamp) {
+        if (timestamp == null || timestamp.isEmpty()) return 0;
+        try {
+            return java.time.Instant.parse(timestamp).toEpochMilli();
+        } catch (Exception e) {
+            log.debug("Failed to parse timestamp: {}", timestamp);
+            return 0;
+        }
+    }
+    
+    /**
+     * Extract a field from custom record data JSON
+     */
+    private String extractFieldFromData(com.fasterxml.jackson.databind.JsonNode data, String fieldName) {
+        if (data == null || !data.has(fieldName)) return null;
+        return data.get(fieldName).asText(null);
     }
 }
