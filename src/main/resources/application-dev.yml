@@ -12,6 +12,8 @@ logging:
     file: UTF-8
   pattern:
     console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %5p %t --- [%15.15t] %-40.40logger{39} : %m%n"
+  level:
+    com.company.clawboard.parser: DEBUG
 
 spring:
   datasource:

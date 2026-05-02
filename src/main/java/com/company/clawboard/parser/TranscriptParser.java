@@ -189,6 +189,9 @@ public class TranscriptParser {
 
         // Build message-to-turn mapping
         Map<String, Integer> messageIdToTurnIndex = buildMessageToTurnMapping(messages, turns);
+        
+        // Debug: log mapping size and sample
+        log.debug("Built messageIdToTurnIndex with {} entries for session {}", messageIdToTurnIndex.size(), sessionId);
 
         // ✅ 使用 SkillChainDetector 进行完整的调用链检测
         SkillChainDetector chainDetector = new SkillChainDetector();
@@ -196,6 +199,17 @@ public class TranscriptParser {
             messages, 
             messageIdToTurnIndex
         );
+        
+        // Debug: log skills with null turnId
+        long nullTurnIdCount = skillInvocations.stream().filter(s -> s.turnId() == null).count();
+        if (nullTurnIdCount > 0) {
+            log.warn("Session {} has {} skills with null turnId", sessionId, nullTurnIdCount);
+            skillInvocations.stream()
+                .filter(s -> s.turnId() == null)
+                .limit(3)
+                .forEach(s -> log.warn("  - Skill: {}, readMessageId: {}, resultMessageId: {}", 
+                    s.skillName(), s.readMessageId(), s.resultMessageId()));
+        }
 
         return new ParsedTranscript(sessionId, messages, turns, allIssues, skillInvocations, messageIdToTurnIndex, filePathStr);
     }
@@ -381,6 +395,8 @@ public class TranscriptParser {
             messageIdToIndex.put(messages.get(i).id(), i);
         }
         
+        log.debug("Total messages: {}, Total turns: {}", messages.size(), turns.size());
+        
         // For each turn, map all its messages to the turn index
         for (int turnIndex = 0; turnIndex < turns.size(); turnIndex++) {
             TurnAssembler.AssembledTurn turn = turns.get(turnIndex);
@@ -392,10 +408,31 @@ public class TranscriptParser {
             
             if (startIndex != null && endIndex != null) {
                 // Map all messages in this turn's range
+                int mappedCount = 0;
                 for (int i = startIndex; i <= endIndex && i < messages.size(); i++) {
                     mapping.put(messages.get(i).id(), turnIndex);
+                    mappedCount++;
+                }
+                log.debug("Turn {}: startIdx={}, endIdx={}, mapped {} messages", 
+                    turnIndex, startIndex, endIndex, mappedCount);
+            } else {
+                log.warn("Turn {}: Could not find startMessageId={} or endMessageId={} in messages", 
+                    turnIndex, turn.startMessageId(), turn.endMessageId());
+            }
+        }
+        
+        log.debug("Final mapping size: {}", mapping.size());
+        
+        // Debug: find messages not in mapping
+        if (mapping.size() < messages.size()) {
+            List<String> unmappedIds = new ArrayList<>();
+            for (MessageRecord msg : messages) {
+                if (!mapping.containsKey(msg.id())) {
+                    unmappedIds.add(msg.id() + "(" + msg.role() + ")");
                 }
             }
+            log.warn("{} messages not mapped to any turn: {}", 
+                unmappedIds.size(), String.join(", ", unmappedIds));
         }
         
         return mapping;

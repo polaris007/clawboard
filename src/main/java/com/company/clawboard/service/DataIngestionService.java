@@ -432,9 +432,15 @@ public class DataIngestionService {
             // Map turn index to actual turn ID
             Long actualTurnId = null;
             if (skill.turnId() != null) {
-                // skill.turnId() is the turn index (0-based), convert to int for map lookup
-                int turnIndex = skill.turnId().intValue();
+                // skill.turnId() is 0-based turn index, but turnIndexToId uses 1-based index
+                int turnIndex = skill.turnId().intValue() + 1; // Convert to 1-based
                 actualTurnId = turnIndexToId.get(turnIndex);
+                
+                // Debug log if not found
+                if (actualTurnId == null) {
+                    log.warn("Skill '{}' with turnId={} (0-based) -> {} (1-based) not found in turnIndexToId", 
+                        skill.skillName(), skill.turnId(), turnIndex);
+                }
             }
             entity.setTurnId(actualTurnId);
             entity.setSkillName(skill.skillName());
@@ -527,9 +533,11 @@ public class DataIngestionService {
         Map<Integer, List<TranscriptParser.SkillInvocation>> skillsByTurnIndex = new HashMap<>();
         for (TranscriptParser.SkillInvocation skill : skillInvocations) {
             if (skill.readMessageId() != null && !skill.readMessageId().isEmpty()) {
-                Integer turnIndex = messageIdToTurnIndex.get(skill.readMessageId());
-                if (turnIndex != null && turnIndex >= 0) {
-                    skillsByTurnIndex.computeIfAbsent(turnIndex, k -> new ArrayList<>()).add(skill);
+                Integer turnIndexZeroBased = messageIdToTurnIndex.get(skill.readMessageId());
+                if (turnIndexZeroBased != null && turnIndexZeroBased >= 0) {
+                    // Convert to 1-based index to match turn.getTurnIndex()
+                    int turnIndexOneBased = turnIndexZeroBased + 1;
+                    skillsByTurnIndex.computeIfAbsent(turnIndexOneBased, k -> new ArrayList<>()).add(skill);
                 }
             }
         }

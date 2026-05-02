@@ -1,6 +1,7 @@
 package com.company.clawboard.parser;
 
 import com.company.clawboard.parser.model.MessageRecord;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.regex.Pattern;
  * Skill 调用链检测器
  * 从 transcript 消息列表中识别并提取完整的 skill 调用链信息
  */
+@Slf4j
 public class SkillChainDetector {
     
     private static final Pattern SKILL_USAGE_PATTERN = 
@@ -135,6 +137,39 @@ public class SkillChainDetector {
         Integer turnIdInt = messageIdToTurnIndex.get(messages.get(skillIndex).id());
         Long turnId = turnIdInt != null ? turnIdInt.longValue() : null;
         
+        if (turnId == null) {
+            // Detailed debug: check why turnId is null
+            String skillMsgId = messages.get(skillIndex).id();
+            log.warn("[detectIntermediateSkill] Skill '{}' turnId is NULL!", extractSkillName(messages.get(skillIndex)));
+            log.warn("  - skillIndex: {}", skillIndex);
+            log.warn("  - skillMsgId: {}", skillMsgId);
+            log.warn("  - skillMsg.role: {}", messages.get(skillIndex).role());
+            log.warn("  - mapping contains skillMsgId: {}", messageIdToTurnIndex.containsKey(skillMsgId));
+            log.warn("  - mapping size: {}", messageIdToTurnIndex.size());
+            log.warn("  - total messages: {}", messages.size());
+            
+            // Check if any message in the range [0, skillIndex] is mapped
+            int mappedInRange = 0;
+            for (int i = 0; i <= skillIndex && i < messages.size(); i++) {
+                if (messageIdToTurnIndex.containsKey(messages.get(i).id())) {
+                    mappedInRange++;
+                }
+            }
+            log.warn("  - messages mapped in range [0,{}]: {}/{}", skillIndex, mappedInRange, skillIndex + 1);
+            
+            // List all unmapped messages in this range
+            StringBuilder unmapped = new StringBuilder();
+            for (int i = 0; i <= skillIndex && i < messages.size(); i++) {
+                if (!messageIdToTurnIndex.containsKey(messages.get(i).id())) {
+                    if (unmapped.length() > 0) unmapped.append(", ");
+                    unmapped.append(i).append("(").append(messages.get(i).role()).append(")");
+                }
+            }
+            if (unmapped.length() > 0) {
+                log.warn("  - unmapped indices: {}", unmapped.toString());
+            }
+        }
+        
         return new TranscriptParser.SkillInvocation(
             extractSkillName(messages.get(skillIndex)),
             messages.get(skillIndex).id(),
@@ -192,6 +227,39 @@ public class SkillChainDetector {
         
         Integer turnIdInt = messageIdToTurnIndex.get(messages.get(skillIndex).id());
         Long turnId = turnIdInt != null ? turnIdInt.longValue() : null;
+        
+        if (turnId == null) {
+            // Detailed debug: check why turnId is null
+            String skillMsgId = messages.get(skillIndex).id();
+            log.warn("[detectLastSkill] Skill '{}' turnId is NULL!", extractSkillName(messages.get(skillIndex)));
+            log.warn("  - skillIndex: {}", skillIndex);
+            log.warn("  - skillMsgId: {}", skillMsgId);
+            log.warn("  - skillMsg.role: {}", messages.get(skillIndex).role());
+            log.warn("  - mapping contains skillMsgId: {}", messageIdToTurnIndex.containsKey(skillMsgId));
+            log.warn("  - mapping size: {}", messageIdToTurnIndex.size());
+            log.warn("  - total messages: {}", messages.size());
+            
+            // Check if any message in the range [0, skillIndex] is mapped
+            int mappedInRange = 0;
+            for (int i = 0; i <= skillIndex && i < messages.size(); i++) {
+                if (messageIdToTurnIndex.containsKey(messages.get(i).id())) {
+                    mappedInRange++;
+                }
+            }
+            log.warn("  - messages mapped in range [0,{}]: {}/{}", skillIndex, mappedInRange, skillIndex + 1);
+            
+            // List all unmapped messages in this range
+            StringBuilder unmapped = new StringBuilder();
+            for (int i = 0; i <= skillIndex && i < messages.size(); i++) {
+                if (!messageIdToTurnIndex.containsKey(messages.get(i).id())) {
+                    if (unmapped.length() > 0) unmapped.append(", ");
+                    unmapped.append(i).append("(").append(messages.get(i).role()).append(")");
+                }
+            }
+            if (unmapped.length() > 0) {
+                log.warn("  - unmapped indices: {}", unmapped.toString());
+            }
+        }
         
         return new TranscriptParser.SkillInvocation(
             extractSkillName(messages.get(skillIndex)),
