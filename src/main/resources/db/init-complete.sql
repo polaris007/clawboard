@@ -186,6 +186,7 @@ CREATE TABLE IF NOT EXISTS dashboard_skill_invocation (
     is_error            TINYINT(4)    NOT NULL DEFAULT 0 COMMENT '是否执行失败',
     trigger_type        VARCHAR(20)   DEFAULT 'model_read' COMMENT '触发类型',
     duration_ms         INT           COMMENT '执行耗时(毫秒)',
+    sequence_order      INT           NOT NULL DEFAULT 1 COMMENT '同一turn中的skill调用顺序',
     created_at          DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (id),
     UNIQUE KEY uk_session_read_msg (session_id, read_message_id),
