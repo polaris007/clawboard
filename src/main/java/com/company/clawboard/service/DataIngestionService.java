@@ -410,12 +410,15 @@ public class DataIngestionService {
             entity.setScanId(scanId);
             entity.setSessionId(sessionId);
             entity.setEmployeeId(employeeId);
+            entity.setTurnId(skill.turnId());  // ✅ 现在可以填充了
             entity.setSkillName(skill.skillName());
             entity.setInvokedAt(LocalDateTime.ofInstant(Instant.ofEpochMilli(skill.invokedAt()), BEIJING_ZONE));
-            entity.setReadMessageId(null); // TODO: Extract from context if needed
-            entity.setResultMessageId(null); // TODO: Extract from context if needed
-            entity.setIsError(0); // Default to no error
-            entity.setTriggerType("model_read"); // Default trigger type
+            entity.setReadMessageId(skill.readMessageId());  // ✅ 不再为 null
+            entity.setResultMessageId(skill.resultMessageId());  // ✅ 不再为 null
+            entity.setIsError(skill.isError() ? 1 : 0);  // ✅ 正确的错误状态
+            entity.setTriggerType("model_read");
+            entity.setDurationMs(skill.durationMs());  // ✅ 计算出的时长
+            // TODO: entity.setSequenceOrder(skill.sequenceOrder());  // ⭐ 等待 Task 5 数据库迁移后启用
             entity.setCreatedAt(now);
 
             result.add(entity);
