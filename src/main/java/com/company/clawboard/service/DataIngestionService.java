@@ -418,7 +418,7 @@ public class DataIngestionService {
             entity.setIsError(skill.isError() ? 1 : 0);  // ✅ 正确的错误状态
             entity.setTriggerType("model_read");
             entity.setDurationMs(skill.durationMs());  // ✅ 计算出的时长
-            // TODO: entity.setSequenceOrder(skill.sequenceOrder());  // ⭐ 等待 Task 5 数据库迁移后启用
+            entity.setSequenceOrder(skill.sequenceOrder());  // ⭐ 新增字段
             entity.setCreatedAt(now);
 
             result.add(entity);

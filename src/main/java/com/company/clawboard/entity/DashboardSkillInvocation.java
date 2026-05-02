@@ -18,5 +18,6 @@ public class DashboardSkillInvocation {
     private Integer isError;
     private String triggerType;
     private Integer durationMs;
+    private Integer sequenceOrder;  // 同一turn中的skill调用顺序
     private LocalDateTime createdAt;
 }
