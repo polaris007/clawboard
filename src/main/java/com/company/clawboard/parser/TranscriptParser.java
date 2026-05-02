@@ -37,7 +37,16 @@ public class TranscriptParser {
         String filePath  // NEW: original file path for log_file_path
     ) {}
 
-    public record SkillInvocation(String skillName, String toolCallId, long invokedAt) {}
+    public record SkillInvocation(
+        String skillName,           // skill 名称（从 "正在使用 xxx Skill" 提取）
+        String readMessageId,       // skill 调用起点消息 ID
+        Long turnId,                // 所属 turn 的 ID（可为 null）
+        long invokedAt,             // 调用时间戳 (epoch ms)
+        String resultMessageId,     // skill 调用终点消息 ID
+        boolean isError,            // 是否执行失败
+        int durationMs,             // 执行时长 (毫秒)
+        int sequenceOrder           // 在同一 turn 中的调用顺序 (1, 2, 3...)
+    ) {}
 
     // Record to store custom record with its line number
     private record CustomRecordWithLineNumber(CustomRecord customRecord, int lineNumber) {}
@@ -148,17 +157,10 @@ public class TranscriptParser {
             allIssues.add(enrichIssue(issue, filePathStr, null, errorLineContent, nextLineContent, employeeId));
         }
 
+        // ⚠️ TEMPORARY: Old skill detection logic - will be replaced by SkillChainDetector in Task 3
+        // This is a placeholder to allow compilation after enhancing SkillInvocation record
         List<SkillInvocation> skillInvocations = new ArrayList<>();
-        for (MessageRecord msg : messages) {
-            if (msg.toolCalls() != null) {
-                for (var tc : msg.toolCalls()) {
-                    if (skillDetector.isSkillToolCall(tc.name())) {
-                        String skillName = skillDetector.extractSkillName(tc.name());
-                        skillInvocations.add(new SkillInvocation(skillName, tc.id(), msg.epochMs()));
-                    }
-                }
-            }
-        }
+        // TODO: Replace with SkillChainDetector.detectSkillChains() in Task 3
 
         List<TurnAssembler.AssembledTurn> turns = assembleTurns(messages);
 
