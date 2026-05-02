@@ -157,15 +157,17 @@ public class TranscriptParser {
             allIssues.add(enrichIssue(issue, filePathStr, null, errorLineContent, nextLineContent, employeeId));
         }
 
-        // ⚠️ TEMPORARY: Old skill detection logic - will be replaced by SkillChainDetector in Task 3
-        // This is a placeholder to allow compilation after enhancing SkillInvocation record
-        List<SkillInvocation> skillInvocations = new ArrayList<>();
-        // TODO: Replace with SkillChainDetector.detectSkillChains() in Task 3
-
         List<TurnAssembler.AssembledTurn> turns = assembleTurns(messages);
 
         // Build message-to-turn mapping
         Map<String, Integer> messageIdToTurnIndex = buildMessageToTurnMapping(messages, turns);
+
+        // ✅ 使用 SkillChainDetector 进行完整的调用链检测
+        SkillChainDetector chainDetector = new SkillChainDetector();
+        List<SkillInvocation> skillInvocations = chainDetector.detectSkillChains(
+            messages, 
+            messageIdToTurnIndex
+        );
 
         return new ParsedTranscript(sessionId, messages, turns, allIssues, skillInvocations, messageIdToTurnIndex, filePathStr);
     }
