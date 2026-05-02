@@ -103,13 +103,17 @@ public class DataIngestionService {
         }
 
         // Phase 1: Insert conversation turns first
-        List<DashboardConversationTurn> turns = convertToTurns(scanId, parsed.turns(), sessionId, employeeId, now, parsed.filePath());
+        List<DashboardConversationTurn> turns = convertToTurns(
+            scanId, parsed.turns(), sessionId, employeeId, now, parsed.filePath());
         if (!turns.isEmpty()) {
             int inserted = turnMapper.batchInsertIgnore(turns);
             log.debug("Inserted {} conversation turns for session {}", inserted, sessionId);
             
             // After insertion, load the generated IDs by querying back
             loadTurnIds(sessionId, turns);
+            
+            // Update skill statistics for each turn
+            updateSkillStatsForTurns(turns, parsed.skillInvocations());
         }
 
         // Phase 1.5: 解析并插入执行链路（新增）
@@ -370,7 +374,7 @@ public class DataIngestionService {
             entity.setToolCallsCount(turn.toolCallsCount());
             entity.setToolCallsSuccess(turn.toolCallsSuccess());
             entity.setToolCallsError(turn.toolCallsError());
-            entity.setSkillCallsCount(0);
+            entity.setSkillCallsCount(0);  // Will be updated after turn ID is assigned
             entity.setSkillCallsSuccess(0);
             entity.setSkillCallsError(0);
             entity.setTotalDurationMs((int) turn.totalDurationMs());  // 轮次总耗时
@@ -482,6 +486,67 @@ public class DataIngestionService {
             if (existing != null) {
                 turn.setId(existing.getId());
             }
+        }
+    }
+
+    /**
+     * Update skill statistics for each turn based on skill invocations
+     */
+    private void updateSkillStatsForTurns(
+        List<DashboardConversationTurn> turns,
+        List<TranscriptParser.SkillInvocation> skillInvocations
+    ) {
+        if (skillInvocations == null || skillInvocations.isEmpty()) {
+            return;
+        }
+        
+        // Group skills by turn_id
+        Map<Long, List<TranscriptParser.SkillInvocation>> skillsByTurn = new HashMap<>();
+        for (TranscriptParser.SkillInvocation skill : skillInvocations) {
+            if (skill.turnId() != null) {
+                skillsByTurn.computeIfAbsent(skill.turnId(), k -> new ArrayList<>()).add(skill);
+            }
+        }
+        
+        // Update each turn's skill statistics
+        for (DashboardConversationTurn turn : turns) {
+            Long turnId = turn.getId();
+            if (turnId == null) {
+                continue;
+            }
+            
+            List<TranscriptParser.SkillInvocation> turnSkills = skillsByTurn.get(turnId);
+            if (turnSkills == null || turnSkills.isEmpty()) {
+                continue;
+            }
+            
+            int totalCount = turnSkills.size();
+            int errorCount = 0;
+            for (TranscriptParser.SkillInvocation skill : turnSkills) {
+                if (skill.isError()) {
+                    errorCount++;
+                }
+            }
+            int successCount = totalCount - errorCount;
+            
+            turn.setSkillCallsCount(totalCount);
+            turn.setSkillCallsSuccess(successCount);
+            turn.setSkillCallsError(errorCount);
+            
+            log.debug("Updated turn {} skill stats: total={}, success={}, error={}",
+                turnId, totalCount, successCount, errorCount);
+        }
+        
+        // Batch update turns with skill statistics
+        int updatedCount = 0;
+        for (DashboardConversationTurn turn : turns) {
+            if (turn.getId() != null && turn.getSkillCallsCount() > 0) {
+                turnMapper.upsertTurn(turn);
+                updatedCount++;
+            }
+        }
+        if (updatedCount > 0) {
+            log.debug("Updated {} turns with skill statistics", updatedCount);
         }
     }
 
