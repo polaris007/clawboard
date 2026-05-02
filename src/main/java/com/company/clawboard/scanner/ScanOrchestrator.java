@@ -5,6 +5,7 @@ import com.company.clawboard.entity.DashboardScanHistory;
 import com.company.clawboard.mapper.*;
 import com.company.clawboard.parser.TranscriptParser;
 import com.company.clawboard.service.DataIngestionService;
+import com.company.clawboard.service.IngestionResult;
 import com.company.clawboard.service.IngestionStatus;
 import com.company.clawboard.service.ReportGenerator;
 import com.company.clawboard.service.ScanProgressService;
@@ -413,8 +414,8 @@ public class ScanOrchestrator {
                             continue;
                         }
                         
-                        // ✅ 入库并获取结果
-                        var result = dataIngestionService.ingestParsedTranscript(scanId, employeeId, parsed);
+                        // ✅ 入库并获取结果（带死锁重试）
+                        var result = ingestWithDeadlockRetry(scanId, employeeId, parsed, jsonlFile.toString());
                         
                         if (result.status() == IngestionStatus.PROCESSED) {
                             // ✅ 只有实际处理的文件才记录到 scannedFilePaths
@@ -655,4 +656,58 @@ public class ScanOrchestrator {
         int totalIssues,
         int totalSkills
     ) {}
+    
+    /**
+     * 带死锁重试的入库方法
+     * @param scanId 扫描ID
+     * @param employeeId 员工ID
+     * @param parsed 解析后的数据
+     * @param filePath 文件路径（用于日志）
+     * @return 入库结果
+     */
+    private IngestionResult ingestWithDeadlockRetry(
+            Long scanId, String employeeId, 
+            TranscriptParser.ParsedTranscript parsed, String filePath) {
+        
+        int maxRetries = 3;
+        int retryDelayMs = 200;
+        long startTime = System.currentTimeMillis();
+        
+        for (int attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                IngestionResult result = dataIngestionService.ingestParsedTranscript(scanId, employeeId, parsed);
+                
+                // 记录重试次数和总耗时（仅当有重试时）
+                if (attempt > 1) {
+                    long elapsed = System.currentTimeMillis() - startTime;
+                    log.info("Successfully processed {} after {} retries (total: {}ms)", 
+                        filePath, attempt - 1, elapsed);
+                }
+                
+                return result;
+            } catch (org.springframework.dao.DeadlockLoserDataAccessException e) {
+                if (attempt < maxRetries) {
+                    log.warn("Deadlock detected when processing {}, retry {}/{}", filePath, attempt, maxRetries);
+                    try {
+                        Thread.sleep(retryDelayMs * attempt); // 递增延迟: 200ms, 400ms
+                    } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                        return IngestionResult.failed("Retry interrupted: " + ie.getMessage());
+                    }
+                } else {
+                    long elapsed = System.currentTimeMillis() - startTime;
+                    log.error("Failed to process {} after {} retries due to deadlock (total: {}ms)", 
+                        filePath, maxRetries, elapsed, e);
+                    return IngestionResult.failed("Deadlock after " + maxRetries + " retries: " + e.getMessage());
+                }
+            } catch (Exception e) {
+                // 其他异常直接返回失败，不重试
+                log.error("Error processing {} (non-deadlock)", filePath, e);
+                return IngestionResult.failed(e.getMessage());
+            }
+        }
+        
+        // 不应该到达这里
+        return IngestionResult.failed("Unexpected error");
+    }
 }
